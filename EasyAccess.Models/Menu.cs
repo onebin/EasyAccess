@@ -19,6 +19,10 @@ namespace EasyAccess.Models
 
         public int Ordinal { get; set; }
 
+        public virtual Menu ParentMenu { get; set; }
+
+        public virtual ICollection<Menu> SubMenus { get; set; } 
+
         public virtual ICollection<Permission> Permissions { get; set; } 
     }
 }

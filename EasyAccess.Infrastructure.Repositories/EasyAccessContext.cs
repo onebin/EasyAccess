@@ -30,6 +30,10 @@ namespace EasyAccess.Infrastructure.Repositories
             modelBuilder.Entity<Menu>()
                 .HasMany(x => x.Permissions)
                 .WithRequired(x => x.Menu);
+            modelBuilder.Entity<Menu>()
+                .HasOptional(x => x.ParentMenu)
+                .WithMany(x => x.SubMenus)
+                .HasForeignKey(x => x.ParentId);
         }
     }
 }
