@@ -17,7 +17,7 @@ namespace EasyAccess.Models
 
         public int Leval { get; set; }
 
-        public int Ordinal { get; set; }
+        public int Index { get; set; }
 
         public virtual Menu ParentMenu { get; set; }
 

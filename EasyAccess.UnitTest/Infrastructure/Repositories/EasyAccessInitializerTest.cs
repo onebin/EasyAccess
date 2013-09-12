@@ -20,7 +20,7 @@ namespace EasyAccess.UnitTest.Infrastructure.Repositories
         [TestMethod]
         public void TestSeed()
         {
-            Assert.AreEqual(0, EasyAccessCtx.Accounts.Count());
+            Assert.IsTrue(1 < EasyAccessCtx.Menus.Count());
         }
     }
 }
