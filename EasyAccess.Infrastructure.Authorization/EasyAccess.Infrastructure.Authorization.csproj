@@ -41,6 +41,20 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EasyAccess.Infrastructure.Repositories\EasyAccess.Infrastructure.Repositories.csproj">
+      <Project>{e60c19bf-e7b2-49d0-99ac-d17c0ebaca72}</Project>
+      <Name>EasyAccess.Infrastructure.Repositories</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyAccess.Infrastructure\EasyAccess.Infrastructure.csproj">
+      <Project>{f423a8a3-1ff4-4c09-8dd1-2071cbf61021}</Project>
+      <Name>EasyAccess.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyAccess.Models\EasyAccess.Models.csproj">
+      <Project>{09c303b7-db4f-4774-9d38-a4665f172676}</Project>
+      <Name>EasyAccess.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

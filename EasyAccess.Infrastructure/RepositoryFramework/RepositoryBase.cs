@@ -7,18 +7,18 @@ using System.Text;
 
 namespace EasyAccess.Infrastructure.RepositoryFramework
 {
-    public abstract class RepositoryBase<TEntity> : IRepository<TEntity> where TEntity : class
+    public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class
     {
         private readonly DbContext _dbContext;
 
         protected RepositoryBase(DbContext dbContext)
         {
             _dbContext = dbContext;
-        } 
+        }
 
         public IEnumerable<TEntity> GetAll()
         {
-            return _dbContext.Set<TEntity>().ToList();
+            return _dbContext.Set<TEntity>();
         }
 
         public TEntity GetById(params object[] id)

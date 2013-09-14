@@ -3,13 +3,7 @@ using System.Collections.Generic;
 
 namespace EasyAccess.Infrastructure.RepositoryFramework
 {
-    public interface IRepository<TEntity> where TEntity : class 
+    public interface IRepository 
     {
-        IEnumerable<TEntity> GetAll();
-        TEntity GetById(params object[] id);
-        void Insert(TEntity entity);
-        void Update(TEntity entity);
-        void Delete(TEntity entity);
-        void Delete(params object[] id);
     }
 }

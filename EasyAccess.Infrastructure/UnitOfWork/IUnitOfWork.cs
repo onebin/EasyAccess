@@ -8,8 +8,7 @@ namespace EasyAccess.Infrastructure.UnitOfWork
 {
     public interface IUnitOfWork : IDisposable
     {
-        void GetRepostory<TEntity, TRepositity>(TRepositity repository) 
-            where TEntity : class 
-            where TRepositity : RepositoryBase<TEntity>;
+        TRepositity GetRepostory<TRepositity>()
+            where TRepositity : IRepository;
     }
 }

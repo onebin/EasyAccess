@@ -9,13 +9,16 @@ namespace EasyAccess.Infrastructure.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private List<DbContext> _dbContexts;
+        private readonly DbContext _dbContexts;
 
-        public void GetRepostory<TEntity, TRepositity>(TRepositity repository)
-            where TEntity : class
-            where TRepositity : RepositoryBase<TEntity>
+        public UnitOfWork(DbContext dbContext)
         {
-            throw new NotImplementedException();
+            _dbContexts = dbContext;
+        }
+
+        public TRepositity GetRepostory<TRepositity>() where TRepositity : IRepository
+        {
+            return (TRepositity)Activator.CreateInstance(typeof (TRepositity), _dbContexts);
         }
 
         private bool _disposed = false;
@@ -26,7 +29,7 @@ namespace EasyAccess.Infrastructure.UnitOfWork
             {
                 if (disposing)
                 {
-                    _dbContexts.ForEach(x => x.Dispose());
+                    _dbContexts.Dispose();
                 }
             }
             this._disposed = true;

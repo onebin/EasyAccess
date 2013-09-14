@@ -21,6 +21,13 @@ namespace EasyAccess.Infrastructure.Repositories
             menus[1].ParentMenu = menus[0];
             menus[2].ParentMenu = menus[1];
             context.SaveChanges();
+
+            var accounts = new List<Account>
+            {
+                new Account() { FirstName = "Ebin", LastName = "Wu" }
+            };
+            accounts.ForEach(x => context.Accounts.Add(x));
+            context.SaveChanges();
         }
     }
 }
