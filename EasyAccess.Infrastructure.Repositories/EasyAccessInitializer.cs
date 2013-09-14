@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using EasyAccess.Models;
+using EasyAccess.Models.Entities;
 
 namespace EasyAccess.Infrastructure.Repositories
 {
@@ -19,7 +20,7 @@ namespace EasyAccess.Infrastructure.Repositories
             context.SaveChanges();
 
             menus[1].ParentMenu = menus[0];
-            menus[2].ParentMenu = menus[1];
+            menus[2].ParentMenu = menus[0];
             context.SaveChanges();
 
             var accounts = new List<Account>

@@ -73,6 +73,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="TestInfrastructure\TestRepository\RepositoryBaseTest.cs" />
     <Compile Include="TestRepositories\EasyAccessInitializerTest.cs" />
     <Compile Include="TestInfrastructure\TestUnitOfWork\UnitOfWorkTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

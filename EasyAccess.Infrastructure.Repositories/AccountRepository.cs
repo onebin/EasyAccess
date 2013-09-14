@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
+﻿using System.Data.Entity;
 using EasyAccess.Infrastructure.Repository;
-using EasyAccess.Models;
+using EasyAccess.Models.Entities;
 
 namespace EasyAccess.Infrastructure.Repositories
 {

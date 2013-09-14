@@ -4,8 +4,9 @@ namespace EasyAccess.Infrastructure.Repository
 {
     interface IRepositoryBase<TEntity> : IRepository where TEntity : class
     {
-        IEnumerable<TEntity> GetAll();
-        TEntity GetById(params object[] id);
+        IEnumerable<TEntity> LoadAll();
+        TEntity FindById(params object[] id);
+        TEntity this[params object[] id] { get; }
         void Insert(TEntity entity);
         void Update(TEntity entity);
         void Delete(TEntity entity);

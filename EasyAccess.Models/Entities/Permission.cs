@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace EasyAccess.Models
+namespace EasyAccess.Models.Entities
 {
     public class Permission
     {

@@ -51,14 +51,14 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUnitOfWork
         {
             var unitOfWork = new UnitOfWork(new EasyAccessContext());
             var accountRepository = unitOfWork.GetRepostory<AccountRepository>();
-            Assert.AreEqual("Ebin", accountRepository.GetAll().First().FirstName);
+            Assert.AreEqual("Ebin", accountRepository.LoadAll().First().FirstName);
         }
 
         [TestMethod]
         public void TestGetRepostoryByIoc()
         {
             var accountRepository = EasyAccessUnitOfWork.GetRepostory<AccountRepository>();
-            Assert.AreEqual("Ebin", accountRepository.GetAll().First().FirstName);
+            Assert.AreEqual("Ebin", accountRepository.LoadAll().First().FirstName);
         }
     }
 }

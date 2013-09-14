@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using EasyAccess.Models;
+using EasyAccess.Models.Entities;
 
 namespace EasyAccess.Infrastructure.Repositories
 {

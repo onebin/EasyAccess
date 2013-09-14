@@ -13,12 +13,12 @@ namespace EasyAccess.Infrastructure.Repository
             _dbContext = dbContext;
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public IEnumerable<TEntity> LoadAll()
         {
             return _dbContext.Set<TEntity>();
         }
 
-        public TEntity GetById(params object[] id)
+        public TEntity FindById(params object[] id)
         {
             return _dbContext.Set<TEntity>().Find(id);
         }
@@ -39,7 +39,7 @@ namespace EasyAccess.Infrastructure.Repository
 
         public void Delete(params object[] id)
         {
-            var removeItem = this.GetById(id);
+            var removeItem = this.FindById(id);
             if (removeItem != null)
             {
                 _dbContext.Set<TEntity>().Remove(removeItem);
@@ -50,6 +50,15 @@ namespace EasyAccess.Infrastructure.Repository
         {
             _dbContext.Set<TEntity>().Attach(entity);
             _dbContext.Entry(entity).State = EntityState.Modified;
+        }
+
+
+        public TEntity this[params object[] id]
+        {
+            get
+            {
+                return this.FindById(id);
+            }
         }
     }
 }
