@@ -1,10 +1,9 @@
-﻿using System;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using EasyAccess.Infrastructure.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace EasyAccess.UnitTest.Infrastructure.Repositories
+namespace EasyAccess.UnitTest.TestRepositories
 {
     [TestClass]
     public class EasyAccessInitializerTest
