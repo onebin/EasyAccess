@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace EasyAccess.Infrastructure.RepositoryFramework
+namespace EasyAccess.Infrastructure.Repository
 {
     interface IRepositoryBase<TEntity> : IRepository where TEntity : class
     {

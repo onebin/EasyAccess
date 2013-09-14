@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using EasyAccess.Infrastructure.RepositoryFramework;
+using EasyAccess.Infrastructure.Repository;
 
-namespace EasyAccess.Infrastructure.UnitOfWork
+namespace EasyAccess.Infrastructure.UnitOfWorkFramework
 {
     public interface IUnitOfWork : IDisposable
     {
