@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Data.Entity;
 using EasyAccess.Infrastructure.Repository;
-using EasyAccess.Infrastructure.UnitOfWorkFramework;
 
 namespace EasyAccess.Infrastructure.UnitOfWork
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWorkBase : IUnitOfWork
     {
         private readonly DbContext _dbContexts;
 
-        public UnitOfWork(DbContext dbContext)
+        public UnitOfWorkBase(DbContext dbContext)
         {
             _dbContexts = dbContext;
         }

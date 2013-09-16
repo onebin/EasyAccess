@@ -2,7 +2,6 @@
 using System.Linq;
 using EasyAccess.Infrastructure.Repositories;
 using EasyAccess.Infrastructure.UnitOfWork;
-using EasyAccess.Infrastructure.UnitOfWorkFramework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Spring.Context;
 using Spring.Context.Support;
@@ -11,7 +10,7 @@ using Spring.Testing.Microsoft;
 namespace EasyAccess.UnitTest.TestInfrastructure.TestUnitOfWork
 {
     [TestClass]
-    public class UnitOfWorkTest : AbstractDependencyInjectionSpringContextTests
+    public class UnitOfWorkBaseTest : AbstractDependencyInjectionSpringContextTests
     {
         private IUnitOfWork EasyAccessUnitOfWork { get; set; }
         private static IApplicationContext AppCtx { get; set; }
@@ -49,7 +48,7 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUnitOfWork
         [TestMethod]
         public void TestGetRepostoryByNew()
         {
-            var unitOfWork = new UnitOfWork(new EasyAccessContext());
+            var unitOfWork = new UnitOfWorkBase(new EasyAccessContext());
             var accountRepository = unitOfWork.GetRepostory<AccountRepository>();
             Assert.AreEqual("Ebin", accountRepository.LoadAll().First().FirstName);
         }
