@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace EasyAccess.Infrastructure.Repository
 {
@@ -59,6 +62,11 @@ namespace EasyAccess.Infrastructure.Repository
             {
                 return this.FindById(id);
             }
+        }
+
+        public IEnumerable<TEntity> Where(Expression<Func<TEntity, bool>>  predicate)
+        {
+            return _dbContext.Set<TEntity>().Where(predicate);
         }
     }
 }
