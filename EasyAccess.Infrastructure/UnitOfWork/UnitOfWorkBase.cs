@@ -6,16 +6,16 @@ namespace EasyAccess.Infrastructure.UnitOfWork
 {
     public class UnitOfWorkBase : IUnitOfWork
     {
-        private readonly DbContext _dbContexts;
+        private readonly DbContext _dbContext;
 
         public UnitOfWorkBase(DbContext dbContext)
         {
-            _dbContexts = dbContext;
+            _dbContext = dbContext;
         }
 
         public TRepositity GetRepostory<TRepositity>() where TRepositity : IRepository
         {
-            return (TRepositity)Activator.CreateInstance(typeof (TRepositity), _dbContexts);
+            return (TRepositity)Activator.CreateInstance(typeof (TRepositity), _dbContext);
         }
 
         private bool _disposed = false;
@@ -26,7 +26,7 @@ namespace EasyAccess.Infrastructure.UnitOfWork
             {
                 if (disposing)
                 {
-                    _dbContexts.Dispose();
+                    _dbContext.Dispose();
                 }
             }
             this._disposed = true;
@@ -36,6 +36,11 @@ namespace EasyAccess.Infrastructure.UnitOfWork
         {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        public void Commit()
+        {
+            _dbContext.SaveChanges();
         }
     }
 }
