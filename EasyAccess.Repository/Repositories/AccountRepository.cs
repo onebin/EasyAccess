@@ -1,8 +1,8 @@
 ﻿using System.Data.Entity;
 using EasyAccess.Infrastructure.Repository;
-using EasyAccess.Models.EDMs;
+using EasyAccess.Model.EDMs;
 
-namespace EasyAccess.Infrastructure.Repositories
+namespace EasyAccess.Repository.Repositories
 {
     public class AccountRepository : RepositoryBase<Account>
     {

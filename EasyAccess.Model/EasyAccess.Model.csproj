@@ -7,8 +7,8 @@
     <ProjectGuid>{09C303B7-DB4F-4774-9D38-A4665F172676}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EasyAccess.Models</RootNamespace>
-    <AssemblyName>EasyAccess.Models</AssemblyName>
+    <RootNamespace>EasyAccess.Model</RootNamespace>
+    <AssemblyName>EasyAccess.Model</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

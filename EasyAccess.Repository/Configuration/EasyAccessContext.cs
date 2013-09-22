@@ -1,10 +1,8 @@
-﻿using System;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using EasyAccess.Models;
-using EasyAccess.Models.EDMs;
+using EasyAccess.Model.EDMs;
 
-namespace EasyAccess.Infrastructure.Repositories
+namespace EasyAccess.Repository.Configuration
 {
     public class EasyAccessContext : DbContext
     {

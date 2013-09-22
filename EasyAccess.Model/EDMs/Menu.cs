@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace EasyAccess.Models.EDMs
+namespace EasyAccess.Model.EDMs
 {
     public class Menu
     {

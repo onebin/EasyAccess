@@ -84,17 +84,17 @@
       <Project>{c858c06a-f7ce-40d2-9064-8d708f1e77b9}</Project>
       <Name>EasyAccess.Infrastructure.Authorization</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EasyAccess.Infrastructure.Repositories\EasyAccess.Infrastructure.Repositories.csproj">
-      <Project>{e60c19bf-e7b2-49d0-99ac-d17c0ebaca72}</Project>
-      <Name>EasyAccess.Infrastructure.Repositories</Name>
-    </ProjectReference>
     <ProjectReference Include="..\EasyAccess.Infrastructure\EasyAccess.Infrastructure.csproj">
       <Project>{f423a8a3-1ff4-4c09-8dd1-2071cbf61021}</Project>
       <Name>EasyAccess.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EasyAccess.Models\EasyAccess.Models.csproj">
+    <ProjectReference Include="..\EasyAccess.Model\EasyAccess.Model.csproj">
       <Project>{09c303b7-db4f-4774-9d38-a4665f172676}</Project>
-      <Name>EasyAccess.Models</Name>
+      <Name>EasyAccess.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyAccess.Repository\EasyAccess.Repository.csproj">
+      <Project>{79399b3a-c859-48f4-9337-e841953e4c72}</Project>
+      <Name>EasyAccess.Repository</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

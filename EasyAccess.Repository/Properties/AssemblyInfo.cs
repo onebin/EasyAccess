@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过以下
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("EasyAccess.Infrastructure.Repositories")]
+[assembly: AssemblyTitle("EasyAccess.Repository")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("EasyAccess.Infrastructure.Repositories")]
+[assembly: AssemblyProduct("EasyAccess.Repository")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("5c08f7ba-407f-4e40-b875-c974d9224da5")]
+[assembly: Guid("942a74b3-6a93-4ef1-a3c8-4c9654f438f7")]
 
 // 程序集的版本信息由下面四个值组成:
 //
