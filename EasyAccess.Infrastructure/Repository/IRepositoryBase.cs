@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace EasyAccess.Infrastructure.Repository
 {
-    interface IRepositoryBase<TEntity> : IRepository where TEntity : class
+    public interface IRepositoryBase<TEntity> : IRepository where TEntity : class
     {
         IEnumerable<TEntity> LoadAll();
         TEntity FindById(params object[] id);

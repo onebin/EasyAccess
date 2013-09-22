@@ -3,7 +3,7 @@ using System.Linq;
 using EasyAccess.Repository.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace EasyAccess.UnitTest.TestRepositories
+namespace EasyAccess.UnitTest.TestRepository
 {
     [TestClass]
     public class EasyAccessInitializerTest
