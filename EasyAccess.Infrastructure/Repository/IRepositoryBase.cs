@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace EasyAccess.Infrastructure.Repository
 {
@@ -11,5 +13,6 @@ namespace EasyAccess.Infrastructure.Repository
         void Update(TEntity entity);
         void Delete(TEntity entity);
         void Delete(params object[] id);
+        IEnumerable<TEntity> Where(Expression<Func<TEntity, bool>> predicate);
     }
 }

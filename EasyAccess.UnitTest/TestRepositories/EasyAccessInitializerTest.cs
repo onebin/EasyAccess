@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 using System.Linq;
-using EasyAccess.Infrastructure.Repositories;
+using EasyAccess.Repository.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace EasyAccess.UnitTest.TestRepositories

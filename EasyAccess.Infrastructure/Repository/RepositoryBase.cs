@@ -1,40 +1,43 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace EasyAccess.Infrastructure.Repository
 {
     public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class
     {
-        private readonly DbContext _dbContext;
+        protected readonly DbContext DbContext;
 
         protected RepositoryBase(DbContext dbContext)
         {
-            _dbContext = dbContext;
+            DbContext = dbContext;
         }
 
         public IEnumerable<TEntity> LoadAll()
         {
-            return _dbContext.Set<TEntity>();
+            return DbContext.Set<TEntity>();
         }
 
         public TEntity FindById(params object[] id)
         {
-            return _dbContext.Set<TEntity>().Find(id);
+            return DbContext.Set<TEntity>().Find(id);
         }
 
         public void Insert(TEntity entity)
         {
-            _dbContext.Set<TEntity>().Add(entity);
+            DbContext.Set<TEntity>().Add(entity);
         }
 
         public void Delete(TEntity entity)
         {
-            if (_dbContext.Entry(entity).State == EntityState.Detached)
+            if (DbContext.Entry(entity).State == EntityState.Detached)
             {
-                _dbContext.Set<TEntity>().Attach(entity);
+                DbContext.Set<TEntity>().Attach(entity);
             }
-            _dbContext.Set<TEntity>().Remove(entity);
+            DbContext.Set<TEntity>().Remove(entity);
         }
 
         public void Delete(params object[] id)
@@ -42,14 +45,14 @@ namespace EasyAccess.Infrastructure.Repository
             var removeItem = this.FindById(id);
             if (removeItem != null)
             {
-                _dbContext.Set<TEntity>().Remove(removeItem);
+                DbContext.Set<TEntity>().Remove(removeItem);
             }
         }
 
         public void Update(TEntity entity)
         {
-            _dbContext.Set<TEntity>().Attach(entity);
-            _dbContext.Entry(entity).State = EntityState.Modified;
+            DbContext.Set<TEntity>().Attach(entity);
+            DbContext.Entry(entity).State = EntityState.Modified;
         }
 
 
@@ -59,6 +62,11 @@ namespace EasyAccess.Infrastructure.Repository
             {
                 return this.FindById(id);
             }
+        }
+
+        public IEnumerable<TEntity> Where(Expression<Func<TEntity, bool>>  predicate)
+        {
+            return DbContext.Set<TEntity>().Where(predicate);
         }
     }
 }

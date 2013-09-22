@@ -1,11 +1,13 @@
 ﻿using System.Data.Entity;
 using EasyAccess.Infrastructure.Repository;
-using EasyAccess.Models.Entities;
+using EasyAccess.Model.EDMs;
 
-namespace EasyAccess.Infrastructure.Repositories
+namespace EasyAccess.Repository.Repositories
 {
     public class AccountRepository : RepositoryBase<Account>
     {
         public AccountRepository(DbContext dbcontext) : base(dbcontext) {}
+
+
     }
 }
