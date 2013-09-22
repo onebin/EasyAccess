@@ -8,6 +8,6 @@ namespace EasyAccess.Infrastructure.UnitOfWork
         TRepositity GetRepostory<TRepositity>()
             where TRepositity : IRepository;
 
-        void Commit();
+        int Commit();
     }
 }

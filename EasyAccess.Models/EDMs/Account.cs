@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace EasyAccess.Models.Entities
+namespace EasyAccess.Models.EDMs
 {
     public class Account
     {
