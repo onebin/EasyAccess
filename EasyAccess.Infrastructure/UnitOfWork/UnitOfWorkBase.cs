@@ -38,9 +38,9 @@ namespace EasyAccess.Infrastructure.UnitOfWork
             GC.SuppressFinalize(this);
         }
 
-        public void Commit()
+        public int Commit()
         {
-            _dbContext.SaveChanges();
+            return _dbContext.SaveChanges();
         }
     }
 }

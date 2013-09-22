@@ -1,7 +1,8 @@
 ﻿using System.Dynamic;
 using System.Linq;
-using EasyAccess.Infrastructure.Repositories;
 using EasyAccess.Infrastructure.UnitOfWork;
+using EasyAccess.Repository.Configuration;
+using EasyAccess.Repository.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Spring.Context;
 using Spring.Context.Support;

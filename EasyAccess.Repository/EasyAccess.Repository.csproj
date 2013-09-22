@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E60C19BF-E7B2-49D0-99AC-D17C0EBACA72}</ProjectGuid>
+    <ProjectGuid>{79399B3A-C859-48F4-9337-E841953E4C72}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EasyAccess.Infrastructure.Repositories</RootNamespace>
-    <AssemblyName>EasyAccess.Infrastructure.Repositories</AssemblyName>
+    <RootNamespace>EasyAccess.Repository</RootNamespace>
+    <AssemblyName>EasyAccess.Repository</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,34 +30,40 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountRepository.cs" />
-    <Compile Include="EasyAccessContext.cs" />
-    <Compile Include="EasyAccessInitializer.cs" />
+    <Compile Include="Configuration\EasyAccessContext.cs" />
+    <Compile Include="Configuration\EasyAccessInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
+    <Compile Include="Repositories\AccountRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EasyAccess.Infrastructure\EasyAccess.Infrastructure.csproj">
       <Project>{f423a8a3-1ff4-4c09-8dd1-2071cbf61021}</Project>
       <Name>EasyAccess.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EasyAccess.Models\EasyAccess.Models.csproj">
+    <ProjectReference Include="..\EasyAccess.Model\EasyAccess.Model.csproj">
       <Project>{09c303b7-db4f-4774-9d38-a4665f172676}</Project>
-      <Name>EasyAccess.Models</Name>
+      <Name>EasyAccess.Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

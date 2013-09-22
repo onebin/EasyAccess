@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
-using EasyAccess.Models;
-using EasyAccess.Models.Entities;
+using EasyAccess.Model.EDMs;
 
-namespace EasyAccess.Infrastructure.Repositories
+namespace EasyAccess.Repository.Configuration
 {
     public class EasyAccessInitializer : DropCreateDatabaseIfModelChanges<EasyAccessContext>
     {

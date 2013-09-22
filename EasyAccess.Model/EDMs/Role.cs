@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace EasyAccess.Models.Entities
+namespace EasyAccess.Model.EDMs
 {
     public class Role
     {
