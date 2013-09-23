@@ -40,9 +40,18 @@ namespace EasyAccess.Repository.Repositories
             return permissions;
         }
 
-        public virtual ICollection<Menu> GetMenus(int accountId)
+        public ICollection<Menu> GetMenus(int accountId)
         {
-            throw new System.NotImplementedException();
+            var permissions = this.GetPermissions(accountId);
+            ICollection<Menu > menus = new Collection<Menu>();
+            foreach (var permission in permissions)
+            {
+                if (!menus.ToLookup(x => x.Id).Contains(permission.MenuId))
+                {
+                    menus.Add(permission.Menu);
+                }
+            }
+            return menus;
         }
     }
 }
