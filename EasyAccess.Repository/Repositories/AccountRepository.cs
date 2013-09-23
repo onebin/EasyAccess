@@ -23,7 +23,7 @@ namespace EasyAccess.Repository.Repositories
             return null;
         }
 
-        public ICollection<Permission> GetPermissions(int accountId)
+        public virtual ICollection<Permission> GetPermissions(int accountId)
         {
             var roles = this.GetRoles(accountId);
             ICollection<Permission> permissions = new Collection<Permission>();
