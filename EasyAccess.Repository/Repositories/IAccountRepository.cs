@@ -10,10 +10,10 @@ namespace EasyAccess.Repository.Repositories
 {
     public interface IAccountRepository: IRepositoryBase<Account>
     {
-        List<Role> GetRoles(int accountId);
+        ICollection<Role> GetRoles(int accountId);
 
-        List<Permission> GetPermissions(int accountId);
+        ICollection<Permission> GetPermissions(int accountId);
 
-        List<Menu> GetMenus(int accountId);
+        ICollection<Menu> GetMenus(int accountId);
     }
 }

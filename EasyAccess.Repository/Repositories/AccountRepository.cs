@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
 using EasyAccess.Infrastructure.Repository;
@@ -10,23 +11,36 @@ namespace EasyAccess.Repository.Repositories
     {
         public AccountRepository(DbContext dbcontext) : base(dbcontext) {}
 
-        public virtual List<Role> GetRoles(int accountId)
+        public virtual ICollection<Role> GetRoles(int accountId)
         {
-            var singleOrDefault = base.DbContext.Set<Account>()
+            var account = base.DbContext.Set<Account>()
                 .Include(x => x.Roles)
                 .SingleOrDefault(x => x.Id.Equals(accountId));
-            if (singleOrDefault != null)
+            if (account != null)
                 return
-                    singleOrDefault
-                        .Roles.ToList();
+                    account
+                        .Roles;
+            return null;
         }
 
-        public virtual List<Permission> GetPermissions(int accountId)
+        public ICollection<Permission> GetPermissions(int accountId)
         {
-            throw new System.NotImplementedException();
+            var roles = this.GetRoles(accountId);
+            ICollection<Permission> permissions = new Collection<Permission>();
+            foreach (var role in roles)
+            {
+                foreach (var permission in role.Permissions)
+                {
+                    if (!permissions.ToLookup(x => x.Id).Contains(permission.Id))
+                    {
+                        permissions.Add(permission);
+                    }
+                }
+            }
+            return permissions;
         }
 
-        public virtual List<Menu> GetMenus(int accountId)
+        public virtual ICollection<Menu> GetMenus(int accountId)
         {
             throw new System.NotImplementedException();
         }
