@@ -45,6 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attr\EnumDescription.cs" />
+    <Compile Include="Attr\MenuAttribute.cs" />
+    <Compile Include="Attr\PermissionAttribute.cs" />
+    <Compile Include="Constant\SessionConst.cs" />
+    <Compile Include="Constant\ViewDataConst.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\IRepositoryBase.cs" />

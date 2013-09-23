@@ -14,8 +14,6 @@ namespace EasyAccess.Model.EDMs
 
         public string ActionUrl { get; set; }
 
-        public string ActionName { get; set; }
-
         public virtual ICollection<Role> Roles { get; set; } 
     }
 }

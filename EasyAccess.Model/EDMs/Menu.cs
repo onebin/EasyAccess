@@ -10,11 +10,11 @@ namespace EasyAccess.Model.EDMs
 
         public string Name { get; set; }
 
-        public string Url { get; set; }
-
         public string System { get; set; }
 
-        public int Leval { get; set; }
+        public string Url { get; set; }
+
+        public int Depth { get; set; }
 
         public int Index { get; set; }
 

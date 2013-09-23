@@ -38,7 +38,7 @@ namespace EasyAccess.UnitTest.TestRepository
         public void TestGetPermissions()
         {
             var accountRepositoryMock = new Mock<AccountRepository>(null);
-            accountRepositoryMock.Setup(x => x.GetRoles(It.IsAny<int>())).Returns(_Roles);
+            accountRepositoryMock.Setup(x => x.GetRoles(It.IsAny<long>())).Returns(_Roles);
             var permissions = accountRepositoryMock.Object.GetPermissions(1);
 
             Assert.IsNotNull(permissions);
@@ -46,15 +46,15 @@ namespace EasyAccess.UnitTest.TestRepository
             Assert.AreEqual(
                 string.Join(",", _Permissions.Where(x => x.Id != "M01P0104").Select(x => x.Id)), 
                 string.Join(",", permissions.Select(x => x.Id)));
-            
-            accountRepositoryMock.Verify(x => x.GetRoles(It.IsAny<int>()), Times.Once);
+
+            accountRepositoryMock.Verify(x => x.GetRoles(It.IsAny<long>()), Times.Once);
         }
 
         [TestMethod]
         public void TestGetMenus()
         {
             var accountRepositoryMock = new Mock<AccountRepository>(null);
-            accountRepositoryMock.Setup(x => x.GetPermissions(It.IsAny<int>())).Returns(_Permissions);
+            accountRepositoryMock.Setup(x => x.GetPermissions(It.IsAny<long>())).Returns(_Permissions);
             var menus = accountRepositoryMock.Object.GetMenus(1);
             Assert.IsNotNull(menus);
             Assert.AreEqual(2, menus.Count);
@@ -62,7 +62,7 @@ namespace EasyAccess.UnitTest.TestRepository
                 string.Join(",", _Menus.Select(x => x.Id)),
                 string.Join(",", menus.Select(x => x.Id)));
 
-            accountRepositoryMock.Verify(x => x.GetPermissions(It.IsAny<int>()), Times.Once);
+            accountRepositoryMock.Verify(x => x.GetPermissions(It.IsAny<long>()), Times.Once);
         }
     }
 }

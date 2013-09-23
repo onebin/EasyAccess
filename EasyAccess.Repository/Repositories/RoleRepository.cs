@@ -8,25 +8,37 @@ using EasyAccess.Repository.IRepositories;
 
 namespace EasyAccess.Repository.Repositories
 {
-    public class AccountRepository : RepositoryBase<Account>, IAccountRepository
+    public class RoleRepository : RepositoryBase<Role>, IRoleRepository
     {
-        public AccountRepository(DbContext dbcontext) : base(dbcontext) {}
+        public RoleRepository(DbContext dbcontext) : base(dbcontext) { }
 
-        public virtual ICollection<Role> GetRoles(long accountId)
+        public virtual ICollection<Account> GetAccounts(long roleId)
         {
-            var account = base.DbContext.Set<Account>()
-                .Include(x => x.Roles)
-                .SingleOrDefault(x => x.Id.Equals(accountId));
-            if (account != null)
+            var role = base.DbContext.Set<Role>()
+                .Include(x => x.Accounts)
+                .SingleOrDefault(x => x.Id.Equals(roleId));
+            if (role != null)
                 return
-                    account
-                        .Roles;
+                    role
+                        .Accounts;
             return null;
         }
 
-        public virtual ICollection<Permission> GetPermissions(long accountId)
+        public virtual ICollection<Permission> GetPermissions(long roleId)
         {
-            var roles = this.GetRoles(accountId);
+            var role = base.DbContext.Set<Role>()
+                .Include(x => x.Permissions)
+                .SingleOrDefault(x => x.Id.Equals(roleId));
+            if (role != null)
+                return role.Permissions;
+            return null;
+        }
+
+        public virtual ICollection<Permission> GetPermissions(long[] roleIds)
+        {
+            var roles = base.DbContext.Set<Role>()
+                .Include(x => x.Permissions)
+                .Where(x => roleIds.Contains(x.Id));
             ICollection<Permission> permissions = new Collection<Permission>();
             foreach (var role in roles)
             {
@@ -41,9 +53,9 @@ namespace EasyAccess.Repository.Repositories
             return permissions;
         }
 
-        public ICollection<Menu> GetMenus(long accountId)
+        public ICollection<Menu> GetMenus(long roleId)
         {
-            var permissions = this.GetPermissions(accountId);
+            var permissions = this.GetPermissions(roleId);
             ICollection<Menu > menus = new Collection<Menu>();
             foreach (var permission in permissions)
             {
