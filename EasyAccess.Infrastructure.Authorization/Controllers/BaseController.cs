@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Security;
 using System.Security.Permissions;
 using System.Web;
@@ -43,7 +44,7 @@ namespace EasyAccess.Infrastructure.Authorization.Controllers
         protected void InitPageData(FormCollection formData)
         {
             PageIndex = int.Parse(formData["page"] ?? "1") - 1;
-            PageSize = int.Parse(formData["rows"] ?? int.MaxValue.ToString());
+            PageSize = int.Parse(formData["rows"] ?? int.MaxValue.ToString(CultureInfo.InvariantCulture));
         }
 
         /// <summary>
@@ -66,7 +67,7 @@ namespace EasyAccess.Infrastructure.Authorization.Controllers
         /// <returns>报表</returns>
         public ActionResult ExportWord(DataSet dataSet, string filePath, string fileName, List<ReportParameter> reportParameters = null)
         {
-            ExportType exportType = new ExportType()
+            var exportType = new ExportType()
             {
                 ReportType = "Word",
                 OutputFormat = "Word",
@@ -85,7 +86,7 @@ namespace EasyAccess.Infrastructure.Authorization.Controllers
         /// <returns>报表</returns>
         public ActionResult ExportExcel(DataSet dataSet, string filePath, string fileName, List<ReportParameter> reportParameters = null)
         {
-            ExportType exportType = new ExportType() 
+            var exportType = new ExportType() 
             {
                 ReportType = "Excel",
                 OutputFormat = "Excel",
@@ -105,13 +106,13 @@ namespace EasyAccess.Infrastructure.Authorization.Controllers
         /// <returns>报表</returns>
         private ActionResult Export(DataSet dataSet, string filePath, string fileName, ExportType exportType, List<ReportParameter> reportParameters)
         {
-            LocalReport localReport = new LocalReport();
+            var localReport = new LocalReport();
             localReport.SetBasePermissionsForSandboxAppDomain(new PermissionSet(PermissionState.Unrestricted));
 
             localReport.ReportPath = Server.MapPath(filePath);
             foreach (DataTable dt in dataSet.Tables)
             {
-                ReportDataSource reportDataSource = new ReportDataSource(dt.TableName, dt);
+                var reportDataSource = new ReportDataSource(dt.TableName, dt);
                 localReport.DataSources.Add(reportDataSource);
             }
 
