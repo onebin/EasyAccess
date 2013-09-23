@@ -10,5 +10,8 @@ namespace EasyAccess.Infrastructure.Constant
         public const string Token = "Token";
 
         public const char TokenDivider = '_';
+
+        public const string CurrentAccount = "CurrentAccount";
+
     }
 }

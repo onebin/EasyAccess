@@ -38,6 +38,7 @@
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,6 +49,7 @@
     <Compile Include="Attr\EnumDescription.cs" />
     <Compile Include="Attr\MenuAttribute.cs" />
     <Compile Include="Attr\PermissionAttribute.cs" />
+    <Compile Include="Constant\EnumConst.cs" />
     <Compile Include="Constant\SessionConst.cs" />
     <Compile Include="Constant\ViewDataConst.cs" />
     <Compile Include="Repository\IRepository.cs" />
@@ -56,6 +58,15 @@
     <Compile Include="Repository\RepositoryBase.cs" />
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="UnitOfWork\UnitOfWorkBase.cs" />
+    <Compile Include="Util\DataConverter\ConvertToDataTable.cs" />
+    <Compile Include="Util\DataConverter\ConvertToDictionary.cs" />
+    <Compile Include="Util\DataConverter\ConvertToDictionaryTree.cs" />
+    <Compile Include="Util\DataConverter\DataConverter.cs" />
+    <Compile Include="Util\EasyUi\EasyUiDataGrid.cs" />
+    <Compile Include="Util\Encryption\Basic64Encryption.cs" />
+    <Compile Include="Util\Encryption\MD5Encryption.cs" />
+    <Compile Include="Util\IPAddress.cs" />
+    <Compile Include="Util\OperationResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
