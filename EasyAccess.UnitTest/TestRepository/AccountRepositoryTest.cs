@@ -14,26 +14,26 @@ namespace EasyAccess.UnitTest.TestRepository
     {
         private static readonly ICollection<Menu> Menus = new Collection<Menu>
             {
-                new Menu() { Id = "M01", Name = "菜单1"},
-                new Menu() { Id = "M02", Name = "菜单2"}
+                new Menu() { Id = "M01" },
+                new Menu() { Id = "M02" }
             };
 
 
         private static readonly ICollection<Role> Roles = new Collection<Role>
                 {
-                    new Role() { Id = 1, Name = "管理员", Permissions = new List<Permission>
+                    new Role() { Id = 1, Permissions = new List<Permission>
                         {
-                            new Permission() { Id = "M01P01", Name = "浏览", Menu = Menus.First(), MenuId = Menus.First().Id },
-                            new Permission() { Id = "M01P0101", Name = "添加", Menu = Menus.First(), MenuId = Menus.First().Id},
-                            new Permission() { Id = "M01P0102", Name = "修改", Menu = Menus.First(), MenuId = Menus.First().Id},
-                            new Permission() { Id = "M01P0103", Name = "删除", Menu = Menus.First(), MenuId = Menus.First().Id},
-                            new Permission() { Id = "M02P01", Name = "浏览", Menu = Menus.Last(), MenuId = Menus.Last().Id}
+                            new Permission() { Id = "M01P01", Menu = Menus.First(), MenuId = Menus.First().Id },
+                            new Permission() { Id = "M01P0101", Menu = Menus.First(), MenuId = Menus.First().Id},
+                            new Permission() { Id = "M01P0102", Menu = Menus.First(), MenuId = Menus.First().Id},
+                            new Permission() { Id = "M01P0103", Menu = Menus.First(), MenuId = Menus.First().Id},
+                            new Permission() { Id = "M02P01", Menu = Menus.Last(), MenuId = Menus.Last().Id}
                         }},
-                    new Role() { Id = 2, Name = "游客", Permissions = new List<Permission>
+                    new Role() { Id = 2, Permissions = new List<Permission>
                         {
-                            new Permission() { Id = "M01P01", Name = "浏览", Menu = Menus.First(), MenuId = Menus.First().Id},
-                            new Permission() { Id = "M01P0104", Name = "打印", Menu = Menus.First(), MenuId = Menus.First().Id},
-                            new Permission() { Id = "M02P01", Name = "浏览", Menu = Menus.Last(), MenuId = Menus.Last().Id}
+                            new Permission() { Id = "M01P01", Menu = Menus.First(), MenuId = Menus.First().Id},
+                            new Permission() { Id = "M01P0104", Menu = Menus.First(), MenuId = Menus.First().Id},
+                            new Permission() { Id = "M02P01", Menu = Menus.Last(), MenuId = Menus.Last().Id}
                         }},
                 };
 
