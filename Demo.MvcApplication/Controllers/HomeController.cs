@@ -8,8 +8,8 @@ using EasyAccess.Infrastructure.Authorization.Controllers;
 
 namespace Demo.MvcApplication.Controllers
 {
-    [Menu("M01", "首页", "/Home/Index")]
-    public class HomeController : BaseController
+    [Menu("M01", "首页", "/Home/Index", 0)]
+    public class HomeController : AuthorizationController
     {
         public ActionResult Index()
         {

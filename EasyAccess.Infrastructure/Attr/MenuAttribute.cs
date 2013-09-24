@@ -8,6 +8,11 @@ namespace EasyAccess.Infrastructure.Attr
     {
         public MenuAttribute() { }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">菜单Id</param>
+        /// <param name="name">菜单名称</param>
         public MenuAttribute(string id, string name)
         {
             this.Id = id;
@@ -22,16 +27,29 @@ namespace EasyAccess.Infrastructure.Attr
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">菜单Id</param>
+        /// <param name="name">菜单名称</param>
+        /// <param name="url">菜单链接</param>
         public MenuAttribute(string id, string name, string url)
             :this(id,name)
         {
             this.Url = url;
         }
 
-        public MenuAttribute(string id, string name, string url, string parentId)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">菜单Id</param>
+        /// <param name="name">菜单名称</param>
+        /// <param name="url">菜单链接</param>
+        /// <param name="index">排序索引</param>
+        public MenuAttribute(string id, string name, string url, int index)
             : this(id, name, url)
         {
-            this.ParentId = parentId;
+            this.Index = index;
         }
 
         public string Id { get; set; }
@@ -40,11 +58,11 @@ namespace EasyAccess.Infrastructure.Attr
 
         public string Name { get; set; }
 
-        public string System { get; set; }
+        public string System { get; private set; }
 
         public string Url { get; set; }
 
-        public int Depth { get; set; }
+        public int Depth { get; private set; }
 
         public int Index { get; set; }
     }
