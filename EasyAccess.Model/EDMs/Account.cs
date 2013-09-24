@@ -35,6 +35,10 @@ namespace EasyAccess.Model.EDMs
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? LastLoginTime { get; set; }
 
+        public bool IsEnabled { get; set; }
+
+        public bool IsDeleted { get; set; }
+
         public virtual ICollection<Role> Roles { get; set; }
     }
 }

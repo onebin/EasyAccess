@@ -12,7 +12,7 @@ namespace EasyAccess.Model.EDMs
 
         public string Memo { get; set; }
 
-        public bool Enabled { get; set; }
+        public bool IsEnabled { get; set; }
 
         public virtual ICollection<Account> Accounts { get; set; }
 
