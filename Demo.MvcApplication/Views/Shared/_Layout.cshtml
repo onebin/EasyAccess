@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
-    @Styles.Render("~/Content/themes/css")
     @Scripts.Render("~/bundles/jquery")
-    <script type="text/javascript" src="@Url.Content("~/Scripts/Plugins/EasyUi/locale/easyui-lang-zh_CN.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/Plugins/EasyUi/easyloader.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/Plugins/EasyUi/jquery.easyui.min.js")"></script>
+    <link type="text/css"  rel="stylesheet" href="~/Scripts/Plugins/EasyUi/themes/icon.css"/>
+    <link type="text/css" rel="stylesheet" href="~/Scripts/Plugins/EasyUi/themes/metro/easyui.css"/>
+    <script type="text/javascript" src="~/Scripts/Plugins/EasyUi/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="~/Scripts/Plugins/EasyUi/easyloader.js"></script>
+    <script type="text/javascript" src="~/Scripts/Plugins/EasyUi/jquery.easyui.min.js"></script>
 </head>
     <body class="easyui-layout">
-
         <div data-options="region:'north'" style="height:50px"></div>
         <div data-options="region:'south',split:true" style="height:50px;"></div>
         <div data-options="region:'east',split:true" title="East" style="width:180px;"></div>

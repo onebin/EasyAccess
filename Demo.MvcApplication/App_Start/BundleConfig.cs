@@ -12,10 +12,6 @@ namespace Demo.MvcApplication
                         "~/Scripts/jquery-2.0.3.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
-
-            bundles.Add(new StyleBundle("~/Content/themes/css").Include(
-                        "~/Scripts/Plugins/EasyUi/themes/icon.css",
-                        "~/Scripts/Plugins/EasyUi/themes/metro/easyui.css"));
         }
     }
 }
