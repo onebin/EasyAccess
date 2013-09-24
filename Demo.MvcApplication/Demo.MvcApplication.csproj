@@ -139,7 +139,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\SystemSettings\Controllers\AccountManageController.cs" />
+    <Compile Include="Areas\SystemSettings\Controllers\RoleManageController.cs" />
+    <Compile Include="Areas\SystemSettings\SystemSettingsAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -148,6 +152,9 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Areas\SystemSettings\Views\Web.config" />
+    <Content Include="Areas\SystemSettings\Views\AccountManage\Index.cshtml" />
+    <Content Include="Areas\SystemSettings\Views\RoleManage\Index.cshtml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.0.3.js" />
     <Content Include="Scripts\jquery-2.0.3.min.js" />
@@ -321,9 +328,12 @@
     <Content Include="Scripts\Plugins\EasyUi\themes\bootstrap\images\Thumbs.db" />
     <Content Include="Scripts\Plugins\EasyUi\themes\metro\images\Thumbs.db" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\SystemSettings\Models\" />
+    <Folder Include="Areas\SystemSettings\Views\Shared\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

@@ -24,7 +24,20 @@ namespace EasyAccess.Infrastructure.Attr
             if (this.Depth > 1)
             {
                 this.ParentId = this.Id.Substring(0, this.Id.Length - 2);
+                this.Index = int.Parse(this.Id.Substring(this.Id.Length - 2, 2));
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">菜单Id</param>
+        /// <param name="name">菜单名称</param>
+        /// <param name="index">排序索引</param>
+        public MenuAttribute(string id, string name, int index)
+            :this(id, name)
+        {
+            this.Index = index;
         }
 
         /// <summary>

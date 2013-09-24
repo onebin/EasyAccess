@@ -22,10 +22,10 @@ namespace EasyAccess.Infrastructure.Attr
             this.MenuId = matchResults.Success ? matchResults.Value : null;
         }
 
-        public PermissionAttribute(string id, string name, string action)
+        public PermissionAttribute(string id, string name, string actionUrl)
             : this(id, name)
         {
-            this.ActionUrl = action;
+            this.ActionUrl = actionUrl;
         }
 
         public string Id { get; set; }
