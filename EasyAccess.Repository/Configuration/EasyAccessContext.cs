@@ -14,10 +14,15 @@ namespace EasyAccess.Repository.Configuration
 
         public DbSet<Permission> Permissions { get; set; }
 
+        public DbSet<Register> Registers { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
+            modelBuilder.Entity<Account>()
+                .HasRequired(x => x.Register)
+                .WithRequiredDependent(x => x.Account);
             modelBuilder.Entity<Account>()
                 .HasMany(x => x.Roles)
                 .WithMany(x=>x.Accounts)

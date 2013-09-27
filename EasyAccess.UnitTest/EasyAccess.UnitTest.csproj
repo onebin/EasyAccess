@@ -109,6 +109,9 @@
   <ItemGroup>
     <EmbeddedResource Include="SpringConfig\IocConfig.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TestInfrastructure\TestUtil\TestEncryption\" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

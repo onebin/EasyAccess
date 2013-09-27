@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using EasyAccess.Model.EDMs;
 
@@ -13,12 +14,16 @@ namespace EasyAccess.Repository.Configuration
                     new Account()
                         {
                             FirstName = "Yibin", 
-                            LastName = "Wu", 
-                            LoginName = "admin", 
-                            Password = "21232f297a57a5a743894a0e4a801fc3", 
+                            LastName = "Wu",
                             Sex = 1,
                             IsEnabled = true,
-                            IsDeleted = false
+                            IsDeleted = false,
+                            Register = new Register
+                                {
+                                    LoginName = "Admin",
+                                    Password = "123456",
+                                    Salt = Guid.NewGuid()
+                                }
                         }
                 };
             var roles = new List<Role>
