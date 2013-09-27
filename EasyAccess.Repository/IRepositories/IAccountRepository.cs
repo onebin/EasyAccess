@@ -11,5 +11,7 @@ namespace EasyAccess.Repository.IRepositories
         ICollection<Permission> GetPermissions(long accountId);
 
         ICollection<Menu> GetMenus(long accountId);
+
+        Register GetRegister(string loginName);
     }
 }

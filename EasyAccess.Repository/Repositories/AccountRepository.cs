@@ -15,8 +15,8 @@ namespace EasyAccess.Repository.Repositories
         public virtual ICollection<Role> GetRoles(long accountId)
         {
             var account = base.DbContext.Set<Account>()
-                .Include(x => x.Roles)
-                .SingleOrDefault(x => x.Id.Equals(accountId));
+                              .Include(x => x.Roles)
+                              .SingleOrDefault(x => x.Id.Equals(accountId));
             if (account != null)
                 return
                     account
@@ -53,6 +53,15 @@ namespace EasyAccess.Repository.Repositories
                 }
             }
             return menus;
+        }
+
+
+        public Register GetRegister(string loginName)
+        {
+            var account = base.DbContext.Set<Account>()
+                              .Include(x => x.Register)
+                              .SingleOrDefault(x => x.Register.LoginName.Equals(loginName));
+            return account != null ? account.Register : null;
         }
     }
 }
