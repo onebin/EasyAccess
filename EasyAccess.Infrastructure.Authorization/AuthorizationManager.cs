@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using EasyAccess.Infrastructure.Constant;
@@ -57,12 +58,16 @@ namespace EasyAccess.Infrastructure.Authorization
         /// <returns></returns>
         public string GetToken(IEnumerable<Role> roleList)
         {
-            var enumerable = roleList as Role[] ?? roleList.ToArray();
-            var token = string.Join(SessionConst.TokenDivider.ToString(CultureInfo.InvariantCulture), enumerable.OrderBy(x => x.Id).Select(x => x.Id));
-
+            string token = string.Empty;
+            var roleIdLst = roleList.OrderBy(x => x.Id).Select(x => x.Id).ToArray();
+            var dividerCount = SessionConst.TokenDivider.Length;
+            for (int i = 0; i < roleIdLst.Count(); i++)
+            {
+                token += SessionConst.TokenDivider[i%dividerCount] + roleIdLst[i];
+            }
             if (!_tokenDic.ContainsKey(token))
             {
-                _tokenDic.Add(token, enumerable.ToList());
+                _tokenDic.Add(token, roleList.ToList());
             }
 
             return token;
@@ -75,7 +80,7 @@ namespace EasyAccess.Infrastructure.Authorization
         /// <returns>角色Id列表</returns>
         private long[] GetRoleIdLst(string token)
         {
-            return token.Split(SessionConst.TokenDivider).Select(long.Parse).ToArray();
+            return token.Split(SessionConst.TokenDivider, StringSplitOptions.RemoveEmptyEntries).Select(long.Parse).ToArray();
         }
 
         /// <summary>
@@ -271,8 +276,8 @@ namespace EasyAccess.Infrastructure.Authorization
         /// <param name="roldId">角色Id</param>
         public void RebuildFuncAndMenuDic(long roldId)
         {
-            var userMenuDicRebuildItem = _userMenuItemDic.Where(e => e.Key.Split(SessionConst.TokenDivider).Contains(roldId.ToString())).Select(e => e.Key).ToArray();
-            var userFuncDicRebuildItem = _userFuncDic.Where(e => e.Key.Split(SessionConst.TokenDivider).Contains(roldId.ToString())).Select(e => e.Key).ToArray();
+            var userMenuDicRebuildItem = _userMenuItemDic.Where(e => e.Key.Split(SessionConst.TokenDivider, StringSplitOptions.RemoveEmptyEntries).Contains(roldId.ToString(CultureInfo.InvariantCulture))).Select(e => e.Key).ToArray();
+            var userFuncDicRebuildItem = _userFuncDic.Where(e => e.Key.Split(SessionConst.TokenDivider, StringSplitOptions.RemoveEmptyEntries).Contains(roldId.ToString(CultureInfo.InvariantCulture))).Select(e => e.Key).ToArray();
 
             foreach (var removeItem in userMenuDicRebuildItem)
             {

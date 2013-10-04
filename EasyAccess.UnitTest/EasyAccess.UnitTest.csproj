@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CB1C5673-5967-4778-BB03-F6740F26C130}</ProjectGuid>
+    <ProjectGuid>{C545B766-061A-45AF-A280-1133669F0C86}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EasyAccess.UnitTest</RootNamespace>
@@ -16,7 +16,6 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -26,7 +25,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -35,35 +33,31 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Common.Logging">
-      <HintPath>..\packages\Common.Logging.1.2.0\lib\1.0\Common.Logging.dll</HintPath>
+      <HintPath>..\packages\Common.Logging.2.1.2\lib\net40\Common.Logging.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.1.1309.1617\lib\net40\Moq.dll</HintPath>
     </Reference>
     <Reference Include="Spring.Aop">
-      <HintPath>..\packages\Spring.Aop.1.3.2\lib\net40\Spring.Aop.dll</HintPath>
+      <HintPath>..\packages\Spring.Aop.2.0.0-M2\lib\net40\Spring.Aop.dll</HintPath>
     </Reference>
     <Reference Include="Spring.Core">
-      <HintPath>..\packages\Spring.Core.1.3.2\lib\net40\Spring.Core.dll</HintPath>
+      <HintPath>..\packages\Spring.Core.2.0.0-M2\lib\net40\Spring.Core.dll</HintPath>
     </Reference>
     <Reference Include="Spring.Data">
-      <HintPath>..\packages\Spring.Data.1.3.2\lib\net40\Spring.Data.dll</HintPath>
+      <HintPath>..\packages\Spring.Data.2.0.0-M2\lib\net40\Spring.Data.dll</HintPath>
     </Reference>
     <Reference Include="Spring.Testing.Microsoft">
-      <HintPath>..\packages\Spring.Testing.Microsoft.1.3.2\lib\net40\Spring.Testing.Microsoft.dll</HintPath>
+      <HintPath>..\packages\Spring.Testing.Microsoft.2.0.0-M2\lib\net40\Spring.Testing.Microsoft.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Data.Entity" />
   </ItemGroup>
   <Choose>
@@ -79,11 +73,19 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="TestInfrastructure\TestRepository\RepositoryBaseTest.cs" />
-    <Compile Include="TestRepository\EasyAccessInitializerTest.cs" />
-    <Compile Include="TestInfrastructure\TestUnitOfWork\UnitOfWorkBaseTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestAuthorization\AuthorizationManagerTest.cs" />
+    <Compile Include="TestInfrastructure\TestRepository\RepositoryBaseTest.cs" />
+    <Compile Include="TestInfrastructure\TestUnitOfWork\UnitOfWorkBaseTest.cs" />
     <Compile Include="TestRepository\AccountRepositoryTest.cs" />
+    <Compile Include="TestRepository\EasyAccessInitializerTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SpringConfig\IocConfig.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EasyAccess.Infrastructure.Authorization\EasyAccess.Infrastructure.Authorization.csproj">
@@ -94,6 +96,10 @@
       <Project>{f423a8a3-1ff4-4c09-8dd1-2071cbf61021}</Project>
       <Name>EasyAccess.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EasyAccess.IRepository\EasyAccess.IRepository.csproj">
+      <Project>{8713f355-a73a-4097-9c28-e46c9f4610bc}</Project>
+      <Name>EasyAccess.IRepository</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EasyAccess.Model\EasyAccess.Model.csproj">
       <Project>{09c303b7-db4f-4774-9d38-a4665f172676}</Project>
       <Name>EasyAccess.Model</Name>
@@ -102,15 +108,6 @@
       <Project>{79399b3a-c859-48f4-9337-e841953e4c72}</Project>
       <Name>EasyAccess.Repository</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="SpringConfig\IocConfig.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="TestInfrastructure\TestUtil\TestEncryption\" />

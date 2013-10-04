@@ -9,7 +9,7 @@ namespace EasyAccess.Infrastructure.Constant
     {
         public const string Token = "Token";
 
-        public const char TokenDivider = '_';
+        public static readonly string[] TokenDivider = new string[] { "^%y7@&#l,58", "%fa)ft'rtq2", "2a!4%}qwr]" };
 
         public const string CurrentAccount = "CurrentAccount";
 
