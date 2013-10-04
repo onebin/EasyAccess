@@ -56,7 +56,7 @@ namespace EasyAccess.Infrastructure.Authorization
         /// </summary>
         /// <param name="roleList"></param>
         /// <returns></returns>
-        public string GetToken(IEnumerable<Role> roleList)
+        public string GetToken(ICollection<Role> roleList)
         {
             string token = string.Empty;
             var roleIdLst = roleList.OrderBy(x => x.Id).Select(x => x.Id).ToArray();

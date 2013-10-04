@@ -85,7 +85,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SpringConfig\IocConfig.xml" />
+    <EmbeddedResource Include="SpringConfig\IocConfig.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EasyAccess.Infrastructure.Authorization\EasyAccess.Infrastructure.Authorization.csproj">
@@ -95,10 +95,6 @@
     <ProjectReference Include="..\EasyAccess.Infrastructure\EasyAccess.Infrastructure.csproj">
       <Project>{f423a8a3-1ff4-4c09-8dd1-2071cbf61021}</Project>
       <Name>EasyAccess.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\EasyAccess.IRepository\EasyAccess.IRepository.csproj">
-      <Project>{8713f355-a73a-4097-9c28-e46c9f4610bc}</Project>
-      <Name>EasyAccess.IRepository</Name>
     </ProjectReference>
     <ProjectReference Include="..\EasyAccess.Model\EasyAccess.Model.csproj">
       <Project>{09c303b7-db4f-4774-9d38-a4665f172676}</Project>

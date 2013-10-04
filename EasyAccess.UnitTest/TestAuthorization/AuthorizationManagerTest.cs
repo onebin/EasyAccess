@@ -23,5 +23,6 @@ namespace EasyAccess.UnitTest.TestAuthorization
             var token = AuthorizationManager.GetInstance().GetToken(RoleLst);
             Assert.AreEqual("^%y7@&#l,581%fa)ft'rtq222a!4%}qwr]3^%y7@&#l,584", token);
         }
+
     }
 }
