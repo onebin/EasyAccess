@@ -1,13 +1,20 @@
-﻿using EasyAccess.Infrastructure.Constant;
+﻿using System;
+using System.Collections;
+using System.Linq;
+using EasyAccess.Infrastructure.Constant;
 using EasyAccess.Infrastructure.Util.DataConverter;
 
 namespace EasyAccess.Infrastructure.Util
 {
     public class OperationResult
     {
-        public OperationResult() { }
+        public OperationResult()
+        {
+            this.Extras = new ArrayList();
+        }
 
         public OperationResult(ResultStatus status)
+            :this()
         {
             this.Status = status;
         }
@@ -30,9 +37,16 @@ namespace EasyAccess.Infrastructure.Util
             return this;
         }
 
-        public OperationResult SetExtras(object extras)
+        public OperationResult SetExtras(params object[] extras)
         {
-            this.Extras = extras;
+            if (extras.Length == 1)
+            {
+                this.Extras.Add(extras);
+            }
+            else
+            {
+                this.Extras.AddRange(extras);
+            }
             return this;
         }
 
@@ -42,6 +56,6 @@ namespace EasyAccess.Infrastructure.Util
 
         public object Data { get; set; }
 
-        public object Extras { get; set; }
+        public ArrayList Extras { get; set; }
     }
 }
