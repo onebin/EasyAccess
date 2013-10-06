@@ -25,7 +25,7 @@ namespace EasyAccess.Repository.Configuration
                                     LoginUser = new LoginUser
                                     {
                                       UserName  = "Admin",
-                                      Password = "123456"
+                                      Password = "kLD+u1gdwB2ddmp6OmPZFXsQfcmsTUeyhyguDMpLsEM="
                                     },
                                     Salt = Guid.Parse("1A0AEF62-A8ED-44A3-93C9-48E9F9774B84")
                                 }

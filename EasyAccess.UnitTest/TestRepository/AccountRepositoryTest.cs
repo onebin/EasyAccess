@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
+using EasyAccess.Repository.Configuration;
+using EasyAccess.Repository.IRepositories;
 using EasyAccess.Repository.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -67,6 +70,14 @@ namespace EasyAccess.UnitTest.TestRepository
                 string.Join(",", menus.Select(x => x.Id)));
 
             accountRepositoryMock.Verify(x => x.GetPermissions(It.IsAny<long>()), Times.Once);
+        }
+
+        [TestMethod]
+        public void TestVerifyLogin()
+        {
+            IAccountRepository repo = new AccountRepository(new EasyAccessContext());
+            var account = repo.VerifyLogin(new LoginUser{ UserName = "Admin", Password = "123456" });
+            Assert.IsNotNull(account);
         }
     }
 }
