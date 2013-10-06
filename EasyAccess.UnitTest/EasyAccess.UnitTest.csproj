@@ -85,9 +85,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SpringConfig\IocConfig.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\EasyAccess.Infrastructure.Authorization\EasyAccess.Infrastructure.Authorization.csproj">
       <Project>{c858c06a-f7ce-40d2-9064-8d708f1e77b9}</Project>
       <Name>EasyAccess.Infrastructure.Authorization</Name>

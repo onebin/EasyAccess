@@ -30,8 +30,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,6 +51,10 @@
     <Compile Include="Services\LoginService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EasyAccess.Infrastructure.Authorization\EasyAccess.Infrastructure.Authorization.csproj">
+      <Project>{c858c06a-f7ce-40d2-9064-8d708f1e77b9}</Project>
+      <Name>EasyAccess.Infrastructure.Authorization</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EasyAccess.Infrastructure\EasyAccess.Infrastructure.csproj">
       <Project>{f423a8a3-1ff4-4c09-8dd1-2071cbf61021}</Project>
       <Name>EasyAccess.Infrastructure</Name>
@@ -61,6 +72,10 @@
     <EmbeddedResource Include="SpringConfig\ServiceConfig.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
