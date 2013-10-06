@@ -14,6 +14,9 @@ namespace EasyAccess.Model.EDMs
         [MaxLength(50)]
         public string LastName { get; set; }
 
+        [MaxLength(50)]
+        public string NickName { get; set; }
+
         public int Sex { get; set; }
 
         [MaxLength(255)]

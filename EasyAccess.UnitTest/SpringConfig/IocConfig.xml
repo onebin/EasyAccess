@@ -2,8 +2,5 @@
 <objects xmlns="http://www.springframework.net"
          xmlns:db="http://www.springframework.net/database">
 
-  <object id="EasyAccessUnitOfWork" type="EasyAccess.Infrastructure.UnitOfWork.UnitOfWorkBase, EasyAccess.Infrastructure">
-    <constructor-arg name="dbContext" ref="EasyAccessContext" />
-  </object>
   
 </objects>

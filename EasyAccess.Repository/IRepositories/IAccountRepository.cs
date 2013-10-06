@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using EasyAccess.Infrastructure.Repository;
+using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
 
 namespace EasyAccess.Repository.IRepositories
@@ -12,6 +13,10 @@ namespace EasyAccess.Repository.IRepositories
 
         ICollection<Menu> GetMenus(long accountId);
 
-        Register GetRegister(string loginName);
+        Register GetRegister(string userName);
+
+        Account VerifyLogin(LoginUser loginUser);
+
+        void ResetPasswork(LoginUser loginUser);
     }
 }

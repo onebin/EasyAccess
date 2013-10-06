@@ -67,7 +67,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SpringConfig\ContextConfig.xml">
+    <EmbeddedResource Include="SpringConfig\RepositoryConfig.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

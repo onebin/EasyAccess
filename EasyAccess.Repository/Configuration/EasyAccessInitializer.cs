@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
 
 namespace EasyAccess.Repository.Configuration
@@ -15,14 +16,18 @@ namespace EasyAccess.Repository.Configuration
                         {
                             FirstName = "Yibin", 
                             LastName = "Wu",
+                            NickName = "Onebin",
                             Sex = 1,
                             IsEnabled = true,
                             IsDeleted = false,
                             Register = new Register
                                 {
-                                    LoginName = "Admin",
-                                    Password = "123456",
-                                    Salt = Guid.NewGuid()
+                                    LoginUser = new LoginUser
+                                    {
+                                      UserName  = "Admin",
+                                      Password = "123456"
+                                    },
+                                    Salt = Guid.Parse("1A0AEF62-A8ED-44A3-93C9-48E9F9774B84")
                                 }
                         }
                 };

@@ -22,7 +22,7 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUnitOfWork
             {
                 return new string[]
                 {
-                    "assembly://EasyAccess.Repository/EasyAccess.Repository/SpringConfig.ContextConfig.xml",
+                    "assembly://EasyAccess.Repository/EasyAccess.Repository/SpringConfig.RepositoryConfig.xml",
                     "assembly://EasyAccess.UnitTest/EasyAccess.UnitTest/SpringConfig.IocConfig.xml"
                 };
             }

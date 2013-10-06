@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using EasyAccess.Model.DTOs;
 
 namespace EasyAccess.Model.EDMs
 {
@@ -7,12 +8,7 @@ namespace EasyAccess.Model.EDMs
     {
         public long Id { get; set; }
 
-        [Required]
-        [MaxLength(50)]
-        public string LoginName { get; set; }
-
-        [Required]
-        public string Password { get; set; }
+        public LoginUser LoginUser { get; set; }
 
         public Guid Salt { get; set; }
 
