@@ -53,12 +53,12 @@ namespace EasyAccess.Infrastructure.Authorization.Filter
                     var permission = attr as PermissionAttribute;
                     if (!permission.UnverifyByFilter)
                     {
-                        string roleKey;
-                        if (IsUserSessionOutOfDate(filterContext, out roleKey))
+                        string token;
+                        if (IsUserSessionOutOfDate(filterContext, out token))
                         {
                             filterContext.Result = RedirectLoginPage();
                         }
-                        else if (!AuthorizationManager.GetInstance().VerifyPermission(permission.Id, roleKey))
+                        else if (!AuthorizationManager.GetInstance().VerifyPermission(permission.Id, token))
                         {
                             _httpContext.Response.StatusCode = 403;
                             filterContext.Result = new ViewResult() { ViewName = "NoPermission" };

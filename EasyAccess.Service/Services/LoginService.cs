@@ -1,6 +1,9 @@
 ﻿using System.Data.Entity;
+using System.Web;
+using System.Web.ModelBinding;
 using System.Web.Security;
 using EasyAccess.Infrastructure.Authorization;
+using EasyAccess.Infrastructure.Constant;
 using EasyAccess.Infrastructure.UnitOfWork;
 using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
@@ -18,12 +21,12 @@ namespace EasyAccess.Service.Services
         {
             var result = false;
             var accountRepository = EasyAccessUnitOfWork.GetRepostory<AccountRepository>();
-            //var accountRepository = new AccountRepository(new EasyAccessContext());
             var account = accountRepository.VerifyLogin(loginUser);
             if (account != null)
             {
                 var token = AuthorizationManager.GetInstance().GetToken(account.Roles);
-                FormsAuthentication.SetAuthCookie(token, false);
+                HttpContext.Current.Session[SessionConst.Token] = token;
+                FormsAuthentication.SetAuthCookie(account.Register.LoginUser.UserName,false);
                 result = true;
             }
             return result;
