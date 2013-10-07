@@ -7,6 +7,7 @@ using System.Management.Instrumentation;
 using System.Security.Cryptography;
 using System.Text;
 using EasyAccess.Infrastructure.Repository;
+using EasyAccess.Infrastructure.Util.Encryption;
 using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
 using EasyAccess.Repository.IRepositories;
@@ -74,10 +75,7 @@ namespace EasyAccess.Repository.Repositories
             var register = this.GetRegister(loginUser.UserName);
             if (register != null)
             {
-                var salt = register.Salt;
-                var passwordAndSaltBytes = Encoding.UTF8.GetBytes(loginUser.Password + salt);
-                var hashBytes = new SHA256Managed().ComputeHash(passwordAndSaltBytes);
-                var hashString = Convert.ToBase64String(hashBytes);
+                var hashString = HashFunctionEncryption.Encode(loginUser.Password, register.Salt);
                 if (hashString == register.LoginUser.Password)
                 {
                     return register.Account;
@@ -92,12 +90,8 @@ namespace EasyAccess.Repository.Repositories
             if (register != null)
             {
                 var salt = Guid.NewGuid();
-                var passwordAndSaltBytes = Encoding.UTF8.GetBytes(loginUser.Password + salt);
-                var hashBytes = new SHA256Managed().ComputeHash(passwordAndSaltBytes);
-
                 register.Salt = salt;
-                register.LoginUser.Password = Convert.ToBase64String(hashBytes);
-
+                register.LoginUser.Password = HashFunctionEncryption.Encode(loginUser.Password, salt);
                 base.DbContext.SaveChanges();
             }
             else

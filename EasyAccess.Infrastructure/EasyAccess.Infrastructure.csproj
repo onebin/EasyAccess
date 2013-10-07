@@ -68,6 +68,7 @@
     <Compile Include="Util\DataConverter\DataConverter.cs" />
     <Compile Include="Util\EasyUi\EasyUiDataGrid.cs" />
     <Compile Include="Util\Encryption\Basic64Encryption.cs" />
+    <Compile Include="Util\Encryption\HashFunctionEncryption.cs" />
     <Compile Include="Util\Encryption\MD5Encryption.cs" />
     <Compile Include="Util\IPAddress.cs" />
     <Compile Include="Util\OperationResult.cs" />

@@ -47,30 +47,39 @@ namespace EasyAccess.Infrastructure.Authorization.Filter
             object[] attrs = filterContext.ActionDescriptor.GetCustomAttributes(false);
             var identity = filterContext.HttpContext.User.Identity as FormsIdentity;
             var token = string.Empty;
+            var mgr = AuthorizationManager.GetInstance();
             if (identity != null)
             {
                 token = identity.Ticket.UserData;
+
+                if (mgr.IsExistToken(token))
+                {
+                    foreach (var attr in attrs)
+                    {
+                        if (attr is PermissionAttribute)
+                        {
+                            var permission = attr as PermissionAttribute;
+                            if (!permission.UnverifyByFilter)
+                            {
+                                if (!mgr.VerifyPermission(permission.Id, token))
+                                {
+                                    _httpContext.Response.StatusCode = (int) StatusCode.Unauthorized;
+                                    filterContext.Result = new ViewResult() {ViewName = "NoPermission"};
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    _httpContext.Response.StatusCode = (int)StatusCode.Error;
+                    filterContext.Result = RedirectLoginPage();
+                }
             }
             else
             {
                 _httpContext.Response.StatusCode = (int)StatusCode.Forbidden;
                 filterContext.Result = RedirectLoginPage();
-            }
-
-            foreach (var attr in attrs)
-            {
-                if (attr is PermissionAttribute)
-                {
-                    var permission = attr as PermissionAttribute;
-                    if (!permission.UnverifyByFilter)
-                    {
-                        if (!AuthorizationManager.GetInstance().VerifyPermission(permission.Id, token))
-                        {
-                            _httpContext.Response.StatusCode = (int)StatusCode.Unauthorized;
-                            filterContext.Result = new ViewResult() { ViewName = "NoPermission" };
-                        }
-                    }
-                }
             }
         }
 

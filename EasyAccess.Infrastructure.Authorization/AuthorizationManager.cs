@@ -18,18 +18,18 @@ namespace EasyAccess.Infrastructure.Authorization
         private static AuthorizationManager _instance = null;
         private static readonly object Locker = new object();
 
-        private readonly List<Menu> _menuDic = new List<Menu>();
-        private readonly List<Permission> _permissionDic = new List<Permission>();
+        private readonly List<Menu> _menuLst = new List<Menu>();
+        private readonly List<Permission> _permissionLst = new List<Permission>();
 
-        private readonly Dictionary<string, List<MenuItem>> _userMenuItemDic = new Dictionary<string, List<MenuItem>>();
-        private readonly Dictionary<string, string[]> _userFuncDic = new Dictionary<string, string[]>();
-        private readonly Dictionary<string, long[]> _tokenDic = new Dictionary<string, long[]>();
+        private readonly Dictionary<string, List<MenuItem>> _tokenToMenuItem = new Dictionary<string, List<MenuItem>>();
+        private readonly Dictionary<string, string[]> _tokenToPermission = new Dictionary<string, string[]>();
+        private readonly Dictionary<string, long[]> _tokenToRoleId = new Dictionary<string, long[]>();
 
         private AuthorizationManager()
         {
             var ctx = new EasyAccessContext();
-            _menuDic = ctx.Menus.ToList();
-            _permissionDic = ctx.Permissions.ToList();
+            _menuLst = ctx.Menus.ToList();
+            _permissionLst = ctx.Permissions.ToList();
         }
 
         /// <summary>
@@ -68,9 +68,9 @@ namespace EasyAccess.Infrastructure.Authorization
                 token += SessionConst.TokenDivider[i%dividerCount] + roleIdLst[i];
             }
             token = MD5Encryption.Encode(token);
-            if (!_tokenDic.ContainsKey(token))
+            if (!_tokenToRoleId.ContainsKey(token))
             {
-                _tokenDic.Add(token, roleIdLst);
+                _tokenToRoleId.Add(token, roleIdLst);
             }
 
             return token;
@@ -84,11 +84,21 @@ namespace EasyAccess.Infrastructure.Authorization
         private long[] GetRoleIdList(string token)
         {
             long[] roldIdLst;
-            if (!_tokenDic.TryGetValue(token, out roldIdLst))
+            if (!_tokenToRoleId.TryGetValue(token, out roldIdLst))
             {
                 throw new IdentityNotMappedException("未能根据用户自定义标识关联到相应角色Id");
             }
             return roldIdLst;
+        }
+
+        /// <summary>
+        /// 判断字典中是否存在Token
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public bool IsExistToken(string token)
+        {
+            return _tokenToRoleId.ContainsKey(token);
         }
 
         /// <summary>
@@ -99,10 +109,10 @@ namespace EasyAccess.Infrastructure.Authorization
         public List<MenuItem> GetMenu(string token)
         {
             List<MenuItem> returnVal = null;
-            if (!_userMenuItemDic.TryGetValue(token, out returnVal))
+            if (!_tokenToMenuItem.TryGetValue(token, out returnVal))
             {
                 returnVal = BuildMenu(token);
-                _userMenuItemDic.Add(token, returnVal);
+                _tokenToMenuItem.Add(token, returnVal);
             }
             return returnVal;
         }
@@ -116,7 +126,7 @@ namespace EasyAccess.Infrastructure.Authorization
         public List<MenuItem> GetSubMenu(string menuId, string token)
         {
             List<MenuItem> returnVal = null;
-            returnVal = _userMenuItemDic.First(e => e.Key == token).Value
+            returnVal = _tokenToMenuItem.First(e => e.Key == token).Value
                 .Where(e => e.ParentId == menuId).Select(e => e).ToList<MenuItem>();
             return returnVal;
         }
@@ -136,7 +146,7 @@ namespace EasyAccess.Infrastructure.Authorization
             {
                 if (!menuAccumulator.ContainsKey(permission.MenuId))
                 {
-                    var permissionMenu = _menuDic.First(e => e.Id == permission.MenuId);
+                    var permissionMenu = _menuLst.First(e => e.Id == permission.MenuId);
                     var item = new MenuItem()
                     {
                         Id = permission.MenuId,
@@ -176,16 +186,18 @@ namespace EasyAccess.Infrastructure.Authorization
             {
                 if (!menuAccumulator.ContainsKey(item.ParentId))
                 {
-                    var menu = (from e in _menuDic where (e.Id.Equals(item.ParentId)) select e).First();
+                    var menu = (from e in _menuLst where (e.Id.Equals(item.ParentId)) select e).First();
 
-                    var menuItem = new MenuItem();
-                    menuItem.Id = menu.Id;
-                    menuItem.ParentId = menu.ParentId;
-                    menuItem.Name = menu.Name;
-                    menuItem.Url = menu.Url;
-                    menuItem.System = menu.System;
-                    menuItem.Index = menu.Index;
-                    menuItem.Depth = menu.Depth;
+                    var menuItem = new MenuItem
+                    {
+                        Id = menu.Id,
+                        ParentId = menu.ParentId,
+                        Name = menu.Name,
+                        Url = menu.Url,
+                        System = menu.System,
+                        Index = menu.Index,
+                        Depth = menu.Depth
+                    };
 
                     menuAccumulator.Add(menuItem.Id, menuItem);
                 }
@@ -207,36 +219,15 @@ namespace EasyAccess.Infrastructure.Authorization
         /// </summary>
         /// <param name="token"></param>
         /// <returns>用户所拥有的操作权限Id</returns>
-        public string[] GetFunc(string token)
+        public string[] GetPermissionId(string token)
         {
-            string[] func = null;
-            if (!_userFuncDic.TryGetValue(token, out func))
+            string[] permissionIdlst = null;
+            if (!_tokenToPermission.TryGetValue(token, out permissionIdlst))
             {
-                func = BuildFunc(token);
-                _userFuncDic.Add(token, func);
+                permissionIdlst = GetPermissions(token).Select(x => x.Id).ToArray();
+                _tokenToPermission.Add(token, permissionIdlst);
             }
-            return func;
-        }
-
-        /// <summary>
-        /// 建立权限字典并返回用户操作权限Id列表
-        /// </summary>
-        /// <param name="token"></param>
-        /// <returns>用户所拥有的操作权限Id</returns>
-        private string[] BuildFunc(string token)
-        {
-            IList<string> funcAccumulator = new List<string>();
-
-            var permissions = GetPermissions(token);
-
-            foreach (var permission in permissions)
-            {
-                if (!funcAccumulator.Contains(permission.Id))
-                {
-                    funcAccumulator.Add(permission.Id);
-                }
-            }
-            return funcAccumulator.ToArray();
+            return permissionIdlst;
         }
 
         /// <summary>
@@ -247,7 +238,7 @@ namespace EasyAccess.Infrastructure.Authorization
         /// <returns>用户角色拥有指定操作权限返回true,否则反之</returns>
         public bool VerifyPermission(string permissionId, string token)
         {
-            return GetFunc(token).Contains(permissionId);
+            return GetPermissionId(token).Contains(permissionId);
         }
 
         /// <summary>
@@ -257,7 +248,7 @@ namespace EasyAccess.Infrastructure.Authorization
         /// <returns>权限实例</returns>
         public Permission GetPermission(string permissionId)
         {
-            var permission = _permissionDic.SingleOrDefault(e => e.Id == permissionId);
+            var permission = _permissionLst.SingleOrDefault(e => e.Id == permissionId);
             if (permission != null)
             {
                 return permission;
@@ -283,11 +274,11 @@ namespace EasyAccess.Infrastructure.Authorization
         /// <param name="roldId">角色Id</param>
         public void RebuildFuncAndMenuDic(long roldId)
         {
-            var tokens = _tokenDic.Where(x => x.Value.Contains(roldId)).Select(x => x.Key);
+            var tokens = _tokenToRoleId.Where(x => x.Value.Contains(roldId)).Select(x => x.Key);
             foreach (var token in tokens)
             {
-                _userMenuItemDic.Remove(token);
-                _userFuncDic.Remove(token);
+                _tokenToMenuItem.Remove(token);
+                _tokenToPermission.Remove(token);
             }
         }
     }
