@@ -7,7 +7,7 @@ namespace EasyAccess.Infrastructure.Authorization.Filter
     {
         void IExceptionFilter.OnException(ExceptionContext filterContext)
         {
-            filterContext.Controller.ViewData[ViewDataConst.ErrorMsg] = filterContext.Exception.Message;
+            filterContext.Controller.ViewData[ViewDataConst.ErrorMessage] = filterContext.Exception.Message;
             filterContext.Result = new ViewResult()
             {
                 ViewName = "Error",

@@ -156,6 +156,7 @@
     <Content Include="Areas\SystemSettings\Views\AccountManage\Index.cshtml" />
     <Content Include="Areas\SystemSettings\Views\RoleManage\Index.cshtml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
+    <Content Include="Scripts\Controllers\Login\Index.js" />
     <Content Include="Scripts\jquery-2.0.3.js" />
     <Content Include="Scripts\jquery-2.0.3.min.js" />
     <Content Include="Scripts\jquery-2.0.3.min.map" />
@@ -312,6 +313,9 @@
     <Content Include="Scripts\Plugins\EasyUi\plugins\jquery.validatebox.js" />
     <Content Include="Scripts\Plugins\EasyUi\plugins\jquery.window.js" />
     <Content Include="Scripts\_references.js" />
+    <EmbeddedResource Include="SpringConfig\ControllerConfig.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -351,6 +355,10 @@
     <ProjectReference Include="..\EasyAccess.Model\EasyAccess.Model.csproj">
       <Project>{09c303b7-db4f-4774-9d38-a4665f172676}</Project>
       <Name>EasyAccess.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyAccess.Service\EasyAccess.Service.csproj">
+      <Project>{0d0a58c2-921d-4c9e-b33e-7e06afb441b6}</Project>
+      <Name>EasyAccess.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

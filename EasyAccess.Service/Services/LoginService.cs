@@ -1,8 +1,10 @@
-﻿using System.Web.Security;
+﻿using System.Data.Entity;
+using System.Web.Security;
 using EasyAccess.Infrastructure.Authorization;
 using EasyAccess.Infrastructure.UnitOfWork;
 using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
+using EasyAccess.Repository.Configuration;
 using EasyAccess.Repository.Repositories;
 using EasyAccess.Service.IServices;
 
@@ -16,6 +18,7 @@ namespace EasyAccess.Service.Services
         {
             var result = false;
             var accountRepository = EasyAccessUnitOfWork.GetRepostory<AccountRepository>();
+            //var accountRepository = new AccountRepository(new EasyAccessContext());
             var account = accountRepository.VerifyLogin(loginUser);
             if (account != null)
             {

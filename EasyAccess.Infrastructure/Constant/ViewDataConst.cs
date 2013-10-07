@@ -7,6 +7,10 @@ namespace EasyAccess.Infrastructure.Constant
 {
     public class ViewDataConst
     {
-        public const string ErrorMsg = "ErrorMsg";
+        public const string ErrorMessage = "ErrorMessage";
+
+        public const string FailureMessage = "FailureMessage";
+
+        public const string Message = "Message";
     }
 }

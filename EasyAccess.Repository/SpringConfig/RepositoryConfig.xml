@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <objects xmlns="http://www.springframework.net"
          xmlns:db="http://www.springframework.net/database">
-  <object id="EasyAccessContext" type="EasyAccess.Repository.Configuration.EasyAccessContext, EasyAccess.Repository" />
+  <object id="EasyAccessContext" type="EasyAccess.Repository.Configuration.EasyAccessContext, EasyAccess.Repository" singleton="false" />
 
-  <object id="EasyAccessUnitOfWork" type="EasyAccess.Infrastructure.UnitOfWork.UnitOfWorkBase, EasyAccess.Infrastructure">
+  <object id="EasyAccessUnitOfWork" type="EasyAccess.Infrastructure.UnitOfWork.UnitOfWorkBase, EasyAccess.Infrastructure" singleton="false">
     <constructor-arg name="dbContext" ref="EasyAccessContext" />
   </object>
   

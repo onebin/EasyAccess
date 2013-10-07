@@ -7,25 +7,31 @@ namespace EasyAccess.Infrastructure.Constant
     /// </summary>
     public enum ResultStatus
     {
-        /// <summary>
-        /// 失败
-        /// </summary>
-        Failure = 0,
 
         /// <summary>
         /// 成功
         /// </summary>
-        Success = 1,
+        Success = 200,
+
+        /// <summary>
+        /// 失败
+        /// </summary>
+        Failure = 417,
 
         /// <summary>
         /// 错误
         /// </summary>
-        Error = 2,
+        Error = 500,
 
         /// <summary>
-        /// 没有权限
+        /// 未授权
         /// </summary>
-        Refused = 3
+        Unauthorized = 401,
+
+        /// <summary>
+        /// 未实现
+        /// </summary>
+        NotImplemented = 501
     }
 
     /// <summary>
