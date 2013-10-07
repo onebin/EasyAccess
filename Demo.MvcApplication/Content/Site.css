@@ -1,1 +1,13 @@
-﻿
+﻿a.nav {
+    display: block;
+    width: 100%;
+    cursor: pointer;
+    border-bottom: 1px #ddd;
+    font-size: 12px;
+    font-weight: bold;
+    color: #777;
+    height: 16px;
+    line-height: 16px;
+    padding: 5px;
+    text-decoration:none; 
+}

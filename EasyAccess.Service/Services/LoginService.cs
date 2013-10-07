@@ -24,9 +24,10 @@ namespace EasyAccess.Service.Services
             var account = accountRepository.VerifyLogin(loginUser);
             if (account != null)
             {
-                var token = AuthorizationManager.GetInstance().GetToken(account.Roles);
+                var mgr = AuthorizationManager.GetInstance();
+                var token = mgr.GetToken(account.Roles);
                 HttpContext.Current.Session[SessionConst.Token] = token;
-                FormsAuthentication.SetAuthCookie(account.Register.LoginUser.UserName,false);
+                FormsAuthentication.SetAuthCookie(token, false);
                 result = true;
             }
             return result;

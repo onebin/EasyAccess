@@ -56,11 +56,12 @@ namespace EasyAccess.Infrastructure.Authorization.Filter
                         string token;
                         if (IsUserSessionOutOfDate(filterContext, out token))
                         {
+                            _httpContext.Response.StatusCode = (int)StatusCode.Forbidden;
                             filterContext.Result = RedirectLoginPage();
                         }
                         else if (!AuthorizationManager.GetInstance().VerifyPermission(permission.Id, token))
                         {
-                            _httpContext.Response.StatusCode = 403;
+                            _httpContext.Response.StatusCode = (int)StatusCode.Unauthorized;
                             filterContext.Result = new ViewResult() { ViewName = "NoPermission" };
                         }
                     }

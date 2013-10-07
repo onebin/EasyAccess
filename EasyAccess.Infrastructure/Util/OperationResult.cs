@@ -13,20 +13,20 @@ namespace EasyAccess.Infrastructure.Util
             this.Extras = new ArrayList();
         }
 
-        public OperationResult(ResultStatus status)
+        public OperationResult(StatusCode statusCode)
             :this()
         {
-            this.Status = status;
+            this.StatusCode = statusCode;
         }
 
-        public OperationResult(ResultStatus status, string message)
-            : this(status)
+        public OperationResult(StatusCode statusCode, string message)
+            : this(statusCode)
         {
             this.Message = message;
         }
 
-        public OperationResult(ResultStatus status, string message, object data)
-            :this(status, message)
+        public OperationResult(StatusCode statusCode, string message, object data)
+            :this(statusCode, message)
         {
             this.Data = data;
         }
@@ -50,7 +50,7 @@ namespace EasyAccess.Infrastructure.Util
             return this;
         }
 
-        public ResultStatus Status { get; set; }
+        public StatusCode StatusCode { get; set; }
 
         public string Message { get; set; }
 

@@ -10,7 +10,8 @@ namespace Demo.MvcApplication
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-2.0.3.min.js"));
-
+            bundles.Add(new ScriptBundle("~/bundles/helper").Include(
+                        "~/Scripts/global.js"));
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
         }
     }

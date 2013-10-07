@@ -137,7 +137,7 @@ namespace EasyAccess.Infrastructure.Authorization
                         Url = permissionMenu.Url,
                         System = permissionMenu.System,
                         Index = permissionMenu.Index,
-                        Depth = 0
+                        Depth = permissionMenu.Depth
                     };
 
                     menuAccumulator.Add(permission.MenuId, item);
@@ -162,9 +162,8 @@ namespace EasyAccess.Infrastructure.Authorization
         /// <param name="subMenu">子菜单</param>
         /// <param name="menuAccumulator">累加菜单</param>
         /// <param name="depth">深度</param>
-        private void GetParentMenu(IEnumerable<MenuItem> subMenu, IDictionary<string, MenuItem> menuAccumulator, int depth = 0)
+        private void GetParentMenu(IEnumerable<MenuItem> subMenu, IDictionary<string, MenuItem> menuAccumulator)
         {
-            depth = ++depth;
             foreach (var item in subMenu)
             {
                 if (!menuAccumulator.ContainsKey(item.ParentId))
@@ -178,20 +177,20 @@ namespace EasyAccess.Infrastructure.Authorization
                     menuItem.Url = menu.Url;
                     menuItem.System = menu.System;
                     menuItem.Index = menu.Index;
-                    menuItem.Depth = depth;
+                    menuItem.Depth = menu.Depth;
 
                     menuAccumulator.Add(menuItem.Id, menuItem);
                 }
             }
 
-            var subMenuHasParent = menuAccumulator.Where(e => e.Value.ParentId != string.Empty);
+            var subMenuHasParent = menuAccumulator.Where(e => !string.IsNullOrWhiteSpace(e.Value.ParentId));
             var parentMenuNotInAccumulator = subMenuHasParent
                 .Where(e => !menuAccumulator.ContainsKey(e.Value.ParentId))
                 .Select(e => e.Value).ToArray();
 
             if (parentMenuNotInAccumulator.Any())
             {
-                GetParentMenu(parentMenuNotInAccumulator, menuAccumulator, depth);
+                GetParentMenu(parentMenuNotInAccumulator, menuAccumulator);
             }
         }
 

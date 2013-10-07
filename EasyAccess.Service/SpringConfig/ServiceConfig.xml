@@ -4,4 +4,5 @@
   <object id="LoginService" type="EasyAccess.Service.Services.LoginService, EasyAccess.Service">
     <property name="EasyAccessUnitOfWork" ref="EasyAccessUnitOfWork"></property>
   </object>
+  
 </objects>

@@ -5,18 +5,18 @@ namespace EasyAccess.Infrastructure.Constant
     /// <summary>
     /// 操作结果状态
     /// </summary>
-    public enum ResultStatus
+    public enum StatusCode
     {
 
         /// <summary>
         /// 成功
         /// </summary>
-        Success = 200,
+        OK = 200,
 
         /// <summary>
         /// 失败
         /// </summary>
-        Failure = 417,
+        Failed = 417,
 
         /// <summary>
         /// 错误
@@ -27,6 +27,11 @@ namespace EasyAccess.Infrastructure.Constant
         /// 未授权
         /// </summary>
         Unauthorized = 401,
+
+        /// <summary>
+        /// 禁止访问
+        /// </summary>
+        Forbidden = 403,
 
         /// <summary>
         /// 未实现
