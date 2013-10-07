@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Web;
 using System.Web.ModelBinding;
 using System.Web.Security;
@@ -27,7 +28,17 @@ namespace EasyAccess.Service.Services
                 var mgr = AuthorizationManager.GetInstance();
                 var token = mgr.GetToken(account.Roles);
                 HttpContext.Current.Session[SessionConst.Token] = token;
-                FormsAuthentication.SetAuthCookie(token, false);
+                var ticket = new FormsAuthenticationTicket(
+                    1,
+                    loginUser.UserName,
+                    DateTime.Now,
+                    DateTime.Now.AddMinutes(30),
+                    false,
+                    token
+                );
+                var hashTicket = FormsAuthentication.Encrypt(ticket) ;
+                var userCookie = new HttpCookie(FormsAuthentication.FormsCookieName, hashTicket);
+                HttpContext.Current.Response.Cookies.Add(userCookie);
                 result = true;
             }
             return result;

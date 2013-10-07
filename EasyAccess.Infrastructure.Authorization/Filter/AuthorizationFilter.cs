@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web;
+using System.Web.Security;
 using EasyAccess.Infrastructure.Attr;
 using EasyAccess.Infrastructure.Constant;
 
@@ -44,22 +45,26 @@ namespace EasyAccess.Infrastructure.Authorization.Filter
         private void VerifyPermission(AuthorizationContext filterContext)
         {
             object[] attrs = filterContext.ActionDescriptor.GetCustomAttributes(false);
-
-            for (int i = 0; i < attrs.Length; i++)
+            var identity = filterContext.HttpContext.User.Identity as FormsIdentity;
+            var token = string.Empty;
+            if (identity != null)
             {
-                object attr = attrs[i];
+                token = identity.Ticket.UserData;
+            }
+            else
+            {
+                _httpContext.Response.StatusCode = (int)StatusCode.Forbidden;
+                filterContext.Result = RedirectLoginPage();
+            }
+
+            foreach (var attr in attrs)
+            {
                 if (attr is PermissionAttribute)
                 {
                     var permission = attr as PermissionAttribute;
                     if (!permission.UnverifyByFilter)
                     {
-                        string token;
-                        if (IsUserSessionOutOfDate(filterContext, out token))
-                        {
-                            _httpContext.Response.StatusCode = (int)StatusCode.Forbidden;
-                            filterContext.Result = RedirectLoginPage();
-                        }
-                        else if (!AuthorizationManager.GetInstance().VerifyPermission(permission.Id, token))
+                        if (!AuthorizationManager.GetInstance().VerifyPermission(permission.Id, token))
                         {
                             _httpContext.Response.StatusCode = (int)StatusCode.Unauthorized;
                             filterContext.Result = new ViewResult() { ViewName = "NoPermission" };
@@ -67,15 +72,6 @@ namespace EasyAccess.Infrastructure.Authorization.Filter
                     }
                 }
             }
-        }
-
-        /// <summary>
-        /// 判断用户Session是否过期
-        /// </summary>
-        public bool IsUserSessionOutOfDate(AuthorizationContext filterContext, out string roleKey)
-        {
-            roleKey = filterContext.HttpContext.Session[SessionConst.Token] as string;
-            return roleKey == null;
         }
 
         /// <summary>

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Security.Principal;
 using EasyAccess.Infrastructure.Constant;
+using EasyAccess.Infrastructure.Util.Encryption;
 using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
 using EasyAccess.Repository.Configuration;
@@ -21,7 +23,7 @@ namespace EasyAccess.Infrastructure.Authorization
 
         private readonly Dictionary<string, List<MenuItem>> _userMenuItemDic = new Dictionary<string, List<MenuItem>>();
         private readonly Dictionary<string, string[]> _userFuncDic = new Dictionary<string, string[]>();
-        private readonly Dictionary<string, List<Role>> _tokenDic = new Dictionary<string, List<Role>>();
+        private readonly Dictionary<string, long[]> _tokenDic = new Dictionary<string, long[]>();
 
         private AuthorizationManager()
         {
@@ -65,9 +67,10 @@ namespace EasyAccess.Infrastructure.Authorization
             {
                 token += SessionConst.TokenDivider[i%dividerCount] + roleIdLst[i];
             }
+            token = MD5Encryption.Encode(token);
             if (!_tokenDic.ContainsKey(token))
             {
-                _tokenDic.Add(token, roleList.ToList());
+                _tokenDic.Add(token, roleIdLst);
             }
 
             return token;
@@ -78,9 +81,14 @@ namespace EasyAccess.Infrastructure.Authorization
         /// </summary>
         /// <param name="token">token</param>
         /// <returns>角色Id列表</returns>
-        private long[] GetRoleIdLst(string token)
+        private long[] GetRoleIdList(string token)
         {
-            return token.Split(SessionConst.TokenDivider, StringSplitOptions.RemoveEmptyEntries).Select(long.Parse).ToArray();
+            long[] roldIdLst;
+            if (!_tokenDic.TryGetValue(token, out roldIdLst))
+            {
+                throw new IdentityNotMappedException("未能根据用户自定义标识关联到相应角色Id");
+            }
+            return roldIdLst;
         }
 
         /// <summary>
@@ -265,7 +273,7 @@ namespace EasyAccess.Infrastructure.Authorization
         private IEnumerable<Permission> GetPermissions(string token)
         {
             IRoleRepository ropo = new RoleRepository(new EasyAccessContext());
-            var roleIdLst = GetRoleIdLst(token);
+            var roleIdLst = GetRoleIdList(token);
             return ropo.GetPermissions(roleIdLst);
         }
 
@@ -275,16 +283,11 @@ namespace EasyAccess.Infrastructure.Authorization
         /// <param name="roldId">角色Id</param>
         public void RebuildFuncAndMenuDic(long roldId)
         {
-            var userMenuDicRebuildItem = _userMenuItemDic.Where(e => e.Key.Split(SessionConst.TokenDivider, StringSplitOptions.RemoveEmptyEntries).Contains(roldId.ToString(CultureInfo.InvariantCulture))).Select(e => e.Key).ToArray();
-            var userFuncDicRebuildItem = _userFuncDic.Where(e => e.Key.Split(SessionConst.TokenDivider, StringSplitOptions.RemoveEmptyEntries).Contains(roldId.ToString(CultureInfo.InvariantCulture))).Select(e => e.Key).ToArray();
-
-            foreach (var removeItem in userMenuDicRebuildItem)
+            var tokens = _tokenDic.Where(x => x.Value.Contains(roldId)).Select(x => x.Key);
+            foreach (var token in tokens)
             {
-                _userMenuItemDic.Remove(removeItem);
-            }
-            foreach (var removeItem in userFuncDicRebuildItem)
-            {
-                _userFuncDic.Remove(removeItem);
+                _userMenuItemDic.Remove(token);
+                _userFuncDic.Remove(token);
             }
         }
     }

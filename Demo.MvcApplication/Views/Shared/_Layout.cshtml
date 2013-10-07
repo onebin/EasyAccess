@@ -15,7 +15,7 @@
     <script type="text/javascript" src="~/Scripts/Plugins/EasyUi/easyloader.js"></script>
     <script type="text/javascript" src="~/Scripts/Plugins/EasyUi/jquery.easyui.min.js"></script>
     @{
-        var menus = AuthorizationManager.GetInstance().GetMenu(@User.Identity.Name);
+        var menus = AuthorizationManager.GetInstance().GetMenu(((FormsIdentity)User.Identity).Ticket.UserData);
         var mainMenus = menus.Where(x => x.Depth == 1 && x.System.Equals("M")).OrderBy(x => x.Depth).ThenBy(x => x.Index);
     }
     @helper PrintMenu(MenuItem menu, List<MenuItem> menus)
@@ -23,15 +23,12 @@
         if (string.IsNullOrWhiteSpace(menu.Url))
         {
             var submenus = menus.Where(x => x.Depth.Equals(menu.Depth + 1) && x.ParentId.Equals(menu.Id));
-            if (submenus != null)
-            {
-                <div title="@menu.Name">
-                    @foreach (var submenu in submenus)
-                    {
-                        @PrintMenu(submenu, menus);
-                    }
-                </div>
-            }
+            <div title="@menu.Name">
+                @foreach (var submenu in submenus)
+                {
+                    @PrintMenu(submenu, menus);
+                }
+            </div>
         }
         else
         {
