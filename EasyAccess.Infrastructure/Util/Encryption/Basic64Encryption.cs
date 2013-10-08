@@ -14,7 +14,7 @@ namespace EasyAccess.Infrastructure.Util.Encryption
         /// <param name="codeName">加密采用的编码方式</param>
         /// <param name="source">待加密的明文</param>
         /// <returns></returns>
-        public static string EncodeBase64(Encoding encode, string source)
+        public static string Encrypt(Encoding encode, string source)
         {
             byte[] bytes = encode.GetBytes(source);
             string code;
@@ -34,9 +34,9 @@ namespace EasyAccess.Infrastructure.Util.Encryption
         /// </summary>
         /// <param name="source">待加密的明文</param>
         /// <returns>加密后的字符串</returns>
-        public static string EncodeBase64(string source)
+        public static string Encrypt(string source)
         {
-            return EncodeBase64(Encoding.UTF8, source);
+            return Encrypt(Encoding.UTF8, source);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace EasyAccess.Infrastructure.Util.Encryption
         /// <param name="codeName">解密采用的编码方式，注意和加密时采用的方式一致</param>
         /// <param name="result">待解密的密文</param>
         /// <returns>解密后的字符串</returns>
-        public static string DecodeBase64(Encoding encode, string result)
+        public static string Decrypte(Encoding encode, string result)
         {
             string decode = "";
             byte[] bytes = Convert.FromBase64String(result);
@@ -65,9 +65,9 @@ namespace EasyAccess.Infrastructure.Util.Encryption
         /// </summary>
         /// <param name="result">待解密的密文</param>
         /// <returns>解密后的字符串</returns>
-        public static string DecodeBase64(string result)
+        public static string Decrypte(string result)
         {
-            return DecodeBase64(Encoding.UTF8, result);
+            return Decrypte(Encoding.UTF8, result);
         }
     }
 }

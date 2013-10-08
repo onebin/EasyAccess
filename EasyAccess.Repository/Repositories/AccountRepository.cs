@@ -75,7 +75,7 @@ namespace EasyAccess.Repository.Repositories
             var register = this.GetRegister(loginUser.UserName);
             if (register != null)
             {
-                var hashString = HashFunctionEncryption.Encode(loginUser.Password, register.Salt);
+                var hashString = HashFunctionEncryption.Encrypt(loginUser.Password, register.Salt);
                 if (hashString == register.LoginUser.Password)
                 {
                     return register.Account;
@@ -91,7 +91,7 @@ namespace EasyAccess.Repository.Repositories
             {
                 var salt = Guid.NewGuid();
                 register.Salt = salt;
-                register.LoginUser.Password = HashFunctionEncryption.Encode(loginUser.Password, salt);
+                register.LoginUser.Password = HashFunctionEncryption.Encrypt(loginUser.Password, salt);
                 base.DbContext.SaveChanges();
             }
             else

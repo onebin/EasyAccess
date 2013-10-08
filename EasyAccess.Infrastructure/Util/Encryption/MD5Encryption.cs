@@ -13,7 +13,7 @@ namespace EasyAccess.Infrastructure.Util.Encryption
         ///  使用MD5进行加密
         /// </summary>
         /// <returns>加密后的字符串</returns>
-        public static string Encode(string source)
+        public static string Encrypt(string source)
         {
             MD5 md5Hasher = MD5.Create();
             //计算哈希值
@@ -36,7 +36,7 @@ namespace EasyAccess.Infrastructure.Util.Encryption
         /// <returns>返回是否相同</returns> 
         public static bool VerifyMd5Hash(string strInput, string strHash) {
             //获取输入的普通字符串对应的哈希字符串
-            string strhashOfInput = Encode(strInput);
+            string strhashOfInput = Encrypt(strInput);
 
             // 创建StringComparer，用于比较字符串
             StringComparer comparer = StringComparer.OrdinalIgnoreCase;

@@ -68,7 +68,7 @@ namespace EasyAccess.Infrastructure.Authorization
             {
                 token += SessionConst.TokenDivider[i%dividerCount] + roleIdLst[i];
             }
-            token = MD5Encryption.Encode(token);
+            token = MD5Encryption.Encrypt(token);
             if (!_tokenToRoleId.ContainsKey(token))
             {
                 _tokenToRoleId.Add(token, roleIdLst);
