@@ -26,7 +26,7 @@ namespace EasyAccess.Service.Services
             if (account != null)
             {
                 var mgr = AuthorizationManager.GetInstance();
-                var token = mgr.GetToken(account.Roles);
+                var token = mgr.GetToken(account.Roles, accountRepository.GetPermissions(account.Id));
                 HttpContext.Current.Session[SessionConst.Token] = token;
                 var ticket = new FormsAuthenticationTicket(
                     1,

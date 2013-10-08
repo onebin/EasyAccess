@@ -57,8 +57,9 @@ namespace EasyAccess.Infrastructure.Authorization
         /// 获取Token
         /// </summary>
         /// <param name="roleList"></param>
+        /// <param name="permissionList"></param>
         /// <returns></returns>
-        public string GetToken(ICollection<Role> roleList)
+        public string GetToken(ICollection<Role> roleList, ICollection<Permission> permissionList)
         {
             string token = string.Empty;
             var roleIdLst = roleList.OrderBy(x => x.Id).Select(x => x.Id).ToArray();
@@ -71,6 +72,7 @@ namespace EasyAccess.Infrastructure.Authorization
             if (!_tokenToRoleId.ContainsKey(token))
             {
                 _tokenToRoleId.Add(token, roleIdLst);
+                _tokenToPermission.Add(token, permissionList.Select(x => x.Id).ToArray());
             }
 
             return token;
@@ -221,11 +223,10 @@ namespace EasyAccess.Infrastructure.Authorization
         /// <returns>用户所拥有的操作权限Id</returns>
         public string[] GetPermissionId(string token)
         {
-            string[] permissionIdlst = null;
+            string[] permissionIdlst;
             if (!_tokenToPermission.TryGetValue(token, out permissionIdlst))
             {
-                permissionIdlst = GetPermissions(token).Select(x => x.Id).ToArray();
-                _tokenToPermission.Add(token, permissionIdlst);
+                throw new IdentityNotMappedException("未能根据用户自定义标识关联到相应权限Id");
             }
             return permissionIdlst;
         }
@@ -263,9 +264,8 @@ namespace EasyAccess.Infrastructure.Authorization
         /// <returns>权限列表</returns>
         private IEnumerable<Permission> GetPermissions(string token)
         {
-            IRoleRepository ropo = new RoleRepository(new EasyAccessContext());
-            var roleIdLst = GetRoleIdList(token);
-            return ropo.GetPermissions(roleIdLst);
+            var permissionIdLst = GetPermissionId(token);
+            return _permissionLst.Where(x => permissionIdLst.Contains(x.Id));
         }
 
         /// <summary>

@@ -91,7 +91,7 @@ namespace EasyAccess.Infrastructure.AuthScriptGen
             {
                 menuLst.AddRange(GetMenuInstance(type));
             }
-            menuLst = menuLst.OrderBy(x => x.Depth).ToList();
+            menuLst = menuLst.OrderBy(x => x.Depth).ThenBy(x => x.Index).ToList();
             foreach (var menu in menuLst)
             {
                 sqlText.Append(MenuSQL(menu));
