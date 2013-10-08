@@ -17,22 +17,23 @@ namespace EasyAccess.Service.Services
 {
     public class LoginService : ILoginService
     {
-        public IUnitOfWork EasyAccessUnitOfWork { get; set; }
-
         public bool Login(LoginUser loginUser, bool rememberMe = false)
         {
             var result = false;
-            var accountRepository = EasyAccessUnitOfWork.GetRepostory<AccountRepository>();
-            var account = accountRepository.VerifyLogin(loginUser);
-            if (account != null)
+            using (IUnitOfWork easyAccessUnitOfWork = new UnitOfWorkBase(new EasyAccessContext()))
             {
-                var authMgr = AuthorizationManager.GetInstance();
-                var token = authMgr.GetToken(account.Roles, accountRepository.GetPermissions(account.Id));
-                authMgr.SetTicket(loginUser.UserName, token, rememberMe);
-                account.Register.LastLoginIP = IPAddress.GetIPAddress();
-                account.Register.LastLoginTime = DateTime.Now;
-                EasyAccessUnitOfWork.Commit();
-                result = true;
+                var accountRepository = easyAccessUnitOfWork.GetRepostory<AccountRepository>();
+                var account = accountRepository.VerifyLogin(loginUser);
+                if (account != null)
+                {
+                    var authMgr = AuthorizationManager.GetInstance();
+                    var token = authMgr.GetToken(account.Roles, accountRepository.GetPermissions(account.Id));
+                    authMgr.SetTicket(loginUser.UserName, token, rememberMe);
+                    account.Register.LastLoginIP = IPAddress.GetIPAddress();
+                    account.Register.LastLoginTime = DateTime.Now;
+                    easyAccessUnitOfWork.Commit();
+                    result = true;
+                }
             }
             return result;
         }
