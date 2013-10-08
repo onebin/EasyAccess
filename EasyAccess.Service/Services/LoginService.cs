@@ -6,6 +6,7 @@ using System.Web.Security;
 using EasyAccess.Infrastructure.Authorization;
 using EasyAccess.Infrastructure.Constant;
 using EasyAccess.Infrastructure.UnitOfWork;
+using EasyAccess.Infrastructure.Util;
 using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
 using EasyAccess.Repository.Configuration;
@@ -18,27 +19,19 @@ namespace EasyAccess.Service.Services
     {
         public IUnitOfWork EasyAccessUnitOfWork { get; set; }
 
-        public bool Login(LoginUser loginUser)
+        public bool Login(LoginUser loginUser, bool rememberMe = false)
         {
             var result = false;
             var accountRepository = EasyAccessUnitOfWork.GetRepostory<AccountRepository>();
             var account = accountRepository.VerifyLogin(loginUser);
             if (account != null)
             {
-                var mgr = AuthorizationManager.GetInstance();
-                var token = mgr.GetToken(account.Roles, accountRepository.GetPermissions(account.Id));
-                HttpContext.Current.Session[SessionConst.Token] = token;
-                var ticket = new FormsAuthenticationTicket(
-                    1,
-                    loginUser.UserName,
-                    DateTime.Now,
-                    DateTime.Now.AddMinutes(30),
-                    false,
-                    token
-                );
-                var hashTicket = FormsAuthentication.Encrypt(ticket) ;
-                var userCookie = new HttpCookie(FormsAuthentication.FormsCookieName, hashTicket);
-                HttpContext.Current.Response.Cookies.Add(userCookie);
+                var authMgr = AuthorizationManager.GetInstance();
+                var token = authMgr.GetToken(account.Roles, accountRepository.GetPermissions(account.Id));
+                authMgr.SetTicket(loginUser.UserName, token, rememberMe);
+                account.Register.LastLoginIP = IPAddress.GetIPAddress();
+                account.Register.LastLoginTime = DateTime.Now;
+                EasyAccessUnitOfWork.Commit();
                 result = true;
             }
             return result;
@@ -46,7 +39,7 @@ namespace EasyAccess.Service.Services
 
         public void Logout()
         {
-            FormsAuthentication.SignOut();
+            AuthorizationManager.GetInstance().ClearTicket();
         }
     }
 }

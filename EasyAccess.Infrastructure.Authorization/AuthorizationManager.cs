@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Security.Principal;
+using System.Web;
+using System.Web.Security;
 using EasyAccess.Infrastructure.Constant;
 using EasyAccess.Infrastructure.Util.Encryption;
 using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
 using EasyAccess.Repository.Configuration;
-using EasyAccess.Repository.IRepositories;
-using EasyAccess.Repository.Repositories;
 
 namespace EasyAccess.Infrastructure.Authorization
 {
@@ -280,6 +279,30 @@ namespace EasyAccess.Infrastructure.Authorization
                 _tokenToMenuItem.Remove(token);
                 _tokenToPermission.Remove(token);
             }
+        }
+
+        public void SetTicket(string userName, string token, bool rememberMe)
+        {
+            HttpContext.Current.Session[SessionConst.Token] = token;
+            var expiration = rememberMe
+                ? DateTime.Now.AddDays(7)
+                : DateTime.Now.Add(FormsAuthentication.Timeout);
+            var ticket = new FormsAuthenticationTicket(
+                1,
+                userName,
+                DateTime.Now,
+                expiration,
+                true,
+                token
+            );
+            var hashTicket = FormsAuthentication.Encrypt(ticket);
+            var userCookie = new HttpCookie(FormsAuthentication.FormsCookieName, hashTicket);
+            HttpContext.Current.Response.Cookies.Set(userCookie);
+        }
+
+        public void ClearTicket()
+        {
+            FormsAuthentication.SignOut();
         }
     }
 }
