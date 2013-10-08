@@ -1,5 +1,32 @@
 ﻿@using EasyAccess.Infrastructure.Authorization
 @using EasyAccess.Model.DTOs
+@{
+    var menus = AuthorizationManager.GetInstance().GetMenu(((FormsIdentity)User.Identity).Ticket.UserData);
+    var mainMenus = menus.Where(x => x.Depth == 1 && x.System.Equals("M")).OrderBy(x => x.Depth).ThenBy(x => x.Index);
+}
+@helper PrintMenu(MenuItem menu, List<MenuItem> menus)
+{
+    if (string.IsNullOrWhiteSpace(menu.Url))
+    {
+        var submenus = menus.Where(x => x.Depth.Equals(menu.Depth + 1) && x.ParentId.Equals(menu.Id));
+        <div title="@menu.Name">
+            @foreach (var submenu in submenus)
+            {
+                @PrintMenu(submenu, menus);
+            }
+        </div>
+    }
+    else
+    {
+        <a class="nav" href="#" onclick="addTab('@menu.Name', '@menu.Url')">
+            @for (int i = 1; i < menu.Depth; i++)
+            {
+                <text>&nbsp;</text>
+            }
+            @menu.Name
+        </a>
+    }
+}
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,33 +41,6 @@
     <script type="text/javascript" src="~/Scripts/Plugins/EasyUi/locale/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" src="~/Scripts/Plugins/EasyUi/easyloader.js"></script>
     <script type="text/javascript" src="~/Scripts/Plugins/EasyUi/jquery.easyui.min.js"></script>
-    @{
-        var menus = AuthorizationManager.GetInstance().GetMenu(((FormsIdentity)User.Identity).Ticket.UserData);
-        var mainMenus = menus.Where(x => x.Depth == 1 && x.System.Equals("M")).OrderBy(x => x.Depth).ThenBy(x => x.Index);
-    }
-    @helper PrintMenu(MenuItem menu, List<MenuItem> menus)
-    {
-        if (string.IsNullOrWhiteSpace(menu.Url))
-        {
-            var submenus = menus.Where(x => x.Depth.Equals(menu.Depth + 1) && x.ParentId.Equals(menu.Id));
-            <div title="@menu.Name">
-                @foreach (var submenu in submenus)
-                {
-                    @PrintMenu(submenu, menus);
-                }
-            </div>
-        }
-        else
-        {
-            <a class="nav" href="#" onclick="addTab('@menu.Name', '@menu.Url')">
-                @for (int i = 1; i < menu.Depth; i++)
-                {
-                    <text>&nbsp;</text>
-                }
-                @menu.Name
-            </a>
-        }
-    }
 </head>
     <body class="easyui-layout">
         <div data-options="region:'north'" style="height:50px"></div>
