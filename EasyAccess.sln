@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyAccess.Infrastructure", "EasyAccess.Infrastructure\EasyAccess.Infrastructure.csproj", "{F423A8A3-1FF4-4C09-8DD1-2071CBF61021}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyAccess.Infrastructure.Authorization", "EasyAccess.Infrastructure.Authorization\EasyAccess.Infrastructure.Authorization.csproj", "{C858C06A-F7CE-40D2-9064-8D708F1E77B9}"
