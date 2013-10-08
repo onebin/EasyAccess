@@ -38,8 +38,10 @@
     <Reference Include="System.Data.Entity" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTOs\Contact.cs" />
     <Compile Include="DTOs\LoginUser.cs" />
     <Compile Include="DTOs\MenuItem.cs" />
+    <Compile Include="DTOs\Name.cs" />
     <Compile Include="EDMs\Account.cs" />
     <Compile Include="EDMs\Menu.cs" />
     <Compile Include="EDMs\Permission.cs" />

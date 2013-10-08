@@ -18,6 +18,6 @@ namespace EasyAccess.Model.EDMs
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? LastLoginTime { get; set; }
 
-        public Account Account { get; set; }
+        public virtual Account Account { get; set; }
     }
 }

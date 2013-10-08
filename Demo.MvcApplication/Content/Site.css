@@ -11,3 +11,8 @@
     color: #777;
     text-decoration:none; 
 }
+
+a.nav:hover {
+    color: #000;
+    background-color: #CCE6FF;
+}

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using EasyAccess.Model.DTOs;
 
 namespace EasyAccess.Model.EDMs
 {
@@ -8,22 +9,7 @@ namespace EasyAccess.Model.EDMs
     {
         public long Id { get; set; }
 
-        [MaxLength(50)]
-        public string FirstName { get; set; }
-
-        [MaxLength(50)]
-        public string LastName { get; set; }
-
-        [MaxLength(50)]
-        public string NickName { get; set; }
-
         public int Sex { get; set; }
-
-        [MaxLength(255)]
-        public string Email { get; set; }
-
-        [MaxLength(32)]
-        public string Phone { get; set; }
 
         public string Memo { get; set; }
 
@@ -31,7 +17,11 @@ namespace EasyAccess.Model.EDMs
 
         public bool IsDeleted { get; set; }
 
-        public Register Register { get; set; }
+        public Name Name { get; set; }
+
+        public Contact Contact { get; set; }
+
+        public virtual Register Register { get; set; }
 
         public virtual ICollection<Role> Roles { get; set; }
     }

@@ -14,9 +14,14 @@ namespace EasyAccess.Repository.Configuration
                 {
                     new Account()
                         {
+                            Name = new Name
+                                {
+                                    
                             FirstName = "Yibin", 
                             LastName = "Wu",
-                            NickName = "Onebin",
+                            NickName = "Onebin"
+                                },
+                            Contact = new Contact(),
                             Sex = 1,
                             IsEnabled = true,
                             IsDeleted = false,

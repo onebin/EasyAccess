@@ -4,14 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace EasyAccess.Model.DTOs
 {
     [ComplexType]
-    public class LoginUser
+    public class Contact
     {
-        [Required]
-        [MaxLength(50)]
-        public string UserName { get; set; }
-
-        [Required]
         [MaxLength(255)]
-        public string Password { get; set; }
+        public string Email { get; set; }
+
+        [MaxLength(32)]
+        public string Phone { get; set; }
     }
 }
