@@ -157,7 +157,8 @@
     <Content Include="Areas\SystemSettings\Views\RoleManage\Index.cshtml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\Controllers\Login\Index.js" />
-    <Content Include="Scripts\global.js" />
+    <Content Include="Scripts\Helpers\easyuiHelper.js" />
+    <Content Include="Scripts\Helpers\global.js" />
     <Content Include="Scripts\jquery-2.0.3.js" />
     <Content Include="Scripts\jquery-2.0.3.min.js" />
     <Content Include="Scripts\jquery-2.0.3.min.map" />
@@ -389,9 +390,6 @@
           <CustomServerUrl>
           </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
-          <servers defaultServer="SelfHostServer">
-            <server name="SelfHostServer" exePath="" cmdArgs="" url="http://localhost:2189/" workingDir="" />
-          </servers>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
