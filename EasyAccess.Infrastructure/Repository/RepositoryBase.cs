@@ -10,6 +10,13 @@ namespace EasyAccess.Infrastructure.Repository
     public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class
     {
         protected readonly DbContext DbContext;
+        public IQueryable<TEntity> Entities
+        {
+            get
+            {
+                return DbContext.Set<TEntity>();
+            }
+        }
 
         protected RepositoryBase(DbContext dbContext)
         {
@@ -62,11 +69,6 @@ namespace EasyAccess.Infrastructure.Repository
             {
                 return this.FindById(id);
             }
-        }
-
-        public IEnumerable<TEntity> Where(Expression<Func<TEntity, bool>>  predicate)
-        {
-            return DbContext.Set<TEntity>().Where(predicate);
         }
     }
 }

@@ -38,9 +38,16 @@ namespace EasyAccess.Infrastructure.UnitOfWork
             GC.SuppressFinalize(this);
         }
 
+        public bool IsCommitted { get; private set; }
+
         public int Commit()
         {
             return _dbContext.SaveChanges();
+        }
+
+        public void Rollback()
+        {
+            throw new NotImplementedException();
         }
     }
 }
