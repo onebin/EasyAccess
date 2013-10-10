@@ -6,20 +6,23 @@ using EasyAccess.Infrastructure.Entity;
 
 namespace EasyAccess.Infrastructure.Repository
 {
-    public interface IRepositoryBase<TEntity, TKey> : IRepository 
+    public interface IRepositoryBase<TEntity, in TKey> : IRepository 
         where TEntity : IAggregateRoot<TKey>
         where TKey : struct
     {
-        #region 属性
 
         /// <summary>
         ///     获取 当前实体的查询数据集
         /// </summary>
         IQueryable<TEntity> Entities { get; }
 
-        #endregion
+        /// <summary>
+        ///     查找指定主键的实体记录
+        /// </summary>
+        /// <param name="id">指定主键</param>
+        /// <returns> 符合编号的记录，不存在返回null </returns>
+        TEntity GetById(TKey id);
 
-        #region 公共方法
 
         /// <summary>
         ///     插入实体记录
@@ -43,7 +46,7 @@ namespace EasyAccess.Infrastructure.Repository
         /// <param name="id"> 实体记录编号 </param>
         /// <param name="isSave"> 是否执行保存 </param>
         /// <returns> 操作影响的行数 </returns>
-        int Delete(object id, bool isSave = true);
+        int Delete(TKey id, bool isSave = true);
 
         /// <summary>
         ///     删除实体记录
@@ -78,12 +81,13 @@ namespace EasyAccess.Infrastructure.Repository
         int Update(TEntity entity, bool isSave = true);
 
         /// <summary>
-        ///     查找指定主键的实体记录
+        /// 使用附带新值的实体信息更新指定实体属性的值
         /// </summary>
-        /// <param name="key"> 指定主键 </param>
-        /// <returns> 符合编号的记录，不存在返回null </returns>
-        TEntity GetByKey(object key);
+        /// <param name="propertyExpression">属性表达式</param>
+        /// <param name="isSave">是否执行保存</param>
+        /// <param name="entity">附带新值的实体信息，必须包含主键</param>
+        /// <returns>操作影响的行数</returns>
+        int Update(Expression<Func<TEntity, object>> propertyExpression, TEntity entity, bool isSave = true);
 
-        #endregion
     }
 }

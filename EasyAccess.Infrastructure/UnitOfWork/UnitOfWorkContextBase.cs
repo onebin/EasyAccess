@@ -19,8 +19,22 @@ namespace EasyAccess.Infrastructure.UnitOfWork
     {
         protected abstract DbContext DbContext { get; }
 
+        public DbSet<TEntity> Set<TEntity, TKey>()
+            where TEntity : class, IEntity<TKey>
+            where TKey : struct
+        {
+            return DbContext.Set<TEntity>();
+        }
+
+        public DbEntityEntry<TEntity> Entry<TEntity, TKey>(TEntity entity)
+            where TEntity : class, IEntity<TKey>
+            where TKey : struct
+        {
+            return DbContext.Entry(entity);
+        }
+
         public void RegisterNew<TEntity, TKey>(TEntity entity)
-            where TEntity : EntityBase<TKey>
+            where TEntity : class, IEntity<TKey>
             where TKey : struct
         {
             var state = DbContext.Entry(entity).State;
@@ -32,7 +46,7 @@ namespace EasyAccess.Infrastructure.UnitOfWork
         }
 
         public void RegisterNew<TEntity, TKey>(IEnumerable<TEntity> entities)
-            where TEntity : EntityBase<TKey>
+            where TEntity : class, IEntity<TKey>
             where TKey : struct
         {
             try
@@ -50,7 +64,7 @@ namespace EasyAccess.Infrastructure.UnitOfWork
         }
 
         public void RegisterModified<TEntity, TKey>(params TEntity[] entities)
-            where TEntity : EntityBase<TKey>
+            where TEntity : class, IEntity<TKey>
             where TKey : struct
         {
             foreach (var entity in entities)
@@ -75,7 +89,7 @@ namespace EasyAccess.Infrastructure.UnitOfWork
         }
 
         public void RegisterModified<TEntity, TKey>(Expression<Func<TEntity, object>> propertyExpression, params TEntity[] entities)
-            where TEntity : EntityBase<TKey>
+            where TEntity : class, IEntity<TKey>
             where TKey : struct
         {
             ReadOnlyCollection<MemberInfo> memberInfos = ((dynamic)propertyExpression.Body).Members;
@@ -107,7 +121,7 @@ namespace EasyAccess.Infrastructure.UnitOfWork
         }
 
         public void RegisterDeleted<TEntity, TKey>(TEntity entity)
-            where TEntity : EntityBase<TKey>
+            where TEntity : class, IEntity<TKey>
             where TKey : struct
         {
             DbContext.Entry(entity).State = EntityState.Deleted;
@@ -115,7 +129,7 @@ namespace EasyAccess.Infrastructure.UnitOfWork
         }
 
         public void RegisterDeleted<TEntity, TKey>(IEnumerable<TEntity> entities)
-            where TEntity : EntityBase<TKey>
+            where TEntity : class, IEntity<TKey>
             where TKey : struct
         {
             try
