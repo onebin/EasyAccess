@@ -12,7 +12,6 @@ namespace EasyAccess.Infrastructure.Repository
 {
     public abstract class RepositoryBase<TEntity, TKey> : IRepositoryBase<TEntity, TKey>
         where TEntity : class, IAggregateRoot<TKey>
-        where TKey : struct
     {
 
         public IUnitOfWork UnitOfWork { get; set; }

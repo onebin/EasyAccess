@@ -8,13 +8,11 @@ using EasyAccess.Repository.IRepositories;
 
 namespace EasyAccess.Repository.Repositories
 {
-    public class RoleRepository : RepositoryBase<Role>, IRoleRepository
+    public class RoleRepository : RepositoryBase<Role, long>, IRoleRepository
     {
-        public RoleRepository(DbContext dbcontext) : base(dbcontext) { }
-
         public virtual ICollection<Account> GetAccounts(long roleId)
         {
-            var role = base.DbContext.Set<Role>()
+            var role = base.UnitOfWorkContext.Set<Role, long>()
                 .Include(x => x.Accounts)
                 .SingleOrDefault(x => x.Id.Equals(roleId));
             if (role != null)
@@ -26,7 +24,7 @@ namespace EasyAccess.Repository.Repositories
 
         public virtual ICollection<Permission> GetPermissions(long roleId)
         {
-            var role = base.DbContext.Set<Role>()
+            var role = base.UnitOfWorkContext.Set<Role, long>()
                 .Include(x => x.Permissions)
                 .SingleOrDefault(x => x.Id.Equals(roleId));
             if (role != null)
@@ -36,7 +34,7 @@ namespace EasyAccess.Repository.Repositories
 
         public virtual ICollection<Permission> GetPermissions(long[] roleIds)
         {
-            var roles = base.DbContext.Set<Role>()
+            var roles = base.UnitOfWorkContext.Set<Role, long>()
                 .Include(x => x.Permissions)
                 .Where(x => roleIds.Contains(x.Id));
             ICollection<Permission> permissions = new Collection<Permission>();

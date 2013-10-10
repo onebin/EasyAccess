@@ -2,6 +2,7 @@
 <objects xmlns="http://www.springframework.net"
          xmlns:db="http://www.springframework.net/database">
   <object id="LoginService" type="EasyAccess.Service.Services.LoginService, EasyAccess.Service">
+    <property name="AccountRepository" ref="AccountRepository" />
   </object>
   
 </objects>

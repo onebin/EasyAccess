@@ -8,7 +8,6 @@ namespace EasyAccess.Infrastructure.Repository
 {
     public interface IRepositoryBase<TEntity, in TKey> : IRepository 
         where TEntity : IAggregateRoot<TKey>
-        where TKey : struct
     {
 
         /// <summary>
