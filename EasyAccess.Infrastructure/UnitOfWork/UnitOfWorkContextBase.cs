@@ -11,7 +11,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using EasyAccess.Infrastructure.Entity;
-using EasyAccess.Infrastructure.Util.DbHelper;
+using EasyAccess.Infrastructure.Util;
 
 namespace EasyAccess.Infrastructure.UnitOfWork
 {

@@ -1,22 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EasyAccess.Infrastructure.Entity
 {
-    public abstract class EntityBase<TKey> where TKey : struct 
+    public abstract class EntityBase<TKey> : IEntity<TKey> where TKey : struct
     {
+        [Key]
+        public TKey Id { get; set; }
+
         protected EntityBase()
         {
             IsDeleted = false;
             CreateTime = DateTime.Now;
         }
-
-        [Key]
-        public TKey Id { get; set; }
 
         /// <summary>
         /// 获取或设置 获取或设置是否禁用，逻辑上的删除，非物理删除

@@ -4,70 +4,69 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using EasyAccess.Infrastructure.Entity;
+using EasyAccess.Infrastructure.UnitOfWork;
 
 namespace EasyAccess.Infrastructure.Repository
 {
-    public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class
+    public abstract class RepositoryBase<TEntity, TKey> : IRepositoryBase<TEntity, TKey>
+        where TEntity : IAggregateRoot<TKey>
+        where TKey : struct 
     {
-        protected readonly DbContext DbContext;
         public IQueryable<TEntity> Entities
         {
-            get
-            {
-                return DbContext.Set<TEntity>();
-            }
+            get { throw new NotImplementedException(); }
         }
 
-        protected RepositoryBase(DbContext dbContext)
+        public int Insert(TEntity entity, bool isSave = true)
         {
-            DbContext = dbContext;
+            throw new NotImplementedException();
         }
 
-        public IEnumerable<TEntity> LoadAll()
+        public int Insert(IEnumerable<TEntity> entities, bool isSave = true)
         {
-            return DbContext.Set<TEntity>();
+            throw new NotImplementedException();
         }
 
-        public TEntity FindById(params object[] id)
+        public int Delete(object id, bool isSave = true)
         {
-            return DbContext.Set<TEntity>().Find(id);
+            throw new NotImplementedException();
         }
 
-        public void Insert(TEntity entity)
+        public int Delete(TEntity entity, bool isSave = true)
         {
-            DbContext.Set<TEntity>().Add(entity);
+            throw new NotImplementedException();
         }
 
-        public void Delete(TEntity entity)
+        public int Delete(IEnumerable<TEntity> entities, bool isSave = true)
         {
-            if (DbContext.Entry(entity).State == EntityState.Detached)
-            {
-                DbContext.Set<TEntity>().Attach(entity);
-            }
-            DbContext.Set<TEntity>().Remove(entity);
+            throw new NotImplementedException();
         }
 
-        public void Delete(params object[] id)
+        public int Delete(Expression<Func<TEntity, bool>> predicate, bool isSave = true)
         {
-            var removeItem = this.FindById(id);
-            if (removeItem != null)
-            {
-                DbContext.Set<TEntity>().Remove(removeItem);
-            }
+            throw new NotImplementedException();
         }
 
-        public void Update(TEntity entity)
+        public int Update(TEntity entity, bool isSave = true)
         {
-            DbContext.Set<TEntity>().Attach(entity);
-            DbContext.Entry(entity).State = EntityState.Modified;
+            throw new NotImplementedException();
         }
 
+        public TEntity GetByKey(object key)
+        {
+            throw new NotImplementedException();
+        }
 
-        public TEntity this[params object[] id]
+        public IUnitOfWork UnitOfWork
         {
             get
             {
-                return this.FindById(id);
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
             }
         }
     }
