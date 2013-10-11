@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using EasyAccess.Infrastructure.Entity;
+using EasyAccess.Infrastructure.UnitOfWork;
 
 namespace EasyAccess.Infrastructure.Repository
 {
     public interface IRepositoryBase<TEntity, in TKey> : IRepository 
         where TEntity : IAggregateRoot<TKey>
     {
+        IUnitOfWork UnitOfWork { get; set; }
 
         /// <summary>
         ///     获取 当前实体的查询数据集

@@ -1,7 +1,6 @@
 ﻿namespace EasyAccess.Infrastructure.Entity
 {
-    public interface IEntity<TKey>
+    public interface IEntity
     {
-        TKey Id { get; set; }
     }
 }

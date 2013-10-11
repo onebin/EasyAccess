@@ -5,6 +5,5 @@ namespace EasyAccess.Infrastructure.Repository
 {
     public interface IRepository 
     {
-        IUnitOfWork UnitOfWork { get; set; }
     }
 }
