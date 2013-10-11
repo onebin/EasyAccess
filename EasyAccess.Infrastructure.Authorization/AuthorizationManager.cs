@@ -71,7 +71,10 @@ namespace EasyAccess.Infrastructure.Authorization
             if (!_tokenToRoleId.ContainsKey(token))
             {
                 _tokenToRoleId.Add(token, roleIdLst);
-                _tokenToPermission.Add(token, permissionList.Select(x => x.Id).ToArray());
+                if (permissionList != null)
+                {
+                    _tokenToPermission.Add(token, permissionList.Select(x => x.Id).ToArray());
+                }
             }
 
             return token;

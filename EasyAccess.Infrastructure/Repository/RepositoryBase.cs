@@ -14,7 +14,7 @@ namespace EasyAccess.Infrastructure.Repository
         where TEntity : class, IAggregateRoot<TKey>
     {
 
-        public IUnitOfWork UnitOfWork { get; set; }
+        public virtual IUnitOfWork UnitOfWork { get; set; }
 
 
         protected UnitOfWorkContextBase UnitOfWorkContext

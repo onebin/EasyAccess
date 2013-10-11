@@ -17,7 +17,7 @@ namespace EasyAccess.Repository.Repositories
     public class AccountRepository : RepositoryBase<Account, long>, IAccountRepository
     {
 
-        public virtual ICollection<Role> GetRoles(long accountId)
+        public ICollection<Role> GetRoles(long accountId)
         {
             var account = base.UnitOfWorkContext.Set<Account,long>()
                               .Include(x => x.Roles)
@@ -29,7 +29,7 @@ namespace EasyAccess.Repository.Repositories
             return null;
         }
 
-        public virtual ICollection<Permission> GetPermissions(long accountId)
+        public ICollection<Permission> GetPermissions(long accountId)
         {
             var roles = this.GetRoles(accountId);
             ICollection<Permission> permissions = new Collection<Permission>();
