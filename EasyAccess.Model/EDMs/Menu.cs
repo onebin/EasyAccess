@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
+using EasyAccess.Infrastructure.Entity;
 
 namespace EasyAccess.Model.EDMs
 {
-    public class Menu
+    public class Menu : EntityBase<string>
     {
-        public string Id { get; set; }
-
         public string ParentId { get; set; }
 
         public string Name { get; set; }

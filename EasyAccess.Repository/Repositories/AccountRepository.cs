@@ -14,13 +14,12 @@ using EasyAccess.Repository.IRepositories;
 
 namespace EasyAccess.Repository.Repositories
 {
-    public class AccountRepository : RepositoryBase<Account>, IAccountRepository
+    public class AccountRepository : RepositoryBase<Account, long>, IAccountRepository
     {
-        public AccountRepository(DbContext dbcontext) : base(dbcontext) {}
 
-        public virtual ICollection<Role> GetRoles(long accountId)
+        public ICollection<Role> GetRoles(long accountId)
         {
-            var account = base.DbContext.Set<Account>()
+            var account = base.UnitOfWorkContext.Set<Account,long>()
                               .Include(x => x.Roles)
                               .SingleOrDefault(x => x.Id.Equals(accountId));
             if (account != null)
@@ -30,7 +29,7 @@ namespace EasyAccess.Repository.Repositories
             return null;
         }
 
-        public virtual ICollection<Permission> GetPermissions(long accountId)
+        public ICollection<Permission> GetPermissions(long accountId)
         {
             var roles = this.GetRoles(accountId);
             ICollection<Permission> permissions = new Collection<Permission>();
@@ -64,7 +63,7 @@ namespace EasyAccess.Repository.Repositories
 
         public Register GetRegister(string userName)
         {
-            var account = base.DbContext.Set<Account>()
+            var account = base.UnitOfWorkContext.Set<Account,long>()
                               .Include(x => x.Register)
                               .SingleOrDefault(x => x.Register.LoginUser.UserName.Equals(userName));
             return account != null ? account.Register : null;
@@ -92,7 +91,7 @@ namespace EasyAccess.Repository.Repositories
                 var salt = Guid.NewGuid();
                 register.Salt = salt;
                 register.LoginUser.Password = HashFunctionEncryption.Encrypt(loginUser.Password, salt);
-                base.DbContext.SaveChanges();
+                base.UnitOfWork.Commit();
             }
             else
             {

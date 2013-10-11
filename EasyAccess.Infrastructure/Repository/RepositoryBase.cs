@@ -2,71 +2,94 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using EasyAccess.Infrastructure.Entity;
+using EasyAccess.Infrastructure.UnitOfWork;
 
 namespace EasyAccess.Infrastructure.Repository
 {
-    public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class
+    public abstract class RepositoryBase<TEntity, TKey> : IRepositoryBase<TEntity, TKey>
+        where TEntity : class, IAggregateRoot<TKey>
     {
-        protected readonly DbContext DbContext;
 
-        protected RepositoryBase(DbContext dbContext)
-        {
-            DbContext = dbContext;
-        }
-
-        public IEnumerable<TEntity> LoadAll()
-        {
-            return DbContext.Set<TEntity>();
-        }
-
-        public TEntity FindById(params object[] id)
-        {
-            return DbContext.Set<TEntity>().Find(id);
-        }
-
-        public void Insert(TEntity entity)
-        {
-            DbContext.Set<TEntity>().Add(entity);
-        }
-
-        public void Delete(TEntity entity)
-        {
-            if (DbContext.Entry(entity).State == EntityState.Detached)
-            {
-                DbContext.Set<TEntity>().Attach(entity);
-            }
-            DbContext.Set<TEntity>().Remove(entity);
-        }
-
-        public void Delete(params object[] id)
-        {
-            var removeItem = this.FindById(id);
-            if (removeItem != null)
-            {
-                DbContext.Set<TEntity>().Remove(removeItem);
-            }
-        }
-
-        public void Update(TEntity entity)
-        {
-            DbContext.Set<TEntity>().Attach(entity);
-            DbContext.Entry(entity).State = EntityState.Modified;
-        }
+        public virtual IUnitOfWork UnitOfWork { get; set; }
 
 
-        public TEntity this[params object[] id]
+        protected UnitOfWorkContextBase UnitOfWorkContext
         {
             get
             {
-                return this.FindById(id);
+                if (UnitOfWork is UnitOfWorkContextBase)
+                {
+                    return UnitOfWork as UnitOfWorkContextBase;
+                }
+                throw new InvalidDataException("注入类型必须继承UnitOfWorkContextBase");
             }
         }
 
-        public IEnumerable<TEntity> Where(Expression<Func<TEntity, bool>>  predicate)
+        public TEntity GetById(TKey id)
         {
-            return DbContext.Set<TEntity>().Where(predicate);
+            return UnitOfWorkContext.Set<TEntity, TKey>().Find(id);
+        }
+
+        public IQueryable<TEntity> Entities
+        {
+            get { return UnitOfWorkContext.Set<TEntity, TKey>(); }
+        }
+
+        public int Insert(TEntity entity, bool isSave = true)
+        {
+            UnitOfWorkContext.RegisterNew<TEntity, TKey>(entity);
+            return isSave ? UnitOfWorkContext.Commit() : 0;
+        }
+
+        public int Insert(IEnumerable<TEntity> entities, bool isSave = true)
+        {
+            UnitOfWorkContext.RegisterNew<TEntity, TKey>(entities);
+            return isSave ? UnitOfWorkContext.Commit() : 0;
+        }
+
+        public int Delete(TKey id, bool isSave = true)
+        {
+            var entity = UnitOfWorkContext.Set<TEntity, TKey>().Find(id);
+            return entity != null ? Delete(entity, isSave) : 0;
+        }
+
+        public int Delete(TEntity entity, bool isSave = true)
+        {
+            UnitOfWorkContext.RegisterDeleted<TEntity, TKey>(entity);
+            return isSave ? UnitOfWorkContext.Commit() : 0;
+        }
+
+        public int Delete(IEnumerable<TEntity> entities, bool isSave = true)
+        {
+            UnitOfWorkContext.RegisterDeleted<TEntity, TKey>(entities);
+            return isSave ? UnitOfWorkContext.Commit() : 0;
+        }
+
+        public int Delete(Expression<Func<TEntity, bool>> predicate, bool isSave = true)
+        {
+            var entities = UnitOfWorkContext.Set<TEntity, TKey>().Where(predicate).ToList();
+            return entities.Count > 0 ? Delete(entities, isSave) : 0;
+        }
+
+        public int Update(TEntity entity, bool isSave = true)
+        {
+            UnitOfWorkContext.RegisterModified<TEntity, TKey>(entity);
+            return isSave ? UnitOfWorkContext.Commit() : 0;
+        }
+
+
+        public int Update(Expression<Func<TEntity, object>> propertyExpression, TEntity entity, bool isSave = true)
+        {
+            UnitOfWorkContext.RegisterModified<TEntity, TKey>(propertyExpression, entity);
+            if (!isSave) return 0;
+            var dbSet = UnitOfWorkContext.Set<TEntity, TKey>();
+            dbSet.Local.Clear();
+            var entry = UnitOfWorkContext.Entry<TEntity, TKey>(entity);
+            return UnitOfWorkContext.Commit();
         }
     }
 }

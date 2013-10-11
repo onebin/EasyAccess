@@ -55,6 +55,7 @@
     <Compile Include="IRepositories\IAccountRepository.cs" />
     <Compile Include="IRepositories\IRoleRepository.cs" />
     <Compile Include="Repositories\RoleRepository.cs" />
+    <Compile Include="UnitOfWork\EasyAccessUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EasyAccess.Infrastructure\EasyAccess.Infrastructure.csproj">

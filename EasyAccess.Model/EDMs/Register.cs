@@ -1,13 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using EasyAccess.Infrastructure.Entity;
 using EasyAccess.Model.DTOs;
 
 namespace EasyAccess.Model.EDMs
 {
-    public class Register
+    public class Register : EntityBase<long>
     {
-        public long Id { get; set; }
-
         public LoginUser LoginUser { get; set; }
 
         public Guid Salt { get; set; }

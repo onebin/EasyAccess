@@ -23,7 +23,6 @@ namespace EasyAccess.Repository.Configuration
                                 },
                             Contact = new Contact(),
                             Sex = 1,
-                            IsEnabled = true,
                             IsDeleted = false,
                             Register = new Register
                                 {
