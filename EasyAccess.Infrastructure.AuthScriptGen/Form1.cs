@@ -3,9 +3,9 @@ using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
 using System.Configuration;
-using EasyAccess.Infrastructure.AuthScriptGen.SqlHelper;
+using EasyAccess.Authorization.ScriptGenerator.SqlHelper;
 
-namespace EasyAccess.Infrastructure.AuthScriptGen
+namespace EasyAccess.Authorization.ScriptGenerator
 {
     public partial class Form1 : Form
     {

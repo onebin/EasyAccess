@@ -1,4 +1,4 @@
-﻿namespace EasyAccess.Infrastructure.AuthScriptGen
+﻿namespace EasyAccess.Authorization.ScriptGenerator
 {
     partial class Form1
     {

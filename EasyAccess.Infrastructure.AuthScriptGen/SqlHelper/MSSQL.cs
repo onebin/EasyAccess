@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EasyAccess.Infrastructure.AuthScriptGen.SqlHelper
+namespace EasyAccess.Authorization.ScriptGenerator.SqlHelper
 {
     public class MSSQL : ISqlStatement
     {

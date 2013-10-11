@@ -1,4 +1,4 @@
-﻿@using EasyAccess.Infrastructure.Authorization
+﻿@using EasyAccess.Authorization
 @using EasyAccess.Model.DTOs
 @{
     var menus = AuthorizationManager.GetInstance().GetMenu(((FormsIdentity)User.Identity).Ticket.UserData);

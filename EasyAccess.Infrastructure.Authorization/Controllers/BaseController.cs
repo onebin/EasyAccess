@@ -5,12 +5,11 @@ using System.Security;
 using System.Security.Permissions;
 using System.Web;
 using System.Web.Mvc;
-using EasyAccess.Infrastructure.Authorization.Filter;
-using EasyAccess.Infrastructure.Constant;
+using EasyAccess.Authorization.Filter;
 using EasyAccess.Model.EDMs;
 using Microsoft.Reporting.WebForms;
 
-namespace EasyAccess.Infrastructure.Authorization.Controllers
+namespace EasyAccess.Authorization.Controllers
 {
     [ExceptionFilter]
     public class BaseController : Controller

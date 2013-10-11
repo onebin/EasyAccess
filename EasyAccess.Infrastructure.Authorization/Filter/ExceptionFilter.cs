@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using EasyAccess.Infrastructure.Constant;
 
-namespace EasyAccess.Infrastructure.Authorization.Filter
+namespace EasyAccess.Authorization.Filter
 {
     public class ExceptionFilter : FilterAttribute, IExceptionFilter
     {

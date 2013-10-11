@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using EasyAccess.Infrastructure.Attr;
-using EasyAccess.Infrastructure.Authorization.Controllers;
-using EasyAccess.Infrastructure.Constant;
-using EasyAccess.Service.IServices;
+using EasyAccess.Authorization.Controllers;
 
 namespace Demo.MvcApplication.Controllers
 {

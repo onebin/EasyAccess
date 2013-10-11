@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Data.Entity;
-using System.Web;
-using System.Web.ModelBinding;
-using System.Web.Security;
-using EasyAccess.Infrastructure.Authorization;
-using EasyAccess.Infrastructure.Constant;
+using EasyAccess.Authorization;
 using EasyAccess.Infrastructure.Service;
-using EasyAccess.Infrastructure.UnitOfWork;
 using EasyAccess.Infrastructure.Util;
 using EasyAccess.Model.DTOs;
-using EasyAccess.Model.EDMs;
 using EasyAccess.Repository.IRepositories;
 using EasyAccess.Service.IServices;
 

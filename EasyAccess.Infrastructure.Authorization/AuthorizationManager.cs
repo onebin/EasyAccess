@@ -4,13 +4,12 @@ using System.Linq;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
-using EasyAccess.Infrastructure.Constant;
 using EasyAccess.Infrastructure.Util.Encryption;
 using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
 using EasyAccess.Repository.Configuration;
 
-namespace EasyAccess.Infrastructure.Authorization
+namespace EasyAccess.Authorization
 {
     public class AuthorizationManager
     {

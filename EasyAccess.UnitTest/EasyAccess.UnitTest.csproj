@@ -84,9 +84,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EasyAccess.Infrastructure.Authorization\EasyAccess.Infrastructure.Authorization.csproj">
+    <ProjectReference Include="..\EasyAccess.Infrastructure.Authorization\EasyAccess.Authorization.csproj">
       <Project>{c858c06a-f7ce-40d2-9064-8d708f1e77b9}</Project>
-      <Name>EasyAccess.Infrastructure.Authorization</Name>
+      <Name>EasyAccess.Authorization</Name>
     </ProjectReference>
     <ProjectReference Include="..\EasyAccess.Infrastructure\EasyAccess.Infrastructure.csproj">
       <Project>{f423a8a3-1ff4-4c09-8dd1-2071cbf61021}</Project>

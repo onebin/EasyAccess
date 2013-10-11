@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace EasyAccess.Infrastructure.AuthScriptGen
+namespace EasyAccess.Authorization.ScriptGenerator
 {
     static class Program
     {

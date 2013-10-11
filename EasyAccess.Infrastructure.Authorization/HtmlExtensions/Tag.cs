@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Mvc;
-using System.Web.Routing;
+﻿using System.Web.Routing;
 using System.Web.Security;
-using EasyAccess.Infrastructure.Authorization;
-using EasyAccess.Infrastructure.Constant;
+using EasyAccess.Authorization;
 
 // ReSharper disable CheckNamespace
 namespace System.Web.Mvc.Html

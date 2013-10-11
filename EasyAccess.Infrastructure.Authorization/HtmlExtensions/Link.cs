@@ -1,4 +1,4 @@
-﻿using EasyAccess.Infrastructure.Authorization;
+﻿using EasyAccess.Authorization;
 using System.Web.Routing;
 using EasyAccess.Model.EDMs;
 

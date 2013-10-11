@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Security;
-using EasyAccess.Infrastructure.Authorization.Controllers;
+﻿using System.Web.Mvc;
+using EasyAccess.Authorization.Controllers;
 using EasyAccess.Infrastructure.Constant;
-using EasyAccess.Infrastructure.Util;
 using EasyAccess.Model.DTOs;
 using EasyAccess.Service.IServices;
 

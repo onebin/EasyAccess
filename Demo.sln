@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.20827.3
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyAccess.Infrastructure", "EasyAccess.Infrastructure\EasyAccess.Infrastructure.csproj", "{F423A8A3-1FF4-4C09-8DD1-2071CBF61021}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyAccess.Infrastructure.Authorization", "EasyAccess.Infrastructure.Authorization\EasyAccess.Infrastructure.Authorization.csproj", "{C858C06A-F7CE-40D2-9064-8D708F1E77B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyAccess.Authorization", "EasyAccess.Infrastructure.Authorization\EasyAccess.Authorization.csproj", "{C858C06A-F7CE-40D2-9064-8D708F1E77B9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyAccess.Model", "EasyAccess.Model\EasyAccess.Model.csproj", "{09C303B7-DB4F-4774-9D38-A4665F172676}"
 EndProject
@@ -13,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.MvcApplication", "Demo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.MvcApplication.Tests", "Demo.MvcApplication.Tests\Demo.MvcApplication.Tests.csproj", "{5B675A74-7C43-4225-A62A-071F791D0C12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyAccess.Infrastructure.AuthScriptGen", "EasyAccess.Infrastructure.AuthScriptGen\EasyAccess.Infrastructure.AuthScriptGen.csproj", "{1CC01A34-54F3-4546-B19F-7956D62578B2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyAccess.Authorization.ScriptGenerator", "EasyAccess.Infrastructure.AuthScriptGen\EasyAccess.Authorization.ScriptGenerator.csproj", "{1CC01A34-54F3-4546-B19F-7956D62578B2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyAccess.Service", "EasyAccess.Service\EasyAccess.Service.csproj", "{0D0A58C2-921D-4C9E-B33E-7E06AFB441B6}"
 EndProject

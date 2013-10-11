@@ -1,6 +1,6 @@
-﻿using EasyAccess.Infrastructure.Authorization.Filter;
+﻿using EasyAccess.Authorization.Filter;
 
-namespace EasyAccess.Infrastructure.Authorization.Controllers
+namespace EasyAccess.Authorization.Controllers
 {
     [AuthorizationFilter]
     public class AuthorizationController : BaseController

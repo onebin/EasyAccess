@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using EasyAccess.Infrastructure.Authorization;
+using EasyAccess.Authorization;
 using EasyAccess.Model.EDMs;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

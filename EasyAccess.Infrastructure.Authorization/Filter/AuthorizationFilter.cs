@@ -6,7 +6,7 @@ using System.Web.Security;
 using EasyAccess.Infrastructure.Attr;
 using EasyAccess.Infrastructure.Constant;
 
-namespace EasyAccess.Infrastructure.Authorization.Filter
+namespace EasyAccess.Authorization.Filter
 {
     public class AuthorizationFilter : AuthorizeAttribute
     {

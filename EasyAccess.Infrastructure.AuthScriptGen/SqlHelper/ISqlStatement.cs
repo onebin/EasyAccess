@@ -1,4 +1,4 @@
-﻿namespace EasyAccess.Infrastructure.AuthScriptGen.SqlHelper
+﻿namespace EasyAccess.Authorization.ScriptGenerator.SqlHelper
 {
     public interface ISqlStatement
     {

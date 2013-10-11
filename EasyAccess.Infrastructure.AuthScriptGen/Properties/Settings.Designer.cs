@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EasyAccess.Infrastructure.AuthScriptGen.Properties {
+namespace EasyAccess.Authorization.ScriptGenerator.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

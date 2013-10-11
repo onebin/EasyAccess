@@ -7,8 +7,8 @@
     <ProjectGuid>{C858C06A-F7CE-40D2-9064-8D708F1E77B9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EasyAccess.Infrastructure.Authorization</RootNamespace>
-    <AssemblyName>EasyAccess.Infrastructure.Authorization</AssemblyName>
+    <RootNamespace>EasyAccess.Authorization</RootNamespace>
+    <AssemblyName>EasyAccess.Authorization</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

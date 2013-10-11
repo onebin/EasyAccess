@@ -1,4 +1,4 @@
-﻿using EasyAccess.Infrastructure.Authorization;
+﻿using EasyAccess.Authorization;
 using EasyAccess.Model.EDMs;
 
 // ReSharper disable CheckNamespace
