@@ -24,6 +24,8 @@ namespace EasyAccess.Infrastructure.Authorization
         private readonly Dictionary<string, string[]> _tokenToPermission = new Dictionary<string, string[]>();
         private readonly Dictionary<string, long[]> _tokenToRoleId = new Dictionary<string, long[]>();
 
+        private static readonly string[] TokenDivider = new string[] { "^%y7@&#l,58", "%fa)ft'rtq2", "2a!4%}qwr]" };
+
         private AuthorizationManager()
         {
             var ctx = new EasyAccessContext();
@@ -62,10 +64,10 @@ namespace EasyAccess.Infrastructure.Authorization
         {
             string token = string.Empty;
             var roleIdLst = roleList.OrderBy(x => x.Id).Select(x => x.Id).ToArray();
-            var dividerCount = SessionConst.TokenDivider.Length;
+            var dividerCount = TokenDivider.Length;
             for (int i = 0; i < roleIdLst.Count(); i++)
             {
-                token += SessionConst.TokenDivider[i%dividerCount] + roleIdLst[i];
+                token += TokenDivider[i % dividerCount] + roleIdLst[i];
             }
             token = MD5Encryption.Encrypt(token);
             if (!_tokenToRoleId.ContainsKey(token))
@@ -286,7 +288,6 @@ namespace EasyAccess.Infrastructure.Authorization
 
         public void SetTicket(string userName, string token, bool rememberMe)
         {
-            HttpContext.Current.Session[SessionConst.Token] = token;
             var expiration = rememberMe ? DateTime.Now.AddDays(7) : DateTime.Now.Add(FormsAuthentication.Timeout);
             var ticket = new FormsAuthenticationTicket(1, userName, DateTime.Now, expiration, true, token);
             var hashTicket = FormsAuthentication.Encrypt(ticket);

@@ -54,7 +54,6 @@
     <Compile Include="Attr\MenuAttribute.cs" />
     <Compile Include="Attr\PermissionAttribute.cs" />
     <Compile Include="Constant\EnumConst.cs" />
-    <Compile Include="Constant\SessionConst.cs" />
     <Compile Include="Constant\ViewDataConst.cs" />
     <Compile Include="Entity\EntityBase.cs" />
     <Compile Include="Entity\IAggregateRoot.cs" />

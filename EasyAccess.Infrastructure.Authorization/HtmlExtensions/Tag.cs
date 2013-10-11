@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Security;
 using EasyAccess.Infrastructure.Authorization;
 using EasyAccess.Infrastructure.Constant;
 
@@ -184,7 +185,7 @@ namespace System.Web.Mvc.Html
         /// <returns></returns>
         public bool VerifyPermission()
         {
-            return AuthorizationManager.GetInstance().VerifyPermission(this.PermissionId, HttpContext.Current.Session[SessionConst.Token].ToString());
+            return AuthorizationManager.GetInstance().VerifyPermission(this.PermissionId, ((FormsIdentity)HttpContext.Current.User.Identity).Ticket.UserData);
         }
     }
 }

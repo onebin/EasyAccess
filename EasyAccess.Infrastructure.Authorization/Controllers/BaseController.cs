@@ -20,15 +20,7 @@ namespace EasyAccess.Infrastructure.Authorization.Controllers
         /// </summary>
         public Account CurrentAccount
         {
-            get { return Session[SessionConst.CurrentAccount] as Account; }
-        }
-
-        /// <summary>
-        /// 令牌
-        /// </summary>
-        public string Token
-        {
-            get { return Session[SessionConst.Token].ToString(); }
+            get { return null; }
         }
 
         #region 成员变量
