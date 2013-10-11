@@ -5,5 +5,10 @@
     <property name="AccountRepository" ref="AccountRepository" />
     <property name="UnitOfWork" ref="EasyAccessUnitOfWork" />
   </object>
+
+  <object id="AccountManageService" type="EasyAccess.Service.Services.AccountManageService, EasyAccess.Service">
+    <property name="AccountRepository" ref="AccountRepository" />
+    <property name="UnitOfWork" ref="EasyAccessUnitOfWork" />
+  </object>
   
 </objects>
