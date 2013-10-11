@@ -3,8 +3,16 @@
          xmlns:db="http://www.springframework.net/database">
   <object id="EasyAccessContext" type="EasyAccess.Repository.Configuration.EasyAccessContext, EasyAccess.Repository" singleton="false" />
 
-  <object id="EasyAccessUnitOfWork" type="EasyAccess.Infrastructure.UnitOfWork.UnitOfWorkBase, EasyAccess.Infrastructure" singleton="false">
-    <constructor-arg name="dbContext" ref="EasyAccessContext" />
+  <object id="EasyAccessUnitOfWork" type="EasyAccess.Repository.UnitOfWork.EasyAccessUnitOfWork, EasyAccess.Repository" singleton="false">
+    <property name="EasyAccessContext" ref="EasyAccessContext" />
+  </object>
+
+  <object id="AccountRepository" type="EasyAccess.Repository.Repositories.AccountRepository, EasyAccess.Repository">
+    <property name="UnitOfWork" ref="EasyAccessUnitOfWork"></property>
+  </object>
+  
+  <object id="RoleRepository" type="EasyAccess.Repository.Repositories.RoleRepository, EasyAccess.Repository">
+    <property name="UnitOfWork" ref="EasyAccessUnitOfWork"></property>
   </object>
   
 </objects>

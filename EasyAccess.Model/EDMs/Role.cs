@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
+using EasyAccess.Infrastructure.Entity;
 
 namespace EasyAccess.Model.EDMs
 {
-    public class Role
+    public class Role : EntityBase<long>, IAggregateRoot<long>
     {
-        public long Id { get; set; }
-
         public string Name { get; set; }
 
         public string HomePage { get; set; }

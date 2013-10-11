@@ -7,6 +7,7 @@ using EasyAccess.Model.EDMs;
 using EasyAccess.Repository.Configuration;
 using EasyAccess.Repository.IRepositories;
 using EasyAccess.Repository.Repositories;
+using EasyAccess.Repository.UnitOfWork;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -40,8 +41,8 @@ namespace EasyAccess.UnitTest.TestRepository
         [TestMethod]
         public void TestGetPermissions()
         {
-            var accountRepositoryMock = new Mock<AccountRepository>(null);
-
+            var accountRepositoryMock = new Mock<AccountRepository>();
+            accountRepositoryMock.SetupProperty(x => x.UnitOfWork, new EasyAccessUnitOfWork() { EasyAccessContext = new EasyAccessContext()});
             //GetPermissions -virtual ， GetRoles +virtual
             accountRepositoryMock.Setup(x => x.GetRoles(It.IsAny<long>())).Returns(Roles);
             var permissions = accountRepositoryMock.Object.GetPermissions(1);
@@ -58,7 +59,7 @@ namespace EasyAccess.UnitTest.TestRepository
         [TestMethod]
         public void TestGetMenus()
         {
-            var accountRepositoryMock = new Mock<AccountRepository>(null);
+            var accountRepositoryMock = new Mock<AccountRepository>();
 
             //GetPermissions +virtual
             accountRepositoryMock.Setup(x => x.GetPermissions(It.IsAny<long>())).Returns(Permissions);
@@ -75,7 +76,7 @@ namespace EasyAccess.UnitTest.TestRepository
         [TestMethod]
         public void TestVerifyLogin()
         {
-            IAccountRepository repo = new AccountRepository(new EasyAccessContext());
+            IAccountRepository repo = new AccountRepository();
             var account = repo.VerifyLogin(new LoginUser{ UserName = "Admin", Password = "123456" });
             Assert.IsNotNull(account);
         }

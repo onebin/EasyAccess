@@ -75,7 +75,6 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestAuthorization\AuthorizationManagerTest.cs" />
-    <Compile Include="TestInfrastructure\TestRepository\RepositoryBaseTest.cs" />
     <Compile Include="TestInfrastructure\TestUnitOfWork\UnitOfWorkBaseTest.cs" />
     <Compile Include="TestRepository\AccountRepositoryTest.cs" />
     <Compile Include="TestRepository\EasyAccessInitializerTest.cs" />
@@ -103,7 +102,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="TestInfrastructure\TestUtil\TestEncryption\" />
+    <Folder Include="TestInfrastructure\TestRepository\" />
+    <Folder Include="TestInfrastructure\TestUtil\" />
     <Folder Include="TestService\" />
   </ItemGroup>
   <Choose>

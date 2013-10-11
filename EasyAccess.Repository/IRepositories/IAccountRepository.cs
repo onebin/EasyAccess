@@ -5,7 +5,7 @@ using EasyAccess.Model.EDMs;
 
 namespace EasyAccess.Repository.IRepositories
 {
-    public interface IAccountRepository: IRepositoryBase<Account>
+    public interface IAccountRepository: IRepositoryBase<Account, long>
     {
         ICollection<Role> GetRoles(long accountId);
 
