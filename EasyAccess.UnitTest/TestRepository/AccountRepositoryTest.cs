@@ -1,20 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using EasyAccess.Infrastructure.UnitOfWork;
+using EasyAccess.Infrastructure.Util.ConditionBuilder;
 using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
 using EasyAccess.Repository.Configuration;
 using EasyAccess.Repository.IRepositories;
 using EasyAccess.Repository.Repositories;
 using EasyAccess.Repository.UnitOfWork;
+using EasyAccess.UnitTest.SpringTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Spring.Context;
 
 namespace EasyAccess.UnitTest.TestRepository
 {
     [TestClass]
-    public class AccountRepositoryTest
+    public class AccountRepositoryTest : SpringTestBase
     {
         private static readonly ICollection<Menu> Menus = new Collection<Menu>
             {
@@ -42,7 +45,7 @@ namespace EasyAccess.UnitTest.TestRepository
         public void TestGetPermissions()
         {
             var accountRepositoryMock = new Mock<AccountRepository>();
-            accountRepositoryMock.SetupProperty(x => x.UnitOfWork, new EasyAccessUnitOfWork() { EasyAccessContext = new EasyAccessContext()});
+            accountRepositoryMock.SetupProperty(x => x.UnitOfWork, new EasyAccessUnitOfWork(new EasyAccessContext()));
             //GetPermissions -virtual ， GetRoles +virtual
             accountRepositoryMock.Setup(x => x.GetRoles(It.IsAny<long>())).Returns(Roles);
             var permissions = accountRepositoryMock.Object.GetPermissions(1);
@@ -76,9 +79,16 @@ namespace EasyAccess.UnitTest.TestRepository
         [TestMethod]
         public void TestVerifyLogin()
         {
-            IAccountRepository repo = new AccountRepository();
-            var account = repo.VerifyLogin(new LoginUser{ UserName = "Admin", Password = "123456" });
+            var account = AccountRepository.VerifyLogin(new LoginUser{ UserName = "Admin", Password = "123456" });
             Assert.IsNotNull(account);
+        }
+
+        [TestMethod]
+        public void TestConditionBuilder()
+        {
+            var builder = new ConditionBuilder<Account>(x => x.IsDeleted == false);
+            builder.And(x => x.Sex == 1);
+
         }
     }
 }

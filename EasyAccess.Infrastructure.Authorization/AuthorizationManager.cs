@@ -16,7 +16,7 @@ namespace EasyAccess.Authorization
     {
         private static AuthorizationManager _instance = null;
         private static readonly object Locker = new object(); 
-        private ReaderWriterLockSlim rwLocker = new ReaderWriterLockSlim();
+        private readonly ReaderWriterLockSlim _rwLocker = new ReaderWriterLockSlim();
 
         private readonly List<Menu> _menuLst = new List<Menu>();
         private readonly List<Permission> _permissionLst = new List<Permission>();
@@ -72,12 +72,12 @@ namespace EasyAccess.Authorization
             }
             token = MD5Encryption.Encrypt(token);
 
-            rwLocker.EnterUpgradeableReadLock();
+            _rwLocker.EnterUpgradeableReadLock();
             try
             {
                 if (!_tokenToRoleId.ContainsKey(token))
                 {
-                    rwLocker.EnterWriteLock();
+                    _rwLocker.EnterWriteLock();
                     try
                     {
                         _tokenToRoleId.Add(token, roleIdLst);
@@ -88,13 +88,13 @@ namespace EasyAccess.Authorization
                     }
                     finally
                     {
-                        rwLocker.ExitWriteLock();
+                        _rwLocker.ExitWriteLock();
                     }
                 }
             }
             finally
             {
-                rwLocker.ExitUpgradeableReadLock();
+                _rwLocker.ExitUpgradeableReadLock();
             }
            
 
@@ -109,7 +109,7 @@ namespace EasyAccess.Authorization
         private long[] GetRoleIdList(string token)
         {
             long[] roldIdLst;
-            rwLocker.EnterReadLock();
+            _rwLocker.EnterReadLock();
             try
             {
                 if (!_tokenToRoleId.TryGetValue(token, out roldIdLst))
@@ -119,7 +119,7 @@ namespace EasyAccess.Authorization
             }
             finally
             {
-                rwLocker.ExitReadLock();
+                _rwLocker.ExitReadLock();
             }
             return roldIdLst;
         }
@@ -142,26 +142,26 @@ namespace EasyAccess.Authorization
         public List<MenuItem> GetMenu(string token)
         {
             List<MenuItem> returnVal = null;
-            rwLocker.EnterUpgradeableReadLock();
+            _rwLocker.EnterUpgradeableReadLock();
             try
             {
                 if (!_tokenToMenuItem.TryGetValue(token, out returnVal))
                 {
                     returnVal = BuildMenu(token);
-                    rwLocker.EnterWriteLock();
+                    _rwLocker.EnterWriteLock();
                     try
                     {
                         _tokenToMenuItem.Add(token, returnVal);
                     }
                     finally
                     {
-                        rwLocker.ExitWriteLock();
+                        _rwLocker.ExitWriteLock();
                     }
                 }
             }
             finally
             {
-                rwLocker.ExitUpgradeableReadLock();
+                _rwLocker.ExitUpgradeableReadLock();
             }
             return returnVal;
         }
@@ -175,7 +175,7 @@ namespace EasyAccess.Authorization
         public List<MenuItem> GetSubMenu(string menuId, string token)
         {
             List<MenuItem> returnVal = null;
-            rwLocker.EnterReadLock();
+            _rwLocker.EnterReadLock();
             try
             {
                 returnVal = _tokenToMenuItem.First(e => e.Key == token).Value
@@ -184,7 +184,7 @@ namespace EasyAccess.Authorization
             }
             finally
             {
-                rwLocker.ExitReadLock();
+                _rwLocker.ExitReadLock();
             }
             return returnVal;
         }
@@ -280,7 +280,7 @@ namespace EasyAccess.Authorization
         public string[] GetPermissionId(string token)
         {
             string[] permissionIdlst;
-            rwLocker.EnterReadLock();
+            _rwLocker.EnterReadLock();
             try
             {
                 if (!_tokenToPermission.TryGetValue(token, out permissionIdlst))
@@ -290,7 +290,7 @@ namespace EasyAccess.Authorization
             }
             finally
             {
-                rwLocker.ExitReadLock();
+                _rwLocker.ExitReadLock();
             }
             return permissionIdlst;
         }
@@ -338,13 +338,13 @@ namespace EasyAccess.Authorization
         /// <param name="roldId">角色Id</param>
         public void RebuildFuncAndMenuDic(long roldId)
         {
-            rwLocker.EnterUpgradeableReadLock();
+            _rwLocker.EnterUpgradeableReadLock();
             try
             {
                 var tokens = _tokenToRoleId.Where(x => x.Value.Contains(roldId)).Select(x => x.Key);
                 foreach (var token in tokens)
                 {
-                    rwLocker.EnterWriteLock();
+                    _rwLocker.EnterWriteLock();
                     try
                     {
                         _tokenToMenuItem.Remove(token);
@@ -352,13 +352,13 @@ namespace EasyAccess.Authorization
                     }
                     finally
                     {
-                        rwLocker.ExitWriteLock();
+                        _rwLocker.ExitWriteLock();
                     }
                 }
             }
             finally
             {
-                rwLocker.ExitUpgradeableReadLock();
+                _rwLocker.ExitUpgradeableReadLock();
             }
         }
 

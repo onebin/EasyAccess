@@ -4,7 +4,7 @@
   <object id="EasyAccessContext" type="EasyAccess.Repository.Configuration.EasyAccessContext, EasyAccess.Repository" singleton="false" />
 
   <object id="EasyAccessUnitOfWork" type="EasyAccess.Repository.UnitOfWork.EasyAccessUnitOfWork, EasyAccess.Repository">
-    <property name="EasyAccessContext" ref="EasyAccessContext" />
+    <constructor-arg name="context" ref="EasyAccessContext"/>
   </object>
 
   <object id="AccountRepository" type="EasyAccess.Repository.Repositories.AccountRepository, EasyAccess.Repository">

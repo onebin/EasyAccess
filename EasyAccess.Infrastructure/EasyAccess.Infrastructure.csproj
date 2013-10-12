@@ -54,7 +54,7 @@
     <Compile Include="Attr\MenuAttribute.cs" />
     <Compile Include="Attr\PermissionAttribute.cs" />
     <Compile Include="Constant\EnumConst.cs" />
-    <Compile Include="Constant\ViewDataConst.cs" />
+    <Compile Include="Constant\ViewConst.cs" />
     <Compile Include="Entity\EntityBase.cs" />
     <Compile Include="Entity\IAggregateRoot.cs" />
     <Compile Include="Entity\IEntity.cs" />
@@ -67,7 +67,7 @@
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="UnitOfWork\IUnitOfWorkContext.cs" />
     <Compile Include="UnitOfWork\UnitOfWorkContextBase.cs" />
-    <Compile Include="Util\ConditionBuilder.cs" />
+    <Compile Include="Util\ConditionBuilder\ConditionBuilder.cs" />
     <Compile Include="Util\DataConverter\ConvertToDataTable.cs" />
     <Compile Include="Util\DataConverter\ConvertToDictionary.cs" />
     <Compile Include="Util\DataConverter\ConvertToDictionaryTree.cs" />

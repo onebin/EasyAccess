@@ -7,7 +7,12 @@ namespace EasyAccess.Repository.UnitOfWork
 {
     public class EasyAccessUnitOfWork : UnitOfWorkContextBase
     {
-        public EasyAccessContext EasyAccessContext { get; set; }
+        public EasyAccessUnitOfWork(EasyAccessContext context)
+        {
+            EasyAccessContext = context;
+        }
+
+        protected EasyAccessContext EasyAccessContext { get; private set; }
 
         protected override DbContext DbContext
         {
