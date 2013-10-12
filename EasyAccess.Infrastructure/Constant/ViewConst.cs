@@ -5,12 +5,14 @@ using System.Text;
 
 namespace EasyAccess.Infrastructure.Constant
 {
-    public class ViewDataConst
+    public class ViewConst
     {
         public const string ErrorMessage = "ErrorMessage";
 
         public const string FailureMessage = "FailureMessage";
 
         public const string Message = "Message";
+
+        public const string ErrorPageName = "Error";
     }
 }

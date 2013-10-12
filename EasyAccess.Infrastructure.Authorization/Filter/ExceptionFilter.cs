@@ -7,10 +7,10 @@ namespace EasyAccess.Authorization.Filter
     {
         void IExceptionFilter.OnException(ExceptionContext filterContext)
         {
-            filterContext.Controller.ViewData[ViewDataConst.ErrorMessage] = filterContext.Exception.Message;
+            filterContext.Controller.ViewData[ViewConst.ErrorMessage] = filterContext.Exception.Message;
             filterContext.Result = new ViewResult()
             {
-                ViewName = "Error",
+                ViewName = ViewConst.ErrorPageName,
                 ViewData = filterContext.Controller.ViewData,
             };
             filterContext.ExceptionHandled = true;

@@ -34,7 +34,7 @@ namespace EasyAccess.Authorization.Filter
 
             if (!HttpContext.Current.Request.IsAuthenticated)
             {
-                filterContext.Result = RedirectLoginPage();
+                FormsAuthentication.RedirectToLoginPage();
             }
             else
             {
@@ -46,11 +46,10 @@ namespace EasyAccess.Authorization.Filter
         {
             object[] attrs = filterContext.ActionDescriptor.GetCustomAttributes(false);
             var identity = filterContext.HttpContext.User.Identity as FormsIdentity;
-            var token = string.Empty;
             var mgr = AuthorizationManager.GetInstance();
             if (identity != null)
             {
-                token = identity.Ticket.UserData;
+                var token = identity.Ticket.UserData;
 
                 if (mgr.IsExistToken(token))
                 {
@@ -64,7 +63,12 @@ namespace EasyAccess.Authorization.Filter
                                 if (!mgr.VerifyPermission(permission.Id, token))
                                 {
                                     _httpContext.Response.StatusCode = (int) StatusCode.Unauthorized;
-                                    filterContext.Result = new ViewResult() {ViewName = "NoPermission"};
+                                    filterContext.Controller.ViewData[ViewConst.ErrorMessage] = "没有【" + permission.Name + "】的权限";
+                                    filterContext.Result = new ViewResult()
+                                        {
+                                            ViewName = ViewConst.ErrorPageName,
+                                            ViewData = filterContext.Controller.ViewData
+                                        };
                                 }
                             }
                         }
@@ -73,19 +77,20 @@ namespace EasyAccess.Authorization.Filter
                 else
                 {
                     _httpContext.Response.StatusCode = (int)StatusCode.Error;
-                    filterContext.Result = RedirectLoginPage();
+                    FormsAuthentication.RedirectToLoginPage();
                 }
             }
             else
             {
                 _httpContext.Response.StatusCode = (int)StatusCode.Forbidden;
-                filterContext.Result = RedirectLoginPage();
+                FormsAuthentication.RedirectToLoginPage();
             }
         }
 
         /// <summary>
         /// 重定向到登录页
         /// </summary>
+        [Obsolete("使用FormsAuthentication.RedirectToLoginPage代替")]
         public ActionResult RedirectLoginPage()
         {
             return new RedirectToRouteResult("Default",

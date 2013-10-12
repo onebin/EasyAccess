@@ -20,11 +20,11 @@ namespace Demo.MvcApplication.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewData[ViewDataConst.ErrorMessage] = "用户名和密码不能为空";
+                ViewData[ViewConst.ErrorMessage] = "用户名和密码不能为空";
             }
             else if (!LoginService.Login(loginUser))
             {
-                ViewData[ViewDataConst.FailureMessage] = "用户名或密码无效";
+                ViewData[ViewConst.FailureMessage] = "用户名或密码无效";
             }
             else
             {
