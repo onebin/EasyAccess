@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
+using System.Threading;
 using System.Web;
 using System.Web.Security;
 using EasyAccess.Infrastructure.Util.Encryption;
@@ -14,7 +15,8 @@ namespace EasyAccess.Authorization
     public class AuthorizationManager
     {
         private static AuthorizationManager _instance = null;
-        private static readonly object Locker = new object();
+        private static readonly object Locker = new object(); 
+        private ReaderWriterLockSlim rwLocker = new ReaderWriterLockSlim();
 
         private readonly List<Menu> _menuLst = new List<Menu>();
         private readonly List<Permission> _permissionLst = new List<Permission>();
@@ -69,14 +71,32 @@ namespace EasyAccess.Authorization
                 token += TokenDivider[i % dividerCount] + roleIdLst[i];
             }
             token = MD5Encryption.Encrypt(token);
-            if (!_tokenToRoleId.ContainsKey(token))
+
+            rwLocker.EnterUpgradeableReadLock();
+            try
             {
-                _tokenToRoleId.Add(token, roleIdLst);
-                if (permissionList != null)
+                if (!_tokenToRoleId.ContainsKey(token))
                 {
-                    _tokenToPermission.Add(token, permissionList.Select(x => x.Id).ToArray());
+                    rwLocker.EnterWriteLock();
+                    try
+                    {
+                        _tokenToRoleId.Add(token, roleIdLst);
+                        if (permissionList != null)
+                        {
+                            _tokenToPermission.Add(token, permissionList.Select(x => x.Id).ToArray());
+                        }
+                    }
+                    finally
+                    {
+                        rwLocker.ExitWriteLock();
+                    }
                 }
             }
+            finally
+            {
+                rwLocker.ExitUpgradeableReadLock();
+            }
+           
 
             return token;
         }
@@ -89,9 +109,17 @@ namespace EasyAccess.Authorization
         private long[] GetRoleIdList(string token)
         {
             long[] roldIdLst;
-            if (!_tokenToRoleId.TryGetValue(token, out roldIdLst))
+            rwLocker.EnterReadLock();
+            try
             {
-                throw new IdentityNotMappedException("未能根据用户自定义标识关联到相应角色Id");
+                if (!_tokenToRoleId.TryGetValue(token, out roldIdLst))
+                {
+                    throw new IdentityNotMappedException("未能根据用户自定义标识关联到相应角色Id");
+                }
+            }
+            finally
+            {
+                rwLocker.ExitReadLock();
             }
             return roldIdLst;
         }
@@ -114,10 +142,26 @@ namespace EasyAccess.Authorization
         public List<MenuItem> GetMenu(string token)
         {
             List<MenuItem> returnVal = null;
-            if (!_tokenToMenuItem.TryGetValue(token, out returnVal))
+            rwLocker.EnterUpgradeableReadLock();
+            try
             {
-                returnVal = BuildMenu(token);
-                _tokenToMenuItem.Add(token, returnVal);
+                if (!_tokenToMenuItem.TryGetValue(token, out returnVal))
+                {
+                    returnVal = BuildMenu(token);
+                    rwLocker.EnterWriteLock();
+                    try
+                    {
+                        _tokenToMenuItem.Add(token, returnVal);
+                    }
+                    finally
+                    {
+                        rwLocker.ExitWriteLock();
+                    }
+                }
+            }
+            finally
+            {
+                rwLocker.ExitUpgradeableReadLock();
             }
             return returnVal;
         }
@@ -131,8 +175,17 @@ namespace EasyAccess.Authorization
         public List<MenuItem> GetSubMenu(string menuId, string token)
         {
             List<MenuItem> returnVal = null;
-            returnVal = _tokenToMenuItem.First(e => e.Key == token).Value
-                .Where(e => e.ParentId == menuId).Select(e => e).ToList<MenuItem>();
+            rwLocker.EnterReadLock();
+            try
+            {
+                returnVal = _tokenToMenuItem.First(e => e.Key == token).Value
+                    .Where(e => e.ParentId == menuId).Select(e => e).ToList<MenuItem>();
+
+            }
+            finally
+            {
+                rwLocker.ExitReadLock();
+            }
             return returnVal;
         }
 
@@ -227,9 +280,17 @@ namespace EasyAccess.Authorization
         public string[] GetPermissionId(string token)
         {
             string[] permissionIdlst;
-            if (!_tokenToPermission.TryGetValue(token, out permissionIdlst))
+            rwLocker.EnterReadLock();
+            try
             {
-                throw new IdentityNotMappedException("未能根据用户自定义标识关联到相应权限Id");
+                if (!_tokenToPermission.TryGetValue(token, out permissionIdlst))
+                {
+                    throw new IdentityNotMappedException("未能根据用户自定义标识关联到相应权限Id");
+                }
+            }
+            finally
+            {
+                rwLocker.ExitReadLock();
             }
             return permissionIdlst;
         }
@@ -277,11 +338,27 @@ namespace EasyAccess.Authorization
         /// <param name="roldId">角色Id</param>
         public void RebuildFuncAndMenuDic(long roldId)
         {
-            var tokens = _tokenToRoleId.Where(x => x.Value.Contains(roldId)).Select(x => x.Key);
-            foreach (var token in tokens)
+            rwLocker.EnterUpgradeableReadLock();
+            try
             {
-                _tokenToMenuItem.Remove(token);
-                _tokenToPermission.Remove(token);
+                var tokens = _tokenToRoleId.Where(x => x.Value.Contains(roldId)).Select(x => x.Key);
+                foreach (var token in tokens)
+                {
+                    rwLocker.EnterWriteLock();
+                    try
+                    {
+                        _tokenToMenuItem.Remove(token);
+                        _tokenToPermission.Remove(token);
+                    }
+                    finally
+                    {
+                        rwLocker.ExitWriteLock();
+                    }
+                }
+            }
+            finally
+            {
+                rwLocker.ExitUpgradeableReadLock();
             }
         }
 
