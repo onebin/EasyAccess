@@ -53,7 +53,7 @@
     <Compile Include="Services\LoginService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EasyAccess.Infrastructure.Authorization\EasyAccess.Authorization.csproj">
+    <ProjectReference Include="..\EasyAccess.Authorization\EasyAccess.Authorization.csproj">
       <Project>{c858c06a-f7ce-40d2-9064-8d708f1e77b9}</Project>
       <Name>EasyAccess.Authorization</Name>
     </ProjectReference>

@@ -82,14 +82,5 @@ namespace EasyAccess.UnitTest.TestRepository
             var account = AccountRepository.VerifyLogin(new LoginUser{ UserName = "Admin", Password = "123456" });
             Assert.IsNotNull(account);
         }
-
-        [TestMethod]
-        public void TestConditionBuilder()
-        {
-            var builder = new ConditionBuilder<Account>(x => x.IsDeleted == false);
-            builder.And(x => x.Sex == 1);
-            var account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
-            Assert.IsNotNull(account);
-        }
     }
 }

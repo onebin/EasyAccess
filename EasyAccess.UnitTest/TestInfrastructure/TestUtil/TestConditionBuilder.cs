@@ -1,11 +1,14 @@
-﻿using EasyAccess.Infrastructure.Util.ConditionBuilder;
+﻿using System.Linq;
+using EasyAccess.Infrastructure.Util.ConditionBuilder;
 using EasyAccess.Model.EDMs;
+using EasyAccess.Repository.Repositories;
+using EasyAccess.UnitTest.SpringTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
 {
     [TestClass]
-    public class TestConditionBuilder
+    public class TestConditionBuilder : SpringTestBase
     {
         [TestMethod]
         public void TestAnd()
@@ -15,6 +18,23 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
             builder.And(x => x.Name.ToString() == "WuYibin");
             builder.And(x => x.Sex == 1);
             Assert.IsNotNull(builder.Predicate);
+        }
+
+        [TestMethod]
+        public void TestPredicateWithDefaultConstructor()
+        {
+            var builder = new ConditionBuilder<Account>();
+            var account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
+            Assert.IsNotNull(account);
+        }
+
+        [TestMethod]
+        public void TestPredicateWithOtherConstructor()
+        {
+            var builder = new ConditionBuilder<Account>(x => x.IsDeleted == false);
+            var xx = builder.Predicate.Compile();
+            var account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
+            Assert.IsNotNull(account);
         }
     }
 }
