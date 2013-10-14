@@ -10,14 +10,6 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
     [TestClass]
     public class TestConditionBuilder : SpringTestBase
     {
-        [TestMethod]
-        public void TestAnd()
-        {
-            var builder = new ConditionBuilder<Account>();
-            builder.Equals(x => x.IsDeleted, false);
-            builder.Equals(x => x.Sex, 1);
-            Assert.IsNotNull(builder.Predicate);
-        }
 
         [TestMethod]
         public void TestPredicateWithDefaultConstructor()
@@ -31,6 +23,24 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
         public void TestPredicateWithOtherConstructor()
         {
             var builder = new ConditionBuilder<Account>(x => x.IsDeleted == false && x.Sex == 1);
+            var account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
+            Assert.IsNotNull(account);
+        }
+
+        [TestMethod]
+        public void TestEquals()
+        {
+            var builder = new ConditionBuilder<Account>();
+            builder.Equals(x => x.IsDeleted, false);
+            builder.Equals(x => x.Sex, 1);
+            Assert.IsNotNull(builder.Predicate);
+        }
+
+        [TestMethod]
+        public void TestLike()
+        {
+            var builder = new ConditionBuilder<Account>();
+            builder.Like(x => x.Name.FirstName, "haha");
             var account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
             Assert.IsNotNull(account);
         }

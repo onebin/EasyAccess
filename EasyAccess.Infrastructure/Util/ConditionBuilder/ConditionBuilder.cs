@@ -36,7 +36,7 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
         {
             get
             {
-                return x => true;
+                return condition => true;
             }
         }
 
@@ -65,6 +65,21 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
             var left = GetMemberExpression(property);
             var right = Expression.Constant(value, typeof(TPropertyType));
             _expressions.Add(Expression.Equal(left, right));
+            return this;
+        }
+
+        public ConditionBuilder<TEntity> Like<TPropertyType>(Expression<Func<TEntity, TPropertyType>> property, TPropertyType value)
+        {
+            var strVal = value.ToString().Trim();
+            if (!string.IsNullOrEmpty(strVal))
+            {
+                var propertyBody = GetMemberExpression(property);
+                var methodExpr = Expression.Call(
+                    propertyBody, 
+                    typeof (string).GetMethod("Contains"),
+                    Expression.Constant(strVal));
+                _expressions.Add(methodExpr);
+            }
             return this;
         }
     }

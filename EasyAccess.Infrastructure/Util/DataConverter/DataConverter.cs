@@ -50,7 +50,7 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
             {
                 key = property.Name;
             }
-            if (property.PropertyType.IsNullableDateTime())
+            if (property.PropertyType.IsNullableOfDateTime())
             {
                 var dateTime = property.GetValue(data, null) as DateTime?;
                 val = dateTime != null ? dateTime.Value.ToString(@"yyyy\/MM\/dd HH:mm:ss") : "";
