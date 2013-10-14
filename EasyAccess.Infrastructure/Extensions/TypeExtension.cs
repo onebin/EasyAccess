@@ -13,14 +13,6 @@ namespace EasyAccess.Infrastructure.Extensions
         }
 
         /// <summary>
-        /// 是否DateTime的Nullable类型
-        /// </summary>
-        public static bool IsNullableDateTime(this Type type)
-        {
-            return type.IsNullableType() && Nullable.GetUnderlyingType(type) == typeof (DateTime);
-        }
-
-        /// <summary>
         /// 如果类型是Nullable&lt;T&gt;，则返回T，否则返回自身
         /// </summary>
         /// <param name="type"></param>
@@ -32,6 +24,22 @@ namespace EasyAccess.Infrastructure.Extensions
                 return type.GetGenericArguments()[0];
             }
             return type;
+        }
+
+        /// <summary>
+        /// 是否为可空的target类型
+        /// </summary>
+        public static bool IsNullableOf(this Type type, Type target)
+        {
+            return type.IsNullableType() && Nullable.GetUnderlyingType(type) == target;
+        }
+
+        /// <summary>
+        /// 是否DateTime的Nullable类型
+        /// </summary>
+        public static bool IsNullableOfDateTime(this Type type)
+        {
+            return type.IsNullableOf(typeof (DateTime));
         }
     }
 }
