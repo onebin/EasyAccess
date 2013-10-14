@@ -41,7 +41,7 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
             }
         }
 
-        private Expression GetMemberExpression<TType>(Expression<Func<TEntity, TType>> property)
+        private Expression GetMemberExpression<TProperty>(Expression<Func<TEntity, TProperty>> property)
         {
             if (Parameters == null || Parameters.Length == 0)
             {
@@ -52,19 +52,22 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
             return visitor.ChangeParameter(property.Body);
         }
 
-        ICondition<TEntity> ICondition<TEntity>.Equals<TPropertyType>(Expression<Func<TEntity, TPropertyType>> property, TPropertyType value)
+        ICondition<TEntity> ICondition<TEntity>.Equals<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
         {
             var left = GetMemberExpression(property);
-            var right = Expression.Constant(value, typeof(TPropertyType));
+            var right = Expression.Constant(value, typeof(TProperty));
             _expressions.Add(Expression.Equal(left, right));
             return this;
         }
         ICondition<TEntity> ICondition<TEntity>.NotEquals<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
         {
+            var left = GetMemberExpression(property);
+            var right = Expression.Constant(value, typeof(TProperty));
+            _expressions.Add(Expression.Equal(left, right));
             throw new NotImplementedException();
         }
 
-        ICondition<TEntity> ICondition<TEntity>.Like<TPropertyType>(Expression<Func<TEntity, TPropertyType>> property, TPropertyType value)
+        ICondition<TEntity> ICondition<TEntity>.Like<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
         {
             var strVal = value.ToString().Trim();
             if (!string.IsNullOrEmpty(strVal))
@@ -80,7 +83,7 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
         }
 
 
-        ICondition<TEntity> ICondition<TEntity>.Between<TPropertyType>(Expression<Func<TEntity, TPropertyType>> property, TPropertyType from, TPropertyType to)
+        ICondition<TEntity> ICondition<TEntity>.Between<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty from, TProperty to)
         {
             var strFrom = from.ToString().Trim();
             var strTo = from.ToString().Trim();
