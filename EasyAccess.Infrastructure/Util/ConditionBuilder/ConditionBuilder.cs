@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Web.UI;
 using EasyAccess.Infrastructure.Entity;
+using EasyAccess.Infrastructure.Extensions;
 
 namespace EasyAccess.Infrastructure.Util.ConditionBuilder
 {
@@ -62,7 +63,7 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
         public ConditionBuilder<TEntity> Equals<TPropertyType>(Expression<Func<TEntity, TPropertyType>> property, TPropertyType value)
         {
             var left = GetMemberExpression(property);
-            var right = Expression.Constant(value);
+            var right = Expression.Constant(value, typeof(TPropertyType));
             _expressions.Add(Expression.Equal(left, right));
             return this;
         }

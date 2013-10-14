@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using EasyAccess.Infrastructure.Extensions;
 
 namespace EasyAccess.Infrastructure.Util.DataConverter
 {
@@ -29,14 +30,6 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
             return this;
         }
 
-        protected bool IsTypeOfDateTime(Type type)
-        {
-            return type == typeof(DateTime) ||
-                  (type.IsGenericType &&
-                   type.GetGenericTypeDefinition() == typeof(Nullable<>) &&
-                   Nullable.GetUnderlyingType(type) == typeof(DateTime));
-        }
-
         protected int CheckPropertyToShow()
         {
             Type type = typeof(T);
@@ -57,7 +50,7 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
             {
                 key = property.Name;
             }
-            if (IsTypeOfDateTime(property.PropertyType))
+            if (property.PropertyType.IsNullableDateTime())
             {
                 var dateTime = property.GetValue(data, null) as DateTime?;
                 val = dateTime != null ? dateTime.Value.ToString(@"yyyy\/MM\/dd HH:mm:ss") : "";
