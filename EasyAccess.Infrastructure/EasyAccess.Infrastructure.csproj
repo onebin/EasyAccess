@@ -69,7 +69,9 @@
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="UnitOfWork\IUnitOfWorkContext.cs" />
     <Compile Include="UnitOfWork\UnitOfWorkContextBase.cs" />
+    <Compile Include="Util\ConditionBuilder\Condition.cs" />
     <Compile Include="Util\ConditionBuilder\ConditionBuilder.cs" />
+    <Compile Include="Util\ConditionBuilder\ICondition.cs" />
     <Compile Include="Util\ConditionBuilder\ParameterExpressionVisitor.cs" />
     <Compile Include="Util\DataConverter\ConvertToDataTable.cs" />
     <Compile Include="Util\DataConverter\ConvertToDictionary.cs" />

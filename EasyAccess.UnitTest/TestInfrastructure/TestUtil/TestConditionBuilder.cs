@@ -12,35 +12,35 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
     {
 
         [TestMethod]
-        public void TestPredicateWithDefaultConstructor()
+        public void TestCreate()
         {
-            var builder = new ConditionBuilder<Account>();
+            var builder = ConditionBuilder.Create<Account>();
             var account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
             Assert.IsNotNull(account);
         }
 
         [TestMethod]
-        public void TestPredicateWithOtherConstructor()
+        public void TestEmpty()
         {
-            var builder = new ConditionBuilder<Account>(x => x.IsDeleted == false && x.Sex == 1);
-            var account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
+            var account = AccountRepository.Entities.FirstOrDefault(ConditionBuilder.Create<Account>().Empty);
             Assert.IsNotNull(account);
         }
 
         [TestMethod]
         public void TestEquals()
         {
-            var builder = new ConditionBuilder<Account>();
+            var builder = ConditionBuilder.Create<Account>();
             builder.Equals(x => x.IsDeleted, false);
-            builder.Equals(x => x.Sex, 1);
-            Assert.IsNotNull(builder.Predicate);
+            builder.Equals(x => x.Sex, 1); 
+            var account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
+            Assert.IsNotNull(account);
         }
 
         [TestMethod]
         public void TestLike()
         {
-            var builder = new ConditionBuilder<Account>();
-            builder.Like(x => x.Name.FirstName, "haha");
+            var builder = ConditionBuilder.Create<Account>();
+            builder.Like(x => x.Name.FirstName, "bin");
             var account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
             Assert.IsNotNull(account);
         }
