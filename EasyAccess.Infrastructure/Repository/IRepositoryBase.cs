@@ -8,7 +8,7 @@ using EasyAccess.Infrastructure.UnitOfWork;
 namespace EasyAccess.Infrastructure.Repository
 {
     public interface IRepositoryBase<TEntity, in TKey> : IRepository 
-        where TEntity : IAggregateRoot<TKey>
+        where TEntity : IAggregateRootBase<TKey>
     {
         IUnitOfWork UnitOfWork { get; set; }
 

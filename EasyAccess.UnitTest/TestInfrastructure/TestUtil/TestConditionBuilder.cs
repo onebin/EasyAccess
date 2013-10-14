@@ -32,7 +32,7 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
         public void TestPredicateWithOtherConstructor()
         {
             var builder = new ConditionBuilder<Account>(x => x.IsDeleted == false);
-            var xx = builder.Predicate.Compile();
+
             var account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
             Assert.IsNotNull(account);
         }

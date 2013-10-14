@@ -57,6 +57,7 @@
     <Compile Include="Constant\ViewConst.cs" />
     <Compile Include="Entity\EntityBase.cs" />
     <Compile Include="Entity\IAggregateRoot.cs" />
+    <Compile Include="Entity\IAggregateRootBase.cs" />
     <Compile Include="Entity\IEntity.cs" />
     <Compile Include="Entity\IEntityBase.cs" />
     <Compile Include="Repository\IRepository.cs" />

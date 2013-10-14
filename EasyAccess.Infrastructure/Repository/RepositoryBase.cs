@@ -11,7 +11,7 @@ using EasyAccess.Infrastructure.UnitOfWork;
 namespace EasyAccess.Infrastructure.Repository
 {
     public abstract class RepositoryBase<TEntity, TKey> : IRepositoryBase<TEntity, TKey>
-        where TEntity : class, IAggregateRoot<TKey>
+        where TEntity : class, IAggregateRootBase<TKey>
     {
 
         public virtual IUnitOfWork UnitOfWork { get; set; }

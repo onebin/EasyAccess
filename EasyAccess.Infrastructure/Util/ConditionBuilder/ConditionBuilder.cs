@@ -5,52 +5,55 @@ using EasyAccess.Infrastructure.Entity;
 
 namespace EasyAccess.Infrastructure.Util.ConditionBuilder
 {
-    public class ConditionBuilder<TEnitty> where TEnitty : IEntity
+    public class ConditionBuilder<TEntity> where TEntity : IAggregateRoot
     {
-        public Expression<Func<TEnitty, bool>> Predicate { get; private set; }
+        /// <summary>
+        /// 查询条件
+        /// </summary>
+        public Expression<Func<TEntity, bool>> Predicate { get; private set; }
+
+        /// <summary>
+        /// 查询条件为空
+        /// </summary>
+        public static Expression<Func<TEntity, bool>> Empty
+        {
+            get
+            {
+                var entity = Expression.Parameter(typeof(TEntity), "Entity");
+                var expr = Expression.Equal(Expression.Constant(true, typeof(bool)), Expression.Constant(true, typeof(bool)));
+                return Expression.Lambda<Func<TEntity, bool>>(expr, entity);
+            }
+        }
 
         public ConditionBuilder()
         {
-            //Func<TEnitty, bool> fun = (param) => true;
+            this.Predicate = Empty;
         }
 
-        public ConditionBuilder(Expression<Func<TEnitty, bool>> expr)
+        public ConditionBuilder(Expression<Func<TEntity, bool>> expr)
         {
-            Predicate = expr;
+            this.Predicate = expr;
         }
 
 
-        public ConditionBuilder<TEnitty> And(Expression<Func<TEnitty, bool>> expr)
+        public ConditionBuilder<TEntity> And(Expression<Func<TEntity, bool>> expr)
         {
-            var condition = Expression.Lambda<Func<TEnitty, bool>>(expr.Body, expr.Parameters);
-            if (Predicate != null)
-            {
-            }
-            else
-            {
-            }
+            var condition = Expression.Lambda<Func<TEntity, bool>>(expr.Body, expr.Parameters);
             return this;
         }
 
-        public ConditionBuilder<TEnitty> Or(Expression<Func<TEnitty, bool>> expr)
+        public ConditionBuilder<TEntity> Or(Expression<Func<TEntity, bool>> expr)
         {
-            var condition = Expression.Lambda<Func<TEnitty, bool>>(expr.Body, expr.Parameters);
-            if (Predicate != null)
-            {
-            }
-            else
-            {
-                this.Predicate = condition;
-            }
+            var condition = Expression.Lambda<Func<TEntity, bool>>(expr.Body, expr.Parameters);
             return this;
         }
 
-        public static ConditionBuilder<TEnitty> operator &(ConditionBuilder<TEnitty> builder, Expression<Func<TEnitty, bool>> expr)
+        public static ConditionBuilder<TEntity> operator &(ConditionBuilder<TEntity> builder, Expression<Func<TEntity, bool>> expr)
         {
             return builder;
         }
 
-        public static ConditionBuilder<TEnitty> operator |(ConditionBuilder<TEnitty> builder, Expression<Func<TEnitty, bool>> expr)
+        public static ConditionBuilder<TEntity> operator |(ConditionBuilder<TEntity> builder, Expression<Func<TEntity, bool>> expr)
         {
             return builder;
         }
