@@ -41,5 +41,13 @@ namespace EasyAccess.Infrastructure.Extensions
         {
             return type.IsNullableOf(typeof (DateTime));
         }
+
+        /// <summary>
+        /// 是否基本数据类型
+        /// </summary>
+        public static bool IsBaseDataType(this Type type)
+        {
+            return type.IsValueType || type == typeof(string);
+        }
     }
 }

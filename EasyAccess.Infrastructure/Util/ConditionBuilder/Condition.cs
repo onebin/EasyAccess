@@ -52,6 +52,16 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
             return visitor.ChangeParameter(property.Body);
         }
 
+        private string GetBaseDataTypeValue<TProperty>(TProperty value)
+        {
+            Type type = typeof (TProperty).GetNonNullableType();
+            if (type.IsBaseDataType())
+            {
+                return value.ToString();
+            }
+            return null;
+        }
+
         ICondition<TEntity> ICondition<TEntity>.Equals<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
         {
             var left = GetMemberExpression(property);
@@ -63,14 +73,14 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
         {
             var left = GetMemberExpression(property);
             var right = Expression.Constant(value, typeof(TProperty));
-            _expressions.Add(Expression.Equal(left, right));
-            throw new NotImplementedException();
+            _expressions.Add(Expression.NotEqual(left, right));
+            return this;
         }
 
         ICondition<TEntity> ICondition<TEntity>.Like<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
         {
-            var strVal = value.ToString().Trim();
-            if (!string.IsNullOrEmpty(strVal))
+            var strVal = GetBaseDataTypeValue(value);
+            if (string.IsNullOrWhiteSpace(strVal))
             {
                 var propertyBody = GetMemberExpression(property);
                 var methodExpr = Expression.Call(
