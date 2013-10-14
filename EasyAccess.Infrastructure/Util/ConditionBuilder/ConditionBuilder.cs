@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Web.UI;
 using EasyAccess.Infrastructure.Entity;
@@ -10,7 +12,21 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
         /// <summary>
         /// 查询条件
         /// </summary>
-        public Expression<Func<TEntity, bool>> Predicate { get; private set; }
+        public Expression<Func<TEntity, bool>> Predicate
+        {
+            get
+            {
+                if (Parameters == null || Parameters.Length == 0)
+                {
+                    return Empty;
+                }
+                var expression = _expressions.Aggregate(Expression.AndAlso);
+                return Expression.Lambda<Func<TEntity, bool>>(expression, Parameters);
+            }
+        }
+
+        private readonly List<Expression> _expressions = new List<Expression>();
+        private ParameterExpression[] Parameters { get; set; }
 
         /// <summary>
         /// 查询条件为空
@@ -19,43 +35,36 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
         {
             get
             {
-                var entity = Expression.Parameter(typeof(TEntity), "Entity");
-                var expr = Expression.Equal(Expression.Constant(true, typeof(bool)), Expression.Constant(true, typeof(bool)));
-                return Expression.Lambda<Func<TEntity, bool>>(expr, entity);
+                return x => true;
             }
         }
 
         public ConditionBuilder()
         {
-            this.Predicate = Empty;
         }
 
         public ConditionBuilder(Expression<Func<TEntity, bool>> expr)
         {
-            this.Predicate = expr;
+            _expressions.Add(expr);
         }
 
-
-        public ConditionBuilder<TEntity> And(Expression<Func<TEntity, bool>> expr)
+        private Expression GetMemberExpression<TType>(Expression<Func<TEntity, TType>> property)
         {
-            var condition = Expression.Lambda<Func<TEntity, bool>>(expr.Body, expr.Parameters);
+            if (Parameters == null || Parameters.Length == 0)
+            {
+                Parameters = property.Parameters.ToArray();
+                return property.Body;
+            }
+            var visitor = new ParameterExpressionVisitor(this.Parameters[0]);
+            return visitor.ChangeParameter(property.Body);
+        }
+
+        public ConditionBuilder<TEntity> Equals<TPropertyType>(Expression<Func<TEntity, TPropertyType>> property, TPropertyType value)
+        {
+            var left = GetMemberExpression(property);
+            var right = Expression.Constant(value);
+            _expressions.Add(Expression.Equal(left, right));
             return this;
-        }
-
-        public ConditionBuilder<TEntity> Or(Expression<Func<TEntity, bool>> expr)
-        {
-            var condition = Expression.Lambda<Func<TEntity, bool>>(expr.Body, expr.Parameters);
-            return this;
-        }
-
-        public static ConditionBuilder<TEntity> operator &(ConditionBuilder<TEntity> builder, Expression<Func<TEntity, bool>> expr)
-        {
-            return builder;
-        }
-
-        public static ConditionBuilder<TEntity> operator |(ConditionBuilder<TEntity> builder, Expression<Func<TEntity, bool>> expr)
-        {
-            return builder;
         }
     }
 }

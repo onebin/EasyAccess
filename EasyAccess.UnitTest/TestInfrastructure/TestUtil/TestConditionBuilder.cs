@@ -14,9 +14,8 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
         public void TestAnd()
         {
             var builder = new ConditionBuilder<Account>();
-            builder.And(x => x.IsDeleted == false);
-            builder.And(x => x.Name.ToString() == "WuYibin");
-            builder.And(x => x.Sex == 1);
+            builder.Equals(x => x.IsDeleted, false);
+            builder.Equals(x => x.Sex, 1);
             Assert.IsNotNull(builder.Predicate);
         }
 
@@ -31,8 +30,7 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
         [TestMethod]
         public void TestPredicateWithOtherConstructor()
         {
-            var builder = new ConditionBuilder<Account>(x => x.IsDeleted == false);
-
+            var builder = new ConditionBuilder<Account>(x => x.IsDeleted == false && x.Sex == 1);
             var account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
             Assert.IsNotNull(account);
         }
