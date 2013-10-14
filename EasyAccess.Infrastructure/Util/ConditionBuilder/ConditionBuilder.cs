@@ -82,5 +82,17 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
             }
             return this;
         }
+
+
+        public ConditionBuilder<TEntity> Between<TPropertyType>(Expression<Func<TEntity, TPropertyType>> property, TPropertyType from, TPropertyType to)
+        {
+            var strFrom = from.ToString().Trim();
+            var strTo = from.ToString().Trim();
+            if (!string.IsNullOrEmpty(strFrom) && !string.IsNullOrWhiteSpace(strTo))
+            {
+                
+            }
+            return this;
+        }
     }
 }
