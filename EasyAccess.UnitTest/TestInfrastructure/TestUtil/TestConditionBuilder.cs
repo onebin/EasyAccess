@@ -14,7 +14,7 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
         [TestMethod]
         public void TestCreate()
         {
-            var builder = ConditionBuilder.Create<Account>();
+            var builder = ConditionBuilder<Account>.Create();
             var account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
             Assert.IsNotNull(account);
         }
@@ -22,16 +22,26 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
         [TestMethod]
         public void TestEmpty()
         {
-            var account = AccountRepository.Entities.FirstOrDefault(ConditionBuilder.Create<Account>().Empty);
+            var account = AccountRepository.Entities.FirstOrDefault(ConditionBuilder<Account>.Empty);
             Assert.IsNotNull(account);
         }
 
         [TestMethod]
         public void TestEquals()
         {
-            var builder = ConditionBuilder.Create<Account>();
+            var builder = ConditionBuilder<Account>.Create();
             builder.Equals(x => x.IsDeleted, false);
             builder.Equals(x => x.Sex, 1); 
+            var account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
+            Assert.IsNotNull(account);
+        }
+
+
+        [TestMethod]
+        public void TestNotEquals()
+        {
+            var builder = ConditionBuilder<Account>.Create();
+            builder.NotEquals(x => x.Sex, 0);
             var account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
             Assert.IsNotNull(account);
         }
@@ -39,10 +49,16 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
         [TestMethod]
         public void TestLike()
         {
-            var builder = ConditionBuilder.Create<Account>();
+            var builder = ConditionBuilder<Account>.Create();
             builder.Like(x => x.Name.FirstName, "bin");
             var account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
             Assert.IsNotNull(account);
+        }
+
+        [TestMethod]
+        public void TestBetween()
+        {
+            
         }
     }
 }

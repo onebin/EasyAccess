@@ -23,21 +23,10 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
             {
                 if (Parameters == null || Parameters.Length == 0)
                 {
-                    return ((ICondition<TEntity>)this).Empty;
+                    return ConditionBuilder<TEntity>.Empty;
                 }
                 var expression = _expressions.Aggregate(Expression.AndAlso);
                 return Expression.Lambda<Func<TEntity, bool>>(expression, Parameters);
-            }
-        }
-
-        /// <summary>
-        /// 查询条件为空
-        /// </summary>
-        Expression<Func<TEntity, bool>> ICondition<TEntity>.Empty
-        {
-            get
-            {
-                return x => true;
             }
         }
 

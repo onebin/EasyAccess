@@ -8,8 +8,6 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
     {
         Expression<Func<TEntity, bool>> Predicate { get; }
 
-        Expression<Func<TEntity, bool>> Empty { get; }
-
         ICondition<TEntity> Equals<TProperty>(
             Expression<Func<TEntity, TProperty>> property,
             TProperty value);
