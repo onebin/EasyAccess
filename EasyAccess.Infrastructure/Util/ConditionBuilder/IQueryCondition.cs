@@ -4,54 +4,54 @@ using EasyAccess.Infrastructure.Entity;
 
 namespace EasyAccess.Infrastructure.Util.ConditionBuilder
 {
-    public interface ICondition<TEntity> where TEntity : IAggregateRoot
+    public interface IQueryCondition<TEntity> where TEntity : IAggregateRoot
     {
         Expression<Func<TEntity, bool>> Predicate { get; }
 
         void Clear();
 
-        ICondition<TEntity> Equal<TProperty>(
+        IQueryCondition<TEntity> Equal<TProperty>(
             Expression<Func<TEntity, TProperty>> property,
             TProperty value);
 
-        ICondition<TEntity> NotEqual<TProperty>(
+        IQueryCondition<TEntity> NotEqual<TProperty>(
             Expression<Func<TEntity, TProperty>> property,
             TProperty value);
 
-        ICondition<TEntity> GreaterThanOrEqual<TProperty>(
+        IQueryCondition<TEntity> GreaterThanOrEqual<TProperty>(
             Expression<Func<TEntity, TProperty>> property,
             TProperty value);
 
-        ICondition<TEntity> LessThanOrEqual<TProperty>(
+        IQueryCondition<TEntity> LessThanOrEqual<TProperty>(
             Expression<Func<TEntity, TProperty>> property,
             TProperty value);
 
-        ICondition<TEntity> GreaterThan<TProperty>(
+        IQueryCondition<TEntity> GreaterThan<TProperty>(
             Expression<Func<TEntity, TProperty>> property,
             TProperty value);
 
-        ICondition<TEntity> LessThan<TProperty>(
+        IQueryCondition<TEntity> LessThan<TProperty>(
             Expression<Func<TEntity, TProperty>> property,
             TProperty value);
 
-        ICondition<TEntity> Like<TProperty>(
+        IQueryCondition<TEntity> Like<TProperty>(
             Expression<Func<TEntity, TProperty>> property, 
             TProperty value);
 
-        ICondition<TEntity> Between<TProperty>(
+        IQueryCondition<TEntity> Between<TProperty>(
             Expression<Func<TEntity, TProperty>> property, 
             TProperty from,
             TProperty to);
 
-        ICondition<TEntity> In<TProperty>(
+        IQueryCondition<TEntity> In<TProperty>(
             Expression<Func<TEntity, TProperty>> property,
             params TProperty[] values);
 
-        ICondition<TEntity> NotIn<TProperty>(
+        IQueryCondition<TEntity> NotIn<TProperty>(
             Expression<Func<TEntity, TProperty>> property,
             params TProperty[] values);
 
-        ICondition<TEntity> Fuzzy<TProperty>(
+        IQueryCondition<TEntity> Fuzzy<TProperty>(
             Expression<Func<TEntity, TProperty>> property, 
             string values);
     }

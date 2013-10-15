@@ -8,7 +8,7 @@ using EasyAccess.Infrastructure.Extensions;
 namespace EasyAccess.Infrastructure.Util.ConditionBuilder
 {
 
-    internal class Condition<TEntity> : ICondition<TEntity> where TEntity : IAggregateRoot
+    internal class QueryCondition<TEntity> : IQueryCondition<TEntity> where TEntity : IAggregateRoot
     {
         class CompareExpressions
         {
@@ -20,7 +20,7 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
         private readonly List<Expression> _expressions = new List<Expression>();
         private ParameterExpression[] Parameters { get; set; }
 
-        Expression<Func<TEntity, bool>> ICondition<TEntity>.Predicate
+        Expression<Func<TEntity, bool>> IQueryCondition<TEntity>.Predicate
         {
             get
             {
@@ -64,26 +64,26 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
             return type.IsBaseDataType() ? value.ToString() : null;
         }
 
-        void ICondition<TEntity>.Clear()
+        void IQueryCondition<TEntity>.Clear()
         {
             Parameters = null;
             _expressions.Clear();
         }
 
-        ICondition<TEntity> ICondition<TEntity>.Equal<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
+        IQueryCondition<TEntity> IQueryCondition<TEntity>.Equal<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
         {
             var expr = GetCompareExpressions(property, value);
             _expressions.Add(Expression.Equal(expr.Left, expr.Right));
             return this;
         }
-        ICondition<TEntity> ICondition<TEntity>.NotEqual<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
+        IQueryCondition<TEntity> IQueryCondition<TEntity>.NotEqual<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
         {
             var expr = GetCompareExpressions(property, value);
             _expressions.Add(Expression.NotEqual(expr.Left, expr.Right));
             return this;
         }
 
-        ICondition<TEntity> ICondition<TEntity>.Like<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
+        IQueryCondition<TEntity> IQueryCondition<TEntity>.Like<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
         {
             var strVal = GetBaseDataTypeValue(value);
             if (!string.IsNullOrWhiteSpace(strVal))
@@ -99,7 +99,7 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
         }
 
 
-        ICondition<TEntity> ICondition<TEntity>.Between<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty from, TProperty to)
+        IQueryCondition<TEntity> IQueryCondition<TEntity>.Between<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty from, TProperty to)
         {
             var propertyBody = GetMemberExpression(property);
             var constFrom = Expression.Constant(from);
@@ -115,7 +115,7 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
             return this;
         }
 
-        ICondition<TEntity> ICondition<TEntity>.In<TProperty>(Expression<Func<TEntity, TProperty>> property, params TProperty[] values)
+        IQueryCondition<TEntity> IQueryCondition<TEntity>.In<TProperty>(Expression<Func<TEntity, TProperty>> property, params TProperty[] values)
         {
             if (values != null && values.Length > 0)
             {
@@ -136,12 +136,12 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
             return this;
         }
 
-        ICondition<TEntity> ICondition<TEntity>.NotIn<TProperty>(Expression<Func<TEntity, TProperty>> property, params TProperty[] values)
+        IQueryCondition<TEntity> IQueryCondition<TEntity>.NotIn<TProperty>(Expression<Func<TEntity, TProperty>> property, params TProperty[] values)
         {
             throw new NotImplementedException();
         }
 
-        ICondition<TEntity> ICondition<TEntity>.GreaterThanOrEqual<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
+        IQueryCondition<TEntity> IQueryCondition<TEntity>.GreaterThanOrEqual<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
         {
             var expr = GetCompareExpressions(property, value);
             var gteExpr = Expression.GreaterThanOrEqual(expr.Left, expr.Right);
@@ -149,7 +149,7 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
             return this;
         }
 
-        ICondition<TEntity> ICondition<TEntity>.LessThanOrEqual<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
+        IQueryCondition<TEntity> IQueryCondition<TEntity>.LessThanOrEqual<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
         {
             var expr = GetCompareExpressions(property, value);
             var lteExpr = Expression.LessThanOrEqual(expr.Left, expr.Right);
@@ -157,7 +157,7 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
             return this;
         }
 
-        ICondition<TEntity> ICondition<TEntity>.GreaterThan<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
+        IQueryCondition<TEntity> IQueryCondition<TEntity>.GreaterThan<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
         {
             var expr = GetCompareExpressions(property, value);
             var lteExpr = Expression.GreaterThan(expr.Left, expr.Right);
@@ -165,7 +165,7 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
             return this;
         }
 
-        ICondition<TEntity> ICondition<TEntity>.LessThan<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
+        IQueryCondition<TEntity> IQueryCondition<TEntity>.LessThan<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
         {
             var expr = GetCompareExpressions(property, value);
             var lteExpr = Expression.LessThan(expr.Left, expr.Right);
@@ -174,7 +174,7 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
         }
 
 
-        ICondition<TEntity> ICondition<TEntity>.Fuzzy<TProperty>(Expression<Func<TEntity, TProperty>> property, string values)
+        IQueryCondition<TEntity> IQueryCondition<TEntity>.Fuzzy<TProperty>(Expression<Func<TEntity, TProperty>> property, string values)
         {
             if (!string.IsNullOrWhiteSpace(values))
             {
@@ -182,7 +182,7 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
                 if (values.Contains(","))
                 {
                     var valArray = values.Split(',');
-                    return ((ICondition<TEntity>)this).In(property, valArray.Where(x => !string.IsNullOrWhiteSpace(values)).Cast<TProperty>().ToArray());
+                    return ((IQueryCondition<TEntity>)this).In(property, valArray.Where(x => !string.IsNullOrWhiteSpace(values)).Cast<TProperty>().ToArray());
                 }
                 if (values.Contains("-"))
                 {
@@ -191,7 +191,7 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
                     {
                         var from = values.Substring(0, dividerIndex).Cast<TProperty>().FirstOrDefault();
                         var to = values.Substring(dividerIndex + 1).Cast<TProperty>().FirstOrDefault();
-                        return ((ICondition<TEntity>)this).Between(property, from, to);
+                        return ((IQueryCondition<TEntity>)this).Between(property, from, to);
                     }
                 }
             }
