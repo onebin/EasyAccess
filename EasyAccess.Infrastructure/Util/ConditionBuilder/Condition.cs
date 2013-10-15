@@ -141,9 +141,15 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
                     var valArray = values.Split(',');
                     return ((ICondition<TEntity>)this).In(property, valArray.Where(x => !string.IsNullOrWhiteSpace(values)).Cast<TProperty>().ToArray());
                 }
-                else if (values.IndexOf('-') > 0)
+                if (values.Contains("-"))
                 {
-                    throw new NotImplementedException();
+                    var dividerIndex = values.IndexOf('-');
+                    if (dividerIndex > 0 && dividerIndex < values.Length -1)
+                    {
+                        var from = values.Substring(0, dividerIndex).Cast<TProperty>().FirstOrDefault();
+                        var to = values.Substring(dividerIndex + 1).Cast<TProperty>().FirstOrDefault();
+                        return ((ICondition<TEntity>)this).Between(property, from, to);
+                    }
                 }
             }
             return this;
