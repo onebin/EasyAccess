@@ -60,5 +60,14 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
         {
             
         }
+
+        [TestMethod]
+        public void TestIn()
+        {
+            var builder = ConditionBuilder<Account>.Create();
+            builder.In(x => x.Name.LastName, "Wu", "Chen");
+            var account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
+            Assert.IsNotNull(account);
+        }
     }
 }

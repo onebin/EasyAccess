@@ -95,7 +95,23 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
 
         ICondition<TEntity> ICondition<TEntity>.In<TProperty>(Expression<Func<TEntity, TProperty>> property, params TProperty[] values)
         {
-            throw new NotImplementedException();
+            if (values != null && values.Length > 0)
+            {
+                var type = typeof (TProperty);
+                var method = (from x in typeof (Enumerable).GetMethods()
+                              where x.Name.Equals("Contains")
+                                    && x.IsGenericMethod
+                                    && x.GetGenericArguments().Length == 1
+                                    && x.GetParameters().Length == 2
+                              select x
+                             ).First().MakeGenericMethod(new Type[] {type});
+
+                var propertyBody = GetMemberExpression(property);
+
+                var methodExpr = Expression.Call(null, method, Expression.Constant(values), propertyBody);
+                _expressions.Add(methodExpr);
+            }
+            return this;
         }
 
         ICondition<TEntity> ICondition<TEntity>.NotIn<TProperty>(Expression<Func<TEntity, TProperty>> property, params TProperty[] values)
