@@ -69,5 +69,14 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
             var account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
             Assert.IsNotNull(account);
         }
+
+        [TestMethod]
+        public void TestFuzzy()
+        {
+            var builder = ConditionBuilder<Account>.Create();
+            builder.Fuzzy(x => x.Name.LastName, "yi,bin,yibin,Wu");
+            var account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
+            Assert.IsNotNull(account);
+        }
     }
 }

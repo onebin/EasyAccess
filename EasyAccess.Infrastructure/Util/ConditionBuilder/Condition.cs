@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Web.UI;
 using EasyAccess.Infrastructure.Entity;
 using EasyAccess.Infrastructure.Extensions;
@@ -90,7 +91,7 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
             {
                 
             }
-            return this;
+            throw new NotImplementedException();
         }
 
         ICondition<TEntity> ICondition<TEntity>.In<TProperty>(Expression<Func<TEntity, TProperty>> property, params TProperty[] values)
@@ -127,6 +128,25 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
         ICondition<TEntity> ICondition<TEntity>.LessThan<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
         {
             throw new NotImplementedException();
+        }
+
+
+        ICondition<TEntity> ICondition<TEntity>.Fuzzy<TProperty>(Expression<Func<TEntity, TProperty>> property, string values)
+        {
+            if (!string.IsNullOrWhiteSpace(values))
+            {
+                values = values.Trim();
+                if (values.Contains(","))
+                {
+                    var valArray = values.Split(',');
+                    return ((ICondition<TEntity>)this).In(property, valArray.Where(x => !string.IsNullOrWhiteSpace(values)).Cast<TProperty>().ToArray());
+                }
+                else if (values.IndexOf('-') > 0)
+                {
+                    throw new NotImplementedException();
+                }
+            }
+            return this;
         }
     }
 }

@@ -42,5 +42,7 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
         ICondition<TEntity> LessThan<TProperty>(
             Expression<Func<TEntity, TProperty>> property,
             TProperty value);
+
+        ICondition<TEntity> Fuzzy<TProperty>(Expression<Func<TEntity, TProperty>> property, string values);
     }
 }

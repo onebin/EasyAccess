@@ -39,25 +39,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IServices\IProviderManageService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\ProviderManageService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Demo.Model\Demo.Model.csproj">
-      <Project>{912e2e61-224f-408b-bf63-d830f81e426c}</Project>
-      <Name>Demo.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Demo.Repository\Demo.Repository.csproj">
-      <Project>{89a4b1b8-ab04-4118-b8a5-20ecfc3df9de}</Project>
-      <Name>Demo.Repository</Name>
-    </ProjectReference>
     <ProjectReference Include="..\EasyAccess.Infrastructure\EasyAccess.Infrastructure.csproj">
       <Project>{f423a8a3-1ff4-4c09-8dd1-2071cbf61021}</Project>
       <Name>EasyAccess.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="IServices\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

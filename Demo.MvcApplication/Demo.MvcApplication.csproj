@@ -139,7 +139,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Areas\Provider\ProviderAreaRegistration.cs" />
     <Compile Include="Areas\SystemSettings\Controllers\AccountManageController.cs" />
     <Compile Include="Areas\SystemSettings\Controllers\RoleManageController.cs" />
     <Compile Include="Areas\SystemSettings\SystemSettingsAreaRegistration.cs" />
@@ -156,7 +155,6 @@
     <Content Include="Areas\SystemSettings\Views\Web.config" />
     <Content Include="Areas\SystemSettings\Views\AccountManage\Index.cshtml" />
     <Content Include="Areas\SystemSettings\Views\RoleManage\Index.cshtml" />
-    <Content Include="Areas\Provider\Views\Web.config" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\Controllers\Login\Index.js" />
     <Content Include="Scripts\Helpers\easyuiHelper.js" />
@@ -341,9 +339,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Provider\Controllers\" />
-    <Folder Include="Areas\Provider\Models\" />
-    <Folder Include="Areas\Provider\Views\Shared\" />
     <Folder Include="Areas\SystemSettings\Models\" />
     <Folder Include="Areas\SystemSettings\Views\Shared\" />
     <Folder Include="Models\" />
