@@ -2,22 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
-using System.Web.UI;
 using EasyAccess.Infrastructure.Entity;
 using EasyAccess.Infrastructure.Extensions;
 
 namespace EasyAccess.Infrastructure.Util.ConditionBuilder
 {
+
     internal class Condition<TEntity> : ICondition<TEntity> where TEntity : IAggregateRoot
     {
+        class CompareExpressions
+        {
+            public Expression Left { get; set; }
+
+            public ConstantExpression Right { get; set; }
+        }
 
         private readonly List<Expression> _expressions = new List<Expression>();
         private ParameterExpression[] Parameters { get; set; }
 
-        /// <summary>
-        /// 查询条件
-        /// </summary>
         Expression<Func<TEntity, bool>> ICondition<TEntity>.Predicate
         {
             get
@@ -42,35 +44,49 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
             return visitor.ChangeParameter(property.Body);
         }
 
-        private string GetBaseDataTypeValue<TProperty>(TProperty value)
+        private CompareExpressions GetCompareExpressions<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
         {
-            Type type = typeof (TProperty).GetNonNullableType();
-            if (type.IsBaseDataType())
+            var expr = new CompareExpressions();
+            var propertyBody = GetMemberExpression(property);
+            var constExpr = Expression.Constant(value);
+            if (typeof(TProperty).IsNullableType())
             {
-                return value.ToString();
+                propertyBody = Expression.Convert(propertyBody, typeof (TProperty).GetNonNullableType());
             }
-            return null;
+            expr.Left = propertyBody;
+            expr.Right = constExpr;
+            return expr;
         }
 
-        ICondition<TEntity> ICondition<TEntity>.Equals<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
+        private string GetBaseDataTypeValue<TProperty>(TProperty value)
         {
-            var left = GetMemberExpression(property);
-            var right = Expression.Constant(value, typeof(TProperty));
-            _expressions.Add(Expression.Equal(left, right));
+            var type = typeof (TProperty).GetNonNullableType();
+            return type.IsBaseDataType() ? value.ToString() : null;
+        }
+
+        void ICondition<TEntity>.Clear()
+        {
+            Parameters = null;
+            _expressions.Clear();
+        }
+
+        ICondition<TEntity> ICondition<TEntity>.Equal<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
+        {
+            var expr = GetCompareExpressions(property, value);
+            _expressions.Add(Expression.Equal(expr.Left, expr.Right));
             return this;
         }
-        ICondition<TEntity> ICondition<TEntity>.NotEquals<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
+        ICondition<TEntity> ICondition<TEntity>.NotEqual<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
         {
-            var left = GetMemberExpression(property);
-            var right = Expression.Constant(value, typeof(TProperty));
-            _expressions.Add(Expression.NotEqual(left, right));
+            var expr = GetCompareExpressions(property, value);
+            _expressions.Add(Expression.NotEqual(expr.Left, expr.Right));
             return this;
         }
 
         ICondition<TEntity> ICondition<TEntity>.Like<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
         {
             var strVal = GetBaseDataTypeValue(value);
-            if (string.IsNullOrWhiteSpace(strVal))
+            if (!string.IsNullOrWhiteSpace(strVal))
             {
                 var propertyBody = GetMemberExpression(property);
                 var methodExpr = Expression.Call(
@@ -85,13 +101,18 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
 
         ICondition<TEntity> ICondition<TEntity>.Between<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty from, TProperty to)
         {
-            var strFrom = from.ToString().Trim();
-            var strTo = from.ToString().Trim();
-            if (!string.IsNullOrEmpty(strFrom) && !string.IsNullOrWhiteSpace(strTo))
+            var propertyBody = GetMemberExpression(property);
+            var constFrom = Expression.Constant(from);
+            var constTo = Expression.Constant(to);
+            if (typeof(TProperty).IsNullableType())
             {
-                
+                propertyBody = Expression.Convert(propertyBody, typeof (TProperty).GetNonNullableType());
             }
-            throw new NotImplementedException();
+            var gteExpr = Expression.GreaterThanOrEqual(propertyBody, constFrom);
+            var lteExpr = Expression.LessThanOrEqual(propertyBody, constTo);
+            var btwExpr = Expression.AndAlso(gteExpr, lteExpr);
+            _expressions.Add(btwExpr);
+            return this;
         }
 
         ICondition<TEntity> ICondition<TEntity>.In<TProperty>(Expression<Func<TEntity, TProperty>> property, params TProperty[] values)
@@ -120,14 +141,36 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
             throw new NotImplementedException();
         }
 
+        ICondition<TEntity> ICondition<TEntity>.GreaterThanOrEqual<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
+        {
+            var expr = GetCompareExpressions(property, value);
+            var gteExpr = Expression.GreaterThanOrEqual(expr.Left, expr.Right);
+            _expressions.Add(gteExpr);
+            return this;
+        }
+
+        ICondition<TEntity> ICondition<TEntity>.LessThanOrEqual<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
+        {
+            var expr = GetCompareExpressions(property, value);
+            var lteExpr = Expression.LessThanOrEqual(expr.Left, expr.Right);
+            _expressions.Add(lteExpr);
+            return this;
+        }
+
         ICondition<TEntity> ICondition<TEntity>.GreaterThan<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
         {
-            throw new NotImplementedException();
+            var expr = GetCompareExpressions(property, value);
+            var lteExpr = Expression.GreaterThan(expr.Left, expr.Right);
+            _expressions.Add(lteExpr);
+            return this;
         }
 
         ICondition<TEntity> ICondition<TEntity>.LessThan<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
         {
-            throw new NotImplementedException();
+            var expr = GetCompareExpressions(property, value);
+            var lteExpr = Expression.LessThan(expr.Left, expr.Right);
+            _expressions.Add(lteExpr);
+            return this;
         }
 
 

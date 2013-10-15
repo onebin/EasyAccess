@@ -20,6 +20,5 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
             {
                 return x => true;
             }
-        }
-    }
+        }    }
 }

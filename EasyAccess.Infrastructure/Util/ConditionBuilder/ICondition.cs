@@ -8,10 +8,29 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
     {
         Expression<Func<TEntity, bool>> Predicate { get; }
 
-        ICondition<TEntity> Equals<TProperty>(
+        void Clear();
+
+        ICondition<TEntity> Equal<TProperty>(
             Expression<Func<TEntity, TProperty>> property,
             TProperty value);
-        ICondition<TEntity> NotEquals<TProperty>(
+
+        ICondition<TEntity> NotEqual<TProperty>(
+            Expression<Func<TEntity, TProperty>> property,
+            TProperty value);
+
+        ICondition<TEntity> GreaterThanOrEqual<TProperty>(
+            Expression<Func<TEntity, TProperty>> property,
+            TProperty value);
+
+        ICondition<TEntity> LessThanOrEqual<TProperty>(
+            Expression<Func<TEntity, TProperty>> property,
+            TProperty value);
+
+        ICondition<TEntity> GreaterThan<TProperty>(
+            Expression<Func<TEntity, TProperty>> property,
+            TProperty value);
+
+        ICondition<TEntity> LessThan<TProperty>(
             Expression<Func<TEntity, TProperty>> property,
             TProperty value);
 
@@ -26,23 +45,14 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
 
         ICondition<TEntity> In<TProperty>(
             Expression<Func<TEntity, TProperty>> property,
-            params TProperty[] values
-            );
+            params TProperty[] values);
 
         ICondition<TEntity> NotIn<TProperty>(
             Expression<Func<TEntity, TProperty>> property,
-            params TProperty[] values
-            );
+            params TProperty[] values);
 
-        ICondition<TEntity> GreaterThan<TProperty>(
-            Expression<Func<TEntity, TProperty>> property,
-            TProperty value);
-
-
-        ICondition<TEntity> LessThan<TProperty>(
-            Expression<Func<TEntity, TProperty>> property,
-            TProperty value);
-
-        ICondition<TEntity> Fuzzy<TProperty>(Expression<Func<TEntity, TProperty>> property, string values);
+        ICondition<TEntity> Fuzzy<TProperty>(
+            Expression<Func<TEntity, TProperty>> property, 
+            string values);
     }
 }
