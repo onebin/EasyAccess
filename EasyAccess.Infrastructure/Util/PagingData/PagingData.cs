@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EasyAccess.Infrastructure.Util.PagingData
 {
@@ -22,12 +23,12 @@ namespace EasyAccess.Infrastructure.Util.PagingData
             get { return (long)Math.Ceiling(RecordCount / (double)PagingConditon.PageSize); } 
         }
 
-        public PagingConditon PagingConditon { get; set; }
+        public PagingCondition PagingConditon { get; set; }
 
         /// <summary>
         ///  数据
         /// </summary>
-        public IEnumerable<TEntity> RecordData { set; get; }
+        public List<TEntity> RecordData { set; get; }
 
         /// <summary>
         ///  默认构造方法
@@ -41,11 +42,11 @@ namespace EasyAccess.Infrastructure.Util.PagingData
         /// <param name="recordCount">记录数</param>
         /// <param name="pagingConditon">分页条件</param>
         /// <param name="recordData">数据</param>
-        public PagingData(long recordCount, PagingConditon pagingConditon, IEnumerable<TEntity> recordData)
+        public PagingData(long recordCount, PagingCondition pagingConditon, IEnumerable<TEntity> recordData)
         {
             this.RecordCount = recordCount;
             this.PagingConditon = pagingConditon;
-            this.RecordData = recordData;
+            this.RecordData = recordData.ToList();
         }
     }
 }

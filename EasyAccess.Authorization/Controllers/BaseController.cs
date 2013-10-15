@@ -6,6 +6,7 @@ using System.Security.Permissions;
 using System.Web;
 using System.Web.Mvc;
 using EasyAccess.Authorization.Filter;
+using EasyAccess.Infrastructure.Util.PagingData;
 using EasyAccess.Model.EDMs;
 using Microsoft.Reporting.WebForms;
 
@@ -22,20 +23,14 @@ namespace EasyAccess.Authorization.Controllers
             get { return null; }
         }
 
-        #region 成员变量
-
-        protected int PageIndex = 1;
-        protected int PageSize = 15;
-
-        #endregion
-
         /// <summary>
         /// 初始化基本页面信息
         /// </summary>
-        protected void InitPageData(FormCollection formData)
+        protected PagingCondition GetPagingCondition(FormCollection formData)
         {
-            PageIndex = int.Parse(formData["page"] ?? "1") - 1;
-            PageSize = int.Parse(formData["rows"] ?? int.MaxValue.ToString(CultureInfo.InvariantCulture));
+            var pageIndex = int.Parse(formData["page"] ?? "1") - 1;
+            var pageSize = int.Parse(formData["rows"] ?? int.MaxValue.ToString(CultureInfo.InvariantCulture));
+            return new PagingCondition(pageIndex, pageSize);
         }
 
         /// <summary>

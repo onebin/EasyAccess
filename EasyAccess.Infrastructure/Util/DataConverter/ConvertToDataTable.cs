@@ -8,12 +8,12 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
     public static class ConvertToDataTable
     {
 
-        public static DataTable ToDataTable<T>(this DataConverter<T> dataConverter, IList<T> listData) where T : class
+        public static DataTable ToDataTable<T>(this DataConverter<T> dataConverter, ICollection<T> listData) where T : class
         {
             return listData == null ? null : Conver(dataConverter, listData);
         }
 
-        private static DataTable Conver<T>(DataConverter<T> dataConverter, IList<T> listData) where T : class
+        private static DataTable Conver<T>(DataConverter<T> dataConverter, ICollection<T> listData) where T : class
         {
             var dataTable = new DataTable();
             var type = typeof(T);

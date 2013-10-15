@@ -6,9 +6,9 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
 {
     public static class ConditionBuilder<TEntity> where TEntity : IAggregateRoot
     {
-        public static ICondition<TEntity> Create()
+        public static IQueryCondition<TEntity> Create()
         {
-            return new Condition<TEntity>();
+            return new QueryCondition<TEntity>();
         }
 
         /// <summary>
@@ -20,5 +20,6 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
             {
                 return x => true;
             }
-        }    }
+        }
+    }
 }

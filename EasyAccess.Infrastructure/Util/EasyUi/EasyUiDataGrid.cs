@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using EasyAccess.Infrastructure.Util.DataConverter;
 
 namespace EasyAccess.Infrastructure.Util.EasyUi
@@ -13,12 +14,12 @@ namespace EasyAccess.Infrastructure.Util.EasyUi
         /// <summary>
         /// rows
         /// </summary>
-        private IList<Dictionary<string, object>> _rows = new List<Dictionary<string, object>>();
+        private ICollection<Dictionary<string, object>> _rows = new List<Dictionary<string, object>>();
 
         /// <summary>
         /// footer
         /// </summary>
-        private readonly IList<Dictionary<string, object>> _footer = new List<Dictionary<string, object>>();
+        private readonly ICollection<Dictionary<string, object>> _footer = new List<Dictionary<string, object>>();
 
         /// <summary>
         /// 默认构造函数
@@ -30,7 +31,7 @@ namespace EasyAccess.Infrastructure.Util.EasyUi
         /// </summary>
         /// <param name="total">记录总数</param>
         /// <param name="rows">行记录</param>
-        public EasyUiDataGrid(long total, IList<Dictionary<string, object>> rows)
+        public EasyUiDataGrid(long total, ICollection<Dictionary<string, object>> rows)
         {
             this._total = total;
             this._rows = rows;
@@ -42,7 +43,7 @@ namespace EasyAccess.Infrastructure.Util.EasyUi
         /// <param name="total">记录总数</param>
         /// <param name="rows">行记录</param>
         /// <param name="footer">汇总记录</param>
-        public EasyUiDataGrid(long total, IList<Dictionary<string, object>> rows, IList<Dictionary<string, object>> footer)
+        public EasyUiDataGrid(long total, ICollection<Dictionary<string, object>> rows, IList<Dictionary<string, object>> footer)
         {
             this._total = total;
             this._rows = rows;
@@ -56,7 +57,7 @@ namespace EasyAccess.Infrastructure.Util.EasyUi
         /// <param name="total">总记录数</param>
         /// <param name="rows">List数据</param>
         /// <returns>EasyUiDataGrid实例</returns>
-        public EasyUiDataGrid SetRows<T>(long total, IList<T> rows) where T : class
+        public EasyUiDataGrid SetRows<T>(long total, ICollection<T> rows) where T : class
         {
             this._total = total;
             if (total > 0)
@@ -71,7 +72,7 @@ namespace EasyAccess.Infrastructure.Util.EasyUi
         /// </summary>
         /// <param name="rows">行记录</param>
         /// <returns>EasyUiDataGrid实例</returns>
-        public EasyUiDataGrid AddRows(IList<Dictionary<string, object>> rows)
+        public EasyUiDataGrid AddRows(ICollection<Dictionary<string, object>> rows)
         {
             foreach (var row in rows)
             {
@@ -85,7 +86,7 @@ namespace EasyAccess.Infrastructure.Util.EasyUi
         /// </summary>
         /// <param name="footer">数据</param>
         /// <returns>EasyUiDataGrid实例</returns>
-        public EasyUiDataGrid AddFooter(IList<Dictionary<string, object>> footer)
+        public EasyUiDataGrid AddFooter(ICollection<Dictionary<string, object>> footer)
         {
             foreach (var row in footer)
             {

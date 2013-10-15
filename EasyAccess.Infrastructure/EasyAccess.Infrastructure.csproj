@@ -69,9 +69,9 @@
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="UnitOfWork\IUnitOfWorkContext.cs" />
     <Compile Include="UnitOfWork\UnitOfWorkContextBase.cs" />
-    <Compile Include="Util\ConditionBuilder\Condition.cs" />
+    <Compile Include="Util\ConditionBuilder\QueryCondition.cs" />
     <Compile Include="Util\ConditionBuilder\ConditionBuilder.cs" />
-    <Compile Include="Util\ConditionBuilder\ICondition.cs" />
+    <Compile Include="Util\ConditionBuilder\IQueryCondition.cs" />
     <Compile Include="Util\ConditionBuilder\ParameterExpressionVisitor.cs" />
     <Compile Include="Util\DataConverter\ConvertToDataTable.cs" />
     <Compile Include="Util\DataConverter\ConvertToDictionary.cs" />
@@ -84,6 +84,8 @@
     <Compile Include="Util\Encryption\MD5Encryption.cs" />
     <Compile Include="Util\IPAddress.cs" />
     <Compile Include="Util\OperationResult.cs" />
+    <Compile Include="Util\PagingData\PagingData.cs" />
+    <Compile Include="Util\PagingData\PagingCondition.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

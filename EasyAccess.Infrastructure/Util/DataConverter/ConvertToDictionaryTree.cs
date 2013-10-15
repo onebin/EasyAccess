@@ -27,7 +27,7 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
 
         private static List<Dictionary<string, object>> Conver<T, TKey>(
             DataConverter<T> dataConverter,
-            IList<T> listData,
+            ICollection<T> listData,
             Dictionary<string, object> rootNode
             )
             where T : class 
@@ -55,8 +55,8 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
         }
 
         private static List<Dictionary<string, object>> GetChildren<T>(
-            DataConverter<T> dataConverter, 
-            IList<T> listData, 
+            DataConverter<T> dataConverter,
+            ICollection<T> listData, 
             string parentId,
             int level = 0
             ) where T : class

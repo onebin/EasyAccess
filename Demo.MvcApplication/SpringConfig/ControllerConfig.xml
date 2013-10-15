@@ -5,5 +5,9 @@
   <object type="Demo.MvcApplication.Controllers.LoginController, Demo.MvcApplication" singleton="false" >
     <property name="LoginService" ref="LoginService"/>
   </object>
+
+  <object type="Demo.MvcApplication.Areas.SystemSettings.Controllers.AccountManageController, Demo.MvcApplication" singleton="false" >
+    <property name="AccountManageService" ref="AccountManageService"/>
+  </object>
   
 </objects>

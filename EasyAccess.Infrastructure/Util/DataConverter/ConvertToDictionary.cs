@@ -10,12 +10,12 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
             return data == null ? null : Conver(dataConverter, new List<T>() { data }).FirstOrDefault();
         }
 
-        public static List<Dictionary<string, object>> ToDictionary<T>(this DataConverter<T> dataConverter, IList<T> listData) where T : class
+        public static List<Dictionary<string, object>> ToDictionary<T>(this DataConverter<T> dataConverter, ICollection<T> listData) where T : class
         {
             return listData == null ? null : Conver(dataConverter, listData);
         }
 
-        private static List<Dictionary<string, object>> Conver<T>(DataConverter<T> dataConverter, IList<T> listData) where T : class
+        private static List<Dictionary<string, object>> Conver<T>(DataConverter<T> dataConverter, ICollection<T> listData) where T : class
         {
             var lst = new List<Dictionary<string, object>>();
             if (listData.Count > 0)
