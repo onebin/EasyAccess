@@ -16,10 +16,7 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
         /// </summary>
         public static Expression<Func<TEntity, bool>> Empty
         {
-            get
-            {
-                return x => true;
-            }
+            get { return x => true; }
         }
     }
 }

@@ -70,6 +70,11 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
             _expressions.Clear();
         }
 
+        bool IQueryCondition<TEntity>.IsEmpty()
+        {
+            return _expressions.Count == 0;
+        }
+
         IQueryCondition<TEntity> IQueryCondition<TEntity>.Equal<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
         {
             var expr = GetCompareExpressions(property, value);

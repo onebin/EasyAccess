@@ -10,6 +10,8 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
 
         void Clear();
 
+        bool IsEmpty();
+
         IQueryCondition<TEntity> Equal<TProperty>(
             Expression<Func<TEntity, TProperty>> property,
             TProperty value);
