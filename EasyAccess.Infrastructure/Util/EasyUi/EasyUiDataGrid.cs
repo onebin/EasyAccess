@@ -44,9 +44,8 @@ namespace EasyAccess.Infrastructure.Util.EasyUi
         /// <param name="rows">行记录</param>
         /// <param name="footer">汇总记录</param>
         public EasyUiDataGrid(long total, ICollection<Dictionary<string, object>> rows, IList<Dictionary<string, object>> footer)
+            :this(total, rows)
         {
-            this._total = total;
-            this._rows = rows;
             this._footer = footer;
         }
 
