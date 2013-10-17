@@ -54,10 +54,6 @@
     <Compile Include="Migrations\201310170559446_InitialCreate.Designer.cs">
       <DependentUpon>201310170559446_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201310170807531_Onebin.cs" />
-    <Compile Include="Migrations\201310170807531_Onebin.Designer.cs">
-      <DependentUpon>201310170807531_Onebin.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AccountRepository.cs" />
@@ -79,9 +75,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201310170559446_InitialCreate.resx">
       <DependentUpon>201310170559446_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201310170807531_Onebin.resx">
-      <DependentUpon>201310170807531_Onebin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SpringConfig\RepositoryConfig.xml">
       <SubType>Designer</SubType>
