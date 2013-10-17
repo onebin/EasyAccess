@@ -3,7 +3,7 @@ using EasyAccess.Infrastructure.Entity;
 
 namespace EasyAccess.Model.EDMs
 {
-    public class Menu : EntityBase<string>
+    public class Menu : AggregateBase<string>
     {
         public string ParentId { get; set; }
 

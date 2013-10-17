@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EasyAccess.Infrastructure.Entity
 {
-    public interface IAggregateRootBase<TKey> : IEntityBase<TKey>, IAggregateRoot
+    public interface IAggregateRootBase<TKey> : IAggregateBase<TKey>, IAggregateRoot
     {
     }
 }

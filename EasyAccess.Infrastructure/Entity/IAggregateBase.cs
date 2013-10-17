@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace EasyAccess.Infrastructure.Entity
 {
-    public interface IEntityBase<TKey> : IEntity
+    public interface IAggregateBase<TKey> : IEntity
     {
-        TKey Id { get; set; }
+        new TKey Id { get; set; }
     }
 }

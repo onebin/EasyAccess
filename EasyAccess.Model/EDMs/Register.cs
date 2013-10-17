@@ -5,7 +5,7 @@ using EasyAccess.Model.DTOs;
 
 namespace EasyAccess.Model.EDMs
 {
-    public class Register : EntityBase<long>
+    public class Register : AggregateBase<long>
     {
         public LoginUser LoginUser { get; set; }
 

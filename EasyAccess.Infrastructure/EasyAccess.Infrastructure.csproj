@@ -55,11 +55,11 @@
     <Compile Include="Attr\PermissionAttribute.cs" />
     <Compile Include="Constant\EnumConst.cs" />
     <Compile Include="Constant\ViewConst.cs" />
-    <Compile Include="Entity\EntityBase.cs" />
+    <Compile Include="Entity\AggregateBase.cs" />
     <Compile Include="Entity\IAggregateRoot.cs" />
     <Compile Include="Entity\IAggregateRootBase.cs" />
     <Compile Include="Entity\IEntity.cs" />
-    <Compile Include="Entity\IEntityBase.cs" />
+    <Compile Include="Entity\IAggregateBase.cs" />
     <Compile Include="Extensions\TypeExtension.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
