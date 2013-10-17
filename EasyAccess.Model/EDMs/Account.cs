@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using EasyAccess.Infrastructure.Entity;
 using EasyAccess.Model.DTOs;
 
@@ -17,6 +18,8 @@ namespace EasyAccess.Model.EDMs
         public Name Name { get; set; }
 
         public Contact Contact { get; set; }
+
+        public DateTime CreateTime { get; set; }
 
         public virtual Register Register { get; set; }
 
