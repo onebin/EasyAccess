@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using System.Linq.Expressions;
 using EasyAccess.Infrastructure.Entity;
 
@@ -7,6 +10,12 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
     public interface IQueryCondition<TEntity> where TEntity : IAggregateRoot
     {
         Expression<Func<TEntity, bool>> Predicate { get; }
+
+        Dictionary<string, ListSortDirection> KeySelectors { get; set; }
+
+        void OrderBy<TKey>(ListSortDirection direction, params Expression<Func<TEntity, TKey>>[] keySelectors);
+
+        void OrderBy<TKey>(Expression<Func<TEntity, TKey>> keySelector, ListSortDirection direction = ListSortDirection.Ascending);
 
         void Clear();
 

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.ComponentModel;
+using System.Linq;
 using EasyAccess.Infrastructure.Service;
 using EasyAccess.Infrastructure.Util.ConditionBuilder;
 using EasyAccess.Infrastructure.Util.PagingData;
@@ -14,11 +15,7 @@ namespace EasyAccess.Service.Services
 
         public PagingData<Account> GetAccountPagingData(IQueryCondition<Account> queryCondition, PagingCondition pagingCondition)
         {
-            var query = AccountRepository.Entities.Where(queryCondition.Predicate);
-            var recordCount = query.Count();
-            var recordData = query.OrderBy(x => x.Id).Skip(pagingCondition.Skip).Take(pagingCondition.PageSize).ToList();
-            var pageData = new PagingData<Account>(recordCount, pagingCondition, recordData);
-            return pageData;
+            return GetPagingData(AccountRepository.Entities, queryCondition, pagingCondition);
         }
     }
 }

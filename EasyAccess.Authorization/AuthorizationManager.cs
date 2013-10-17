@@ -365,7 +365,7 @@ namespace EasyAccess.Authorization
         public void SetTicket(string userName, string token, bool rememberMe)
         {
             var expiration = rememberMe ? DateTime.Now.AddDays(7) : DateTime.Now.Add(FormsAuthentication.Timeout);
-            var ticket = new FormsAuthenticationTicket(1, userName, DateTime.Now, expiration, true, token);
+            var ticket = new FormsAuthenticationTicket(1, userName, DateTime.Now, expiration, true, token, FormsAuthentication.FormsCookiePath);
             var hashTicket = FormsAuthentication.Encrypt(ticket);
             var userCookie = new HttpCookie(FormsAuthentication.FormsCookieName, hashTicket);
             HttpContext.Current.Response.Cookies.Set(userCookie);

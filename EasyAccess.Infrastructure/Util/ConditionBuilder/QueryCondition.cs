@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using EasyAccess.Infrastructure.Entity;
@@ -32,6 +33,8 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
                 return Expression.Lambda<Func<TEntity, bool>>(expression, Parameters);
             }
         }
+
+        Dictionary<string, ListSortDirection> IQueryCondition<TEntity>.KeySelectors { get; set; }
 
         private Expression GetMemberExpression<TProperty>(Expression<Func<TEntity, TProperty>> property)
         {
@@ -201,6 +204,47 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
                 }
             }
             return this;
+        }
+
+        void IQueryCondition<TEntity>.OrderBy<TKey>(ListSortDirection direction, params Expression<Func<TEntity, TKey>>[] keySelectors)
+        {
+            foreach (var keySelector in keySelectors)
+            {
+                ((IQueryCondition<TEntity>)this).OrderBy(keySelector, direction);
+            }
+        }
+
+        void IQueryCondition<TEntity>.OrderBy<TKey>(Expression<Func<TEntity, TKey>> keySelector, ListSortDirection direction)
+        {
+            var keySelectors = ((IQueryCondition<TEntity>) this).KeySelectors;
+            var keyName = GetPropertyName(keySelector);
+            if (keySelectors == null)
+            {
+                keySelectors = new Dictionary<string, ListSortDirection>();
+            }
+            if (keySelectors.ContainsKey(keyName))
+            {
+                keySelectors.Remove(keyName);
+            }
+            keySelectors.Add(keyName, direction);
+        }
+
+        private string GetPropertyName<TEntity, TKey>(Expression<Func<TEntity, TKey>> expr)
+        {
+            var name = string.Empty;
+            if (expr.Body is UnaryExpression)
+            {
+                name = ((MemberExpression)((UnaryExpression)expr.Body).Operand).Member.Name;
+            }
+            else if (expr.Body is MemberExpression)
+            {
+                name = ((MemberExpression)expr.Body).Member.Name;
+            }
+            else if (expr.Body is ParameterExpression)
+            {
+                name = ((ParameterExpression)expr.Body).Type.Name;
+            }
+            return name;
         }
     }
 }
