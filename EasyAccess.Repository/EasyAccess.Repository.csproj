@@ -50,6 +50,11 @@
   <ItemGroup>
     <Compile Include="Configuration\EasyAccessContext.cs" />
     <Compile Include="Configuration\EasyAccessInitializer.cs" />
+    <Compile Include="Migrations\201310170559446_InitialCreate.cs" />
+    <Compile Include="Migrations\201310170559446_InitialCreate.Designer.cs">
+      <DependentUpon>201310170559446_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AccountRepository.cs" />
     <Compile Include="IRepositories\IAccountRepository.cs" />
@@ -68,6 +73,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\201310170559446_InitialCreate.resx">
+      <DependentUpon>201310170559446_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SpringConfig\RepositoryConfig.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>

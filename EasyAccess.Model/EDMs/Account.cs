@@ -6,7 +6,9 @@ namespace EasyAccess.Model.EDMs
 {
     public class Account : AggregateRootBase<long>
     {
-        public int Sex { get; set; }
+        public int Age { get; set; }
+
+        public Sex Sex { get; set; }
 
         public string Memo { get; set; }
 

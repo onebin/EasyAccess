@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using EasyAccess.Infrastructure.Util.ConditionBuilder;
+using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
 using EasyAccess.Repository.Repositories;
 using EasyAccess.UnitTest.SpringTest;
@@ -31,12 +32,12 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
         {
             var builder = ConditionBuilder<Account>.Create();
             builder.Equal(x => x.IsDeleted, false);
-            builder.Equal(x => x.Sex, 1); 
+            builder.Equal(x => x.Sex, Sex.Male); 
             var account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
             Assert.IsNotNull(account);
 
             builder.Clear();
-            builder.Equal(x => x.Sex, 0);
+            builder.Equal(x => x.Sex, Sex.Female);
             account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
             Assert.IsNull(account);
         }
@@ -46,12 +47,12 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
         public void TestNotEquals()
         {
             var builder = ConditionBuilder<Account>.Create();
-            builder.NotEqual(x => x.Sex, 0);
+            builder.NotEqual(x => x.Sex, Sex.Female);
             var account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
             Assert.IsNotNull(account);
 
             builder.Clear();
-            builder.NotEqual(x => x.Sex, 1);
+            builder.NotEqual(x => x.Sex, Sex.Male);
             account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
             Assert.IsNull(account);
         }
@@ -74,12 +75,12 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
         public void TestBetween()
         {
             var builder = ConditionBuilder<Account>.Create();
-            builder.Between(x => x.Sex, 0, 1);
+            builder.Between(x => x.Age, 20, 30);
             var account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
             Assert.IsNotNull(account);
 
             builder.Clear();
-            builder.Between(x => x.Sex, 2, 3);
+            builder.Between(x => x.Age, 30, 50);
             account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
             Assert.IsNull(account);
         }
@@ -112,28 +113,28 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
             Assert.IsNull(account);
 
 
-            builder.Clear();
-            builder.Fuzzy(x => x.Sex, "0-1");
-            account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
-            Assert.IsNotNull(account);
+            //builder.Clear();
+            //builder.Fuzzy(x => x.Age, "20-30");
+            //account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
+            //Assert.IsNotNull(account);
 
 
-            builder.Clear();
-            builder.Fuzzy(x => x.Sex, "2-3");
-            account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
-            Assert.IsNull(account);
+            //builder.Clear();
+            //builder.Fuzzy(x => x.Age, "10-20");
+            //account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
+            //Assert.IsNull(account);
         }
 
         [TestMethod]
         public void TestGreaterThanOrEqual()
         {
             var builder = ConditionBuilder<Account>.Create();
-            builder.GreaterThanOrEqual(x => x.Sex, 1);
+            builder.GreaterThanOrEqual(x => x.Age, 24);
             var account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
             Assert.IsNotNull(account);
 
             builder.Clear();
-            builder.GreaterThanOrEqual(x => x.Sex, 2);
+            builder.GreaterThanOrEqual(x => x.Age, 25);
             account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
             Assert.IsNull(account);
         }
@@ -143,12 +144,12 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
         public void TestLessThanOrEqual()
         {
             var builder = ConditionBuilder<Account>.Create();
-            builder.LessThanOrEqual(x => x.Sex, 1);
+            builder.LessThanOrEqual(x => x.Age, 24);
             var account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
             Assert.IsNotNull(account);
 
             builder.Clear();
-            builder.LessThanOrEqual(x => x.Sex, 0);
+            builder.LessThanOrEqual(x => x.Age, 23);
             account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
             Assert.IsNull(account);
         }
@@ -157,12 +158,12 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
         public void TestGreaterThan()
         {
             var builder = ConditionBuilder<Account>.Create();
-            builder.GreaterThan(x => x.Sex, 0);
+            builder.GreaterThan(x => x.Age, 23);
             var account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
             Assert.IsNotNull(account);
 
             builder.Clear();
-            builder.GreaterThan(x => x.Sex, 1);
+            builder.GreaterThan(x => x.Age, 24);
             account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
             Assert.IsNull(account);
         }
@@ -172,12 +173,12 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
         public void TestLessThan()
         {
             var builder = ConditionBuilder<Account>.Create();
-            builder.LessThan(x => x.Sex, 2);
+            builder.LessThan(x => x.Age, 25);
             var account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
             Assert.IsNotNull(account);
 
             builder.Clear();
-            builder.LessThan(x => x.Sex, 1);
+            builder.LessThan(x => x.Age, 24);
             account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
             Assert.IsNull(account);
         }

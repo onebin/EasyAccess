@@ -21,8 +21,9 @@ namespace EasyAccess.Repository.Configuration
                             LastName = "Wu",
                             NickName = "Onebin"
                                 },
+                                Age = 24,
                             Contact = new Contact(),
-                            Sex = 1,
+                            Sex = Sex.Male,
                             IsDeleted = false,
                             Register = new Register
                                 {
