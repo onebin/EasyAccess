@@ -4,7 +4,7 @@ using EasyAccess.Model.DTOs;
 
 namespace EasyAccess.Model.EDMs
 {
-    public class Account : AggregateBase<long>, IAggregateRootBase<long>
+    public class Account : AggregateRootBase<long>
     {
         public int Sex { get; set; }
 

@@ -3,7 +3,7 @@ using EasyAccess.Infrastructure.Entity;
 
 namespace EasyAccess.Model.EDMs
 {
-    public class Role : AggregateBase<long>, IAggregateRootBase<long>
+    public class Role : AggregateRootBase<long>
     {
         public string Name { get; set; }
 
