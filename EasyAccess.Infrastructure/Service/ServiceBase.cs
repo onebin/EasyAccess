@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using EasyAccess.Infrastructure.Entity;
 using EasyAccess.Infrastructure.UnitOfWork;
 using EasyAccess.Infrastructure.Util.ConditionBuilder;
@@ -17,7 +13,7 @@ namespace EasyAccess.Infrastructure.Service
         protected PagingData<TEntity> GetPagingData<TEntity>(
             IQueryable<TEntity> entities,
             IQueryCondition<TEntity> queryCondition,
-            PagingCondition pagingCondition) where TEntity : IAggregateRoot
+            PagingCondition pagingCondition) where TEntity : class, IAggregateRoot
         {
             var query = entities.Where(queryCondition.Predicate);
             var recordCount = query.Count();
@@ -25,7 +21,7 @@ namespace EasyAccess.Infrastructure.Service
             IOrderedQueryable<TEntity> orderCondition = null;
             if (queryCondition.KeySelectors == null || queryCondition.KeySelectors.Count == 0)
             {
-
+                orderCondition = entities.OrderBy(x => x.Id);
             }
             else
             {

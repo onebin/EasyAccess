@@ -5,7 +5,7 @@ using EasyAccess.Infrastructure.UnitOfWork;
 using EasyAccess.Infrastructure.Util.ConditionBuilder;
 using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
-using EasyAccess.Repository.Configuration;
+using EasyAccess.Repository.Configurations;
 using EasyAccess.Repository.IRepositories;
 using EasyAccess.Repository.Repositories;
 using EasyAccess.Repository.UnitOfWork;

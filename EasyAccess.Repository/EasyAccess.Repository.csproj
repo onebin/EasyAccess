@@ -48,11 +48,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\EasyAccessContext.cs" />
-    <Compile Include="Configuration\EasyAccessInitializer.cs" />
-    <Compile Include="Migrations\201310170559446_InitialCreate.cs" />
-    <Compile Include="Migrations\201310170559446_InitialCreate.Designer.cs">
-      <DependentUpon>201310170559446_InitialCreate.cs</DependentUpon>
+    <Compile Include="Configurations\EasyAccessContext.cs" />
+    <Compile Include="Configurations\EasyAccessInitializer.cs" />
+    <Compile Include="Migrations\201310171349063_InitialCreate.cs" />
+    <Compile Include="Migrations\201310171349063_InitialCreate.Designer.cs">
+      <DependentUpon>201310171349063_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,8 +73,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201310170559446_InitialCreate.resx">
-      <DependentUpon>201310170559446_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201310171349063_InitialCreate.resx">
+      <DependentUpon>201310171349063_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SpringConfig\RepositoryConfig.xml">
       <SubType>Designer</SubType>
@@ -84,6 +84,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

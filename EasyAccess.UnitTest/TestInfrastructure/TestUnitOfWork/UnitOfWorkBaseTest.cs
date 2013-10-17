@@ -1,7 +1,6 @@
 ﻿using System.Dynamic;
 using System.Linq;
 using EasyAccess.Infrastructure.UnitOfWork;
-using EasyAccess.Repository.Configuration;
 using EasyAccess.Repository.Repositories;
 using EasyAccess.UnitTest.SpringTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

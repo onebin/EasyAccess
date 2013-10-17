@@ -2,7 +2,7 @@
 using System.Data.Entity.ModelConfiguration.Conventions;
 using EasyAccess.Model.EDMs;
 
-namespace EasyAccess.Repository.Configuration
+namespace EasyAccess.Repository.Configurations
 {
     public class EasyAccessContext : DbContext
     {

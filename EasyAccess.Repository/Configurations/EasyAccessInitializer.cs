@@ -4,7 +4,7 @@ using System.Data.Entity;
 using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
 
-namespace EasyAccess.Repository.Configuration
+namespace EasyAccess.Repository.Configurations
 {
     public class EasyAccessInitializer : DropCreateDatabaseIfModelChanges<EasyAccessContext>
     {

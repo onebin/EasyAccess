@@ -11,7 +11,7 @@ namespace EasyAccess.Repository.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201310170559446_InitialCreate"; }
+            get { return "201310171349063_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source

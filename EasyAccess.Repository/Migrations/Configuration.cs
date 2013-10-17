@@ -1,3 +1,8 @@
+using System.Collections.Generic;
+using EasyAccess.Model.DTOs;
+using EasyAccess.Model.EDMs;
+using EasyAccess.Repository.Configurations;
+
 namespace EasyAccess.Repository.Migrations
 {
     using System;
@@ -5,7 +10,7 @@ namespace EasyAccess.Repository.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<EasyAccess.Repository.Configuration.EasyAccessContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<EasyAccessContext>
     {
         public Configuration()
         {
@@ -13,20 +18,45 @@ namespace EasyAccess.Repository.Migrations
             AutomaticMigrationDataLossAllowed = true;
         }
 
-        protected override void Seed(EasyAccess.Repository.Configuration.EasyAccessContext context)
+        protected override void Seed(EasyAccessContext context)
         {
-            //  This method will be called after migrating to the latest version.
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            var roles = new List<Role> { new Role() { Id = 1, Name = "¹ÜÀíÔ±", IsEnabled = true } };
+
+            var account = new Account()
+            {
+                Id = 1,
+                Name = new Name
+                {
+
+                    FirstName = "Yibin",
+                    LastName = "Wu",
+                    NickName = "51b"
+                },
+                Age = 24,
+                Contact = new Contact
+                {
+                    Email = "onebin.net@gmail.com",
+                    Phone = "020-87654321"
+                },
+                Sex = Sex.Male,
+                IsDeleted = false,
+                Memo = "https://github.com/onebin/EasyAccess",
+                Register = new Register
+                {
+                    LoginUser = new LoginUser
+                    {
+                        UserName = "Admin",
+                        Password = "kLD+u1gdwB2ddmp6OmPZFXsQfcmsTUeyhyguDMpLsEM="
+                    },
+                    Salt = Guid.Parse("1A0AEF62-A8ED-44A3-93C9-48E9F9774B84")
+                },
+                CreateTime = DateTime.Now,
+                Roles = roles
+            };
+
+            context.Accounts.AddOrUpdate(x => x.Id, account);
+            context.Roles.AddOrUpdate(x => x.Id, roles.ToArray());
         }
     }
 }

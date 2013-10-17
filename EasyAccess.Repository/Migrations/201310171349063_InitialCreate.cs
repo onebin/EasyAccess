@@ -21,6 +21,7 @@ namespace EasyAccess.Repository.Migrations
                         Name_NickName = c.String(maxLength: 50),
                         Contact_Email = c.String(maxLength: 255),
                         Contact_Phone = c.String(maxLength: 32),
+                        CreateTime = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Register", t => t.Id)
