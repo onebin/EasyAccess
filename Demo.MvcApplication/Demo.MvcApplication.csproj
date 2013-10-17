@@ -347,6 +347,14 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Demo.Model\Demo.Model.csproj">
+      <Project>{912e2e61-224f-408b-bf63-d830f81e426c}</Project>
+      <Name>Demo.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Demo.Service\Demo.Service.csproj">
+      <Project>{9d2a3e4a-f33d-4170-b689-76d42c2c04f1}</Project>
+      <Name>Demo.Service</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EasyAccess.Authorization\EasyAccess.Authorization.csproj">
       <Project>{c858c06a-f7ce-40d2-9064-8d708f1e77b9}</Project>
       <Name>EasyAccess.Authorization</Name>

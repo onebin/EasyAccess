@@ -42,6 +42,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Demo.Repository\Demo.Repository.csproj">
+      <Project>{89a4b1b8-ab04-4118-b8a5-20ecfc3df9de}</Project>
+      <Name>Demo.Repository</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EasyAccess.Infrastructure\EasyAccess.Infrastructure.csproj">
       <Project>{f423a8a3-1ff4-4c09-8dd1-2071cbf61021}</Project>
       <Name>EasyAccess.Infrastructure</Name>
