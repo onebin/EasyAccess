@@ -56,7 +56,6 @@ namespace EasyAccess.Repository.Migrations
             };
 
             context.Accounts.AddOrUpdate(x => x.Id, account);
-            context.Roles.AddOrUpdate(x => x.Id, roles.ToArray());
         }
     }
 }
