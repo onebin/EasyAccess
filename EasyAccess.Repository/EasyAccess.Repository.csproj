@@ -49,7 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\EasyAccessContext.cs" />
-    <Compile Include="Configurations\EasyAccessInitializer.cs" />
+    <Compile Include="Configurations\EasyAccessDatabaseInitializer.cs" />
     <Compile Include="Migrations\201310171349063_InitialCreate.cs" />
     <Compile Include="Migrations\201310171349063_InitialCreate.Designer.cs">
       <DependentUpon>201310171349063_InitialCreate.cs</DependentUpon>

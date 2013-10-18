@@ -3,7 +3,7 @@ using EasyAccess.Repository.Migrations;
 
 namespace EasyAccess.Repository.Configurations
 {
-    public class EasyAccessInitializer
+    public class EasyAccessDatabaseInitializer
     {
         public static void Initialize()
         {

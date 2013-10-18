@@ -13,7 +13,7 @@ namespace EasyAccess.UnitTest.TestRepository
         [AssemblyInitialize()]
         public static void AssemblyInit(TestContext context)
         {
-            EasyAccessInitializer.Initialize();
+            EasyAccessDatabaseInitializer.Initialize();
         }
 
         [TestMethod]
