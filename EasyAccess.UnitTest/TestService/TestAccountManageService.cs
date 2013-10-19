@@ -15,7 +15,7 @@ namespace EasyAccess.UnitTest.TestService
         public void TestGetAccountPagingData()
         {
             var conditionBuilder = ConditionBuilder<Account>.Create();
-            conditionBuilder.OrderBy(x => new { x.Sex, x.Age }, ListSortDirection.Descending);
+            conditionBuilder.OrderBy(x => x.Id);
             var pagingCondition = new PagingCondition(0, 15);
             AccountManageService.GetAccountPagingData(conditionBuilder, pagingCondition);
         }

@@ -13,9 +13,9 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
 
         Dictionary<string, ListSortDirection> KeySelectors { get; set; }
 
-        void OrderBy<TKey>(ListSortDirection direction, params Expression<Func<TEntity, TKey>>[] keySelectors);
+        void OrderBy<TKey>(Expression<Func<TEntity, TKey>> keySelector);
 
-        void OrderBy<TKey>(Expression<Func<TEntity, TKey>> keySelector, ListSortDirection direction = ListSortDirection.Ascending);
+        void OrderByDescending<TKey>(Expression<Func<TEntity, TKey>> keySelector);
 
         void Clear();
 

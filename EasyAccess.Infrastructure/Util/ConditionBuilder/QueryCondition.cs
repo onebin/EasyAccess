@@ -206,18 +206,20 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
             return this;
         }
 
-        void IQueryCondition<TEntity>.OrderBy<TKey>(ListSortDirection direction, params Expression<Func<TEntity, TKey>>[] keySelectors)
+        void IQueryCondition<TEntity>.OrderBy<TKey>(Expression<Func<TEntity, TKey>> keySelector)
         {
-            foreach (var keySelector in keySelectors)
-            {
-                ((IQueryCondition<TEntity>)this).OrderBy(keySelector, direction);
-            }
+            Sort(keySelector, ListSortDirection.Ascending);
         }
 
-        void IQueryCondition<TEntity>.OrderBy<TKey>(Expression<Func<TEntity, TKey>> keySelector, ListSortDirection direction)
+        void IQueryCondition<TEntity>.OrderByDescending<TKey>(Expression<Func<TEntity, TKey>> keySelector)
+        {
+            Sort(keySelector, ListSortDirection.Descending);
+        }
+
+        private void Sort<TKey>(Expression<Func<TEntity, TKey>> keySelector, ListSortDirection direction)
         {
             var keyNames = GetPropertyNames(keySelector);
-            if(!keyNames.Any()) return;
+            if(keyNames == null || !keyNames.Any()) return;
             foreach (var keyName in keyNames.Where(keyName => !string.IsNullOrEmpty(keyName)))
             {
                 if (((IQueryCondition<TEntity>)this).KeySelectors == null)
@@ -240,7 +242,7 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
             var names = new List<string>();
             if (expr.Body is MemberExpression)
             {
-                names.Add(((MemberExpression)expr.Body).Member.Name);
+                names.Add(((MemberExpression) expr.Body).Member.Name);
             }
             else if (expr.Body is NewExpression)
             {

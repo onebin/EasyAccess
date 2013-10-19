@@ -33,7 +33,7 @@ namespace EasyAccess.Infrastructure.Util.PagingData
         {
             get
             {
-                return PageIndex*PageSize;
+                return PageIndex * PageSize;
             }
         }
     }
