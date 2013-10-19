@@ -56,6 +56,8 @@ namespace EasyAccess.Repository.Migrations
             };
 
             context.Accounts.AddOrUpdate(x => x.Id, account);
+
+
         }
     }
 }
