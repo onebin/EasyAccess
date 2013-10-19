@@ -216,34 +216,35 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
 
         void IQueryCondition<TEntity>.OrderBy<TKey>(Expression<Func<TEntity, TKey>> keySelector, ListSortDirection direction)
         {
-            var keyName = GetPropertyName(keySelector);
-            if (((IQueryCondition<TEntity>)this).KeySelectors == null)
+            var keyNames = GetPropertyNames(keySelector);
+            if(!keyNames.Any()) return;
+            foreach (var keyName in keyNames.Where(keyName => !string.IsNullOrEmpty(keyName)))
             {
-                ((IQueryCondition<TEntity>)this).KeySelectors = new Dictionary<string, ListSortDirection>();
+                if (((IQueryCondition<TEntity>)this).KeySelectors == null)
+                {
+                    ((IQueryCondition<TEntity>)this).KeySelectors = new Dictionary<string, ListSortDirection>();
+                }
+                if (((IQueryCondition<TEntity>)this).KeySelectors.ContainsKey(keyName))
+                {
+                    ((IQueryCondition<TEntity>)this).KeySelectors.Remove(keyName);
+                }
+                ((IQueryCondition<TEntity>)this).KeySelectors.Add(keyName, direction);
             }
-            if (((IQueryCondition<TEntity>)this).KeySelectors.ContainsKey(keyName))
-            {
-                ((IQueryCondition<TEntity>)this).KeySelectors.Remove(keyName);
-            }
-            ((IQueryCondition<TEntity>)this).KeySelectors.Add(keyName, direction);
         }
 
-        private string GetPropertyName<TEntity, TKey>(Expression<Func<TEntity, TKey>> expr)
+        private List<string> GetPropertyNames<TEntity, TKey>(Expression<Func<TEntity, TKey>> expr)
         {
-            var name = string.Empty;
-            if (expr.Body is UnaryExpression)
+            var names = new List<string>();
+            if (expr.Body is MemberExpression)
             {
-                name = ((MemberExpression)((UnaryExpression)expr.Body).Operand).Member.Name;
+                names.Add(((MemberExpression)expr.Body).Member.Name);
             }
-            else if (expr.Body is MemberExpression)
+            else if (expr.Body is NewExpression)
             {
-                name = ((MemberExpression)expr.Body).Member.Name;
+                var members = ((NewExpression)expr.Body).Members;
+                names.AddRange(members.Select(x => x.Name));
             }
-            else if (expr.Body is ParameterExpression)
-            {
-                name = ((ParameterExpression)expr.Body).Type.Name;
-            }
-            return name;
+            return names;
         }
     }
 }

@@ -183,5 +183,13 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
             account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
             Assert.IsNull(account);
         }
+
+        [TestMethod]
+        public void TestOrderBy()
+        {
+            var conditionBuilder = ConditionBuilder<Account>.Create();
+            conditionBuilder.OrderBy(x => new { x.Sex, x.Age });
+            
+        }
     }
 }

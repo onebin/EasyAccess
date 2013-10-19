@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using EasyAccess.Infrastructure.Util.ConditionBuilder;
 using EasyAccess.Infrastructure.Util.PagingData;
 using EasyAccess.Model.EDMs;
@@ -14,7 +15,7 @@ namespace EasyAccess.UnitTest.TestService
         public void TestGetAccountPagingData()
         {
             var conditionBuilder = ConditionBuilder<Account>.Create();
-            conditionBuilder.OrderBy(x => x.Age);
+            conditionBuilder.OrderBy(x => new { x.Sex, x.Age }, ListSortDirection.Descending);
             var pagingCondition = new PagingCondition(0, 15);
             AccountManageService.GetAccountPagingData(conditionBuilder, pagingCondition);
         }

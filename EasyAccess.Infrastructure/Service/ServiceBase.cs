@@ -36,11 +36,11 @@ namespace EasyAccess.Infrastructure.Service
                     var lambda = Expression.Lambda(body, parma);
                     orderCondition = i == 0
                         ? keySelector.Value == ListSortDirection.Ascending
-                            ? entities.OrderBy(x => lambda)
-                            : entities.OrderByDescending(x => lambda)
+                            ? Queryable.OrderBy(entities, (dynamic)lambda)
+                            : Queryable.OrderByDescending(entities, (dynamic)lambda)
                         : keySelector.Value == ListSortDirection.Ascending
-                            ? orderCondition.ThenBy(entity => lambda)
-                            : orderCondition.ThenByDescending(x => lambda);
+                            ? Queryable.ThenBy(orderCondition, (dynamic)lambda)
+                            : Queryable.ThenByDescending(orderCondition, (dynamic)lambda);
 
                     i++;
                 }
