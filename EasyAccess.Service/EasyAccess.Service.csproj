@@ -50,6 +50,7 @@
     <Compile Include="IServices\ILoginService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AccountManageService.cs" />
+    <Compile Include="Configurations\EasyAccessServiceInitializer.cs" />
     <Compile Include="Services\LoginService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -71,7 +72,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SpringConfig\ServiceConfig.xml">
+    <EmbeddedResource Include="Configurations\SpringConfig\ServiceConfig.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

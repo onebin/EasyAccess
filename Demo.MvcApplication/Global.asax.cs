@@ -2,6 +2,9 @@
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using EasyAccess.Service.Configurations;
+using EasyAccess.Service.IServices;
+using EasyAccess.Service.Services;
 using Spring.Web.Mvc;
 
 namespace Demo.MvcApplication
@@ -21,6 +24,8 @@ namespace Demo.MvcApplication
 
             BundleTable.EnableOptimizations = true;
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            EasyAccessServiceInitializer.DatabaseInitialize();
         }
     }
 }

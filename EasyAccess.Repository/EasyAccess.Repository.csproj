@@ -76,7 +76,7 @@
     <EmbeddedResource Include="Migrations\201310171349063_InitialCreate.resx">
       <DependentUpon>201310171349063_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SpringConfig\RepositoryConfig.xml">
+    <EmbeddedResource Include="Configurations\SpringConfig\RepositoryConfig.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
