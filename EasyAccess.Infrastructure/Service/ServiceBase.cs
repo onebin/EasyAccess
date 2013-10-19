@@ -22,25 +22,22 @@ namespace EasyAccess.Infrastructure.Service
             var recordCount = query.Count();
 
             IOrderedQueryable<TEntity> orderCondition = null;
-            if (queryCondition.KeySelectors == null || queryCondition.KeySelectors.Count == 0)
+            if (queryCondition.OrderByConditions == null || queryCondition.OrderByConditions.Count == 0)
             {
                 orderCondition = entities.OrderBy(x => x.Id);
             }
             else
             {
                 var i = 0;
-                foreach (var keySelector in queryCondition.KeySelectors)
+                foreach (var keySelector in queryCondition.OrderByConditions)
                 {
-                    var parma = Expression.Parameter(typeof (TEntity));
-                    var body = Expression.Property(parma, keySelector.Key);
-                    var lambda = Expression.Lambda(body, parma);
                     orderCondition = i == 0
-                        ? keySelector.Value == ListSortDirection.Ascending
-                            ? Queryable.OrderBy(entities, (dynamic)lambda)
-                            : Queryable.OrderByDescending(entities, (dynamic)lambda)
-                        : keySelector.Value == ListSortDirection.Ascending
-                            ? Queryable.ThenBy(orderCondition, (dynamic)lambda)
-                            : Queryable.ThenByDescending(orderCondition, (dynamic)lambda);
+                        ? keySelector.Value.Direction == ListSortDirection.Ascending
+                            ? Queryable.OrderBy(entities, (dynamic)keySelector.Value.KeySelector)
+                            : Queryable.OrderByDescending(entities, (dynamic)keySelector.Value.KeySelector)
+                        : keySelector.Value.Direction == ListSortDirection.Ascending
+                            ? Queryable.ThenBy(orderCondition, (dynamic)keySelector.Value.KeySelector)
+                            : Queryable.ThenByDescending(orderCondition, (dynamic)keySelector.Value.KeySelector);
 
                     i++;
                 }

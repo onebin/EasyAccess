@@ -11,11 +11,11 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
     {
         Expression<Func<TEntity, bool>> Predicate { get; }
 
-        Dictionary<string, ListSortDirection> KeySelectors { get; set; }
+        Dictionary<string, OrderByCondition> OrderByConditions { get; set; }
 
-        void OrderBy<TKey>(Expression<Func<TEntity, TKey>> keySelector);
+        ThenByCondition<TEntity> OrderBy<TKey>(Expression<Func<TEntity, TKey>> keySelector);
 
-        void OrderByDescending<TKey>(Expression<Func<TEntity, TKey>> keySelector);
+        ThenByCondition<TEntity> OrderByDescending<TKey>(Expression<Func<TEntity, TKey>> keySelector);
 
         void Clear();
 

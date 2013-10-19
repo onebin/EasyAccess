@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using EasyAccess.Infrastructure.Util.ConditionBuilder;
 using EasyAccess.Model.DTOs;
@@ -33,7 +34,7 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
         {
             var builder = ConditionBuilder<Account>.Create();
             builder.Equal(x => x.IsDeleted, false);
-            builder.Equal(x => x.Sex, Sex.Male); 
+            builder.Equal(x => x.Sex, Sex.Male);
             var account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
             Assert.IsNotNull(account);
 
@@ -67,7 +68,8 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
             var account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
             Assert.IsNotNull(account);
 
-            builder.Clear(); ;
+            builder.Clear();
+            ;
             builder.Like(x => x.Name.FirstName, "51b");
             account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
             Assert.IsNull(account);
@@ -186,49 +188,57 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
         }
 
         [TestMethod]
+        [ExpectedException(typeof(NotSupportedException))]
         public void TestOrderBy1()
         {
             var conditionBuilder = ConditionBuilder<Account>.Create();
+
             conditionBuilder.OrderBy(x => new { x.Sex, x.Age });
-            Assert.AreEqual("Sex", conditionBuilder.KeySelectors.First().Key);
-            Assert.AreEqual("Age", conditionBuilder.KeySelectors.Last().Key);
-            Assert.AreEqual(ListSortDirection.Ascending, conditionBuilder.KeySelectors.First().Value);
-            Assert.AreEqual(ListSortDirection.Ascending, conditionBuilder.KeySelectors.Last().Value);
 
-
-            conditionBuilder.OrderBy(x => new { x.Sex, x.Age }, ListSortDirection.Descending);
-            Assert.AreEqual(2, conditionBuilder.KeySelectors.Count);
-            Assert.AreEqual("Sex", conditionBuilder.KeySelectors.First().Key);
-            Assert.AreEqual("Age", conditionBuilder.KeySelectors.Last().Key);
-            Assert.AreEqual(ListSortDirection.Descending, conditionBuilder.KeySelectors.First().Value);
-            Assert.AreEqual(ListSortDirection.Descending, conditionBuilder.KeySelectors.Last().Value);
+            Assert.Fail("期望抛出NotSupportedException，但实际并没抛出异常");
         }
 
         [TestMethod]
         public void TestOrderBy2()
         {
             var conditionBuilder = ConditionBuilder<Account>.Create();
+
             conditionBuilder.OrderBy(x => x.Sex);
-            conditionBuilder.OrderBy(x => x.Age);
-            Assert.AreEqual("Sex", conditionBuilder.KeySelectors.First().Key);
-            Assert.AreEqual("Age", conditionBuilder.KeySelectors.Last().Key);
-            Assert.AreEqual(ListSortDirection.Ascending, conditionBuilder.KeySelectors.First().Value);
-            Assert.AreEqual(ListSortDirection.Ascending, conditionBuilder.KeySelectors.Last().Value);
+            conditionBuilder.OrderByDescending(x => x.Age);
 
-            conditionBuilder.OrderBy(x => x.Sex, ListSortDirection.Descending);
-            Assert.AreEqual(2, conditionBuilder.KeySelectors.Count);
-            Assert.AreEqual("Sex", conditionBuilder.KeySelectors.First().Key);
-            Assert.AreEqual(ListSortDirection.Descending, conditionBuilder.KeySelectors.First().Value);
+            Assert.AreEqual(2, conditionBuilder.OrderByConditions.Count);
+            Assert.AreEqual("Sex", conditionBuilder.OrderByConditions.First().Key);
+            Assert.AreEqual("Age", conditionBuilder.OrderByConditions.Last().Key);
+            Assert.AreEqual(ListSortDirection.Ascending, conditionBuilder.OrderByConditions.First().Value.Direction);
+            Assert.AreEqual(ListSortDirection.Descending, conditionBuilder.OrderByConditions.Last().Value.Direction);
         }
-
 
         [TestMethod]
         public void TestOrderBy3()
         {
             var conditionBuilder = ConditionBuilder<Account>.Create();
-            conditionBuilder.OrderBy(ListSortDirection.Descending, x => x.Name.FirstName, x => x.Name.LastName);
-            Assert.AreEqual("FirstName", conditionBuilder.KeySelectors.First().Key);
-            Assert.AreEqual("LastName", conditionBuilder.KeySelectors.Last().Key);
+
+            conditionBuilder.OrderBy(x => x.Sex);
+            conditionBuilder.OrderByDescending(x => x.Sex);
+
+            Assert.AreEqual(1, conditionBuilder.OrderByConditions.Count);
+            Assert.AreEqual("Sex", conditionBuilder.OrderByConditions.First().Key);
+            Assert.AreEqual(ListSortDirection.Descending, conditionBuilder.OrderByConditions.Last().Value.Direction);
         }
+
+        [TestMethod]
+        public void TestOrderBy4()
+        {
+            var conditionBuilder = ConditionBuilder<Account>.Create();
+
+            conditionBuilder.OrderBy(x => x.Sex).ThenByDescending(x => x.Id).ThenBy(x => x.Name.FirstName);
+            Assert.AreEqual(3, conditionBuilder.OrderByConditions.Count);
+            Assert.AreEqual("Sex", conditionBuilder.OrderByConditions.First().Key);
+            Assert.AreEqual("FirstName", conditionBuilder.OrderByConditions.Last().Key);
+            Assert.AreEqual(ListSortDirection.Ascending, conditionBuilder.OrderByConditions.First().Value.Direction);
+            Assert.AreEqual(ListSortDirection.Descending, conditionBuilder.OrderByConditions.Single(x => x.Key == "Id").Value.Direction);
+            Assert.AreEqual(ListSortDirection.Ascending, conditionBuilder.OrderByConditions.Last().Value.Direction);
+        }
+
     }
 }

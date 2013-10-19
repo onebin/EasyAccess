@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Policy;
 using EasyAccess.Infrastructure.Entity;
 using EasyAccess.Infrastructure.Extensions;
 
@@ -34,7 +35,7 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
             }
         }
 
-        Dictionary<string, ListSortDirection> IQueryCondition<TEntity>.KeySelectors { get; set; }
+        Dictionary<string, OrderByCondition> IQueryCondition<TEntity>.OrderByConditions { get; set; }
 
         private Expression GetMemberExpression<TProperty>(Expression<Func<TEntity, TProperty>> property)
         {
@@ -71,6 +72,7 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
         {
             Parameters = null;
             _expressions.Clear();
+            ((IQueryCondition<TEntity>)this).OrderByConditions.Clear();
         }
 
         bool IQueryCondition<TEntity>.IsEmpty()
@@ -206,50 +208,68 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
             return this;
         }
 
-        void IQueryCondition<TEntity>.OrderBy<TKey>(Expression<Func<TEntity, TKey>> keySelector)
+        ThenByCondition<TEntity> IQueryCondition<TEntity>.OrderBy<TKey>(Expression<Func<TEntity, TKey>> keySelector)
         {
-            Sort(keySelector, ListSortDirection.Ascending);
+            return Sort(keySelector, ListSortDirection.Ascending);
         }
 
-        void IQueryCondition<TEntity>.OrderByDescending<TKey>(Expression<Func<TEntity, TKey>> keySelector)
+        ThenByCondition<TEntity> IQueryCondition<TEntity>.OrderByDescending<TKey>(Expression<Func<TEntity, TKey>> keySelector)
         {
-            Sort(keySelector, ListSortDirection.Descending);
+            return Sort(keySelector, ListSortDirection.Descending);
         }
 
-        private void Sort<TKey>(Expression<Func<TEntity, TKey>> keySelector, ListSortDirection direction)
+        private ThenByCondition<TEntity> Sort<TKey>(Expression<Func<TEntity, TKey>> keySelector, ListSortDirection direction)
         {
-            var keyNames = GetPropertyNames(keySelector);
-            if(keyNames == null || !keyNames.Any()) return;
-            foreach (var keyName in keyNames.Where(keyName => !string.IsNullOrEmpty(keyName)))
+            var keyName = GetPropertyName(keySelector);
+            if (!string.IsNullOrEmpty(keyName))
             {
-                if (((IQueryCondition<TEntity>)this).KeySelectors == null)
-                {
-                    ((IQueryCondition<TEntity>)this).KeySelectors = new Dictionary<string, ListSortDirection>();
-                }
-                if (((IQueryCondition<TEntity>)this).KeySelectors.ContainsKey(keyName))
-                {
-                    ((IQueryCondition<TEntity>) this).KeySelectors[keyName] = direction;
-                }
-                else
-                {
-                    ((IQueryCondition<TEntity>)this).KeySelectors.Add(keyName, direction);
-                }
+                InitOrderByCondition();
+                RemoveOrderByConditionItem(keyName);
+                AddOrderByConditionItem(keyName, keySelector, direction);
             }
+            return new ThenByCondition<TEntity>(((IQueryCondition<TEntity>)this));
         }
 
-        private List<string> GetPropertyNames<TEntity, TKey>(Expression<Func<TEntity, TKey>> expr)
+        private string GetPropertyName<TEntity, TKey>(Expression<Func<TEntity, TKey>> expr)
         {
-            var names = new List<string>();
+            var name = string.Empty;
             if (expr.Body is MemberExpression)
             {
-                names.Add(((MemberExpression) expr.Body).Member.Name);
+                name = ((MemberExpression) expr.Body).Member.Name;
             }
             else if (expr.Body is NewExpression)
             {
-                var members = ((NewExpression)expr.Body).Members;
-                names.AddRange(members.Select(x => x.Name));
+                throw new NotSupportedException("暂不支持以new{}方式传递参数");
             }
-            return names;
+            return name;
+        }
+
+        private void InitOrderByCondition()
+        {
+            if (((IQueryCondition<TEntity>)this).OrderByConditions == null)
+            {
+                ((IQueryCondition<TEntity>)this).OrderByConditions = new Dictionary<string, OrderByCondition>();
+            }
+        }
+
+        private void RemoveOrderByConditionItem(string keyName)
+        {
+            if (((IQueryCondition<TEntity>)this).OrderByConditions.ContainsKey(keyName))
+            {
+                ((IQueryCondition<TEntity>)this).OrderByConditions.Remove(keyName);
+            }
+        }
+
+        private void AddOrderByConditionItem<TKey>(string keyName, Expression<Func<TEntity, TKey>> keySelector, ListSortDirection direction)
+        {
+
+            ((IQueryCondition<TEntity>)this).OrderByConditions.Add(
+                keyName,
+                new OrderByCondition
+                {
+                    KeySelector = keySelector,
+                    Direction = direction
+                });
         }
     }
 }
