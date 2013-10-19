@@ -226,9 +226,12 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
                 }
                 if (((IQueryCondition<TEntity>)this).KeySelectors.ContainsKey(keyName))
                 {
-                    ((IQueryCondition<TEntity>)this).KeySelectors.Remove(keyName);
+                    ((IQueryCondition<TEntity>) this).KeySelectors[keyName] = direction;
                 }
-                ((IQueryCondition<TEntity>)this).KeySelectors.Add(keyName, direction);
+                else
+                {
+                    ((IQueryCondition<TEntity>)this).KeySelectors.Add(keyName, direction);
+                }
             }
         }
 
