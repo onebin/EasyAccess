@@ -75,12 +75,13 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SpringTest\SpringTestBase.cs" />
+    <Compile Include="Configurations\SpringTestBase.cs" />
     <Compile Include="TestAuthorization\AuthorizationManagerTest.cs" />
     <Compile Include="TestInfrastructure\TestUnitOfWork\UnitOfWorkBaseTest.cs" />
     <Compile Include="TestInfrastructure\TestUtil\TestConditionBuilder.cs" />
     <Compile Include="TestRepository\AccountRepositoryTest.cs" />
     <Compile Include="TestRepository\EasyAccessInitializerTest.cs" />
+    <Compile Include="TestService\TestAccountManageService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -103,10 +104,12 @@
       <Project>{79399b3a-c859-48f4-9337-e841953e4c72}</Project>
       <Name>EasyAccess.Repository</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EasyAccess.Service\EasyAccess.Service.csproj">
+      <Project>{0d0a58c2-921d-4c9e-b33e-7e06afb441b6}</Project>
+      <Name>EasyAccess.Service</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="TestService\" />
-  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

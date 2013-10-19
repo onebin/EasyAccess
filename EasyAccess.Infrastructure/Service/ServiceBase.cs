@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System.ComponentModel;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Web.UI.WebControls;
 using EasyAccess.Infrastructure.Entity;
 using EasyAccess.Infrastructure.UnitOfWork;
 using EasyAccess.Infrastructure.Util.ConditionBuilder;
@@ -25,7 +28,22 @@ namespace EasyAccess.Infrastructure.Service
             }
             else
             {
-                
+                var i = 0;
+                foreach (var keySelector in queryCondition.KeySelectors)
+                {
+                    var parma = Expression.Parameter(typeof (TEntity));
+                    var body = Expression.Property(parma, keySelector.Key);
+                    var lambda = Expression.Lambda(body, parma);
+                    orderCondition = i == 0
+                        ? keySelector.Value == ListSortDirection.Ascending
+                            ? entities.OrderBy(x => lambda)
+                            : entities.OrderByDescending(x => lambda)
+                        : keySelector.Value == ListSortDirection.Ascending
+                            ? orderCondition.ThenBy(entity => lambda)
+                            : orderCondition.ThenByDescending(x => lambda);
+
+                    i++;
+                }
             }
             query = orderCondition;
             var recordData = query.Skip(pagingCondition.Skip).Take(pagingCondition.PageSize);

@@ -9,7 +9,7 @@ using EasyAccess.Repository.Configurations;
 using EasyAccess.Repository.IRepositories;
 using EasyAccess.Repository.Repositories;
 using EasyAccess.Repository.UnitOfWork;
-using EasyAccess.UnitTest.SpringTest;
+using EasyAccess.UnitTest.Configurations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Spring.Context;

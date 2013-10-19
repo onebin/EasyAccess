@@ -216,17 +216,16 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
 
         void IQueryCondition<TEntity>.OrderBy<TKey>(Expression<Func<TEntity, TKey>> keySelector, ListSortDirection direction)
         {
-            var keySelectors = ((IQueryCondition<TEntity>) this).KeySelectors;
             var keyName = GetPropertyName(keySelector);
-            if (keySelectors == null)
+            if (((IQueryCondition<TEntity>)this).KeySelectors == null)
             {
-                keySelectors = new Dictionary<string, ListSortDirection>();
+                ((IQueryCondition<TEntity>)this).KeySelectors = new Dictionary<string, ListSortDirection>();
             }
-            if (keySelectors.ContainsKey(keyName))
+            if (((IQueryCondition<TEntity>)this).KeySelectors.ContainsKey(keyName))
             {
-                keySelectors.Remove(keyName);
+                ((IQueryCondition<TEntity>)this).KeySelectors.Remove(keyName);
             }
-            keySelectors.Add(keyName, direction);
+            ((IQueryCondition<TEntity>)this).KeySelectors.Add(keyName, direction);
         }
 
         private string GetPropertyName<TEntity, TKey>(Expression<Func<TEntity, TKey>> expr)

@@ -3,7 +3,7 @@ using EasyAccess.Infrastructure.Util.ConditionBuilder;
 using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
 using EasyAccess.Repository.Repositories;
-using EasyAccess.UnitTest.SpringTest;
+using EasyAccess.UnitTest.Configurations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
@@ -53,6 +53,7 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
 
             builder.Clear();
             builder.NotEqual(x => x.Sex, Sex.Male);
+            builder.NotEqual(x => x.Sex, Sex.Unknown);
             account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
             Assert.IsNull(account);
         }
@@ -149,7 +150,7 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
             Assert.IsNotNull(account);
 
             builder.Clear();
-            builder.LessThanOrEqual(x => x.Age, 23);
+            builder.LessThanOrEqual(x => x.Age, 16);
             account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
             Assert.IsNull(account);
         }
@@ -178,7 +179,7 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
             Assert.IsNotNull(account);
 
             builder.Clear();
-            builder.LessThan(x => x.Age, 24);
+            builder.LessThan(x => x.Age, 16);
             account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
             Assert.IsNull(account);
         }
