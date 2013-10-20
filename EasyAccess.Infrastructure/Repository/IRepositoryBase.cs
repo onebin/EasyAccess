@@ -4,29 +4,39 @@ using System.Linq;
 using System.Linq.Expressions;
 using EasyAccess.Infrastructure.Entity;
 using EasyAccess.Infrastructure.UnitOfWork;
+using EasyAccess.Infrastructure.Util.ConditionBuilder;
+using EasyAccess.Infrastructure.Util.PagingData;
 
 namespace EasyAccess.Infrastructure.Repository
 {
     public interface IRepositoryBase<TEntity, in TKey> : IRepository 
-        where TEntity : IAggregateRootBase<TKey>
+        where TEntity : class, IAggregateRootBase<TKey>
     {
         IUnitOfWork UnitOfWork { get; set; }
 
         /// <summary>
-        ///     获取 当前实体的查询数据集
+        /// 获取当前实体的查询数据集
         /// </summary>
         IQueryable<TEntity> Entities { get; }
 
         /// <summary>
-        ///     查找指定主键的实体记录
+        /// 查找指定主键的实体记录
         /// </summary>
         /// <param name="id">指定主键</param>
-        /// <returns> 符合编号的记录，不存在返回null </returns>
+        /// <returns>符合编号的记录，不存在返回null</returns>
         TEntity GetById(TKey id);
+
+        /// <summary>
+        /// 获取分页查询信息
+        /// </summary>
+        /// <param name="queryCondition">查询条件</param>
+        /// <param name="pagingCondition">分布条件</param>
+        /// <returns>分页数据</returns>
+        PagingData<TEntity> GetPagingData(IQueryCondition<TEntity> queryCondition, PagingCondition pagingCondition);
 
 
         /// <summary>
-        ///     插入实体记录
+        /// 插入实体记录
         /// </summary>
         /// <param name="entity"> 实体对象 </param>
         /// <param name="isSave"> 是否执行保存 </param>
@@ -34,51 +44,51 @@ namespace EasyAccess.Infrastructure.Repository
         int Insert(TEntity entity, bool isSave = true);
 
         /// <summary>
-        ///     批量插入实体记录集合
+        /// 批量插入实体记录集合
         /// </summary>
-        /// <param name="entities"> 实体记录集合 </param>
-        /// <param name="isSave"> 是否执行保存 </param>
-        /// <returns> 操作影响的行数 </returns>
+        /// <param name="entities">实体记录集合 </param>
+        /// <param name="isSave">是否执行保存 </param>
+        /// <returns>操作影响的行数 </returns>
         int Insert(IEnumerable<TEntity> entities, bool isSave = true);
 
         /// <summary>
-        ///     删除指定编号的记录
+        /// 删除指定编号的记录
         /// </summary>
-        /// <param name="id"> 实体记录编号 </param>
-        /// <param name="isSave"> 是否执行保存 </param>
-        /// <returns> 操作影响的行数 </returns>
+        /// <param name="id">实体记录编号</param>
+        /// <param name="isSave">是否执行保存</param>
+        /// <returns>操作影响的行数</returns>
         int Delete(TKey id, bool isSave = true);
 
         /// <summary>
-        ///     删除实体记录
+        /// 删除实体记录
         /// </summary>
-        /// <param name="entity"> 实体对象 </param>
-        /// <param name="isSave"> 是否执行保存 </param>
-        /// <returns> 操作影响的行数 </returns>
+        /// <param name="entity">实体对象</param>
+        /// <param name="isSave">是否执行保存</param>
+        /// <returns>操作影响的行数</returns>
         int Delete(TEntity entity, bool isSave = true);
 
         /// <summary>
-        ///     删除实体记录集合
+        /// 删除实体记录集合
         /// </summary>
-        /// <param name="entities"> 实体记录集合 </param>
-        /// <param name="isSave"> 是否执行保存 </param>
-        /// <returns> 操作影响的行数 </returns>
+        /// <param name="entities">实体记录集合</param>
+        /// <param name="isSave">是否执行保存</param>
+        /// <returns>操作影响的行数</returns>
         int Delete(IEnumerable<TEntity> entities, bool isSave = true);
 
         /// <summary>
-        ///     删除所有符合特定表达式的数据
+        /// 删除所有符合特定表达式的数据
         /// </summary>
-        /// <param name="predicate"> 查询条件谓语表达式 </param>
-        /// <param name="isSave"> 是否执行保存 </param>
-        /// <returns> 操作影响的行数 </returns>
+        /// <param name="predicate">查询条件谓语表达式</param>
+        /// <param name="isSave">是否执行保存</param>
+        /// <returns>操作影响的行数</returns>
         int Delete(Expression<Func<TEntity, bool>> predicate, bool isSave = true);
 
         /// <summary>
-        ///     更新实体记录
+        /// 更新实体记录
         /// </summary>
-        /// <param name="entity"> 实体对象 </param>
-        /// <param name="isSave"> 是否执行保存 </param>
-        /// <returns> 操作影响的行数 </returns>
+        /// <param name="entity">实体对象</param>
+        /// <param name="isSave">是否执行保存</param>
+        /// <returns>操作影响的行数</returns>
         int Update(TEntity entity, bool isSave = true);
 
         /// <summary>

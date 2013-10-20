@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Data.Entity;
 using System.IO;
@@ -7,6 +8,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using EasyAccess.Infrastructure.Entity;
 using EasyAccess.Infrastructure.UnitOfWork;
+using EasyAccess.Infrastructure.Util.ConditionBuilder;
+using EasyAccess.Infrastructure.Util.PagingData;
 
 namespace EasyAccess.Infrastructure.Repository
 {
@@ -29,14 +32,47 @@ namespace EasyAccess.Infrastructure.Repository
             }
         }
 
+        public IQueryable<TEntity> Entities
+        {
+            get { return UnitOfWorkContext.Set<TEntity, TKey>(); }
+        }
+
         public TEntity GetById(TKey id)
         {
             return UnitOfWorkContext.Set<TEntity, TKey>().Find(id);
         }
 
-        public IQueryable<TEntity> Entities
+        public PagingData<TEntity> GetPagingData(IQueryCondition<TEntity> queryCondition,
+            PagingCondition pagingCondition)
         {
-            get { return UnitOfWorkContext.Set<TEntity, TKey>(); }
+            var query = Entities.Where(queryCondition.Predicate);
+            var recordCount = query.Count();
+
+            IOrderedQueryable<TEntity> orderCondition = null;
+            if (queryCondition.OrderByConditions == null || queryCondition.OrderByConditions.Count == 0)
+            {
+                orderCondition = Entities.OrderBy(x => x.Id);
+            }
+            else
+            {
+                var i = 0;
+                foreach (var keySelector in queryCondition.OrderByConditions)
+                {
+                    orderCondition = i == 0
+                        ? keySelector.Value.Direction == ListSortDirection.Ascending
+                            ? Queryable.OrderBy(Entities, (dynamic)keySelector.Value.KeySelector)
+                            : Queryable.OrderByDescending(Entities, (dynamic)keySelector.Value.KeySelector)
+                        : keySelector.Value.Direction == ListSortDirection.Ascending
+                            ? Queryable.ThenBy(orderCondition, (dynamic)keySelector.Value.KeySelector)
+                            : Queryable.ThenByDescending(orderCondition, (dynamic)keySelector.Value.KeySelector);
+
+                    i++;
+                }
+            }
+            query = orderCondition;
+            var recordData = query.Skip(pagingCondition.Skip).Take(pagingCondition.PageSize);
+            var pageData = new PagingData<TEntity>(recordCount, pagingCondition, recordData);
+            return pageData;
         }
 
         public int Insert(TEntity entity, bool isSave = true)
