@@ -10,4 +10,8 @@
     <property name="AccountManageService" ref="AccountManageService"/>
   </object>
   
+  <object type="Demo.MvcApplication.Areas.SystemSettings.Controllers.RoleManageController, Demo.MvcApplication" singleton="false" >
+    <property name="RoleManageService" ref="RoleManageService"/>
+  </object>
+  
 </objects>

@@ -48,7 +48,9 @@
   <ItemGroup>
     <Compile Include="IServices\IAccountManageService.cs" />
     <Compile Include="IServices\ILoginService.cs" />
+    <Compile Include="IServices\IRoleManageService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\RoleManageService.cs" />
     <Compile Include="Services\AccountManageService.cs" />
     <Compile Include="Configurations\EasyAccessServiceInitializer.cs" />
     <Compile Include="Services\LoginService.cs" />

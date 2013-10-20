@@ -11,5 +11,10 @@
     <property name="AccountRepository" ref="AccountRepository" />
     <property name="UnitOfWork" ref="EasyAccessUnitOfWork" />
   </object>
+
+  <object id="RoleManageService" type="EasyAccess.Service.Services.RoleManageService, EasyAccess.Service">
+    <property name="RoleRepository" ref="RoleRepository" />
+    <property name="UnitOfWork" ref="EasyAccessUnitOfWork" />
+  </object>
   
 </objects>
