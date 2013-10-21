@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using EasyAccess.Infrastructure.UnitOfWork;
 using EasyAccess.Infrastructure.Util.ConditionBuilder;
+using EasyAccess.Model.Complex;
 using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
 using EasyAccess.Repository.Configurations;

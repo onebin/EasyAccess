@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 using EasyAccess.Infrastructure.Repository;
 using EasyAccess.Infrastructure.Util.Encryption;
+using EasyAccess.Model.Complex;
 using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
 using EasyAccess.Repository.IRepositories;

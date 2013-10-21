@@ -4,7 +4,7 @@
     var menus = AuthorizationManager.GetInstance().GetMenu(((FormsIdentity)User.Identity).Ticket.UserData);
     var mainMenus = menus.Where(x => x.Depth == 1 && x.System.Equals("M")).OrderBy(x => x.Depth).ThenBy(x => x.Index);
 }
-@helper PrintMenu(MenuItem menu, List<MenuItem> menus)
+@helper PrintMenu(MenuDto menu, List<MenuDto> menus)
 {
     if (string.IsNullOrWhiteSpace(menu.Url))
     {

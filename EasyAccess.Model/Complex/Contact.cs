@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EasyAccess.Model.DTOs
+namespace EasyAccess.Model.Complex
 {
     [ComplexType]
     public class Contact

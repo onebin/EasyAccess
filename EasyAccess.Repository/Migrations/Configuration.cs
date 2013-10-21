@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using EasyAccess.Model.Complex;
 using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
 using EasyAccess.Repository.Configurations;

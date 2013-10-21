@@ -3,7 +3,7 @@
     /// <summary>
     /// 菜单项
     /// </summary>
-    public class MenuItem
+    public class MenuDto
     {
         /// <summary>
         /// 菜单项Id

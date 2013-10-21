@@ -21,7 +21,7 @@ namespace EasyAccess.Authorization
         private readonly List<Menu> _menuLst = new List<Menu>();
         private readonly List<Permission> _permissionLst = new List<Permission>();
 
-        private readonly Dictionary<string, List<MenuItem>> _tokenToMenuItem = new Dictionary<string, List<MenuItem>>();
+        private readonly Dictionary<string, List<MenuDto>> _tokenToMenuItem = new Dictionary<string, List<MenuDto>>();
         private readonly Dictionary<string, string[]> _tokenToPermission = new Dictionary<string, string[]>();
         private readonly Dictionary<string, long[]> _tokenToRoleId = new Dictionary<string, long[]>();
 
@@ -139,9 +139,9 @@ namespace EasyAccess.Authorization
         /// </summary>
         /// <param name="token">token</param>
         /// <returns>用户菜单项</returns>
-        public List<MenuItem> GetMenu(string token)
+        public List<MenuDto> GetMenu(string token)
         {
-            List<MenuItem> returnVal = null;
+            List<MenuDto> returnVal = null;
             _rwLocker.EnterUpgradeableReadLock();
             try
             {
@@ -172,14 +172,14 @@ namespace EasyAccess.Authorization
         /// <param name="menuId">菜单Id</param>
         /// <param name="token">用户角色标识</param>
         /// <returns>菜单项</returns>
-        public List<MenuItem> GetSubMenu(string menuId, string token)
+        public List<MenuDto> GetSubMenu(string menuId, string token)
         {
-            List<MenuItem> returnVal = null;
+            List<MenuDto> returnVal = null;
             _rwLocker.EnterReadLock();
             try
             {
                 returnVal = _tokenToMenuItem.First(e => e.Key == token).Value
-                    .Where(e => e.ParentId == menuId).Select(e => e).ToList<MenuItem>();
+                    .Where(e => e.ParentId == menuId).Select(e => e).ToList<MenuDto>();
 
             }
             finally
@@ -194,9 +194,9 @@ namespace EasyAccess.Authorization
         /// </summary>
         /// <param name="token">token</param>
         /// <returns>用户菜单项</returns>
-        private List<MenuItem> BuildMenu(string token)
+        private List<MenuDto> BuildMenu(string token)
         {
-            var menuAccumulator = new Dictionary<string, MenuItem>();
+            var menuAccumulator = new Dictionary<string, MenuDto>();
 
             var permissions = GetPermissions(token);
 
@@ -205,7 +205,7 @@ namespace EasyAccess.Authorization
                 if (!menuAccumulator.ContainsKey(permission.MenuId))
                 {
                     var permissionMenu = _menuLst.First(e => e.Id == permission.MenuId);
-                    var item = new MenuItem()
+                    var item = new MenuDto()
                     {
                         Id = permission.MenuId,
                         ParentId = permissionMenu.ParentId,
@@ -238,7 +238,7 @@ namespace EasyAccess.Authorization
         /// <param name="subMenu">子菜单</param>
         /// <param name="menuAccumulator">累加菜单</param>
         /// <param name="depth">深度</param>
-        private void GetParentMenu(IEnumerable<MenuItem> subMenu, IDictionary<string, MenuItem> menuAccumulator)
+        private void GetParentMenu(IEnumerable<MenuDto> subMenu, IDictionary<string, MenuDto> menuAccumulator)
         {
             foreach (var item in subMenu)
             {
@@ -246,7 +246,7 @@ namespace EasyAccess.Authorization
                 {
                     var menu = (from e in _menuLst where (e.Id.Equals(item.ParentId)) select e).First();
 
-                    var menuItem = new MenuItem
+                    var menuItem = new MenuDto
                     {
                         Id = menu.Id,
                         ParentId = menu.ParentId,

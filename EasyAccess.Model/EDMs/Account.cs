@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using EasyAccess.Infrastructure.Entity;
+using EasyAccess.Model.Complex;
 using EasyAccess.Model.DTOs;
 
 namespace EasyAccess.Model.EDMs

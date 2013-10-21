@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 using EasyAccess.Infrastructure.Util.ConditionBuilder;
+using EasyAccess.Model.Complex;
 using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
 using EasyAccess.Repository.Repositories;

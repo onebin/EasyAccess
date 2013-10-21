@@ -1,5 +1,6 @@
 ﻿using EasyAccess.Infrastructure.Service;
 using EasyAccess.Infrastructure.UnitOfWork;
+using EasyAccess.Model.Complex;
 using EasyAccess.Model.DTOs;
 
 namespace EasyAccess.Service.IServices
