@@ -15,7 +15,7 @@ namespace EasyAccess.Service.Services
 
         public PagingData<Account> GetAccountPagingData(IQueryCondition<Account> queryCondition, PagingCondition pagingCondition)
         {
-            return AccountRepository.GetPagingData(queryCondition, pagingCondition);
+            return GetPagingData(AccountRepository, queryCondition, pagingCondition);
         }
     }
 }

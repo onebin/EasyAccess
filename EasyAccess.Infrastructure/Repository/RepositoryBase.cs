@@ -42,11 +42,10 @@ namespace EasyAccess.Infrastructure.Repository
             return UnitOfWorkContext.Set<TEntity, TKey>().Find(id);
         }
 
-        public PagingData<TEntity> GetPagingData(IQueryCondition<TEntity> queryCondition,
-            PagingCondition pagingCondition)
+        public void GetPagingData(IQueryCondition<TEntity> queryCondition, PagingCondition pagingCondition, out List<TEntity> recordData, out long recordCount)
         {
             var query = Entities.Where(queryCondition.Predicate);
-            var recordCount = query.Count();
+            recordCount = query.Count();
 
             IOrderedQueryable<TEntity> orderCondition = null;
             if (queryCondition.OrderByConditions == null || queryCondition.OrderByConditions.Count == 0)
@@ -70,9 +69,7 @@ namespace EasyAccess.Infrastructure.Repository
                 }
             }
             query = orderCondition;
-            var recordData = query.Skip(pagingCondition.Skip).Take(pagingCondition.PageSize);
-            var pageData = new PagingData<TEntity>(recordCount, pagingCondition, recordData);
-            return pageData;
+            recordData = query.Skip(pagingCondition.Skip).Take(pagingCondition.PageSize).ToList();
         }
 
         public int Insert(TEntity entity, bool isSave = true)

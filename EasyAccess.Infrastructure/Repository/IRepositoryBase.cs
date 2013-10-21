@@ -31,8 +31,9 @@ namespace EasyAccess.Infrastructure.Repository
         /// </summary>
         /// <param name="queryCondition">查询条件</param>
         /// <param name="pagingCondition">分布条件</param>
-        /// <returns>分页数据</returns>
-        PagingData<TEntity> GetPagingData(IQueryCondition<TEntity> queryCondition, PagingCondition pagingCondition);
+        /// <param name="recordData">分页数据</param>
+        /// <param name="recordCount">记录总数</param>
+        void GetPagingData(IQueryCondition<TEntity> queryCondition, PagingCondition pagingCondition, out List<TEntity> recordData, out long recordCount);
 
 
         /// <summary>
