@@ -40,6 +40,7 @@
   <ItemGroup>
     <Compile Include="Complex\Contact.cs" />
     <Compile Include="Complex\LoginUser.cs" />
+    <Compile Include="DTOs\AccountDto.cs" />
     <Compile Include="DTOs\MenuDto.cs" />
     <Compile Include="Complex\Name.cs" />
     <Compile Include="Complex\Sex.cs" />

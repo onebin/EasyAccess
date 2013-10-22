@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using AutoMapper.QueryableExtensions;
 using EasyAccess.Infrastructure.Entity;
 using EasyAccess.Infrastructure.UnitOfWork;
 using EasyAccess.Infrastructure.Util.ConditionBuilder;
@@ -42,11 +43,11 @@ namespace EasyAccess.Infrastructure.Repository
             return UnitOfWorkContext.Set<TEntity, TKey>().Find(id);
         }
 
-        public void GetPagingData(IQueryCondition<TEntity> queryCondition, PagingCondition pagingCondition, out List<TEntity> recordData, out long recordCount)
+        private IQueryable<TEntity> GetQueryableEntityFromConditon(
+            IQueryCondition<TEntity> queryCondition,
+            PagingCondition pagingCondition)
         {
             var query = Entities.Where(queryCondition.Predicate);
-            recordCount = query.Count();
-
             IOrderedQueryable<TEntity> orderCondition = null;
             if (queryCondition.OrderByConditions == null || queryCondition.OrderByConditions.Count == 0)
             {
@@ -69,7 +70,21 @@ namespace EasyAccess.Infrastructure.Repository
                 }
             }
             query = orderCondition;
+            return query;
+        }
+
+        public void GetPagingData(IQueryCondition<TEntity> queryCondition, PagingCondition pagingCondition, out List<TEntity> recordData, out long recordCount)
+        {
+            var query = GetQueryableEntityFromConditon(queryCondition, pagingCondition);
+            recordCount = query.Count();
             recordData = query.Skip(pagingCondition.Skip).Take(pagingCondition.PageSize).ToList();
+        }
+
+        public void GetPagingDtoData<TDto>(IQueryCondition<TEntity> queryCondition, PagingCondition pagingCondition, out List<TDto> recordData, out long recordCount)
+        {
+            var query = GetQueryableEntityFromConditon(queryCondition, pagingCondition);
+            recordCount = query.Count();
+            recordData = query.Skip(pagingCondition.Skip).Take(pagingCondition.PageSize).Project().To<TDto>().ToList();
         }
 
         public int Insert(TEntity entity, bool isSave = true)

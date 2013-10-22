@@ -1,9 +1,9 @@
 ﻿using System.Data.Entity;
 using EasyAccess.Repository.Migrations;
 
-namespace EasyAccess.Repository.Configurations
+namespace EasyAccess.Repository.Configurations.EntityFrameworkConfig
 {
-    public class EasyAccessDatabaseInitializer
+    public static class EasyAccessDatabaseInitializer
     {
         public static void Initialize()
         {

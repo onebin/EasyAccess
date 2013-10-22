@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using EasyAccess.Infrastructure.UnitOfWork;
 using EasyAccess.Repository.Configurations;
+using EasyAccess.Repository.Configurations.EntityFrameworkConfig;
 
 namespace EasyAccess.Repository.UnitOfWork
 {
