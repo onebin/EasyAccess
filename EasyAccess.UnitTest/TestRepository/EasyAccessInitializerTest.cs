@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Linq;
 using EasyAccess.Repository.Configurations;
-using EasyAccess.Repository.Configurations.EntityFrameworkConfig;
+using EasyAccess.Repository.Configurations.EntityFramework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace EasyAccess.UnitTest.TestRepository

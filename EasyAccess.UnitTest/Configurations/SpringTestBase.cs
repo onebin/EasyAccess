@@ -14,8 +14,8 @@ namespace EasyAccess.UnitTest.Configurations
             {
                 return new string[]
                 {
-                    "assembly://EasyAccess.Repository/EasyAccess.Repository/Configurations.SpringConfig.RepositoryConfig.xml",
-                    "assembly://EasyAccess.Service/EasyAccess.Service/Configurations.SpringConfig.ServiceConfig.xml"
+                    "assembly://EasyAccess.Repository/EasyAccess.Repository/Configurations.Spring.RepositoryConfig.xml",
+                    "assembly://EasyAccess.Service/EasyAccess.Service/Configurations.Spring.ServiceConfig.xml"
                 };
             }
         }

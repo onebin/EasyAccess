@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace EasyAccess.Repository.Configurations.AutoMapperConfig
+namespace EasyAccess.Repository.Configurations.AutoMapper
 {
     public static class EasyAccessObjectMapperInitializer
     {

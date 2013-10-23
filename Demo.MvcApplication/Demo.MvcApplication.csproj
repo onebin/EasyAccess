@@ -323,7 +323,7 @@
     <Content Include="Scripts\Plugins\EasyUi\plugins\jquery.validatebox.js" />
     <Content Include="Scripts\Plugins\EasyUi\plugins\jquery.window.js" />
     <Content Include="Scripts\_references.js" />
-    <EmbeddedResource Include="SpringConfig\ControllerConfig.xml">
+    <EmbeddedResource Include="ControllerConfig.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="Web.config">

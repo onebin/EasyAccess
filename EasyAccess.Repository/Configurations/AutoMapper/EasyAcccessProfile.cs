@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using EasyAccess.Model.DTOs;
-using EasyAccess.Model.EDMs;
 
-namespace EasyAccess.Repository.Configurations.AutoMapperConfig
+namespace EasyAccess.Repository.Configurations.AutoMapper
 {
     public class EasyAcccessProfile : Profile
     {
@@ -10,6 +8,7 @@ namespace EasyAccess.Repository.Configurations.AutoMapperConfig
         {
             //SourceMemberNamingConvention = new LowerUnderscoreNamingConvention();
             //DestinationMemberNamingConvention = new PascalCaseNamingConvention();
+            
         }
 
         public override string ProfileName

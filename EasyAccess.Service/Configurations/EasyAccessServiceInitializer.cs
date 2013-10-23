@@ -1,6 +1,6 @@
 ﻿using EasyAccess.Repository.Configurations;
-using EasyAccess.Repository.Configurations.AutoMapperConfig;
-using EasyAccess.Repository.Configurations.EntityFrameworkConfig;
+using EasyAccess.Repository.Configurations.AutoMapper;
+using EasyAccess.Repository.Configurations.EntityFramework;
 
 namespace EasyAccess.Service.Configurations
 {
