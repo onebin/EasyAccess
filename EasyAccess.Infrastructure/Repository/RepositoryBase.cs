@@ -35,12 +35,12 @@ namespace EasyAccess.Infrastructure.Repository
 
         public IQueryable<TEntity> Entities
         {
-            get { return UnitOfWorkContext.Set<TEntity, TKey>(); }
+            get { return UnitOfWorkContext.Set<TEntity>(); }
         }
 
         public TEntity GetById(TKey id)
         {
-            return UnitOfWorkContext.Set<TEntity, TKey>().Find(id);
+            return UnitOfWorkContext.Set<TEntity>().Find(id);
         }
 
         private IQueryable<TEntity> GetQueryableEntityFromConditon(
@@ -101,7 +101,7 @@ namespace EasyAccess.Infrastructure.Repository
 
         public int Delete(TKey id, bool isSave = true)
         {
-            var entity = UnitOfWorkContext.Set<TEntity, TKey>().Find(id);
+            var entity = UnitOfWorkContext.Set<TEntity>().Find(id);
             return entity != null ? Delete(entity, isSave) : 0;
         }
 
@@ -119,7 +119,7 @@ namespace EasyAccess.Infrastructure.Repository
 
         public int Delete(Expression<Func<TEntity, bool>> predicate, bool isSave = true)
         {
-            var entities = UnitOfWorkContext.Set<TEntity, TKey>().Where(predicate).ToList();
+            var entities = UnitOfWorkContext.Set<TEntity>().Where(predicate).ToList();
             return entities.Count > 0 ? Delete(entities, isSave) : 0;
         }
 
@@ -134,9 +134,9 @@ namespace EasyAccess.Infrastructure.Repository
         {
             UnitOfWorkContext.RegisterModified<TEntity, TKey>(propertyExpression, entity);
             if (!isSave) return 0;
-            var dbSet = UnitOfWorkContext.Set<TEntity, TKey>();
+            var dbSet = UnitOfWorkContext.Set<TEntity>();
             dbSet.Local.Clear();
-            var entry = UnitOfWorkContext.Entry<TEntity, TKey>(entity);
+            var entry = UnitOfWorkContext.Entry<TEntity>(entity);
             return UnitOfWorkContext.Commit();
         }
     }

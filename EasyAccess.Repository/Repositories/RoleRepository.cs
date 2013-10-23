@@ -12,7 +12,7 @@ namespace EasyAccess.Repository.Repositories
     {
         public virtual ICollection<Account> GetAccounts(long roleId)
         {
-            var role = base.UnitOfWorkContext.Set<Role, long>()
+            var role = base.UnitOfWorkContext.Set<Role>()
                 .Include(x => x.Accounts)
                 .SingleOrDefault(x => x.Id.Equals(roleId));
             if (role != null)
@@ -24,7 +24,7 @@ namespace EasyAccess.Repository.Repositories
 
         public virtual ICollection<Permission> GetPermissions(long roleId)
         {
-            var role = base.UnitOfWorkContext.Set<Role, long>()
+            var role = base.UnitOfWorkContext.Set<Role>()
                 .Include(x => x.Permissions)
                 .SingleOrDefault(x => x.Id.Equals(roleId));
             if (role != null)
@@ -34,7 +34,7 @@ namespace EasyAccess.Repository.Repositories
 
         public virtual ICollection<Permission> GetPermissions(long[] roleIds)
         {
-            var roles = base.UnitOfWorkContext.Set<Role, long>()
+            var roles = base.UnitOfWorkContext.Set<Role>()
                 .Include(x => x.Permissions)
                 .Where(x => roleIds.Contains(x.Id));
             ICollection<Permission> permissions = new Collection<Permission>();

@@ -20,7 +20,7 @@ namespace EasyAccess.Repository.Repositories
 
         public ICollection<Role> GetRoles(long accountId)
         {
-            var account = base.UnitOfWorkContext.Set<Account,long>()
+            var account = base.UnitOfWorkContext.Set<Account>()
                               .Include(x => x.Roles)
                               .SingleOrDefault(x => x.Id.Equals(accountId));
             if (account != null)
@@ -64,7 +64,7 @@ namespace EasyAccess.Repository.Repositories
 
         public Register GetRegister(string userName)
         {
-            var account = base.UnitOfWorkContext.Set<Account,long>()
+            var account = base.UnitOfWorkContext.Set<Account>()
                               .Include(x => x.Register)
                               .SingleOrDefault(x => x.Register.LoginUser.UserName.Equals(userName));
             return account != null ? account.Register : null;

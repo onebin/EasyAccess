@@ -14,19 +14,17 @@ namespace EasyAccess.Infrastructure.UnitOfWork
         ///   为指定的类型返回 System.Data.Entity.DbSet，这将允许对上下文中的给定实体执行 CRUD 操作。
         /// </summary>
         /// <typeparam name="TEntity"> 应为其返回一个集的实体类型。 </typeparam>
-        /// <typeparam name="TKey">实体主键类型</typeparam>
         /// <returns> 给定实体类型的 System.Data.Entity.DbSet 实例。 </returns>
-        DbSet<TEntity> Set<TEntity, TKey>()
-            where TEntity : class, IAggregateBase<TKey>;
+        DbSet<TEntity> Set<TEntity>()
+            where TEntity : class, IAggregateRoot;
 
         /// <summary>
         /// 
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>
-        /// <typeparam name="TKey"></typeparam>
         /// <returns></returns>
-        DbEntityEntry<TEntity> Entry<TEntity, TKey>(TEntity entity)
-            where TEntity : class, IAggregateBase<TKey>;
+        DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity)
+            where TEntity : class, IAggregateRoot;
 
         /// <summary>
         ///   注册一个新的对象到仓储上下文中

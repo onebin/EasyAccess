@@ -19,14 +19,14 @@ namespace EasyAccess.Infrastructure.UnitOfWork
     {
         protected abstract DbContext DbContext { get; }
 
-        public DbSet<TEntity> Set<TEntity, TKey>()
-            where TEntity : class, IAggregateBase<TKey>
+        public DbSet<TEntity> Set<TEntity>()
+            where TEntity : class, IAggregateRoot
         {
             return DbContext.Set<TEntity>();
         }
 
-        public DbEntityEntry<TEntity> Entry<TEntity, TKey>(TEntity entity)
-            where TEntity : class, IAggregateBase<TKey>
+        public DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity)
+            where TEntity : class, IAggregateRoot
         {
             return DbContext.Entry(entity);
         }
