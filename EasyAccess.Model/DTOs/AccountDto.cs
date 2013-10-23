@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EasyAccess.Model.Complex;
+using EasyAccess.Model.VOs;
 
 namespace EasyAccess.Model.DTOs
 {

@@ -38,12 +38,12 @@
     <Reference Include="System.Data.Entity" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Complex\Contact.cs" />
-    <Compile Include="Complex\LoginUser.cs" />
+    <Compile Include="VOs\Contact.cs" />
+    <Compile Include="VOs\LoginUser.cs" />
     <Compile Include="DTOs\AccountDto.cs" />
     <Compile Include="DTOs\MenuDto.cs" />
-    <Compile Include="Complex\Name.cs" />
-    <Compile Include="Complex\Sex.cs" />
+    <Compile Include="VOs\Name.cs" />
+    <Compile Include="VOs\Sex.cs" />
     <Compile Include="EDMs\Account.cs" />
     <Compile Include="EDMs\Menu.cs" />
     <Compile Include="EDMs\Permission.cs" />

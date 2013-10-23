@@ -1,8 +1,8 @@
 ﻿using System.Web.Mvc;
 using EasyAccess.Authorization.Controllers;
 using EasyAccess.Infrastructure.Constant;
-using EasyAccess.Model.Complex;
 using EasyAccess.Model.DTOs;
+using EasyAccess.Model.VOs;
 using EasyAccess.Service.IServices;
 
 namespace Demo.MvcApplication.Controllers

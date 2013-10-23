@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EasyAccess.Model.Complex
+namespace EasyAccess.Model.VOs
 {
     [ComplexType]
     public class LoginUser

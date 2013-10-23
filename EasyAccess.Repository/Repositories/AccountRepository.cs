@@ -8,14 +8,14 @@ using System.Security.Cryptography;
 using System.Text;
 using EasyAccess.Infrastructure.Repository;
 using EasyAccess.Infrastructure.Util.Encryption;
-using EasyAccess.Model.Complex;
 using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
+using EasyAccess.Model.VOs;
 using EasyAccess.Repository.IRepositories;
 
 namespace EasyAccess.Repository.Repositories
 {
-    public class AccountRepository : RepositoryBase<Account, long>, IAccountRepository
+    public class AccountRepository : RepositoryBase<Account>, IAccountRepository
     {
 
         public ICollection<Role> GetRoles(long accountId)

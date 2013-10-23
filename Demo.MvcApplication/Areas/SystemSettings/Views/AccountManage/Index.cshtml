@@ -1,18 +1,9 @@
 ﻿@{
-    Layout = null;
+    Layout = "~/Views/Shared/_SubPage.cshtml";
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-
-</head>
-<body>
-    <div>
-        
-    </div>
-</body>
-</html>
+@section script
+{
+    <script type="text/javascript" src="~/Scripts/Controllers/Areas/SystemSettings/AccountManage/Index.js"></script>
+}
+@Html.TagHiddenActionUrl(new TagParams("M0201P0101") { TagId = "AccountManage_Index_GetAccountInfo" })
+<table id='AccountManage_Index_grid'></table>

@@ -4,9 +4,9 @@ using EasyAccess.Authorization;
 using EasyAccess.Infrastructure.Service;
 using EasyAccess.Infrastructure.Util;
 using EasyAccess.Infrastructure.Util.ConditionBuilder;
-using EasyAccess.Model.Complex;
 using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
+using EasyAccess.Model.VOs;
 using EasyAccess.Repository.IRepositories;
 using EasyAccess.Service.IServices;
 

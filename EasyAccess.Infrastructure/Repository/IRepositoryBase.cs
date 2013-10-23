@@ -9,8 +9,8 @@ using EasyAccess.Infrastructure.Util.PagingData;
 
 namespace EasyAccess.Infrastructure.Repository
 {
-    public interface IRepositoryBase<TEntity, in TKey> : IRepository 
-        where TEntity : class, IAggregateRootBase<TKey>
+    public interface IRepositoryBase<TEntity> : IRepository 
+        where TEntity : class, IAggregateRoot
     {
         IUnitOfWork UnitOfWork { get; set; }
 
@@ -24,7 +24,7 @@ namespace EasyAccess.Infrastructure.Repository
         /// </summary>
         /// <param name="id">指定主键</param>
         /// <returns>符合编号的记录，不存在返回null</returns>
-        TEntity GetById(TKey id);
+        TEntity GetById(object id);
 
         /// <summary>
         /// 获取分页查询信息
@@ -33,7 +33,7 @@ namespace EasyAccess.Infrastructure.Repository
         /// <param name="pagingCondition">分布条件</param>
         /// <param name="recordData">分页数据</param>
         /// <param name="recordCount">记录总数</param>
-        void GetPagingData(IQueryCondition<TEntity> queryCondition, PagingCondition pagingCondition, out List<TEntity> recordData, out long recordCount);
+        void GetPagingEntityDataModels(IQueryCondition<TEntity> queryCondition, PagingCondition pagingCondition, out List<TEntity> recordData, out long recordCount);
 
         /// <summary>
         /// 获取分页查询信息
@@ -42,7 +42,7 @@ namespace EasyAccess.Infrastructure.Repository
         /// <param name="pagingCondition">分布条件</param>
         /// <param name="recordData">分页数据</param>
         /// <param name="recordCount">记录总数</param>
-        void GetPagingDtoData<TDto>(IQueryCondition<TEntity> queryCondition, PagingCondition pagingCondition, out List<TDto> recordData, out long recordCount);
+        void GetPagingDataTransferObjects<TDto>(IQueryCondition<TEntity> queryCondition, PagingCondition pagingCondition, out List<TDto> recordData, out long recordCount);
 
         /// <summary>
         /// 插入实体记录
@@ -66,7 +66,7 @@ namespace EasyAccess.Infrastructure.Repository
         /// <param name="id">实体记录编号</param>
         /// <param name="isSave">是否执行保存</param>
         /// <returns>操作影响的行数</returns>
-        int Delete(TKey id, bool isSave = true);
+        int Delete(object id, bool isSave = true);
 
         /// <summary>
         /// 删除实体记录

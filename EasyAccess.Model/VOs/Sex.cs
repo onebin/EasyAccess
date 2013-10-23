@@ -1,4 +1,4 @@
-﻿namespace EasyAccess.Model.Complex
+﻿namespace EasyAccess.Model.VOs
 {
     public enum Sex
     {

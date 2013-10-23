@@ -8,7 +8,7 @@ using EasyAccess.Repository.IRepositories;
 
 namespace EasyAccess.Repository.Repositories
 {
-    public class RoleRepository : RepositoryBase<Role, long>, IRoleRepository
+    public class RoleRepository : RepositoryBase<Role>, IRoleRepository
     {
         public virtual ICollection<Account> GetAccounts(long roleId)
         {

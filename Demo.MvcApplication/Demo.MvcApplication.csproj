@@ -164,6 +164,8 @@
     <Content Include="Areas\SystemSettings\Views\AccountManage\Index.cshtml" />
     <Content Include="Areas\SystemSettings\Views\RoleManage\Index.cshtml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
+    <Content Include="Scripts\Controllers\Areas\SystemSettings\AccountManage\Index.js" />
+    <Content Include="Scripts\Controllers\Areas\SystemSettings\RoleManage\Index.js" />
     <Content Include="Scripts\Controllers\Login\Index.js" />
     <Content Include="Scripts\Helpers\easyuiHelper.js" />
     <Content Include="Scripts\Helpers\global.js" />

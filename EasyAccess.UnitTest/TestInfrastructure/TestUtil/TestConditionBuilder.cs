@@ -2,9 +2,9 @@
 using System.ComponentModel;
 using System.Linq;
 using EasyAccess.Infrastructure.Util.ConditionBuilder;
-using EasyAccess.Model.Complex;
 using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
+using EasyAccess.Model.VOs;
 using EasyAccess.Repository.Repositories;
 using EasyAccess.UnitTest.Configurations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

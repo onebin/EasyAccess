@@ -7,8 +7,8 @@ namespace EasyAccess.Infrastructure.Util.PagingData
     /// <summary>
     ///  数据分页数据类
     /// </summary>
-    /// <typeparam name="TEntity">数据实体类型</typeparam>
-    public class PagingData<TEntity> where TEntity:class
+    /// <typeparam name="T">数据实体类型</typeparam>
+    public class PagingData<T> where T :class
     {
         /// <summary>
         ///  记录总数
@@ -28,7 +28,7 @@ namespace EasyAccess.Infrastructure.Util.PagingData
         /// <summary>
         ///  数据
         /// </summary>
-        public List<TEntity> RecordData { set; get; }
+        public List<T> RecordData { set; get; }
 
         /// <summary>
         ///  默认构造方法
@@ -42,7 +42,7 @@ namespace EasyAccess.Infrastructure.Util.PagingData
         /// <param name="recordCount">记录数</param>
         /// <param name="pagingConditon">分页条件</param>
         /// <param name="recordData">数据</param>
-        public PagingData(long recordCount, PagingCondition pagingConditon, IEnumerable<TEntity> recordData)
+        public PagingData(long recordCount, PagingCondition pagingConditon, IEnumerable<T> recordData)
         {
             this.RecordCount = recordCount;
             this.PagingConditon = pagingConditon;

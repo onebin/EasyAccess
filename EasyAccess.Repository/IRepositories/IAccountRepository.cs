@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using EasyAccess.Infrastructure.Repository;
-using EasyAccess.Model.Complex;
 using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
+using EasyAccess.Model.VOs;
 
 namespace EasyAccess.Repository.IRepositories
 {
-    public interface IAccountRepository: IRepositoryBase<Account, long>
+    public interface IAccountRepository: IRepositoryBase<Account>
     {
         ICollection<Role> GetRoles(long accountId);
 

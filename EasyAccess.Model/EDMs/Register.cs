@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using EasyAccess.Infrastructure.Entity;
-using EasyAccess.Model.Complex;
 using EasyAccess.Model.DTOs;
+using EasyAccess.Model.VOs;
 
 namespace EasyAccess.Model.EDMs
 {

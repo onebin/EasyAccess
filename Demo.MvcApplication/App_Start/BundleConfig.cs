@@ -11,9 +11,9 @@ namespace Demo.MvcApplication
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-2.0.3.min.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/easyui").Include(
-                        "~/Scripts/Plugins/EasyUi/locale/easyui-lang-zh_CN.js",
-                        "~/Scripts/Plugins/EasyUi/jquery.easyui.min.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/easyui").Include(
+            //            "~/Scripts/Plugins/EasyUi/locale/easyui-lang-zh_CN.js",
+            //            "~/Scripts/Plugins/EasyUi/jquery.easyui.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/helper").Include(
                         "~/Scripts/Helpers/*.js"));

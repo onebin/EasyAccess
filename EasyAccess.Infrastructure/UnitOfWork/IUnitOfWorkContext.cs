@@ -30,39 +30,35 @@ namespace EasyAccess.Infrastructure.UnitOfWork
         ///   注册一个新的对象到仓储上下文中
         /// </summary>
         /// <typeparam name="TEntity"> 要注册的类型 </typeparam>
-        /// <typeparam name="TKey">实体主键类型</typeparam>
         /// <param name="entity"> 要注册的对象 </param>
-        void RegisterNew<TEntity, TKey>(TEntity entity)
-            where TEntity : class, IAggregateBase<TKey>;
+        void RegisterNew<TEntity>(TEntity entity)
+            where TEntity : class, IAggregateRoot;
 
         /// <summary>
         ///   批量注册多个新的对象到仓储上下文中
         /// </summary>
         /// <typeparam name="TEntity"> 要注册的类型 </typeparam>
-        /// <typeparam name="TKey">实体主键类型</typeparam>
         /// <param name="entities"> 要注册的对象集合 </param>
-        void RegisterNew<TEntity, TKey>(IEnumerable<TEntity> entities)
-            where TEntity : class, IAggregateBase<TKey>;
+        void RegisterNew<TEntity>(IEnumerable<TEntity> entities)
+            where TEntity : class, IAggregateRoot;
 
         /// <summary>
         ///   注册一个更改的对象到仓储上下文中
         /// </summary>
         /// <typeparam name="TEntity"> 要注册的类型 </typeparam>
-        /// <typeparam name="TKey">实体主键类型</typeparam>
         /// <param name="entities"> 要注册的对象 </param>
-        void RegisterModified<TEntity, TKey>(params TEntity[] entities)
-            where TEntity : class, IAggregateBase<TKey>;
+        void RegisterModified<TEntity>(params TEntity[] entities)
+            where TEntity : class, IAggregateRoot;
 
         /// <summary>
         /// 使用指定的属性表达式指定注册更改的对象到仓储上下文中
         /// </summary>
         /// <typeparam name="TEntity">要注册的类型</typeparam>
-        /// <typeparam name="TKey">主键类型</typeparam>
         /// <param name="propertyExpression">属性表达式，包含要更新的实体属性</param>
         /// <param name="entities">附带新值的实体信息，必须包含主键</param>
-        void RegisterModified<TEntity, TKey>(Expression<Func<TEntity, object>> propertyExpression,
+        void RegisterModified<TEntity>(Expression<Func<TEntity, object>> propertyExpression,
             params TEntity[] entities)
-            where TEntity : class, IAggregateBase<TKey>;
+            where TEntity : class, IAggregateRoot;
 
         /// <summary>
         ///   注册一个删除的对象到仓储上下文中
@@ -70,16 +66,15 @@ namespace EasyAccess.Infrastructure.UnitOfWork
         /// <typeparam name="TEntity"> 要注册的类型 </typeparam>
         /// <typeparam name="TKey">实体主键类型</typeparam>
         /// <param name="entity"> 要注册的对象 </param>
-        void RegisterDeleted<TEntity, TKey>(TEntity entity)
-            where TEntity : class, IAggregateBase<TKey>;
+        void RegisterDeleted<TEntity>(TEntity entity)
+            where TEntity : class, IAggregateRoot;
 
         /// <summary>
         ///   批量注册多个删除的对象到仓储上下文中
         /// </summary>
         /// <typeparam name="TEntity"> 要注册的类型 </typeparam>
-        /// <typeparam name="TKey">实体主键类型</typeparam>
         /// <param name="entities"> 要注册的对象集合 </param>
-        void RegisterDeleted<TEntity, TKey>(IEnumerable<TEntity> entities)
-            where TEntity : class, IAggregateBase<TKey>;
+        void RegisterDeleted<TEntity>(IEnumerable<TEntity> entities)
+            where TEntity : class, IAggregateRoot;
     }
 }

@@ -31,8 +31,8 @@ namespace EasyAccess.Infrastructure.UnitOfWork
             return DbContext.Entry(entity);
         }
 
-        public void RegisterNew<TEntity, TKey>(TEntity entity)
-            where TEntity : class, IAggregateBase<TKey>
+        public void RegisterNew<TEntity>(TEntity entity)
+            where TEntity : class, IAggregateRoot
         {
             var state = DbContext.Entry(entity).State;
             if (state == EntityState.Detached)
@@ -42,15 +42,15 @@ namespace EasyAccess.Infrastructure.UnitOfWork
             IsCommitted = false;
         }
 
-        public void RegisterNew<TEntity, TKey>(IEnumerable<TEntity> entities)
-            where TEntity : class, IAggregateBase<TKey>
+        public void RegisterNew<TEntity>(IEnumerable<TEntity> entities)
+            where TEntity : class, IAggregateRoot
         {
             try
             {
                 DbContext.Configuration.AutoDetectChangesEnabled = false;
                 foreach (var entity in entities)
                 {
-                    RegisterNew<TEntity, TKey>(entity);
+                    RegisterNew(entity);
                 }
             }
             finally
@@ -59,8 +59,8 @@ namespace EasyAccess.Infrastructure.UnitOfWork
             }
         }
 
-        public void RegisterModified<TEntity, TKey>(params TEntity[] entities)
-            where TEntity : class, IAggregateBase<TKey>
+        public void RegisterModified<TEntity>(params TEntity[] entities)
+            where TEntity : class, IAggregateRoot
         {
             foreach (var entity in entities)
             {
@@ -83,8 +83,8 @@ namespace EasyAccess.Infrastructure.UnitOfWork
             IsCommitted = false;
         }
 
-        public void RegisterModified<TEntity, TKey>(Expression<Func<TEntity, object>> propertyExpression, params TEntity[] entities)
-            where TEntity : class, IAggregateBase<TKey>
+        public void RegisterModified<TEntity>(Expression<Func<TEntity, object>> propertyExpression, params TEntity[] entities)
+            where TEntity : class, IAggregateRoot
         {
             ReadOnlyCollection<MemberInfo> memberInfos = ((dynamic)propertyExpression.Body).Members;
             foreach (var entity in entities)
@@ -114,22 +114,22 @@ namespace EasyAccess.Infrastructure.UnitOfWork
             }
         }
 
-        public void RegisterDeleted<TEntity, TKey>(TEntity entity)
-            where TEntity : class, IAggregateBase<TKey>
+        public void RegisterDeleted<TEntity>(TEntity entity)
+            where TEntity : class, IAggregateRoot
         {
             DbContext.Entry(entity).State = EntityState.Deleted;
             IsCommitted = false;
         }
 
-        public void RegisterDeleted<TEntity, TKey>(IEnumerable<TEntity> entities)
-            where TEntity : class, IAggregateBase<TKey>
+        public void RegisterDeleted<TEntity>(IEnumerable<TEntity> entities)
+            where TEntity : class, IAggregateRoot
         {
             try
             {
                 DbContext.Configuration.AutoDetectChangesEnabled = false;
                 foreach (var entity in entities)
                 {
-                    RegisterDeleted<TEntity, TKey>(entity);
+                    RegisterDeleted(entity);
                 }
             }
             finally
