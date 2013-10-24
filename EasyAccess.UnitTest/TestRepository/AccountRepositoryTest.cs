@@ -84,5 +84,12 @@ namespace EasyAccess.UnitTest.TestRepository
             var account = AccountRepository.VerifyLogin(new LoginUser{ UserName = "Admin", Password = "123456" });
             Assert.IsNotNull(account);
         }
+
+        [TestMethod]
+        public void TestGetById()
+        {
+            var account = AccountRepository.GetById(1);
+            Assert.IsNotNull(account);
+        }
     }
 }
