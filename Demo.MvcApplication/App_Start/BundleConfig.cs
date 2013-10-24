@@ -9,7 +9,7 @@ namespace Demo.MvcApplication
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-2.0.3.min.js"));
+                        "~/Scripts/jquery-{version}.min.js"));
 
             //bundles.Add(new ScriptBundle("~/bundles/easyui").Include(
             //            "~/Scripts/Plugins/EasyUi/locale/easyui-lang-zh_CN.js",

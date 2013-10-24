@@ -11,7 +11,7 @@ namespace EasyAccess.Repository.Configurations.AutoMapper
             //SourceMemberNamingConvention = new LowerUnderscoreNamingConvention();
             //DestinationMemberNamingConvention = new PascalCaseNamingConvention();
             Mapper.CreateMap<Account, AccountDto>()
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name.ToString()))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name.NickName))
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Contact.Email))
                 .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.Contact.Phone));
 
