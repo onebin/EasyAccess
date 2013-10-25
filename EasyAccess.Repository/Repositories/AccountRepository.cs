@@ -20,7 +20,7 @@ namespace EasyAccess.Repository.Repositories
 
         public ICollection<Role> GetRoles(long accountId)
         {
-            var account = base.UnitOfWorkContext.Set<Account>()
+            var account = Entities
                               .Include(x => x.Roles)
                               .SingleOrDefault(x => x.Id.Equals(accountId));
             if (account != null)
@@ -32,11 +32,14 @@ namespace EasyAccess.Repository.Repositories
 
         public ICollection<Permission> GetPermissions(long accountId)
         {
-            var roles = this.GetRoles(accountId);
+            var permissionLstInLst = (from a in Entities
+                                  from r in a.Roles
+                                  where a.Id.Equals(accountId)
+                                  select r.Permissions).ToList();
             ICollection<Permission> permissions = new Collection<Permission>();
-            foreach (var role in roles)
+            foreach (var permissionLst in permissionLstInLst)
             {
-                foreach (var permission in role.Permissions)
+                foreach (var permission in permissionLst)
                 {
                     if (!permissions.ToLookup(x => x.Id).Contains(permission.Id))
                     {
@@ -49,22 +52,19 @@ namespace EasyAccess.Repository.Repositories
 
         public ICollection<Menu> GetMenus(long accountId)
         {
-            var permissions = this.GetPermissions(accountId);
-            ICollection<Menu > menus = new Collection<Menu>();
-            foreach (var permission in permissions)
-            {
-                if (!menus.ToLookup(x => x.Id).Contains(permission.MenuId))
-                {
-                    menus.Add(permission.Menu);
-                }
-            }
+            var menus = (from a in Entities
+                                           from r in a.Roles
+                                           from p in r.Permissions
+                                           where a.Id.Equals(accountId)
+                                           select p.Menu
+                                          ).Distinct().ToList();
             return menus;
         }
 
 
         public Register GetRegister(string userName)
         {
-            var account = base.UnitOfWorkContext.Set<Account>()
+            var account = Entities
                               .Include(x => x.Register)
                               .SingleOrDefault(x => x.Register.LoginUser.UserName.Equals(userName));
             return account != null ? account.Register : null;

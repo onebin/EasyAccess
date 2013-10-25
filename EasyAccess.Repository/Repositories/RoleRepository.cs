@@ -12,7 +12,7 @@ namespace EasyAccess.Repository.Repositories
     {
         public virtual ICollection<Account> GetAccounts(long roleId)
         {
-            var role = base.UnitOfWorkContext.Set<Role>()
+            var role = Entities
                 .Include(x => x.Accounts)
                 .SingleOrDefault(x => x.Id.Equals(roleId));
             if (role != null)
@@ -24,7 +24,7 @@ namespace EasyAccess.Repository.Repositories
 
         public virtual ICollection<Permission> GetPermissions(long roleId)
         {
-            var role = base.UnitOfWorkContext.Set<Role>()
+            var role = Entities
                 .Include(x => x.Permissions)
                 .SingleOrDefault(x => x.Id.Equals(roleId));
             if (role != null)
@@ -34,34 +34,19 @@ namespace EasyAccess.Repository.Repositories
 
         public virtual ICollection<Permission> GetPermissions(long[] roleIds)
         {
-            var roles = base.UnitOfWorkContext.Set<Role>()
-                .Include(x => x.Permissions)
-                .Where(x => roleIds.Contains(x.Id));
-            ICollection<Permission> permissions = new Collection<Permission>();
-            foreach (var role in roles)
-            {
-                foreach (var permission in role.Permissions)
-                {
-                    if (!permissions.ToLookup(x => x.Id).Contains(permission.Id))
-                    {
-                        permissions.Add(permission);
-                    }
-                }
-            }
+            var permissions = (from r in Entities
+                    from p in r.Permissions
+                    where roleIds.Contains(r.Id)
+                    select p).Distinct().ToList();
             return permissions;
         }
 
         public ICollection<Menu> GetMenus(long roleId)
         {
-            var permissions = this.GetPermissions(roleId);
-            ICollection<Menu > menus = new Collection<Menu>();
-            foreach (var permission in permissions)
-            {
-                if (!menus.ToLookup(x => x.Id).Contains(permission.MenuId))
-                {
-                    menus.Add(permission.Menu);
-                }
-            }
+            var menus = (from r in Entities
+                        from p in r.Permissions
+                        where r.Id == roleId
+                        select p.Menu).Distinct().ToList();
             return menus;
         }
     }

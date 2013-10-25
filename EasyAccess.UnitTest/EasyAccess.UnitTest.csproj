@@ -81,6 +81,7 @@
     <Compile Include="TestInfrastructure\TestUtil\TestConditionBuilder.cs" />
     <Compile Include="TestRepository\AccountRepositoryTest.cs" />
     <Compile Include="TestRepository\EasyAccessInitializerTest.cs" />
+    <Compile Include="TestRepository\RoleRepositoryTest.cs" />
     <Compile Include="TestService\TestAccountManageService.cs" />
   </ItemGroup>
   <ItemGroup>
