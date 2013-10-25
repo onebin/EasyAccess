@@ -230,7 +230,7 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
             return new ThenByCondition<TEntity>(((IQueryCondition<TEntity>)this));
         }
 
-        private string GetPropertyName<TEntity, TKey>(Expression<Func<TEntity, TKey>> expr)
+        private string GetPropertyName<TKey>(Expression<Func<TEntity, TKey>> expr)
         {
             var name = string.Empty;
             if (expr.Body is MemberExpression)

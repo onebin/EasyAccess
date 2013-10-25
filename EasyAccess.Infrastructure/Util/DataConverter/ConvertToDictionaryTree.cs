@@ -1,50 +1,54 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using EasyAccess.Infrastructure.Extensions;
 
 namespace EasyAccess.Infrastructure.Util.DataConverter
 {
     public static class ConvertToDictionaryTree
     {
-        private static string _idFieldName, _parentIdFieldName, _subNodeFieldName;
-        private static PropertyInfo _idProperty;
+        private static string _idFieldName, _pidFieldName, _childrenFieldName;
+        private static PropertyInfo _pidProperty;
 
         public static List<Dictionary<string, object>> ToDictionaryTree<T, TKey>(
-            this DataConverter<T> dataConverter, 
+            this DataConverter<T> dataConverter,
             IList<T> listData,
-            string subNodeFieldName = "Children", 
+            string childrenFieldName = "children",
             string idFieldName = "Id",
-            string parentIdFieldName = "ParentId",
-            Dictionary<string, object> rootNode = null
-            ) where T: class where TKey : struct
+            string pidFieldName = "ParentId",
+            Dictionary<string, object> rootNode = null,
+            object rootIdValue = null
+            )
+            where T : class
+            where TKey : struct
         {
             _idFieldName = idFieldName;
-            _parentIdFieldName = parentIdFieldName;
-            _subNodeFieldName = subNodeFieldName;
-            _idProperty = dataConverter.PropertyToShow.FirstOrDefault(x => x.PropertyType == typeof(TKey) && x.Name == parentIdFieldName);
-            return listData == null ? null : Conver<T, TKey>(dataConverter, listData, rootNode);
+            _pidFieldName = pidFieldName;
+            _childrenFieldName = childrenFieldName;
+            _pidProperty = dataConverter.PropertyToShow.FirstOrDefault(x => x.PropertyType.GetNonNullableType() == typeof(TKey) && x.Name == pidFieldName);
+            return listData == null ? null : Conver<T, TKey>(dataConverter, listData, rootNode, rootIdValue);
         }
 
         private static List<Dictionary<string, object>> Conver<T, TKey>(
             DataConverter<T> dataConverter,
             ICollection<T> listData,
-            Dictionary<string, object> rootNode
+            Dictionary<string, object> rootNode,
+            object rootIdValue
             )
-            where T : class 
+            where T : class
             where TKey : struct
         {
             var root = new List<Dictionary<string, object>>();
             if (listData.Count > 0)
             {
-                TKey defaultVal = default(TKey);
                 if (rootNode != null)
                 {
-                    rootNode.Add(_subNodeFieldName, GetChildren(dataConverter, listData, defaultVal.ToString()));
+                    rootNode.Add(_childrenFieldName, GetChildren(dataConverter, listData, rootIdValue));
                     root.Add(rootNode);
                 }
                 else
                 {
-                    root.AddRange(GetChildren(dataConverter, listData, defaultVal.ToString()));
+                    root.AddRange(GetChildren(dataConverter, listData, rootIdValue));
                 }
             }
             else
@@ -56,18 +60,19 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
 
         private static List<Dictionary<string, object>> GetChildren<T>(
             DataConverter<T> dataConverter,
-            ICollection<T> listData, 
-            string parentId,
+            ICollection<T> listData,
+            object pidValue,
             int level = 0
             ) where T : class
         {
             var children = new List<Dictionary<string, object>>();
-            var subData = listData.Where(x => _idProperty.GetValue(x, null).ToString() == parentId);
-            var noParentData = listData.Where(x => _idProperty.GetValue(x, null).ToString() != parentId);
+
+            var subData = listData.Where(x => pidValue == null ? _pidProperty.GetValue(x, null) == null : _pidProperty.GetValue(x, null).ToString() == pidValue.ToString());
+            var noParentData = listData.Where(x => pidValue == null ? _pidProperty.GetValue(x, null) != null : _pidProperty.GetValue(x, null).ToString() != pidValue.ToString());
             foreach (var data in subData)
             {
                 var child = new Dictionary<string, object>();
-                string pid = string.Empty;
+                object pidVal = null;
                 foreach (var property in dataConverter.PropertyToShow)
                 {
                     string key, val;
@@ -75,10 +80,10 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
                     child.Add(key, val);
                     if (property.Name.Equals(_idFieldName))
                     {
-                        pid = val;
+                        pidVal = val;
                     }
                 }
-                child.Add(_subNodeFieldName, GetChildren(dataConverter, noParentData.ToList(), pid, ++level));
+                child.Add(_childrenFieldName, GetChildren(dataConverter, noParentData.ToList(), pidVal, ++level));
                 children.Add(child);
             }
             return children;
