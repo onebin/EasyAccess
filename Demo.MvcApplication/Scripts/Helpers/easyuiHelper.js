@@ -1,9 +1,4 @@
-﻿$(function() {
-    global.easyuiHelper = easyuiHelper;
-});
-
-
-var easyuiHelper = {
+﻿var easyuiHelper = {
     tabs: {
         add: function (title, url, debug) {
             var appendParam = "debug=0";
@@ -34,6 +29,30 @@ var easyuiHelper = {
                 }
             }
         }
-        
+    },
+
+    treegrid: {
+        collapseAll: function (id) {
+            $(id).treegrid('collapseAll');
+        },
+        expandAll: function (id) {
+            $(id).treegrid('expandAll');
+        },
+        reload: function (id) {
+            $(id).treegrid('reload');
+        }
+    },
+
+    combobox: {
+        getValue: function (id) {
+            return $(id).combobox("getValue");
+        },
+        setValue: function (id, value) {
+            $(id).combobox("setValue", value);
+        }
     }
 };
+
+$(function () {
+    global.easyuiHelper = easyuiHelper;
+});
