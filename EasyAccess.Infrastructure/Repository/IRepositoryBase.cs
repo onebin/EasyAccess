@@ -19,6 +19,9 @@ namespace EasyAccess.Infrastructure.Repository
         /// </summary>
         IQueryable<TEntity> Entities { get; }
 
+
+        TEntity this[object id] { get; }
+
         /// <summary>
         /// 查找指定主键的实体记录
         /// </summary>

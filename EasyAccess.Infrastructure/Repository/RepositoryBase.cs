@@ -38,6 +38,15 @@ namespace EasyAccess.Infrastructure.Repository
             get { return UnitOfWorkContext.Set<TEntity>(); }
         }
 
+        public TEntity this[object id]
+        {
+            get
+            {
+                return this.GetById(id);
+            }
+        }
+
+
         public TEntity GetById(object id)
         {
             return UnitOfWorkContext.Set<TEntity>().Find(id);
