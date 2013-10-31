@@ -55,7 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\AutoMapper\EasyAccessObjectMapperInitializer.cs" />
-    <Compile Include="Configurations\AutoMapper\EasyAcccessProfile.cs" />
+    <Compile Include="Configurations\AutoMapper\EasyAccessProfile.cs" />
     <Compile Include="Configurations\EntityFramework\EasyAccessContext.cs" />
     <Compile Include="Configurations\EntityFramework\EasyAccessDatabaseInitializer.cs" />
     <Compile Include="Configurations\EntityFramework\Seed\AccountSeed.cs" />

@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Demo.Service.Configurations;
 using EasyAccess.Service.Configurations;
 using EasyAccess.Service.IServices;
 using EasyAccess.Service.Services;
@@ -26,6 +27,7 @@ namespace Demo.MvcApplication
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             EasyAccessServiceInitializer.DatabaseInitialize();
+            DemoServiceInitializer.DatabaseInitialize();
         }
     }
 }

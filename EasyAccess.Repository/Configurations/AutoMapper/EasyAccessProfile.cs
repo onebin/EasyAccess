@@ -4,7 +4,7 @@ using EasyAccess.Model.EDMs;
 
 namespace EasyAccess.Repository.Configurations.AutoMapper
 {
-    public class EasyAcccessProfile : Profile
+    public class EasyAccessProfile : Profile
     {
         protected override void Configure()
         {

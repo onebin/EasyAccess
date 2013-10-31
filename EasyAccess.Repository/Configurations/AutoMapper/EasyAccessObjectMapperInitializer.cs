@@ -6,7 +6,7 @@ namespace EasyAccess.Repository.Configurations.AutoMapper
     {
         public static void Initialize()
         {
-            Mapper.Initialize(cfg => cfg.AddProfile<EasyAcccessProfile>());
+            Mapper.Initialize(cfg => cfg.AddProfile<EasyAccessProfile>());
         }
     }
 }
