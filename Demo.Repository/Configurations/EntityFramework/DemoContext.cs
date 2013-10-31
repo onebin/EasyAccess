@@ -36,7 +36,7 @@ namespace Demo.Repository.Configurations.EntityFramework
             modelBuilder.Entity<InputConfig>()
                         .HasRequired(x => x.Section)
                         .WithOptional(x => x.Input)
-                        .Map(x => x.MapKey("SectionId"))
+                        .Map(x => x.MapKey("SectionConfigId"))
                         .WillCascadeOnDelete(true);
         }
     }

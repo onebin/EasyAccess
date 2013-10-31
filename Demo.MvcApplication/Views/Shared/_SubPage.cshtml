@@ -4,7 +4,11 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title></title>
-    @if (HttpContext.Current.Request["debug"] == "1")
+    @{
+        var debugRequest = HttpContext.Current.Request["debug"];
+        var isDebugMode = debugRequest.Equals("1") || debugRequest.ToLower().Equals("true");
+    }
+    @if (isDebugMode)
     {
         <link type="text/css" rel="stylesheet" href="~/Scripts/Plugins/EasyUi/themes/icon.css" />
         <link type="text/css" rel="stylesheet" href="~/Scripts/Plugins/EasyUi/themes/metro/easyui.css" />
@@ -17,10 +21,14 @@
 </head>
     <body>
         @RenderSection("style", false)
+        @RenderBody()
+        @if (isDebugMode)
+        {
+            <div id='toast'></div>
+        }
         <div style="display: none">
             @RenderSection("hiddenArea", false)
         </div>
-        @RenderBody()
         @RenderSection("script", false)
     </body>
 </html>
