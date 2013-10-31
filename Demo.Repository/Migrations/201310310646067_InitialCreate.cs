@@ -64,7 +64,7 @@ namespace Demo.Repository.Migrations
                 "dbo.InputConfig",
                 c => new
                     {
-                        Id = c.Int(nullable: false),
+                        Id = c.Int(nullable: false, identity: true),
                         InputType = c.Int(nullable: false),
                         IsRequired = c.Boolean(nullable: false),
                         RegExp = c.String(maxLength: 512),

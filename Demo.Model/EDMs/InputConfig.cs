@@ -5,23 +5,8 @@ using EasyAccess.Infrastructure.Entity;
 
 namespace Demo.Model.EDMs
 {
-    public class InputConfig : IAggregateRoot
+    public class InputConfig : AggregateRootBase<int>
     {
-        object IEntity.Id
-        {
-            get
-            {
-                return this.Id;
-            }
-            set
-            {
-                this.Id = (int)value;
-            }
-        }
-
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Id { get; set; }
-
         public virtual SectionConfig Section { get; set; }
 
         /// <summary>
