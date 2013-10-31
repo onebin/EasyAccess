@@ -105,5 +105,12 @@ namespace EasyAccess.UnitTest.TestRepository
             var account = AccountRepository.GetById(1);
             Assert.IsNotNull(account);
         }
+
+        [TestMethod]
+        public void TestDelete()
+        {
+            AccountRepository.Delete(AccountRepository.Entities);
+            Assert.AreEqual(0, AccountRepository.Entities.Count());
+        }
     }
 }
