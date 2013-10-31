@@ -16,13 +16,11 @@
     }
 </head>
     <body>
+        @RenderSection("style", false)
+        <div style="display: none">
+            @RenderSection("hiddenArea", false)
+        </div>
         @RenderBody()
-        @RenderSection("scripts", false)
-        
-        @*<script type="text/javascript">
-            if (localStorage.getItem("DebugMode") == "true") {
-                localStorage.setItem("DebugMode", false);
-            }
-        </script>*@
+        @RenderSection("script", false)
     </body>
 </html>
