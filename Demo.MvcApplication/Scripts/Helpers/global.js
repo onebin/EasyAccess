@@ -1,18 +1,24 @@
 ﻿var global = {
     Toast: function (val, msg) {
-        var div = $("#toast");
-        if (val) {
-            div.addClass("toastSuccess");
-        } else {
-            div.addClass("toastFail");
+        var toast = $("#toastMsg");
+        if (toast.length == 0) {
+            toast = $("<div id='toastMsg'></div>");
+            $("body").append(toast);
         }
-        div.html(msg);
-        div.css({ display: 'block', left: '-200px' }).animate({ left: '40%' }, 500, function () { setTimeout(function() {
-            div.animate({ right: '40%', opacity: 'toggle' }, 500, function () {
-                div.css({ display: 'none', right: '-200px' });
-                div.html("");
-                div.removeClass();
-            });
-        }, 3500); });
+        if (val) {
+            toast.addClass("toastSuccess");
+        } else {
+            toast.addClass("toastFail");
+        }
+        var divWidth = msg.length * 12;
+        toast.html(msg);
+        toast.css({ display: 'block', 'margin-left': '-' + divWidth / 2 + 'px', width: divWidth + 'px' }).animate({ left: '50%' }, 500, function () {
+            setTimeout(function () {
+                toast.animate({ opacity: 'toggle' }, 500, function () {
+                    toast.html("");
+                    toast.removeAttr("style class");
+                });
+            }, 3500);
+        });
     }
 };

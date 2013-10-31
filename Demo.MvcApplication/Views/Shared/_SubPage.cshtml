@@ -22,10 +22,6 @@
     <body>
         @RenderSection("style", false)
         @RenderBody()
-        @if (isDebugMode)
-        {
-            <div id='toast'></div>
-        }
         <div style="display: none">
             @RenderSection("hiddenArea", false)
         </div>
