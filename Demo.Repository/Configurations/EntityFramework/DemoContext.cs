@@ -29,13 +29,13 @@ namespace Demo.Repository.Configurations.EntityFramework
                         .WithRequired(x => x.Article);
 
             modelBuilder.Entity<SectionConfig>()
-                        .HasOptional(x => x.Input)
-                        .WithRequired(x => x.Section);
-
-            modelBuilder.Entity<SectionConfig>()
                         .HasOptional(x => x.ParentSection)
                         .WithMany(x => x.SubSections)
                         .HasForeignKey(x => x.ParentId);
+
+            modelBuilder.Entity<InputConfig>()
+                        .HasRequired(x => x.Section)
+                        .WithOptional(x => x.Input);
         }
     }
 }

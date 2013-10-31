@@ -56,9 +56,13 @@
     <Compile Include="Configurations\AutoMapper\DemoProfile.cs" />
     <Compile Include="Configurations\EntityFramework\DemoContext.cs" />
     <Compile Include="Configurations\EntityFramework\DemoDatabaseInitializer.cs" />
+    <Compile Include="Configurations\EntityFramework\Seed\ArticleConfigSeed.cs" />
+    <Compile Include="Configurations\EntityFramework\Seed\InputConfigSeed.cs" />
+    <Compile Include="Configurations\EntityFramework\Seed\SectionConfigSeed.cs" />
     <Compile Include="IRepositories\IArticleConfigRepository.cs" />
     <Compile Include="IRepositories\IInputConfigRepository.cs" />
     <Compile Include="IRepositories\ISectionConfigRepository.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ArticleConfigRepository.cs" />
     <Compile Include="Repositories\InputConfigRepository.cs" />

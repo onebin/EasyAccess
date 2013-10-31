@@ -33,8 +33,32 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Common.Logging">
+      <HintPath>..\packages\Common.Logging.2.1.2\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Spring.Aop">
+      <HintPath>..\packages\Spring.Aop.2.0.0-M2\lib\net40\Spring.Aop.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Core, Version=2.0.0.40000, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Spring.Core.2.0.0-M2\lib\net40\Spring.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Data">
+      <HintPath>..\packages\Spring.Data.2.0.0-M2\lib\net40\Spring.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Testing.Microsoft">
+      <HintPath>..\packages\Spring.Testing.Microsoft.2.0.0-M2\lib\net40\Spring.Testing.Microsoft.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Web, Version=2.0.0.40000, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Spring.Web.2.0.0-M2\lib\net40\Spring.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Web.Mvc4, Version=2.0.0.40000, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Spring.Web.Mvc4.2.0.0-M2\lib\net40\Spring.Web.Mvc4.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -97,7 +121,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\SpringTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestRepository\ArticleConfigRepositoryTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
@@ -106,11 +132,40 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Demo.Model\Demo.Model.csproj">
+      <Project>{912e2e61-224f-408b-bf63-d830f81e426c}</Project>
+      <Name>Demo.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Demo.MvcApplication\Demo.MvcApplication.csproj">
       <Project>{DD6D8B33-35C4-4BE6-838C-0CE5948C69FD}</Project>
       <Name>Demo.MvcApplication</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Demo.Repository\Demo.Repository.csproj">
+      <Project>{89a4b1b8-ab04-4118-b8a5-20ecfc3df9de}</Project>
+      <Name>Demo.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Demo.Service\Demo.Service.csproj">
+      <Project>{9d2a3e4a-f33d-4170-b689-76d42c2c04f1}</Project>
+      <Name>Demo.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyAccess.Infrastructure\EasyAccess.Infrastructure.csproj">
+      <Project>{F423A8A3-1FF4-4C09-8DD1-2071CBF61021}</Project>
+      <Name>EasyAccess.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyAccess.Model\EasyAccess.Model.csproj">
+      <Project>{09c303b7-db4f-4774-9d38-a4665f172676}</Project>
+      <Name>EasyAccess.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyAccess.Repository\EasyAccess.Repository.csproj">
+      <Project>{79399b3a-c859-48f4-9337-e841953e4c72}</Project>
+      <Name>EasyAccess.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyAccess.Service\EasyAccess.Service.csproj">
+      <Project>{0d0a58c2-921d-4c9e-b33e-7e06afb441b6}</Project>
+      <Name>EasyAccess.Service</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
