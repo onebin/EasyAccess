@@ -16,10 +16,5 @@ namespace EasyAccess.Repository.Configurations.AutoMapper
                 .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.Contact.Phone));
 
         }
-
-        public override string ProfileName
-        {
-            get { return this.GetType().Name; }
-        } 
     }
 }

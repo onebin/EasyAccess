@@ -4,7 +4,7 @@
   
   <object id="DemoContext" type="Demo.Repository.Configurations.EntityFramework.DemoContext, Demo.Repository" singleton="false" />
 
-  <object id="DemoUnitOfWork" type="Demo.Repository.UnitOfWork.DemoUnitOfWork, Demo.Repository">
+  <object id="DemoUnitOfWork" type="Demo.Repository.UnitOfWork.DemoUnitOfWork, Demo.Repository" singleton="false">
     <constructor-arg name="context" ref="DemoContext"/>
   </object>
 

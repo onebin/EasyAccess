@@ -9,7 +9,7 @@ namespace EasyAccess.Repository.Configurations.EntityFramework
     {
         public static void Initialize()
         {
-            Database.SetInitializer(new ResetAllData());
+            Database.SetInitializer(new ResetAllDataIfModelChanges());
             //Database.SetInitializer(new MigrateDatabaseToLatestVersion<EasyAccessContext, Configuration>());
         }
 

@@ -3,7 +3,7 @@
          xmlns:db="http://www.springframework.net/database">
   <object id="EasyAccessContext" type="EasyAccess.Repository.Configurations.EntityFramework.EasyAccessContext, EasyAccess.Repository" singleton="false" />
 
-  <object id="EasyAccessUnitOfWork" type="EasyAccess.Repository.UnitOfWork.EasyAccessUnitOfWork, EasyAccess.Repository">
+  <object id="EasyAccessUnitOfWork" type="EasyAccess.Repository.UnitOfWork.EasyAccessUnitOfWork, EasyAccess.Repository" singleton="false">
     <constructor-arg name="context" ref="EasyAccessContext"/>
   </object>
 
