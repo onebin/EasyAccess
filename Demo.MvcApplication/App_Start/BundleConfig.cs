@@ -19,7 +19,7 @@ namespace Demo.MvcApplication
                         "~/Scripts/Helpers/*.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                "~/Content/site.css"));
+                "~/Content/*.css"));
         }
     }
 }

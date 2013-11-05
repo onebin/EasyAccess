@@ -32,7 +32,7 @@ namespace EasyAccess.Repository.Repositories
 
         public ICollection<Permission> GetPermissions(long accountId)
         {
-            var permissionLstInLst = (from a in Entities
+            var permissionLstInLst = (from a in UnitOfWorkContext.Set<Account>()
                                   from r in a.Roles
                                   where a.Id.Equals(accountId)
                                   select r.Permissions).ToList();
@@ -86,7 +86,7 @@ namespace EasyAccess.Repository.Repositories
 
         public void ResetPasswork(LoginUser loginUser)
         {
-             var register = this.GetRegister(loginUser.UserName);
+            var register = this.GetRegister(loginUser.UserName);
             if (register != null)
             {
                 var salt = Guid.NewGuid();

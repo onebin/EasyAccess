@@ -19,16 +19,19 @@ namespace EasyAccess.Service.Services
         public bool Login(LoginUser loginUser, bool rememberMe = false)
         {
             var result = false;
-            var account = AccountRepository.VerifyLogin(loginUser);
-            if (account != null)
+            using (UnitOfWork)
             {
-                var authMgr = AuthorizationManager.GetInstance();
-                var token = authMgr.GetToken(account.Roles, AccountRepository.GetPermissions(account.Id));
-                authMgr.SetTicket(loginUser.UserName, token, rememberMe);
-                account.Register.LastLoginIP = IPAddress.GetIPAddress();
-                account.Register.LastLoginTime = DateTime.Now;
-                base.UnitOfWork.Commit();
-                result = true;
+                var account = AccountRepository.VerifyLogin(loginUser);
+                if (account != null)
+                {
+                    var authMgr = AuthorizationManager.GetInstance();
+                    var token = authMgr.GetToken(account.Roles, AccountRepository.GetPermissions(account.Id));
+                    authMgr.SetTicket(loginUser.UserName, token, rememberMe);
+                    account.Register.LastLoginIP = IPAddress.GetIPAddress();
+                    account.Register.LastLoginTime = DateTime.Now;
+                    base.UnitOfWork.Commit();
+                    result = true;
+                }
             }
             return result;
         }

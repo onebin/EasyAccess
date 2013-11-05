@@ -1,12 +1,4 @@
 ﻿var uiHelper = {
-    icon: {
-        success: "<img src='/Content/images/icon_success.png' />",
-        fail: "<img src='/Content/images/icon_fail.png' />",
-        edit: "<img src='/Content/images/icon_edit.png' />",
-        remove: "<img src='/Content/images/icon_remove.png' />",
-        save: "<img src='/Content/images/icon_save.png' />",
-        undo: "<img src='/Content/images/icon_undo.png' />"
-    },
     color: {
         font: {
             info: "#3A87AD",

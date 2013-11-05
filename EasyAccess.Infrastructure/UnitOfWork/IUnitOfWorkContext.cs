@@ -8,7 +8,7 @@ using EasyAccess.Infrastructure.Entity;
 
 namespace EasyAccess.Infrastructure.UnitOfWork
 {
-    public interface IUnitOfWorkContext: IUnitOfWork, IDisposable
+    public interface IUnitOfWorkContext: IUnitOfWork
     {
         /// <summary>
         ///   为指定的类型返回 System.Data.Entity.DbSet，这将允许对上下文中的给定实体执行 CRUD 操作。

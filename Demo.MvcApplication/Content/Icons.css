@@ -1,0 +1,420 @@
+/* inline edit button */
+.inlineBtn_edit, .inlineBtn_delete, .inlineBtn_save, .inlineBtn_cancel {display: inline-block;width: 16px;height: 16px; margin: 0 3px; }
+.inlineBtn_edit { background: url('images/icons_color.png') no-repeat 0 -2880px;}
+.inlineBtn_delete { background: url('images/icons_color.png') no-repeat 0 -1140px;}
+.inlineBtn_save { background: url('images/icons_color.png') no-repeat 0 -1320px;}
+.inlineBtn_cancel{ background: url('images/icons_color.png') no-repeat 0 -3740px;}
+
+/*linkButton*/
+a.linkbutton, a.linkButton_window { color: #3A87AD; text-decoration: none; display: block;font-weight: bold; }
+a.linkButton_window{ background:url('images/icons_color.png') no-repeat 0 -3880px;text-indent: 20px; }
+
+/* notice */
+.lightbulb{ color: #3A87AD;float: left;background:url('images/icons_color.png') no-repeat 10px -2340px !important;text-indent: 20px;min-height: 16px;line-height: 16px;padding: 0 10px;}
+
+/* icons */
+.icons-tabs_close {background:url('images/icons/tabs_close.png') no-repeat center center;}
+
+/* icons_color */
+.icons-abacus{background:url('images/icons_color.png') no-repeat 0 0 !important;}
+.icons-access_point{background:url('images/icons_color.png') no-repeat 0 -20px !important;}
+.icons-add{background:url('images/icons_color.png') no-repeat 0 -40px !important;}
+.icons-administrator{background:url('images/icons_color.png') no-repeat 0 -60px !important;}
+.icons-alarm{background:url('images/icons_color.png') no-repeat 0 -80px !important;}
+.icons-arrow_bidirectional{background:url('images/icons_color.png') no-repeat 0 -100px !important;}
+.icons-arrow_down2{background:url('images/icons_color.png') no-repeat 0 -120px !important;}
+.icons-arrow_left2{background:url('images/icons_color.png') no-repeat 0 -140px !important;}
+.icons-arrow_right2{background:url('images/icons_color.png') no-repeat 0 -160px !important;}
+.icons-arrow_up2{background:url('images/icons_color.png') no-repeat 0 -180px !important;}
+.icons-attachment{background:url('images/icons_color.png') no-repeat 0 -200px !important;}
+.icons-audio_knob{background:url('images/icons_color.png') no-repeat 0 -220px !important;}
+.icons-barcode{background:url('images/icons_color.png') no-repeat 0 -240px !important;}
+.icons-battery_empty{background:url('images/icons_color.png') no-repeat 0 -260px !important;}
+.icons-battery_full{background:url('images/icons_color.png') no-repeat 0 -280px !important;}
+.icons-battery_half{background:url('images/icons_color.png') no-repeat 0 -300px !important;}
+.icons-bell{background:url('images/icons_color.png') no-repeat 0 -320px !important;}
+.icons-bill{background:url('images/icons_color.png') no-repeat 0 -340px !important;}
+.icons-binoculars{background:url('images/icons_color.png') no-repeat 0 -360px !important;}
+.icons-bold{background:url('images/icons_color.png') no-repeat 0 -380px !important;}
+.icons-book{background:url('images/icons_color.png') no-repeat 0 -400px !important;}
+.icons-bookmark{background:url('images/icons_color.png') no-repeat 0 -420px !important;}
+.icons-briefcase{background:url('images/icons_color.png') no-repeat 0 -440px !important;}
+.icons-brightness{background:url('images/icons_color.png') no-repeat 0 -460px !important;}
+.icons-broken_link{background:url('images/icons_color.png') no-repeat 0 -480px !important;}
+.icons-brush{background:url('images/icons_color.png') no-repeat 0 -500px !important;}
+.icons-burn_blu-ray{background:url('images/icons_color.png') no-repeat 0 -520px !important;}
+.icons-burn_blu-ray2{background:url('images/icons_color.png') no-repeat 0 -540px !important;}
+.icons-burn_dvd{background:url('images/icons_color.png') no-repeat 0 -560px !important;}
+.icons-burn_dvd2{background:url('images/icons_color.png') no-repeat 0 -580px !important;}
+.icons-cabinet{background:url('images/icons_color.png') no-repeat 0 -600px !important;}
+.icons-calculator{background:url('images/icons_color.png') no-repeat 0 -620px !important;}
+.icons-calendar{background:url('images/icons_color.png') no-repeat 0 -640px !important;}
+.icons-camera{background:url('images/icons_color.png') no-repeat 0 -660px !important;}
+.icons-cancel{background:url('images/icons_color.png') no-repeat 0 -680px !important;}
+.icons-card_clubs{background:url('images/icons_color.png') no-repeat 0 -700px !important;}
+.icons-card_diamonds{background:url('images/icons_color.png') no-repeat 0 -720px !important;}
+.icons-card_hearts{background:url('images/icons_color.png') no-repeat 0 -740px !important;}
+.icons-card_spades{background:url('images/icons_color.png') no-repeat 0 -760px !important;}
+.icons-certificate2{background:url('images/icons_color.png') no-repeat 0 -780px !important;}
+.icons-certificate{background:url('images/icons_color.png') no-repeat 0 -800px !important;}
+.icons-chat-exclamation{background:url('images/icons_color.png') no-repeat 0 -820px !important;}
+.icons-checkmark{background:url('images/icons_color.png') no-repeat 0 -840px !important;}
+.icons-checkmark2{background:url('images/icons_color.png') no-repeat 0 -860px !important;}
+.icons-clip{background:url('images/icons_color.png') no-repeat 0 -880px !important;}
+.icons-clipboard{background:url('images/icons_color.png') no-repeat 0 -900px !important;}
+.icons-clock{background:url('images/icons_color.png') no-repeat 0 -920px !important;}
+.icons-close{background:url('images/icons_color.png') no-repeat 0 -940px !important;}
+.icons-cloud{background:url('images/icons_color.png') no-repeat 0 -960px !important;}
+.icons-cloud2{background:url('images/icons_color.png') no-repeat 0 -980px !important;}
+.icons-coin{background:url('images/icons_color.png') no-repeat 0 -1000px !important;}
+.icons-compress{background:url('images/icons_color.png') no-repeat 0 -1020px !important;}
+.icons-connect{background:url('images/icons_color.png') no-repeat 0 -1040px !important;}
+.icons-contrast{background:url('images/icons_color.png') no-repeat 0 -1060px !important;}
+.icons-copy{background:url('images/icons_color.png') no-repeat 0 -1080px !important;}
+.icons-cross{background:url('images/icons_color.png') no-repeat 0 -1100px !important;}
+.icons-cutter{background:url('images/icons_color.png') no-repeat 0 -1120px !important;}
+.icons-delete{background:url('images/icons_color.png') no-repeat 0 -1140px !important;}
+.icons-dial{background:url('images/icons_color.png') no-repeat 0 -1160px !important;}
+.icons-diary{background:url('images/icons_color.png') no-repeat 0 -1180px !important;}
+.icons-dimensions{background:url('images/icons_color.png') no-repeat 0 -1200px !important;}
+.icons-directional_down{background:url('images/icons_color.png') no-repeat 0 -1220px !important;}
+.icons-directional_left{background:url('images/icons_color.png') no-repeat 0 -1240px !important;}
+.icons-directional_right{background:url('images/icons_color.png') no-repeat 0 -1260px !important;}
+.icons-directional_up{background:url('images/icons_color.png') no-repeat 0 -1280px !important;}
+.icons-disconnect{background:url('images/icons_color.png') no-repeat 0 -1300px !important;}
+.icons-diskette{background:url('images/icons_color.png') no-repeat 0 -1320px !important;}
+.icons-document{background:url('images/icons_color.png') no-repeat 0 -1340px !important;}
+.icons-door{background:url('images/icons_color.png') no-repeat 0 -1360px !important;}
+.icons-download2{background:url('images/icons_color.png') no-repeat 0 -1380px !important;}
+.icons-dropper{background:url('images/icons_color.png') no-repeat 0 -1400px !important;}
+.icons-earphones{background:url('images/icons_color.png') no-repeat 0 -1420px !important;}
+.icons-effects{background:url('images/icons_color.png') no-repeat 0 -1440px !important;}
+.icons-eject{background:url('images/icons_color.png') no-repeat 0 -1460px !important;}
+.icons-emoticon_angry{background:url('images/icons_color.png') no-repeat 0 -1480px !important;}
+.icons-emoticon_confused{background:url('images/icons_color.png') no-repeat 0 -1500px !important;}
+.icons-emoticon_grin{background:url('images/icons_color.png') no-repeat 0 -1520px !important;}
+.icons-emoticon_in_love{background:url('images/icons_color.png') no-repeat 0 -1540px !important;}
+.icons-emoticon_sad{background:url('images/icons_color.png') no-repeat 0 -1560px !important;}
+.icons-emoticon_sleeping{background:url('images/icons_color.png') no-repeat 0 -1580px !important;}
+.icons-emoticon_smile{background:url('images/icons_color.png') no-repeat 0 -1600px !important;}
+.icons-encrypt{background:url('images/icons_color.png') no-repeat 0 -1620px !important;}
+.icons-eraser{background:url('images/icons_color.png') no-repeat 0 -1640px !important;}
+.icons-eye{background:url('images/icons_color.png') no-repeat 0 -1660px !important;}
+.icons-eye_closed{background:url('images/icons_color.png') no-repeat 0 -1680px !important;}
+.icons-fast_forward{background:url('images/icons_color.png') no-repeat 0 -1700px !important;}
+.icons-file{background:url('images/icons_color.png') no-repeat 0 -1720px !important;}
+.icons-fill{background:url('images/icons_color.png') no-repeat 0 -1740px !important;}
+.icons-fingerprint{background:url('images/icons_color.png') no-repeat 0 -1760px !important;}
+.icons-firewall{background:url('images/icons_color.png') no-repeat 0 -1780px !important;}
+.icons-first{background:url('images/icons_color.png') no-repeat 0 -1800px !important;}
+.icons-folder{background:url('images/icons_color.png') no-repeat 0 -1820px !important;}
+.icons-font{background:url('images/icons_color.png') no-repeat 0 -1840px !important;}
+.icons-font_size{background:url('images/icons_color.png') no-repeat 0 -1860px !important;}
+.icons-game_control{background:url('images/icons_color.png') no-repeat 0 -1880px !important;}
+.icons-gear{background:url('images/icons_color.png') no-repeat 0 -1900px !important;}
+.icons-group{background:url('images/icons_color.png') no-repeat 0 -1920px !important;}
+.icons-hammer{background:url('images/icons_color.png') no-repeat 0 -1940px !important;}
+.icons-hand_point{background:url('images/icons_color.png') no-repeat 0 -1960px !important;}
+.icons-hand_thumbsdown{background:url('images/icons_color.png') no-repeat 0 -1980px !important;}
+.icons-hand_thumbsup{background:url('images/icons_color.png') no-repeat 0 -2000px !important;}
+.icons-hard_disk{background:url('images/icons_color.png') no-repeat 0 -2020px !important;}
+.icons-headset{background:url('images/icons_color.png') no-repeat 0 -2040px !important;}
+.icons-heart{background:url('images/icons_color.png') no-repeat 0 -2060px !important;}
+.icons-help{background:url('images/icons_color.png') no-repeat 0 -2080px !important;}
+.icons-help2{background:url('images/icons_color.png') no-repeat 0 -2100px !important;}
+.icons-history{background:url('images/icons_color.png') no-repeat 0 -2120px !important;}
+.icons-home{background:url('images/icons_color.png') no-repeat 0 -2140px !important;}
+.icons-hourglass{background:url('images/icons_color.png') no-repeat 0 -2160px !important;}
+.icons-hourglass2{background:url('images/icons_color.png') no-repeat 0 -2180px !important;}
+.icons-id{background:url('images/icons_color.png') no-repeat 0 -2200px !important;}
+.icons-info{background:url('images/icons_color.png') no-repeat 0 -2220px !important;}
+.icons-info2{background:url('images/icons_color.png') no-repeat 0 -2240px !important;}
+.icons-italic{background:url('images/icons_color.png') no-repeat 0 -2260px !important;}
+.icons-item{background:url('images/icons_color.png') no-repeat 0 -2280px !important;}
+.icons-key{background:url('images/icons_color.png') no-repeat 0 -2300px !important;}
+.icons-last{background:url('images/icons_color.png') no-repeat 0 -2320px !important;}
+.icons-lightbulb{background:url('images/icons_color.png') no-repeat 0 -2340px !important;}
+.icons-link{background:url('images/icons_color.png') no-repeat 0 -2360px !important;}
+.icons-list{background:url('images/icons_color.png') no-repeat 0 -2380px !important;}
+.icons-location{background:url('images/icons_color.png') no-repeat 0 -2400px !important;}
+.icons-lock{background:url('images/icons_color.png') no-repeat 0 -2420px !important;}
+.icons-lock_open{background:url('images/icons_color.png') no-repeat 0 -2440px !important;}
+.icons-login{background:url('images/icons_color.png') no-repeat 0 -2460px !important;}
+.icons-mail{background:url('images/icons_color.png') no-repeat 0 -2480px !important;}
+.icons-mail_open{background:url('images/icons_color.png') no-repeat 0 -2500px !important;}
+.icons-messenger{background:url('images/icons_color.png') no-repeat 0 -2520px !important;}
+.icons-microhpone{background:url('images/icons_color.png') no-repeat 0 -2540px !important;}
+.icons-microphone{background:url('images/icons_color.png') no-repeat 0 -2560px !important;}
+.icons-money_bag{background:url('images/icons_color.png') no-repeat 0 -2580px !important;}
+.icons-monitor{background:url('images/icons_color.png') no-repeat 0 -2600px !important;}
+.icons-moon{background:url('images/icons_color.png') no-repeat 0 -2620px !important;}
+.icons-music{background:url('images/icons_color.png') no-repeat 0 -2640px !important;}
+.icons-music_folder{background:url('images/icons_color.png') no-repeat 0 -2660px !important;}
+.icons-music_library{background:url('images/icons_color.png') no-repeat 0 -2680px !important;}
+.icons-next{background:url('images/icons_color.png') no-repeat 0 -2700px !important;}
+.icons-notepad{background:url('images/icons_color.png') no-repeat 0 -2720px !important;}
+.icons-paragraph_align_left{background:url('images/icons_color.png') no-repeat 0 -2740px !important;}
+.icons-paragraph_align_right{background:url('images/icons_color.png') no-repeat 0 -2760px !important;}
+.icons-paragraph_justify{background:url('images/icons_color.png') no-repeat 0 -2780px !important;}
+.icons-password{background:url('images/icons_color.png') no-repeat 0 -2800px !important;}
+.icons-paste{background:url('images/icons_color.png') no-repeat 0 -2820px !important;}
+.icons-pause{background:url('images/icons_color.png') no-repeat 0 -2840px !important;}
+.icons-pen{background:url('images/icons_color.png') no-repeat 0 -2860px !important;}
+.icons-pencil{background:url('images/icons_color.png') no-repeat 0 -2880px !important;}
+.icons-phone{background:url('images/icons_color.png') no-repeat 0 -2900px !important;}
+.icons-photo_album{background:url('images/icons_color.png') no-repeat 0 -2920px !important;}
+.icons-pictures_folder{background:url('images/icons_color.png') no-repeat 0 -2940px !important;}
+.icons-play{background:url('images/icons_color.png') no-repeat 0 -2960px !important;}
+.icons-point{background:url('images/icons_color.png') no-repeat 0 -2980px !important;}
+.icons-power{background:url('images/icons_color.png') no-repeat 0 -3000px !important;}
+.icons-previous{background:url('images/icons_color.png') no-repeat 0 -3020px !important;}
+.icons-print{background:url('images/icons_color.png') no-repeat 0 -3040px !important;}
+.icons-pyramid{background:url('images/icons_color.png') no-repeat 0 -3060px !important;}
+.icons-random{background:url('images/icons_color.png') no-repeat 0 -3080px !important;}
+.icons-record{background:url('images/icons_color.png') no-repeat 0 -3100px !important;}
+.icons-redo{background:url('images/icons_color.png') no-repeat 0 -3120px !important;}
+.icons-reload{background:url('images/icons_color.png') no-repeat 0 -3140px !important;}
+.icons-repeat{background:url('images/icons_color.png') no-repeat 0 -3160px !important;}
+.icons-resize2{background:url('images/icons_color.png') no-repeat 0 -3180px !important;}
+.icons-rewind{background:url('images/icons_color.png') no-repeat 0 -3200px !important;}
+.icons-rotate{background:url('images/icons_color.png') no-repeat 0 -3220px !important;}
+.icons-round{background:url('images/icons_color.png') no-repeat 0 -3240px !important;}
+.icons-ruler_square{background:url('images/icons_color.png') no-repeat 0 -3260px !important;}
+.icons-satellite{background:url('images/icons_color.png') no-repeat 0 -3280px !important;}
+.icons-scissors{background:url('images/icons_color.png') no-repeat 0 -3300px !important;}
+.icons-screwdriver{background:url('images/icons_color.png') no-repeat 0 -3320px !important;}
+.icons-security{background:url('images/icons_color.png') no-repeat 0 -3340px !important;}
+.icons-shopping_basket{background:url('images/icons_color.png') no-repeat 0 -3360px !important;}
+.icons-software24{background:url('images/icons_color.png') no-repeat 0 -3380px !important;}
+.icons-spam{background:url('images/icons_color.png') no-repeat 0 -3400px !important;}
+.icons-speaker{background:url('images/icons_color.png') no-repeat 0 -3420px !important;}
+.icons-speaker2{background:url('images/icons_color.png') no-repeat 0 -3440px !important;}
+.icons-sphere{background:url('images/icons_color.png') no-repeat 0 -3460px !important;}
+.icons-spreadsheet{background:url('images/icons_color.png') no-repeat 0 -3480px !important;}
+.icons-square{background:url('images/icons_color.png') no-repeat 0 -3500px !important;}
+.icons-star{background:url('images/icons_color.png') no-repeat 0 -3520px !important;}
+.icons-stats_bars{background:url('images/icons_color.png') no-repeat 0 -3540px !important;}
+.icons-stats_lines{background:url('images/icons_color.png') no-repeat 0 -3560px !important;}
+.icons-stats_pie{background:url('images/icons_color.png') no-repeat 0 -3580px !important;}
+.icons-stop{background:url('images/icons_color.png') no-repeat 0 -3600px !important;}
+.icons-strike_through{background:url('images/icons_color.png') no-repeat 0 -3620px !important;}
+.icons-sun{background:url('images/icons_color.png') no-repeat 0 -3640px !important;}
+.icons-target{background:url('images/icons_color.png') no-repeat 0 -3660px !important;}
+.icons-thunder{background:url('images/icons_color.png') no-repeat 0 -3680px !important;}
+.icons-trash_can{background:url('images/icons_color.png') no-repeat 0 -3700px !important;}
+.icons-underlined{background:url('images/icons_color.png') no-repeat 0 -3720px !important;}
+.icons-undo{background:url('images/icons_color.png') no-repeat 0 -3740px !important;}
+.icons-upload2{background:url('images/icons_color.png') no-repeat 0 -3760px !important;}
+.icons-usb{background:url('images/icons_color.png') no-repeat 0 -3780px !important;}
+.icons-user{background:url('images/icons_color.png') no-repeat 0 -3800px !important;}
+.icons-user_woman{background:url('images/icons_color.png') no-repeat 0 -3820px !important;}
+.icons-volume_control{background:url('images/icons_color.png') no-repeat 0 -3840px !important;}
+.icons-webcam{background:url('images/icons_color.png') no-repeat 0 -3860px !important;}
+.icons-window{background:url('images/icons_color.png') no-repeat 0 -3880px !important;}
+.icons-wizard{background:url('images/icons_color.png') no-repeat 0 -3900px !important;}
+.icons-world{background:url('images/icons_color.png') no-repeat 0 -3920px !important;}
+.icons-zoom{background:url('images/icons_color.png') no-repeat 0 -3940px !important;}
+.icons-zoom_in{background:url('images/icons_color.png') no-repeat 0 -3960px !important;}
+.icons-zoom_out{background:url('images/icons_color.png') no-repeat 0 -3980px !important;}
+
+/* icons_gray */
+.l-btn-disabled .icons-abacus, .menu-item-disabled .icons-abacus{background:url('images/icons_gray.png') no-repeat 0 0 !important;}
+.l-btn-disabled .icons-access_point, .menu-item-disabled .icons-access_point{background:url('images/icons_gray.png') no-repeat 0 -20px !important;}
+.l-btn-disabled .icons-add, .menu-item-disabled .icons-add{background:url('images/icons_gray.png') no-repeat 0 -40px !important;}
+.l-btn-disabled .icons-administrator, .menu-item-disabled .icons-administrator{background:url('images/icons_gray.png') no-repeat 0 -60px !important;}
+.l-btn-disabled .icons-alarm, .menu-item-disabled .icons-alarm{background:url('images/icons_gray.png') no-repeat 0 -80px !important;}
+.l-btn-disabled .icons-arrow_bidirectional, .menu-item-disabled .icons-arrow_bidirectional{background:url('images/icons_gray.png') no-repeat 0 -100px !important;}
+.l-btn-disabled .icons-arrow_down2, .menu-item-disabled .icons-arrow_down2{background:url('images/icons_gray.png') no-repeat 0 -120px !important;}
+.l-btn-disabled .icons-arrow_left2, .menu-item-disabled .icons-arrow_left2{background:url('images/icons_gray.png') no-repeat 0 -140px !important;}
+.l-btn-disabled .icons-arrow_right2, .menu-item-disabled .icons-arrow_right2{background:url('images/icons_gray.png') no-repeat 0 -160px !important;}
+.l-btn-disabled .icons-arrow_up2, .menu-item-disabled .icons-arrow_up2{background:url('images/icons_gray.png') no-repeat 0 -180px !important;}
+.l-btn-disabled .icons-attachment, .menu-item-disabled .icons-attachment{background:url('images/icons_gray.png') no-repeat 0 -200px !important;}
+.l-btn-disabled .icons-audio_knob, .menu-item-disabled .icons-audio_knob{background:url('images/icons_gray.png') no-repeat 0 -220px !important;}
+.l-btn-disabled .icons-barcode, .menu-item-disabled .icons-barcode{background:url('images/icons_gray.png') no-repeat 0 -240px !important;}
+.l-btn-disabled .icons-battery_empty, .menu-item-disabled .icons-battery_empty{background:url('images/icons_gray.png') no-repeat 0 -260px !important;}
+.l-btn-disabled .icons-battery_full, .menu-item-disabled .icons-battery_full{background:url('images/icons_gray.png') no-repeat 0 -280px !important;}
+.l-btn-disabled .icons-battery_half, .menu-item-disabled .icons-battery_half{background:url('images/icons_gray.png') no-repeat 0 -300px !important;}
+.l-btn-disabled .icons-bell, .menu-item-disabled .icons-bell{background:url('images/icons_gray.png') no-repeat 0 -320px !important;}
+.l-btn-disabled .icons-bill, .menu-item-disabled .icons-bill{background:url('images/icons_gray.png') no-repeat 0 -340px !important;}
+.l-btn-disabled .icons-binoculars, .menu-item-disabled .icons-binoculars{background:url('images/icons_gray.png') no-repeat 0 -360px !important;}
+.l-btn-disabled .icons-bold, .menu-item-disabled .icons-bold{background:url('images/icons_gray.png') no-repeat 0 -380px !important;}
+.l-btn-disabled .icons-book, .menu-item-disabled .icons-book{background:url('images/icons_gray.png') no-repeat 0 -400px !important;}
+.l-btn-disabled .icons-bookmark, .menu-item-disabled .icons-bookmark{background:url('images/icons_gray.png') no-repeat 0 -420px !important;}
+.l-btn-disabled .icons-briefcase, .menu-item-disabled .icons-briefcase{background:url('images/icons_gray.png') no-repeat 0 -440px !important;}
+.l-btn-disabled .icons-brightness, .menu-item-disabled .icons-brightness{background:url('images/icons_gray.png') no-repeat 0 -460px !important;}
+.l-btn-disabled .icons-broken_link, .menu-item-disabled .icons-broken_link{background:url('images/icons_gray.png') no-repeat 0 -480px !important;}
+.l-btn-disabled .icons-brush, .menu-item-disabled .icons-brush{background:url('images/icons_gray.png') no-repeat 0 -500px !important;}
+.l-btn-disabled .icons-burn_blu-ray, .menu-item-disabled .icons-burn_blu-ray{background:url('images/icons_gray.png') no-repeat 0 -520px !important;}
+.l-btn-disabled .icons-burn_blu-ray2, .menu-item-disabled .icons-burn_blu-ray2{background:url('images/icons_gray.png') no-repeat 0 -540px !important;}
+.l-btn-disabled .icons-burn_dvd, .menu-item-disabled .icons-burn_dvd{background:url('images/icons_gray.png') no-repeat 0 -560px !important;}
+.l-btn-disabled .icons-burn_dvd2, .menu-item-disabled .icons-burn_dvd2{background:url('images/icons_gray.png') no-repeat 0 -580px !important;}
+.l-btn-disabled .icons-cabinet, .menu-item-disabled .icons-cabinet{background:url('images/icons_gray.png') no-repeat 0 -600px !important;}
+.l-btn-disabled .icons-calculator, .menu-item-disabled .icons-calculator{background:url('images/icons_gray.png') no-repeat 0 -620px !important;}
+.l-btn-disabled .icons-calendar, .menu-item-disabled .icons-calendar{background:url('images/icons_gray.png') no-repeat 0 -640px !important;}
+.l-btn-disabled .icons-camera, .menu-item-disabled .icons-camera{background:url('images/icons_gray.png') no-repeat 0 -660px !important;}
+.l-btn-disabled .icons-cancel, .menu-item-disabled .icons-cancel{background:url('images/icons_gray.png') no-repeat 0 -680px !important;}
+.l-btn-disabled .icons-card_clubs, .menu-item-disabled .icons-card_clubs{background:url('images/icons_gray.png') no-repeat 0 -700px !important;}
+.l-btn-disabled .icons-card_diamonds, .menu-item-disabled .icons-card_diamonds{background:url('images/icons_gray.png') no-repeat 0 -720px !important;}
+.l-btn-disabled .icons-card_hearts, .menu-item-disabled .icons-card_hearts{background:url('images/icons_gray.png') no-repeat 0 -740px !important;}
+.l-btn-disabled .icons-card_spades, .menu-item-disabled .icons-card_spades{background:url('images/icons_gray.png') no-repeat 0 -760px !important;}
+.l-btn-disabled .icons-certificate2, .menu-item-disabled .icons-certificate2{background:url('images/icons_gray.png') no-repeat 0 -780px !important;}
+.l-btn-disabled .icons-certificate, .menu-item-disabled .icons-certificate{background:url('images/icons_gray.png') no-repeat 0 -800px !important;}
+.l-btn-disabled .icons-chat-exclamation, .menu-item-disabled .icons-chat-exclamation{background:url('images/icons_gray.png') no-repeat 0 -820px !important;}
+.l-btn-disabled .icons-checkmark, .menu-item-disabled .icons-checkmark{background:url('images/icons_gray.png') no-repeat 0 -840px !important;}
+.l-btn-disabled .icons-checkmark2, .menu-item-disabled .icons-checkmark2{background:url('images/icons_gray.png') no-repeat 0 -860px !important;}
+.l-btn-disabled .icons-clip, .menu-item-disabled .icons-clip{background:url('images/icons_gray.png') no-repeat 0 -880px !important;}
+.l-btn-disabled .icons-clipboard, .menu-item-disabled .icons-clipboard{background:url('images/icons_gray.png') no-repeat 0 -900px !important;}
+.l-btn-disabled .icons-clock, .menu-item-disabled .icons-clock{background:url('images/icons_gray.png') no-repeat 0 -920px !important;}
+.l-btn-disabled .icons-close, .menu-item-disabled .icons-close{background:url('images/icons_gray.png') no-repeat 0 -940px !important;}
+.l-btn-disabled .icons-cloud, .menu-item-disabled .icons-cloud{background:url('images/icons_gray.png') no-repeat 0 -960px !important;}
+.l-btn-disabled .icons-cloud2, .menu-item-disabled .icons-cloud2{background:url('images/icons_gray.png') no-repeat 0 -980px !important;}
+.l-btn-disabled .icons-coin, .menu-item-disabled .icons-coin{background:url('images/icons_gray.png') no-repeat 0 -1000px !important;}
+.l-btn-disabled .icons-compress, .menu-item-disabled .icons-compress{background:url('images/icons_gray.png') no-repeat 0 -1020px !important;}
+.l-btn-disabled .icons-connect, .menu-item-disabled .icons-connect{background:url('images/icons_gray.png') no-repeat 0 -1040px !important;}
+.l-btn-disabled .icons-contrast, .menu-item-disabled .icons-contrast{background:url('images/icons_gray.png') no-repeat 0 -1060px !important;}
+.l-btn-disabled .icons-copy, .menu-item-disabled .icons-copy{background:url('images/icons_gray.png') no-repeat 0 -1080px !important;}
+.l-btn-disabled .icons-cross, .menu-item-disabled .icons-cross{background:url('images/icons_gray.png') no-repeat 0 -1100px !important;}
+.l-btn-disabled .icons-cutter, .menu-item-disabled .icons-cutter{background:url('images/icons_gray.png') no-repeat 0 -1120px !important;}
+.l-btn-disabled .icons-delete, .menu-item-disabled .icons-delete{background:url('images/icons_gray.png') no-repeat 0 -1140px !important;}
+.l-btn-disabled .icons-dial, .menu-item-disabled .icons-dial{background:url('images/icons_gray.png') no-repeat 0 -1160px !important;}
+.l-btn-disabled .icons-diary, .menu-item-disabled .icons-diary{background:url('images/icons_gray.png') no-repeat 0 -1180px !important;}
+.l-btn-disabled .icons-dimensions, .menu-item-disabled .icons-dimensions{background:url('images/icons_gray.png') no-repeat 0 -1200px !important;}
+.l-btn-disabled .icons-directional_down, .menu-item-disabled .icons-directional_down{background:url('images/icons_gray.png') no-repeat 0 -1220px !important;}
+.l-btn-disabled .icons-directional_left, .menu-item-disabled .icons-directional_left{background:url('images/icons_gray.png') no-repeat 0 -1240px !important;}
+.l-btn-disabled .icons-directional_right, .menu-item-disabled .icons-directional_right{background:url('images/icons_gray.png') no-repeat 0 -1260px !important;}
+.l-btn-disabled .icons-directional_up, .menu-item-disabled .icons-directional_up{background:url('images/icons_gray.png') no-repeat 0 -1280px !important;}
+.l-btn-disabled .icons-disconnect, .menu-item-disabled .icons-disconnect{background:url('images/icons_gray.png') no-repeat 0 -1300px !important;}
+.l-btn-disabled .icons-diskette, .menu-item-disabled .icons-diskette{background:url('images/icons_gray.png') no-repeat 0 -1320px !important;}
+.l-btn-disabled .icons-document, .menu-item-disabled .icons-document{background:url('images/icons_gray.png') no-repeat 0 -1340px !important;}
+.l-btn-disabled .icons-door, .menu-item-disabled .icons-door{background:url('images/icons_gray.png') no-repeat 0 -1360px !important;}
+.l-btn-disabled .icons-download2, .menu-item-disabled .icons-download2{background:url('images/icons_gray.png') no-repeat 0 -1380px !important;}
+.l-btn-disabled .icons-dropper, .menu-item-disabled .icons-dropper{background:url('images/icons_gray.png') no-repeat 0 -1400px !important;}
+.l-btn-disabled .icons-earphones, .menu-item-disabled .icons-earphones{background:url('images/icons_gray.png') no-repeat 0 -1420px !important;}
+.l-btn-disabled .icons-effects, .menu-item-disabled .icons-effects{background:url('images/icons_gray.png') no-repeat 0 -1440px !important;}
+.l-btn-disabled .icons-eject, .menu-item-disabled .icons-eject{background:url('images/icons_gray.png') no-repeat 0 -1460px !important;}
+.l-btn-disabled .icons-emoticon_angry, .menu-item-disabled .icons-emoticon_angry{background:url('images/icons_gray.png') no-repeat 0 -1480px !important;}
+.l-btn-disabled .icons-emoticon_confused, .menu-item-disabled .icons-emoticon_confused{background:url('images/icons_gray.png') no-repeat 0 -1500px !important;}
+.l-btn-disabled .icons-emoticon_grin, .menu-item-disabled .icons-emoticon_grin{background:url('images/icons_gray.png') no-repeat 0 -1520px !important;}
+.l-btn-disabled .icons-emoticon_in_love, .menu-item-disabled .icons-emoticon_in_love{background:url('images/icons_gray.png') no-repeat 0 -1540px !important;}
+.l-btn-disabled .icons-emoticon_sad, .menu-item-disabled .icons-emoticon_sad{background:url('images/icons_gray.png') no-repeat 0 -1560px !important;}
+.l-btn-disabled .icons-emoticon_sleeping, .menu-item-disabled .icons-emoticon_sleeping{background:url('images/icons_gray.png') no-repeat 0 -1580px !important;}
+.l-btn-disabled .icons-emoticon_smile, .menu-item-disabled .icons-emoticon_smile{background:url('images/icons_gray.png') no-repeat 0 -1600px !important;}
+.l-btn-disabled .icons-encrypt, .menu-item-disabled .icons-encrypt{background:url('images/icons_gray.png') no-repeat 0 -1620px !important;}
+.l-btn-disabled .icons-eraser, .menu-item-disabled .icons-eraser{background:url('images/icons_gray.png') no-repeat 0 -1640px !important;}
+.l-btn-disabled .icons-eye, .menu-item-disabled .icons-eye{background:url('images/icons_gray.png') no-repeat 0 -1660px !important;}
+.l-btn-disabled .icons-eye_closed, .menu-item-disabled .icons-eye_closed{background:url('images/icons_gray.png') no-repeat 0 -1680px !important;}
+.l-btn-disabled .icons-fast_forward, .menu-item-disabled .icons-fast_forward{background:url('images/icons_gray.png') no-repeat 0 -1700px !important;}
+.l-btn-disabled .icons-file, .menu-item-disabled .icons-file{background:url('images/icons_gray.png') no-repeat 0 -1720px !important;}
+.l-btn-disabled .icons-fill, .menu-item-disabled .icons-fill{background:url('images/icons_gray.png') no-repeat 0 -1740px !important;}
+.l-btn-disabled .icons-fingerprint, .menu-item-disabled .icons-fingerprint{background:url('images/icons_gray.png') no-repeat 0 -1760px !important;}
+.l-btn-disabled .icons-firewall, .menu-item-disabled .icons-firewall{background:url('images/icons_gray.png') no-repeat 0 -1780px !important;}
+.l-btn-disabled .icons-first, .menu-item-disabled .icons-first{background:url('images/icons_gray.png') no-repeat 0 -1800px !important;}
+.l-btn-disabled .icons-folder, .menu-item-disabled .icons-folder{background:url('images/icons_gray.png') no-repeat 0 -1820px !important;}
+.l-btn-disabled .icons-font, .menu-item-disabled .icons-font{background:url('images/icons_gray.png') no-repeat 0 -1840px !important;}
+.l-btn-disabled .icons-font_size, .menu-item-disabled .icons-font_size{background:url('images/icons_gray.png') no-repeat 0 -1860px !important;}
+.l-btn-disabled .icons-game_control, .menu-item-disabled .icons-game_control{background:url('images/icons_gray.png') no-repeat 0 -1880px !important;}
+.l-btn-disabled .icons-gear, .menu-item-disabled .icons-gear{background:url('images/icons_gray.png') no-repeat 0 -1900px !important;}
+.l-btn-disabled .icons-group, .menu-item-disabled .icons-group{background:url('images/icons_gray.png') no-repeat 0 -1920px !important;}
+.l-btn-disabled .icons-hammer, .menu-item-disabled .icons-hammer{background:url('images/icons_gray.png') no-repeat 0 -1940px !important;}
+.l-btn-disabled .icons-hand_point, .menu-item-disabled .icons-hand_point{background:url('images/icons_gray.png') no-repeat 0 -1960px !important;}
+.l-btn-disabled .icons-hand_thumbsdown, .menu-item-disabled .icons-hand_thumbsdown{background:url('images/icons_gray.png') no-repeat 0 -1980px !important;}
+.l-btn-disabled .icons-hand_thumbsup, .menu-item-disabled .icons-hand_thumbsup{background:url('images/icons_gray.png') no-repeat 0 -2000px !important;}
+.l-btn-disabled .icons-hard_disk, .menu-item-disabled .icons-hard_disk{background:url('images/icons_gray.png') no-repeat 0 -2020px !important;}
+.l-btn-disabled .icons-headset, .menu-item-disabled .icons-headset{background:url('images/icons_gray.png') no-repeat 0 -2040px !important;}
+.l-btn-disabled .icons-heart, .menu-item-disabled .icons-heart{background:url('images/icons_gray.png') no-repeat 0 -2060px !important;}
+.l-btn-disabled .icons-help, .menu-item-disabled .icons-help{background:url('images/icons_gray.png') no-repeat 0 -2080px !important;}
+.l-btn-disabled .icons-help2, .menu-item-disabled .icons-help2{background:url('images/icons_gray.png') no-repeat 0 -2100px !important;}
+.l-btn-disabled .icons-history, .menu-item-disabled .icons-history{background:url('images/icons_gray.png') no-repeat 0 -2120px !important;}
+.l-btn-disabled .icons-home, .menu-item-disabled .icons-home{background:url('images/icons_gray.png') no-repeat 0 -2140px !important;}
+.l-btn-disabled .icons-hourglass, .menu-item-disabled .icons-hourglass{background:url('images/icons_gray.png') no-repeat 0 -2160px !important;}
+.l-btn-disabled .icons-hourglass2, .menu-item-disabled .icons-hourglass2{background:url('images/icons_gray.png') no-repeat 0 -2180px !important;}
+.l-btn-disabled .icons-id, .menu-item-disabled .icons-id{background:url('images/icons_gray.png') no-repeat 0 -2200px !important;}
+.l-btn-disabled .icons-info, .menu-item-disabled .icons-info{background:url('images/icons_gray.png') no-repeat 0 -2220px !important;}
+.l-btn-disabled .icons-info2, .menu-item-disabled .icons-info2{background:url('images/icons_gray.png') no-repeat 0 -2240px !important;}
+.l-btn-disabled .icons-italic, .menu-item-disabled .icons-italic{background:url('images/icons_gray.png') no-repeat 0 -2260px !important;}
+.l-btn-disabled .icons-item, .menu-item-disabled .icons-item{background:url('images/icons_gray.png') no-repeat 0 -2280px !important;}
+.l-btn-disabled .icons-key, .menu-item-disabled .icons-key{background:url('images/icons_gray.png') no-repeat 0 -2300px !important;}
+.l-btn-disabled .icons-last, .menu-item-disabled .icons-last{background:url('images/icons_gray.png') no-repeat 0 -2320px !important;}
+.l-btn-disabled .icons-lightbulb, .menu-item-disabled .icons-lightbulb{background:url('images/icons_gray.png') no-repeat 0 -2340px !important;}
+.l-btn-disabled .icons-link, .menu-item-disabled .icons-link{background:url('images/icons_gray.png') no-repeat 0 -2360px !important;}
+.l-btn-disabled .icons-list, .menu-item-disabled .icons-list{background:url('images/icons_gray.png') no-repeat 0 -2380px !important;}
+.l-btn-disabled .icons-location, .menu-item-disabled .icons-location{background:url('images/icons_gray.png') no-repeat 0 -2400px !important;}
+.l-btn-disabled .icons-lock, .menu-item-disabled .icons-lock{background:url('images/icons_gray.png') no-repeat 0 -2420px !important;}
+.l-btn-disabled .icons-lock_open, .menu-item-disabled .icons-lock_open{background:url('images/icons_gray.png') no-repeat 0 -2440px !important;}
+.l-btn-disabled .icons-login, .menu-item-disabled .icons-login{background:url('images/icons_gray.png') no-repeat 0 -2460px !important;}
+.l-btn-disabled .icons-mail, .menu-item-disabled .icons-mail{background:url('images/icons_gray.png') no-repeat 0 -2480px !important;}
+.l-btn-disabled .icons-mail_open, .menu-item-disabled .icons-mail_open{background:url('images/icons_gray.png') no-repeat 0 -2500px !important;}
+.l-btn-disabled .icons-messenger, .menu-item-disabled .icons-messenger{background:url('images/icons_gray.png') no-repeat 0 -2520px !important;}
+.l-btn-disabled .icons-microhpone, .menu-item-disabled .icons-microhpone{background:url('images/icons_gray.png') no-repeat 0 -2540px !important;}
+.l-btn-disabled .icons-microphone, .menu-item-disabled .icons-microphone{background:url('images/icons_gray.png') no-repeat 0 -2560px !important;}
+.l-btn-disabled .icons-money_bag, .menu-item-disabled .icons-money_bag{background:url('images/icons_gray.png') no-repeat 0 -2580px !important;}
+.l-btn-disabled .icons-monitor, .menu-item-disabled .icons-monitor{background:url('images/icons_gray.png') no-repeat 0 -2600px !important;}
+.l-btn-disabled .icons-moon, .menu-item-disabled .icons-moon{background:url('images/icons_gray.png') no-repeat 0 -2620px !important;}
+.l-btn-disabled .icons-music, .menu-item-disabled .icons-music{background:url('images/icons_gray.png') no-repeat 0 -2640px !important;}
+.l-btn-disabled .icons-music_folder, .menu-item-disabled .icons-music_folder{background:url('images/icons_gray.png') no-repeat 0 -2660px !important;}
+.l-btn-disabled .icons-music_library, .menu-item-disabled .icons-music_library{background:url('images/icons_gray.png') no-repeat 0 -2680px !important;}
+.l-btn-disabled .icons-next, .menu-item-disabled .icons-next{background:url('images/icons_gray.png') no-repeat 0 -2700px !important;}
+.l-btn-disabled .icons-notepad, .menu-item-disabled .icons-notepad{background:url('images/icons_gray.png') no-repeat 0 -2720px !important;}
+.l-btn-disabled .icons-paragraph_align_left, .menu-item-disabled .icons-paragraph_align_left{background:url('images/icons_gray.png') no-repeat 0 -2740px !important;}
+.l-btn-disabled .icons-paragraph_align_right, .menu-item-disabled .icons-paragraph_align_right{background:url('images/icons_gray.png') no-repeat 0 -2760px !important;}
+.l-btn-disabled .icons-paragraph_justify, .menu-item-disabled .icons-paragraph_justify{background:url('images/icons_gray.png') no-repeat 0 -2780px !important;}
+.l-btn-disabled .icons-password, .menu-item-disabled .icons-password{background:url('images/icons_gray.png') no-repeat 0 -2800px !important;}
+.l-btn-disabled .icons-paste, .menu-item-disabled .icons-paste{background:url('images/icons_gray.png') no-repeat 0 -2820px !important;}
+.l-btn-disabled .icons-pause, .menu-item-disabled .icons-pause{background:url('images/icons_gray.png') no-repeat 0 -2840px !important;}
+.l-btn-disabled .icons-pen, .menu-item-disabled .icons-pen{background:url('images/icons_gray.png') no-repeat 0 -2860px !important;}
+.l-btn-disabled .icons-pencil, .menu-item-disabled .icons-pencil{background:url('images/icons_gray.png') no-repeat 0 -2880px !important;}
+.l-btn-disabled .icons-phone, .menu-item-disabled .icons-phone{background:url('images/icons_gray.png') no-repeat 0 -2900px !important;}
+.l-btn-disabled .icons-photo_album, .menu-item-disabled .icons-photo_album{background:url('images/icons_gray.png') no-repeat 0 -2920px !important;}
+.l-btn-disabled .icons-pictures_folder, .menu-item-disabled .icons-pictures_folder{background:url('images/icons_gray.png') no-repeat 0 -2940px !important;}
+.l-btn-disabled .icons-play, .menu-item-disabled .icons-play{background:url('images/icons_gray.png') no-repeat 0 -2960px !important;}
+.l-btn-disabled .icons-point, .menu-item-disabled .icons-point{background:url('images/icons_gray.png') no-repeat 0 -2980px !important;}
+.l-btn-disabled .icons-power, .menu-item-disabled .icons-power{background:url('images/icons_gray.png') no-repeat 0 -3000px !important;}
+.l-btn-disabled .icons-previous, .menu-item-disabled .icons-previous{background:url('images/icons_gray.png') no-repeat 0 -3020px !important;}
+.l-btn-disabled .icons-print, .menu-item-disabled .icons-print{background:url('images/icons_gray.png') no-repeat 0 -3040px !important;}
+.l-btn-disabled .icons-pyramid, .menu-item-disabled .icons-pyramid{background:url('images/icons_gray.png') no-repeat 0 -3060px !important;}
+.l-btn-disabled .icons-random, .menu-item-disabled .icons-random{background:url('images/icons_gray.png') no-repeat 0 -3080px !important;}
+.l-btn-disabled .icons-record, .menu-item-disabled .icons-record{background:url('images/icons_gray.png') no-repeat 0 -3100px !important;}
+.l-btn-disabled .icons-redo, .menu-item-disabled .icons-redo{background:url('images/icons_gray.png') no-repeat 0 -3120px !important;}
+.l-btn-disabled .icons-reload, .menu-item-disabled .icons-reload{background:url('images/icons_gray.png') no-repeat 0 -3140px !important;}
+.l-btn-disabled .icons-repeat, .menu-item-disabled .icons-repeat{background:url('images/icons_gray.png') no-repeat 0 -3160px !important;}
+.l-btn-disabled .icons-resize2, .menu-item-disabled .icons-resize2{background:url('images/icons_gray.png') no-repeat 0 -3180px !important;}
+.l-btn-disabled .icons-rewind, .menu-item-disabled .icons-rewind{background:url('images/icons_gray.png') no-repeat 0 -3200px !important;}
+.l-btn-disabled .icons-rotate, .menu-item-disabled .icons-rotate{background:url('images/icons_gray.png') no-repeat 0 -3220px !important;}
+.l-btn-disabled .icons-round, .menu-item-disabled .icons-round{background:url('images/icons_gray.png') no-repeat 0 -3240px !important;}
+.l-btn-disabled .icons-ruler_square, .menu-item-disabled .icons-ruler_square{background:url('images/icons_gray.png') no-repeat 0 -3260px !important;}
+.l-btn-disabled .icons-satellite, .menu-item-disabled .icons-satellite{background:url('images/icons_gray.png') no-repeat 0 -3280px !important;}
+.l-btn-disabled .icons-scissors, .menu-item-disabled .icons-scissors{background:url('images/icons_gray.png') no-repeat 0 -3300px !important;}
+.l-btn-disabled .icons-screwdriver, .menu-item-disabled .icons-screwdriver{background:url('images/icons_gray.png') no-repeat 0 -3320px !important;}
+.l-btn-disabled .icons-security, .menu-item-disabled .icons-security{background:url('images/icons_gray.png') no-repeat 0 -3340px !important;}
+.l-btn-disabled .icons-shopping_basket, .menu-item-disabled .icons-shopping_basket{background:url('images/icons_gray.png') no-repeat 0 -3360px !important;}
+.l-btn-disabled .icons-software24, .menu-item-disabled .icons-software24{background:url('images/icons_gray.png') no-repeat 0 -3380px !important;}
+.l-btn-disabled .icons-spam, .menu-item-disabled .icons-spam{background:url('images/icons_gray.png') no-repeat 0 -3400px !important;}
+.l-btn-disabled .icons-speaker, .menu-item-disabled .icons-speaker{background:url('images/icons_gray.png') no-repeat 0 -3420px !important;}
+.l-btn-disabled .icons-speaker2, .menu-item-disabled .icons-speaker2{background:url('images/icons_gray.png') no-repeat 0 -3440px !important;}
+.l-btn-disabled .icons-sphere, .menu-item-disabled .icons-sphere{background:url('images/icons_gray.png') no-repeat 0 -3460px !important;}
+.l-btn-disabled .icons-spreadsheet, .menu-item-disabled .icons-spreadsheet{background:url('images/icons_gray.png') no-repeat 0 -3480px !important;}
+.l-btn-disabled .icons-square, .menu-item-disabled .icons-square{background:url('images/icons_gray.png') no-repeat 0 -3500px !important;}
+.l-btn-disabled .icons-star, .menu-item-disabled .icons-star{background:url('images/icons_gray.png') no-repeat 0 -3520px !important;}
+.l-btn-disabled .icons-stats_bars, .menu-item-disabled .icons-stats_bars{background:url('images/icons_gray.png') no-repeat 0 -3540px !important;}
+.l-btn-disabled .icons-stats_lines, .menu-item-disabled .icons-stats_lines{background:url('images/icons_gray.png') no-repeat 0 -3560px !important;}
+.l-btn-disabled .icons-stats_pie, .menu-item-disabled .icons-stats_pie{background:url('images/icons_gray.png') no-repeat 0 -3580px !important;}
+.l-btn-disabled .icons-stop, .menu-item-disabled .icons-stop{background:url('images/icons_gray.png') no-repeat 0 -3600px !important;}
+.l-btn-disabled .icons-strike_through, .menu-item-disabled .icons-strike_through{background:url('images/icons_gray.png') no-repeat 0 -3620px !important;}
+.l-btn-disabled .icons-sun, .menu-item-disabled .icons-sun{background:url('images/icons_gray.png') no-repeat 0 -3640px !important;}
+.l-btn-disabled .icons-target, .menu-item-disabled .icons-target{background:url('images/icons_gray.png') no-repeat 0 -3660px !important;}
+.l-btn-disabled .icons-thunder, .menu-item-disabled .icons-thunder{background:url('images/icons_gray.png') no-repeat 0 -3680px !important;}
+.l-btn-disabled .icons-trash_can, .menu-item-disabled .icons-trash_can{background:url('images/icons_gray.png') no-repeat 0 -3700px !important;}
+.l-btn-disabled .icons-underlined, .menu-item-disabled .icons-underlined{background:url('images/icons_gray.png') no-repeat 0 -3720px !important;}
+.l-btn-disabled .icons-undo, .menu-item-disabled .icons-undo{background:url('images/icons_gray.png') no-repeat 0 -3740px !important;}
+.l-btn-disabled .icons-upload2, .menu-item-disabled .icons-upload2{background:url('images/icons_gray.png') no-repeat 0 -3760px !important;}
+.l-btn-disabled .icons-usb, .menu-item-disabled .icons-usb{background:url('images/icons_gray.png') no-repeat 0 -3780px !important;}
+.l-btn-disabled .icons-user, .menu-item-disabled .icons-user{background:url('images/icons_gray.png') no-repeat 0 -3800px !important;}
+.l-btn-disabled .icons-user_woman, .menu-item-disabled .icons-user_woman{background:url('images/icons_gray.png') no-repeat 0 -3820px !important;}
+.l-btn-disabled .icons-volume_control, .menu-item-disabled .icons-volume_control{background:url('images/icons_gray.png') no-repeat 0 -3840px !important;}
+.l-btn-disabled .icons-webcam, .menu-item-disabled .icons-webcam{background:url('images/icons_gray.png') no-repeat 0 -3860px !important;}
+.l-btn-disabled .icons-window, .menu-item-disabled .icons-window{background:url('images/icons_gray.png') no-repeat 0 -3880px !important;}
+.l-btn-disabled .icons-wizard, .menu-item-disabled .icons-wizard{background:url('images/icons_gray.png') no-repeat 0 -3900px !important;}
+.l-btn-disabled .icons-world, .menu-item-disabled .icons-world{background:url('images/icons_gray.png') no-repeat 0 -3920px !important;}
+.l-btn-disabled .icons-zoom, .menu-item-disabled .icons-zoom{background:url('images/icons_gray.png') no-repeat 0 -3940px !important;}
+.l-btn-disabled .icons-zoom_in, .menu-item-disabled .icons-zoom_in{background:url('images/icons_gray.png') no-repeat 0 -3960px !important;}
+.l-btn-disabled .icons-zoom_out, .menu-item-disabled .icons-zoom_out{background:url('images/icons_gray.png') no-repeat 0 -3980px !important;}

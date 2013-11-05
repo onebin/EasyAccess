@@ -54,7 +54,10 @@
             </div>
         </div>
         <div data-options="region:'center',title:'',iconCls:'icon-ok'">
-            <div id="container-tabs" class="easyui-tabs" data-options="fit:true,border:false,plain:true">
+            <div id="container-tabsTools">
+                <a title="关闭全部标签页" href="javascript:easyuiHelper.tabs.closeAll()" class="easyui-linkbutton" data-options="plain:true,iconCls:'icons-tabs_close'"></a>
+            </div>
+            <div id="container-tabs" class="easyui-tabs" data-options="fit:true,tools:'#container-tabsTools'">
                 @RenderBody()
             </div>
         </div>

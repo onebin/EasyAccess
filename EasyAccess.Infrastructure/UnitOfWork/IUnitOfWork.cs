@@ -3,7 +3,7 @@ using EasyAccess.Infrastructure.Repository;
 
 namespace EasyAccess.Infrastructure.UnitOfWork
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork: IDisposable
     {
         /// <summary>
         /// 当前工作单元是否已提交
