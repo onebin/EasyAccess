@@ -17,7 +17,7 @@ namespace EasyAccess.UnitTest.TestService
             var conditionBuilder = ConditionBuilder<Account>.Create();
             conditionBuilder.OrderBy(x => x.Sex).ThenBy(x => x.CreateTime);
             var pagingCondition = new PagingCondition(0, 15);
-            AccountManageService.GetAccountPagingData(conditionBuilder, pagingCondition);
+            AccountManageService.GetAccountPagingData(pagingCondition, conditionBuilder);
         }
     }
 }

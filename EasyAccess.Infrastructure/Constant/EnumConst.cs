@@ -11,7 +11,7 @@ namespace EasyAccess.Infrastructure.Constant
         /// <summary>
         /// 成功
         /// </summary>
-        OK = 200,
+        Okey = 200,
 
         /// <summary>
         /// 未授权
