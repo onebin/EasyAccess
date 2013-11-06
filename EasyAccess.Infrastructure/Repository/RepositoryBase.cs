@@ -62,7 +62,7 @@ namespace EasyAccess.Infrastructure.Repository
                 IOrderedQueryable<TEntity> orderCondition = null;
                 if (queryCondition.OrderByConditions == null || queryCondition.OrderByConditions.Count == 0)
                 {
-                    orderCondition = Entities.OrderBy(x => x.Id);
+                    orderCondition = query.OrderBy(x => x.Id);
                 }
                 else
                 {
@@ -71,8 +71,8 @@ namespace EasyAccess.Infrastructure.Repository
                     {
                         orderCondition = i == 0
                                              ? keySelector.Value.Direction == ListSortDirection.Ascending
-                                                   ? Queryable.OrderBy(Entities, (dynamic) keySelector.Value.KeySelector)
-                                                   : Queryable.OrderByDescending(Entities,
+                                                   ? Queryable.OrderBy(query, (dynamic)keySelector.Value.KeySelector)
+                                                   : Queryable.OrderByDescending(query,
                                                                                  (dynamic) keySelector.Value.KeySelector)
                                              : keySelector.Value.Direction == ListSortDirection.Ascending
                                                    ? Queryable.ThenBy(orderCondition,
