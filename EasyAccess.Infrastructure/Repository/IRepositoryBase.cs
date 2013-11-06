@@ -32,19 +32,19 @@ namespace EasyAccess.Infrastructure.Repository
         /// <summary>
         /// 获取分页查询信息
         /// </summary>
-        /// <param name="queryCondition">查询条件</param>
         /// <param name="pagingCondition">分布条件</param>
         /// <param name="recordData">分页数据</param>
         /// <param name="recordCount">记录总数</param>
+        /// <param name="queryCondition">查询条件</param>
         void GetPagingEntityDataModels(PagingCondition pagingCondition, out List<TEntity> recordData, out long recordCount, IQueryCondition<TEntity> queryCondition = null);
 
         /// <summary>
         /// 获取分页查询信息
         /// </summary>
-        /// <param name="queryCondition">查询条件</param>
         /// <param name="pagingCondition">分布条件</param>
         /// <param name="recordData">分页数据</param>
         /// <param name="recordCount">记录总数</param>
+        /// <param name="queryCondition">查询条件</param>
         void GetPagingDataTransferObjects<TDto>(PagingCondition pagingCondition, out List<TDto> recordData, out long recordCount,IQueryCondition<TEntity> queryCondition = null);
 
         /// <summary>
