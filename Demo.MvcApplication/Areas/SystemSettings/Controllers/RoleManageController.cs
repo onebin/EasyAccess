@@ -28,9 +28,7 @@ namespace Demo.MvcApplication.Areas.SystemSettings.Controllers
         public JsonResult GetRoleInfo(FormCollection formData)
         {
             var pagingCodition = GetPagingCondition(formData);
-            var pg = RoleManageService.GetRolePagingData(
-                ConditionBuilder<Role>.Create(),
-                pagingCodition);
+            var pg = RoleManageService.GetRolePagingData(pagingCodition);
             return Json(new EasyUiDataGrid().SetRows(pg.RecordCount, pg.RecordData.ToList()).GetJsonModel());
         }
 

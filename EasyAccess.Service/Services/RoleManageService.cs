@@ -14,9 +14,9 @@ namespace EasyAccess.Service.Services
     {
         public IRoleRepository RoleRepository { get; set; }
 
-        public PagingData<Role> GetRolePagingData(IQueryCondition<Role> queryCondition, PagingCondition pagingCondition)
+        public PagingData<Role> GetRolePagingData(PagingCondition pagingCondition, IQueryCondition<Role> queryCondition = null)
         {
-            return GetPagingEntityDataModels(RoleRepository, queryCondition, pagingCondition);
+            return GetPagingEntityDataModels(RoleRepository, pagingCondition, queryCondition);
         }
     }
 }

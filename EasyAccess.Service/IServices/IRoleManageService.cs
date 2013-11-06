@@ -11,6 +11,6 @@ namespace EasyAccess.Service.IServices
 {
     public interface IRoleManageService
     {
-        PagingData<Role> GetRolePagingData(IQueryCondition<Role> queryCondition, PagingCondition pagingCondition);
+        PagingData<Role> GetRolePagingData(PagingCondition pagingCondition, IQueryCondition<Role> queryCondition = null);
     }
 }

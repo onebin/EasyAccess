@@ -17,26 +17,26 @@ namespace EasyAccess.Infrastructure.Service
 
         protected PagingData<TEntity> GetPagingEntityDataModels<TEntity>(
             IRepositoryBase<TEntity> repository,
-            IQueryCondition<TEntity> queryCondition,
-            PagingCondition pagingCondition)
+            PagingCondition pagingCondition,
+            IQueryCondition<TEntity> queryCondition = null)
             where TEntity : class, IAggregateRoot
         {
             long recordCount;
             List<TEntity> recordData;
-            repository.GetPagingEntityDataModels(queryCondition, pagingCondition, out recordData, out recordCount);
+            repository.GetPagingEntityDataModels(pagingCondition, out recordData, out recordCount, queryCondition);
             return new PagingData<TEntity>(recordCount, pagingCondition, recordData);
         }
 
         protected PagingData<TDto> GetPagingDataTransferObjects<TDto,TEntity>(
             IRepositoryBase<TEntity> repository,
-            IQueryCondition<TEntity> queryCondition,
-            PagingCondition pagingCondition)
+            PagingCondition pagingCondition,
+            IQueryCondition<TEntity> queryCondition = null)
             where TEntity : class, IAggregateRoot
             where TDto : class 
         {
             long recordCount;
             List<TDto> recordData;
-            repository.GetPagingDataTransferObjects(queryCondition, pagingCondition, out recordData, out recordCount);
+            repository.GetPagingDataTransferObjects(pagingCondition, out recordData, out recordCount, queryCondition);
             return new PagingData<TDto>(recordCount, pagingCondition, recordData);
         }
     }

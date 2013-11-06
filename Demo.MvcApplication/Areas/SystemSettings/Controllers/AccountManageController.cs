@@ -27,9 +27,7 @@ namespace Demo.MvcApplication.Areas.SystemSettings.Controllers
         public JsonResult GetAccountInfo(FormCollection formData)
         {
             var pagingCodition = GetPagingCondition(formData);
-            var pg = AccountManageService.GetAccountPagingData(
-                ConditionBuilder<Account>.Create(),
-                pagingCodition);
+            var pg = AccountManageService.GetAccountPagingData(pagingCodition);
             return Json(new EasyUiDataGrid().SetRows(pg.RecordCount, pg.RecordData.ToList()).GetJsonModel());
         }
 

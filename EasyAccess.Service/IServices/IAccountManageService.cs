@@ -7,6 +7,6 @@ namespace EasyAccess.Service.IServices
 {
     public interface IAccountManageService
     {
-        PagingData<AccountDto> GetAccountPagingData(IQueryCondition<Account> queryCondition, PagingCondition pagingCondition);
+        PagingData<AccountDto> GetAccountPagingData(PagingCondition pagingCondition, IQueryCondition<Account> queryCondition = null);
     }
 }

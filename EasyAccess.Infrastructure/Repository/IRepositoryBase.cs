@@ -36,7 +36,7 @@ namespace EasyAccess.Infrastructure.Repository
         /// <param name="pagingCondition">分布条件</param>
         /// <param name="recordData">分页数据</param>
         /// <param name="recordCount">记录总数</param>
-        void GetPagingEntityDataModels(IQueryCondition<TEntity> queryCondition, PagingCondition pagingCondition, out List<TEntity> recordData, out long recordCount);
+        void GetPagingEntityDataModels(PagingCondition pagingCondition, out List<TEntity> recordData, out long recordCount, IQueryCondition<TEntity> queryCondition = null);
 
         /// <summary>
         /// 获取分页查询信息
@@ -45,7 +45,7 @@ namespace EasyAccess.Infrastructure.Repository
         /// <param name="pagingCondition">分布条件</param>
         /// <param name="recordData">分页数据</param>
         /// <param name="recordCount">记录总数</param>
-        void GetPagingDataTransferObjects<TDto>(IQueryCondition<TEntity> queryCondition, PagingCondition pagingCondition, out List<TDto> recordData, out long recordCount);
+        void GetPagingDataTransferObjects<TDto>(PagingCondition pagingCondition, out List<TDto> recordData, out long recordCount,IQueryCondition<TEntity> queryCondition = null);
 
         /// <summary>
         /// 插入实体记录

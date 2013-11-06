@@ -52,46 +52,57 @@ namespace EasyAccess.Infrastructure.Repository
             return UnitOfWorkContext.Set<TEntity>().Find(id);
         }
 
-        private IQueryable<TEntity> GetQueryableEntityFromConditon(
-            IQueryCondition<TEntity> queryCondition,
-            PagingCondition pagingCondition)
+        private IQueryable<TEntity> GetQueryableEntityByConditon(
+            PagingCondition pagingCondition,
+            IQueryCondition<TEntity> queryCondition = null)
         {
-            var query = Entities.Where(queryCondition.Predicate);
-            IOrderedQueryable<TEntity> orderCondition = null;
-            if (queryCondition.OrderByConditions == null || queryCondition.OrderByConditions.Count == 0)
+            if (queryCondition != null)
             {
-                orderCondition = Entities.OrderBy(x => x.Id);
+                var query = Entities.Where(queryCondition.Predicate);
+                IOrderedQueryable<TEntity> orderCondition = null;
+                if (queryCondition.OrderByConditions == null || queryCondition.OrderByConditions.Count == 0)
+                {
+                    orderCondition = Entities.OrderBy(x => x.Id);
+                }
+                else
+                {
+                    var i = 0;
+                    foreach (var keySelector in queryCondition.OrderByConditions)
+                    {
+                        orderCondition = i == 0
+                                             ? keySelector.Value.Direction == ListSortDirection.Ascending
+                                                   ? Queryable.OrderBy(Entities, (dynamic) keySelector.Value.KeySelector)
+                                                   : Queryable.OrderByDescending(Entities,
+                                                                                 (dynamic) keySelector.Value.KeySelector)
+                                             : keySelector.Value.Direction == ListSortDirection.Ascending
+                                                   ? Queryable.ThenBy(orderCondition,
+                                                                      (dynamic) keySelector.Value.KeySelector)
+                                                   : Queryable.ThenByDescending(orderCondition,
+                                                                                (dynamic) keySelector.Value.KeySelector);
+
+                        i++;
+                    }
+                }
+                query = orderCondition;
+                return query;
             }
             else
             {
-                var i = 0;
-                foreach (var keySelector in queryCondition.OrderByConditions)
-                {
-                    orderCondition = i == 0
-                        ? keySelector.Value.Direction == ListSortDirection.Ascending
-                            ? Queryable.OrderBy(Entities, (dynamic)keySelector.Value.KeySelector)
-                            : Queryable.OrderByDescending(Entities, (dynamic)keySelector.Value.KeySelector)
-                        : keySelector.Value.Direction == ListSortDirection.Ascending
-                            ? Queryable.ThenBy(orderCondition, (dynamic)keySelector.Value.KeySelector)
-                            : Queryable.ThenByDescending(orderCondition, (dynamic)keySelector.Value.KeySelector);
-
-                    i++;
-                }
+                var query = Entities.Where(ConditionBuilder<TEntity>.Empty).OrderBy(x => x.Id);
+                return query;
             }
-            query = orderCondition;
-            return query;
         }
 
-        public void GetPagingEntityDataModels(IQueryCondition<TEntity> queryCondition, PagingCondition pagingCondition, out List<TEntity> recordData, out long recordCount)
+        public void GetPagingEntityDataModels(PagingCondition pagingCondition, out List<TEntity> recordData, out long recordCount, IQueryCondition<TEntity> queryCondition = null)
         {
-            var query = GetQueryableEntityFromConditon(queryCondition, pagingCondition);
+            var query = GetQueryableEntityByConditon(pagingCondition, queryCondition);
             recordCount = query.Count();
             recordData = query.Skip(pagingCondition.Skip).Take(pagingCondition.PageSize).ToList();
         }
 
-        public void GetPagingDataTransferObjects<TDto>(IQueryCondition<TEntity> queryCondition, PagingCondition pagingCondition, out List<TDto> recordData, out long recordCount)
+        public void GetPagingDataTransferObjects<TDto>(PagingCondition pagingCondition, out List<TDto> recordData, out long recordCount, IQueryCondition<TEntity> queryCondition = null)
         {
-            var query = GetQueryableEntityFromConditon(queryCondition, pagingCondition);
+            var query = GetQueryableEntityByConditon(pagingCondition, queryCondition);
             recordCount = query.Count();
             recordData = query.Skip(pagingCondition.Skip).Take(pagingCondition.PageSize).Project().To<TDto>().ToList();
         }

@@ -14,9 +14,9 @@ namespace EasyAccess.Service.Services
     {
         public IAccountRepository AccountRepository { get; set; }
 
-        public PagingData<AccountDto> GetAccountPagingData(IQueryCondition<Account> queryCondition, PagingCondition pagingCondition)
+        public PagingData<AccountDto> GetAccountPagingData(PagingCondition pagingCondition, IQueryCondition<Account> queryCondition = null)
         {
-            return GetPagingDataTransferObjects<AccountDto, Account>(AccountRepository, queryCondition, pagingCondition);
+            return GetPagingDataTransferObjects<AccountDto, Account>(AccountRepository, pagingCondition, queryCondition);
         }
     }
 }
