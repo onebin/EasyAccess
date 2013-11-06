@@ -34,6 +34,7 @@ namespace EasyAccess.Infrastructure.UnitOfWork
         public void RegisterNew<TEntity>(TEntity entity)
             where TEntity : class, IAggregateRoot
         {
+            if (IsRollback) return;
             var state = DbContext.Entry(entity).State;
             if (state == EntityState.Detached)
             {
@@ -45,6 +46,7 @@ namespace EasyAccess.Infrastructure.UnitOfWork
         public void RegisterNew<TEntity>(IEnumerable<TEntity> entities)
             where TEntity : class, IAggregateRoot
         {
+            if (IsRollback) return;
             try
             {
                 DbContext.Configuration.AutoDetectChangesEnabled = false;
@@ -62,6 +64,7 @@ namespace EasyAccess.Infrastructure.UnitOfWork
         public void RegisterModified<TEntity>(params TEntity[] entities)
             where TEntity : class, IAggregateRoot
         {
+            if (IsRollback) return;
             foreach (var entity in entities)
             {
                 var dbSet = DbContext.Set<TEntity>();
@@ -86,6 +89,7 @@ namespace EasyAccess.Infrastructure.UnitOfWork
         public void RegisterModified<TEntity>(Expression<Func<TEntity, object>> propertyExpression, params TEntity[] entities)
             where TEntity : class, IAggregateRoot
         {
+            if (IsRollback) return;
             ReadOnlyCollection<MemberInfo> memberInfos = ((dynamic)propertyExpression.Body).Members;
             foreach (var entity in entities)
             {
@@ -117,6 +121,7 @@ namespace EasyAccess.Infrastructure.UnitOfWork
         public void RegisterDeleted<TEntity>(TEntity entity)
             where TEntity : class, IAggregateRoot
         {
+            if (IsRollback) return;
             DbContext.Entry(entity).State = EntityState.Deleted;
             IsCommitted = false;
         }
@@ -124,6 +129,7 @@ namespace EasyAccess.Infrastructure.UnitOfWork
         public void RegisterDeleted<TEntity>(IEnumerable<TEntity> entities)
             where TEntity : class, IAggregateRoot
         {
+            if (IsRollback) return;
             try
             {
                 DbContext.Configuration.AutoDetectChangesEnabled = false;
@@ -139,10 +145,11 @@ namespace EasyAccess.Infrastructure.UnitOfWork
         }
 
         public bool IsCommitted { get; private set; }
+        public bool IsRollback { get; private set; }
 
         public int Commit()
         {
-            if (IsCommitted)
+            if (IsCommitted || IsRollback)
             {
                 return 0;
             }
@@ -167,11 +174,12 @@ namespace EasyAccess.Infrastructure.UnitOfWork
         public void Rollback()
         {
             IsCommitted = false;
+            IsRollback = true;
         }
 
         public void Dispose()
         {
-            if (!IsCommitted)
+            if (!IsCommitted && !IsRollback)
             {
                 Commit();
             }

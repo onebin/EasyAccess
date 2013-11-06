@@ -9,6 +9,11 @@ namespace EasyAccess.Infrastructure.UnitOfWork
         /// 当前工作单元是否已提交
         /// </summary>
         bool IsCommitted { get; }
+
+        /// <summary>
+        /// 当前工作单元是否回滚
+        /// </summary>
+        bool IsRollback { get; }
         
         /// <summary>
         /// 提交单元操作
