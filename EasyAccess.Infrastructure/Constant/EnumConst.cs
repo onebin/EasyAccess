@@ -14,16 +14,6 @@ namespace EasyAccess.Infrastructure.Constant
         OK = 200,
 
         /// <summary>
-        /// 失败
-        /// </summary>
-        Failed = 417,
-
-        /// <summary>
-        /// 错误
-        /// </summary>
-        Error = 500,
-
-        /// <summary>
         /// 未授权
         /// </summary>
         Unauthorized = 401,
@@ -34,9 +24,24 @@ namespace EasyAccess.Infrastructure.Constant
         Forbidden = 403,
 
         /// <summary>
+        /// 未找到
+        /// </summary>
+        NotFound = 404,
+
+        /// <summary>
+        /// 失败
+        /// </summary>
+        Failed = 417,
+
+        /// <summary>
+        /// 错误
+        /// </summary>
+        Error = 500,
+
+        /// <summary>
         /// 未实现
         /// </summary>
-        NotImplemented = 501
+        NotImplemented = 501,
     }
 
     /// <summary>
@@ -59,8 +64,8 @@ namespace EasyAccess.Infrastructure.Constant
         /// <summary>
         /// 保存
         /// </summary>
-        [EnumDescription("保存")]
-        Save = 3,
+        [EnumDescription("添加/修改")]
+        Upsert = 3,
 
         /// <summary>
         /// 删除
