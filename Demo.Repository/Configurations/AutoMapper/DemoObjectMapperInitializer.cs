@@ -2,7 +2,7 @@
 
 namespace Demo.Repository.Configurations.AutoMapper
 {
-    public class DemoObjectMapperInitializer
+    public static class DemoObjectMapperInitializer
     {
         public static void Initialize()
         {
