@@ -190,7 +190,7 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
                 if (keywords.Count() > 1)
                 {
                     var exprs = keywords
-                              .Select(keyword => GetLikeExpr(property, keyword.Trim().Cast<TProperty>().FirstOrDefault()))
+                              .Select(keyword => GetLikeExpr(property, (TProperty)Convert.ChangeType(keyword.Trim(), typeof(TProperty))))
                               .Where(likeExpr => likeExpr != null)
                               .Cast<Expression>()
                               .ToList();
@@ -200,7 +200,9 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
                 else
                 {
                     keywords = values.Split(new[] { ' ', '\t' });
-                    foreach (var likeExpr in keywords.Select(keyword => GetLikeExpr(property, keyword.Cast<TProperty>().FirstOrDefault())).Where(likeExpr => likeExpr != null))
+                    foreach (var likeExpr in keywords
+                        .Select(keyword => GetLikeExpr(property, (TProperty)Convert.ChangeType(keyword.Trim(), typeof(TProperty))))
+                        .Where(likeExpr => likeExpr != null))
                     {
                         _expressions.Add(likeExpr);
                     }
