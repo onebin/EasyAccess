@@ -23,11 +23,11 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
 
         IQueryCondition<TEntity> Equal<TProperty>(
             Expression<Func<TEntity, TProperty>> property,
-            TProperty value);
+            params TProperty[] values);
 
         IQueryCondition<TEntity> NotEqual<TProperty>(
             Expression<Func<TEntity, TProperty>> property,
-            TProperty value);
+            params TProperty[] values);
 
         IQueryCondition<TEntity> GreaterThanOrEqual<TProperty>(
             Expression<Func<TEntity, TProperty>> property,
@@ -46,11 +46,11 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
             TProperty value);
 
         IQueryCondition<TEntity> Like<TProperty>(
-            Expression<Func<TEntity, TProperty>> property, 
+            Expression<Func<TEntity, TProperty>> property,
             TProperty value);
 
         IQueryCondition<TEntity> Between<TProperty>(
-            Expression<Func<TEntity, TProperty>> property, 
+            Expression<Func<TEntity, TProperty>> property,
             TProperty from,
             TProperty to);
 
@@ -63,7 +63,7 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
             params TProperty[] values);
 
         IQueryCondition<TEntity> Fuzzy<TProperty>(
-            Expression<Func<TEntity, TProperty>> property, 
+            Expression<Func<TEntity, TProperty>> property,
             string values);
     }
 }

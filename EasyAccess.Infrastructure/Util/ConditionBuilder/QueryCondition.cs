@@ -55,7 +55,7 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
             var constExpr = Expression.Constant(value);
             if (typeof(TProperty).IsNullableType())
             {
-                propertyBody = Expression.Convert(propertyBody, typeof (TProperty).GetNonNullableType());
+                propertyBody = Expression.Convert(propertyBody, typeof(TProperty).GetNonNullableType());
             }
             expr.Left = propertyBody;
             expr.Right = constExpr;
@@ -64,7 +64,7 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
 
         private string GetBaseDataTypeValue<TProperty>(TProperty value)
         {
-            var type = typeof (TProperty).GetNonNullableType();
+            var type = typeof(TProperty).GetNonNullableType();
             return type.IsBaseDataType() ? value.ToString() : null;
         }
 
@@ -80,30 +80,29 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
             return _expressions.Count == 0;
         }
 
-        IQueryCondition<TEntity> IQueryCondition<TEntity>.Equal<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
+        IQueryCondition<TEntity> IQueryCondition<TEntity>.Equal<TProperty>(Expression<Func<TEntity, TProperty>> property, params TProperty[] values)
         {
-            var expr = GetCompareExpressions(property, value);
-            _expressions.Add(Expression.Equal(expr.Left, expr.Right));
+            _expressions.Add(values
+                .Select(value => GetCompareExpressions(property, value))
+                .Select(expr => Expression.Equal(expr.Left, expr.Right))
+                .Aggregate(Expression.OrElse));
             return this;
         }
-        IQueryCondition<TEntity> IQueryCondition<TEntity>.NotEqual<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
+        IQueryCondition<TEntity> IQueryCondition<TEntity>.NotEqual<TProperty>(Expression<Func<TEntity, TProperty>> property, params TProperty[] values)
         {
-            var expr = GetCompareExpressions(property, value);
-            _expressions.Add(Expression.NotEqual(expr.Left, expr.Right));
+            _expressions.Add(values
+                .Select(value => GetCompareExpressions(property, value))
+                .Select(expr => Expression.NotEqual(expr.Left, expr.Right))
+                .Aggregate(Expression.OrElse));
             return this;
         }
 
         IQueryCondition<TEntity> IQueryCondition<TEntity>.Like<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
         {
-            var strVal = GetBaseDataTypeValue(value);
-            if (!string.IsNullOrWhiteSpace(strVal))
+            var likeExpr = GetLikeExpr(property, value);
+            if (likeExpr != null)
             {
-                var propertyBody = GetMemberExpression(property);
-                var methodExpr = Expression.Call(
-                    propertyBody, 
-                    typeof (string).GetMethod("Contains"),
-                    Expression.Constant(strVal));
-                _expressions.Add(methodExpr);
+                _expressions.Add(likeExpr);
             }
             return this;
         }
@@ -116,7 +115,7 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
             var constTo = Expression.Constant(to);
             if (typeof(TProperty).IsNullableType())
             {
-                propertyBody = Expression.Convert(propertyBody, typeof (TProperty).GetNonNullableType());
+                propertyBody = Expression.Convert(propertyBody, typeof(TProperty).GetNonNullableType());
             }
             var gteExpr = Expression.GreaterThanOrEqual(propertyBody, constFrom);
             var lteExpr = Expression.LessThanOrEqual(propertyBody, constTo);
@@ -129,14 +128,14 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
         {
             if (values != null && values.Length > 0)
             {
-                var type = typeof (TProperty);
-                var method = (from x in typeof (Enumerable).GetMethods()
+                var type = typeof(TProperty);
+                var method = (from x in typeof(Enumerable).GetMethods()
                               where x.Name.Equals("Contains")
                                     && x.IsGenericMethod
                                     && x.GetGenericArguments().Length == 1
                                     && x.GetParameters().Length == 2
                               select x
-                             ).First().MakeGenericMethod(new Type[] {type});
+                             ).First().MakeGenericMethod(new Type[] { type });
 
                 var propertyBody = GetMemberExpression(property);
 
@@ -183,25 +182,28 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
             return this;
         }
 
-
         IQueryCondition<TEntity> IQueryCondition<TEntity>.Fuzzy<TProperty>(Expression<Func<TEntity, TProperty>> property, string values)
         {
             if (!string.IsNullOrWhiteSpace(values))
             {
                 values = values.Trim();
-                if (values.Contains(","))
+                if (values.Split(new[] { ',', '，', ';', '；' }).Count() > 1)
                 {
-                    var valArray = values.Split(',');
-                    return ((IQueryCondition<TEntity>)this).In(property, valArray.Where(x => !string.IsNullOrWhiteSpace(values)).Cast<TProperty>().ToArray());
+                    var exprs =
+                        values.Split(new[] { ',', '，', ';', '；' })
+                              .Select(keyword => GetLikeExpr(property, keyword.Trim().Cast<TProperty>().FirstOrDefault()))
+                              .Where(likeExpr => likeExpr != null)
+                              .Cast<Expression>()
+                              .ToList();
+                    var expr = exprs.Aggregate(Expression.OrElse);
+                    _expressions.Add(expr);
                 }
-                if (values.Contains("-"))
+                else
                 {
-                    var dividerIndex = values.IndexOf('-');
-                    if (dividerIndex > 0 && dividerIndex < values.Length -1)
+                    var keywords = values.Split(new[] { ' ', '\t' });
+                    foreach (var likeExpr in keywords.Select(keyword => GetLikeExpr(property, keyword.Cast<TProperty>().FirstOrDefault())).Where(likeExpr => likeExpr != null))
                     {
-                        var from = values.Substring(0, dividerIndex).Cast<TProperty>().FirstOrDefault();
-                        var to = values.Substring(dividerIndex + 1).Cast<TProperty>().FirstOrDefault();
-                        return ((IQueryCondition<TEntity>)this).Between(property, from, to);
+                        _expressions.Add(likeExpr);
                     }
                 }
             }
@@ -235,7 +237,7 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
             var name = string.Empty;
             if (expr.Body is MemberExpression)
             {
-                name = ((MemberExpression) expr.Body).Member.Name;
+                name = ((MemberExpression)expr.Body).Member.Name;
             }
             else if (expr.Body is NewExpression)
             {
@@ -270,6 +272,21 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
                     KeySelector = keySelector,
                     Direction = direction
                 });
+        }
+
+        private MethodCallExpression GetLikeExpr<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)
+        {
+            var strVal = GetBaseDataTypeValue(value);
+            if (!string.IsNullOrWhiteSpace(strVal))
+            {
+                var propertyBody = GetMemberExpression(property);
+                var methodExpr = Expression.Call(
+                    propertyBody,
+                    typeof(string).GetMethod("Contains"),
+                    Expression.Constant(strVal));
+                return methodExpr;
+            }
+            return null;
         }
     }
 }
