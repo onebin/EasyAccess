@@ -2,7 +2,7 @@
 using Demo.Model.DTOs;
 using Demo.Model.EDMs;
 
-namespace Demo.Repository.Configurations.AutoMapper
+namespace Demo.Service.Configurations.AutoMapper
 {
     public class DemoProfile : Profile
     {

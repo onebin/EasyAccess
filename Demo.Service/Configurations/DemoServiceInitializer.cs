@@ -1,5 +1,4 @@
-﻿using Demo.Repository.Configurations.AutoMapper;
-using Demo.Repository.Configurations.EntityFramework;
+﻿using Demo.Repository.Configurations.EntityFramework;
 
 namespace Demo.Service.Configurations
 {
@@ -8,7 +7,6 @@ namespace Demo.Service.Configurations
         public static void DatabaseInitialize()
         {
             DemoDatabaseInitializer.Initialize();
-            DemoObjectMapperInitializer.Initialize();
         }
     }
 }

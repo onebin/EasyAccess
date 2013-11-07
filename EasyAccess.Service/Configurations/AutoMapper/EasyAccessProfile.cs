@@ -2,7 +2,7 @@
 using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
 
-namespace EasyAccess.Repository.Configurations.AutoMapper
+namespace EasyAccess.Service.Configurations.AutoMapper
 {
     public class EasyAccessProfile : Profile
     {

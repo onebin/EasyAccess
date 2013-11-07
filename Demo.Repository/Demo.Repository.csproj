@@ -52,8 +52,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configurations\AutoMapper\DemoObjectMapperInitializer.cs" />
-    <Compile Include="Configurations\AutoMapper\DemoProfile.cs" />
     <Compile Include="Configurations\EntityFramework\DemoContext.cs" />
     <Compile Include="Configurations\EntityFramework\DemoDatabaseInitializer.cs" />
     <Compile Include="Configurations\EntityFramework\Seed\ArticleConfigSeed.cs" />

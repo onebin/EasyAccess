@@ -3,7 +3,9 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Demo.Service.Configurations;
+using Demo.Service.Configurations.AutoMapper;
 using EasyAccess.Service.Configurations;
+using EasyAccess.Service.Configurations.AutoMapper;
 using EasyAccess.Service.IServices;
 using EasyAccess.Service.Services;
 using Spring.Web.Mvc;
@@ -28,6 +30,13 @@ namespace Demo.MvcApplication
 
             EasyAccessServiceInitializer.DatabaseInitialize();
             DemoServiceInitializer.DatabaseInitialize();
+
+            AutoMapper.Mapper.Initialize(cfg =>
+                {
+                    cfg.AddProfile<EasyAccessProfile>();
+                    cfg.AddProfile<DemoProfile>();
+                }
+           );
         }
     }
 }

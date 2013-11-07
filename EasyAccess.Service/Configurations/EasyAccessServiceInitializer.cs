@@ -1,5 +1,4 @@
 ﻿using EasyAccess.Repository.Configurations;
-using EasyAccess.Repository.Configurations.AutoMapper;
 using EasyAccess.Repository.Configurations.EntityFramework;
 
 namespace EasyAccess.Service.Configurations
@@ -10,7 +9,6 @@ namespace EasyAccess.Service.Configurations
         public static void DatabaseInitialize()
         {
             EasyAccessDatabaseInitializer.Initialize();
-            EasyAccessObjectMapperInitializer.Initialize();
         }
     }
 }
