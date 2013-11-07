@@ -37,14 +37,13 @@
     <link type="text/css" rel="stylesheet" href="~/Scripts/Plugins/EasyUi/themes/metro/easyui.css" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/jquery")
-    <script type="text/javascript" src="~/Scripts/Plugins/EasyUi/locale/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" src="~/Scripts/Plugins/EasyUi/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Plugins/EasyUi/locale/easyui-lang-zh_CN.js"></script>
     @Scripts.Render("~/bundles/helper")
     @RenderSection("style", false)
 </head>
     <body class="easyui-layout">
         <div data-options="region:'north'" style="height:50px"></div>
-        <div data-options="region:'south'" style="height:50px;"></div>
         <div data-options="region:'west'" title="菜单" style="width:200px;">
             <div class="easyui-accordion" data-options="fit:true">
                 @foreach (var menu in mainMenus)
@@ -60,6 +59,9 @@
             <div id="container-tabs" class="easyui-tabs" data-options="fit:true,tools:'#container-tabsTools'">
                 @RenderBody()
             </div>
+        </div>
+        <div class="footer" data-options="region:'south'" style="height:50px;">
+            <div class="copyright"> © 2013 51b. All rights reserved.</div>
         </div>
         <div style="display: none">
             @RenderSection("hiddenArea", false)

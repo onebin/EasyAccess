@@ -6,4 +6,7 @@
     <script type="text/javascript" src="~/Scripts/Controllers/Areas/SystemSettings/AccountManage/Index.js"></script>
 }
 @Html.TagHiddenActionUrl(new TagParams("M0201P0101") { TagId = "AccountManage_Index_GetAccountInfo" })
+@Html.TagHiddenActionUrl(new TagParams("M0201P010101") { TagId = "AccountManage_Index_EditAccountInfo" })
+@Html.TagHiddenActionUrl(new TagParams("M0201P010102") { TagId = "AccountManage_Index_DeleteAccountInfo" })
+
 <table id='AccountManage_Index_grid'></table>

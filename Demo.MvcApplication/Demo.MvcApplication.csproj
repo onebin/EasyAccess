@@ -157,8 +157,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Icons.css" />
-    <Content Include="Content\images\banner.png" />
     <Content Include="Content\images\fail.png" />
     <Content Include="Content\images\icons\group.png" />
     <Content Include="Content\images\icons\tab.png" />

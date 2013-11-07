@@ -1,7 +1,7 @@
 ﻿var easyuiHelper = {
-    
+
     tabs: {
-        add: function(title, url, debug) {
+        add: function (title, url, debug) {
             var appendParam = "debug=0";
             if (debug) {
                 appendParam = "debug=1";
@@ -14,7 +14,7 @@
             if ($('#container-tabs').tabs('exists', title)) {
                 $('#container-tabs').tabs('select', title);
             } else {
-                
+
                 var tools = [
                     //{
                     //    iconCls: 'icon-mini-refresh',
@@ -23,7 +23,7 @@
                     //    }
                     //}
                 ];
-                
+
                 if (debug) {
                     var content = '<iframe scrolling="auto" frameborder="0"  src="' + url + '" style="width:100%;height:100%;"></iframe>';
                     $('#container-tabs').tabs('add', {
@@ -41,23 +41,23 @@
                     });
                 }
             }
-            
+
         },
-        
+
         closeAll: function () {
-            easyuiHelper.messager.confirm.custom(function(parameters) {
+            easyuiHelper.messager.confirm.custom(function (parameters) {
                 var tabsCount = $("#container-tabs").tabs("tabs").length;
                 for (var i = 1; i < tabsCount; i++) {
                     $("#container-tabs").tabs("close", 1);
                 }
             }, "确定要关闭全部标签页？");
         },
-        
-        refresh: function(which) {
-            
+
+        refresh: function (which) {
+
         }
     },
-    
+
     combobox: {
         booleanValueData: [{ value: 'True', text: '是' }, { value: 'False', text: '否' }],
         BooleanValueFormatter: function (value, row, index) {
@@ -67,18 +67,18 @@
             return "否";
         }
     },
-    
+
     datagrid: {
         reload: function (elemId) {
             $(elemId).datagrid('reload');
         },
-        beginEdit: function(elemId, rowIndex) {
+        beginEdit: function (elemId, rowIndex) {
             $(elemId).datagrid('beginEdit', rowIndex);
         },
         endEdit: function (elemId, rowIndex) {
             $(elemId).datagrid('endEdit', rowIndex);
         },
-        cancelEdit: function(elemId, rowIndex) {
+        cancelEdit: function (elemId, rowIndex) {
             $(elemId).datagrid('cancelEdit', rowIndex);
         },
         localSorter: function (valA, valB) {
@@ -117,7 +117,7 @@
             $(elemId).treegrid('reload');
         }
     },
-    
+
     messager: {
         confirm: {
             remove: function (event, msg) {
@@ -127,7 +127,7 @@
                 }
                 easyuiHelper.messager.confirm.custom(event, msg);
             },
-            
+
             custom: function (event, msg) {
                 if (msg && msg.length != 0) {
                 } else {
@@ -142,10 +142,10 @@
                 });
             }
         },
-        
+
         alert: function (param) {
             if (param.result) {
-                if (param.result.StatusCode == statusCodeHelper.ok) {
+                if (param.result.ResultType == statusCodeHelper.ok) {
                     if (param.success) {
                         if (param.result.Message && param.result.Message.length > 0) {
                             global.Toast(true, param.result.Message);
@@ -157,7 +157,7 @@
                 } else {
                     if (param.result.Message && param.result.Message.length > 0) {
                         var alertType;
-                        switch (param.result.StatusCode) {
+                        switch (param.result.ResultType) {
                             case statusCodeHelper.error:
                                 alertType = "error";
                                 break;
@@ -179,7 +179,7 @@
             }
         }
     }
-    
+
 };
 
 $(function () {
@@ -187,6 +187,23 @@ $(function () {
 });
 
 $.extend($.fn.validatebox.defaults.rules, {
+    range: { //验证范围
+        validator: function (value, param) {
+            if (/^\d+(\.\d*)?[-]\d+(\.\d*)?$/.test(value)) {
+                var nums = value.split('-');
+                var num1 = parseFloat(nums[0]);
+                var num2 = parseFloat(nums[1]);
+                if (num1 <= num2) {
+                    if (param && param.length == 2) {
+                        return num1 >= parseFloat(param[0]) && num2 <= parseFloat(param[1]);
+                    }
+                    return true;
+                }
+            }
+            return false;
+        },
+        message: '请输入有效的范围'
+    },
     minLength: { // 验证最少字符长度
         validator: function (value, param) {
             return value.length >= param[0];
