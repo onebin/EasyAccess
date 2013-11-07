@@ -5,8 +5,12 @@
     <meta name="viewport" content="width=device-width" />
     <title></title>
     @{
+        var isDebugMode = false;
         var debugRequest = HttpContext.Current.Request["debug"];
-        var isDebugMode = debugRequest.Equals("1") || debugRequest.ToLower().Equals("true");
+        if (debugRequest != null)
+        {
+            isDebugMode = debugRequest.Equals("1") || debugRequest.ToLower().Equals("true");
+        }
     }
     @if (isDebugMode)
     {
