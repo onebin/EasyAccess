@@ -186,11 +186,10 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
         {
             if (!string.IsNullOrWhiteSpace(values))
             {
-                values = values.Trim();
-                if (values.Split(new[] { ',', '，', ';', '；' }).Count() > 1)
+                var keywords = values.Trim().Split(new[] { ',', '，', ';', '；' });
+                if (keywords.Count() > 1)
                 {
-                    var exprs =
-                        values.Split(new[] { ',', '，', ';', '；' })
+                    var exprs = keywords
                               .Select(keyword => GetLikeExpr(property, keyword.Trim().Cast<TProperty>().FirstOrDefault()))
                               .Where(likeExpr => likeExpr != null)
                               .Cast<Expression>()
@@ -200,7 +199,7 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
                 }
                 else
                 {
-                    var keywords = values.Split(new[] { ' ', '\t' });
+                    keywords = values.Split(new[] { ' ', '\t' });
                     foreach (var likeExpr in keywords.Select(keyword => GetLikeExpr(property, keyword.Cast<TProperty>().FirstOrDefault())).Where(likeExpr => likeExpr != null))
                     {
                         _expressions.Add(likeExpr);
