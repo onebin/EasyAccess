@@ -67,8 +67,9 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
         {
             var children = new List<Dictionary<string, object>>();
 
-            var subData = listData.Where(x => pidValue == null ? _pidProperty.GetValue(x, null) == null : _pidProperty.GetValue(x, null).ToString() == pidValue.ToString());
-            var noParentData = listData.Where(x => pidValue == null ? _pidProperty.GetValue(x, null) != null : _pidProperty.GetValue(x, null).ToString() != pidValue.ToString());
+
+            var subData = listData.Where(x => pidValue == null ? _pidProperty.GetValue(x, null) == null : _pidProperty.GetValue(x, null) != null && _pidProperty.GetValue(x, null).ToString() == pidValue.ToString());
+            var noParentData = listData.Where(x => pidValue == null ? _pidProperty.GetValue(x, null) != null : _pidProperty.GetValue(x, null) != null && _pidProperty.GetValue(x, null).ToString() != pidValue.ToString());
             foreach (var data in subData)
             {
                 var child = new Dictionary<string, object>();
