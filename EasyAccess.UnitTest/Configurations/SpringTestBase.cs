@@ -26,7 +26,7 @@ namespace EasyAccess.UnitTest.Configurations
 
         protected IRoleRepository RoleRepository { get; private set; }
 
-        protected IAccountManageService AccountManageService  { get; private set; }
+        protected IAccountManageSvc AccountManageService  { get; private set; }
 
         protected SpringTestBase()
         {
@@ -34,7 +34,7 @@ namespace EasyAccess.UnitTest.Configurations
             EasyAccessUnitOfWork = appCtx.GetObject("EasyAccessUnitOfWork") as IUnitOfWork;
             AccountRepository = appCtx.GetObject<IAccountRepository>();
             RoleRepository = appCtx.GetObject<IRoleRepository>();
-            AccountManageService = appCtx.GetObject<IAccountManageService>();
+            AccountManageService = appCtx.GetObject<IAccountManageSvc>();
         }
     }
 }

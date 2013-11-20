@@ -9,7 +9,7 @@ namespace Demo.MvcApplication.Controllers
 {
     public class LoginController : BaseController
     {
-        public ILoginService LoginService { get; set; }
+        public ILoginSvc LoginSvc { get; set; }
 
         public ActionResult Index()
         {
@@ -23,7 +23,7 @@ namespace Demo.MvcApplication.Controllers
             {
                 ViewData[ViewConst.ErrorMessage] = "用户名和密码不能为空";
             }
-            else if (!LoginService.Login(loginUser))
+            else if (!LoginSvc.Login(loginUser))
             {
                 ViewData[ViewConst.FailureMessage] = "用户名或密码无效";
             }
@@ -36,7 +36,7 @@ namespace Demo.MvcApplication.Controllers
 
         public ActionResult Logout()
         {
-            LoginService.Logout();
+            LoginSvc.Logout();
             Session.RemoveAll();
             return RedirectToUrl("/Login/Index?ReturnUrl=%2f");
         }

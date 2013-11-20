@@ -15,7 +15,7 @@ namespace Demo.MvcApplication.Areas.SystemSettings.Controllers
     [Menu("M0201", "用户管理", "/SystemSettings/AccountManage/Index")]
     public class AccountManageController : AuthorizationController
     {
-        IAccountManageService AccountManageService { get; set; }
+        IAccountManageSvc AccountManageSvc { get; set; }
 
         [Permission("M0201P01", "浏览", "/SystemSettings/AccountManage/Index")]
         public ActionResult Index()
@@ -27,7 +27,7 @@ namespace Demo.MvcApplication.Areas.SystemSettings.Controllers
         public JsonResult GetAccountInfo(FormCollection formData)
         {
             var pagingCodition = GetPagingCondition(formData);
-            var pg = AccountManageService.GetAccountPagingData(pagingCodition);
+            var pg = AccountManageSvc.GetAccountPagingData(pagingCodition);
             return Json(new EasyUiDataGrid().SetRows(pg.RecordCount, pg.RecordData.ToList()).GetJsonModel());
         }
 

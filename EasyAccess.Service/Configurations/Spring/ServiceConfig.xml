@@ -2,17 +2,17 @@
 <objects xmlns="http://www.springframework.net"
          xmlns:db="http://www.springframework.net/database">
   
-  <object id="LoginService" type="EasyAccess.Service.Services.LoginService, EasyAccess.Service">
+  <object id="LoginSvc" type="EasyAccess.Service.Services.LoginSvc, EasyAccess.Service">
     <property name="AccountRepository" ref="AccountRepository" />
     <property name="UnitOfWork" ref="EasyAccessUnitOfWork" />
   </object>
 
-  <object id="AccountManageService" type="EasyAccess.Service.Services.AccountManageService, EasyAccess.Service">
+  <object id="AccountManageSvc" type="EasyAccess.Service.Services.AccountManageSvc, EasyAccess.Service">
     <property name="AccountRepository" ref="AccountRepository" />
     <property name="UnitOfWork" ref="EasyAccessUnitOfWork" />
   </object>
 
-  <object id="RoleManageService" type="EasyAccess.Service.Services.RoleManageService, EasyAccess.Service">
+  <object id="RoleManageSvc" type="EasyAccess.Service.Services.RoleManageSvc, EasyAccess.Service">
     <property name="RoleRepository" ref="RoleRepository" />
     <property name="UnitOfWork" ref="EasyAccessUnitOfWork" />
   </object>

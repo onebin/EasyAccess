@@ -93,14 +93,14 @@ namespace EasyAccess.Infrastructure.Repository
             }
         }
 
-        public void GetPagingEntityDataModels(PagingCondition pagingCondition, out List<TEntity> recordData, out long recordCount, IQueryCondition<TEntity> queryCondition = null)
+        public void GetPagingEdmData(PagingCondition pagingCondition, out List<TEntity> recordData, out long recordCount, IQueryCondition<TEntity> queryCondition = null)
         {
             var query = GetQueryableEntityByConditon(pagingCondition, queryCondition);
             recordCount = query.Count();
             recordData = query.Skip(pagingCondition.Skip).Take(pagingCondition.PageSize).ToList();
         }
 
-        public void GetPagingDataTransferObjects<TDto>(PagingCondition pagingCondition, out List<TDto> recordData, out long recordCount, IQueryCondition<TEntity> queryCondition = null)
+        public void GetPagingDtoData<TDto>(PagingCondition pagingCondition, out List<TDto> recordData, out long recordCount, IQueryCondition<TEntity> queryCondition = null)
         {
             var query = GetQueryableEntityByConditon(pagingCondition, queryCondition);
             recordCount = query.Count();

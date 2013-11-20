@@ -4,7 +4,7 @@ using EasyAccess.Infrastructure.Service;
 
 namespace Demo.Service.Services
 {
-    public class SubjectManageService : ServiceBase, ISubjectManageService
+    public class SubjectManageSvc : ServiceBase, ISubjectManageSvc
     {
         public IArticleConfigRepository ArticleConfigRepository { get; set; }
 

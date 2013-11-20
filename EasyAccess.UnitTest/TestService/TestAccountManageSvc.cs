@@ -9,7 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace EasyAccess.UnitTest.TestService
 {
     [TestClass]
-    public class TestAccountManageService : SpringTestBase
+    public class TestAccountManageSvc : SpringTestBase
     {
         [TestMethod]
         public void TestGetAccountPagingData()

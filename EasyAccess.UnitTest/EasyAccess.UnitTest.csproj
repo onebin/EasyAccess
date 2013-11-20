@@ -82,7 +82,7 @@
     <Compile Include="TestRepository\AccountRepositoryTest.cs" />
     <Compile Include="TestRepository\EasyAccessInitializerTest.cs" />
     <Compile Include="TestRepository\RoleRepositoryTest.cs" />
-    <Compile Include="TestService\TestAccountManageService.cs" />
+    <Compile Include="TestService\TestAccountManageSvc.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

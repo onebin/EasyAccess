@@ -16,7 +16,7 @@ namespace Demo.MvcApplication.Areas.SystemSettings.Controllers
     public class RoleManageController : AuthorizationController
     {
 
-        IRoleManageService RoleManageService { get; set; }
+        IRoleManageSvc RoleManageSvc { get; set; }
 
         [Permission("M0202P01", "浏览", "/SystemSettings/RoleManage/Index")]
         public ActionResult Index()
@@ -28,7 +28,7 @@ namespace Demo.MvcApplication.Areas.SystemSettings.Controllers
         public JsonResult GetRoleInfo(FormCollection formData)
         {
             var pagingCodition = GetPagingCondition(formData);
-            var pg = RoleManageService.GetRolePagingData(pagingCodition);
+            var pg = RoleManageSvc.GetRolePagingData(pagingCodition);
             return Json(new EasyUiDataGrid().SetRows(pg.RecordCount, pg.RecordData.ToList()).GetJsonModel());
         }
 

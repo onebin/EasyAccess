@@ -5,7 +5,7 @@ using EasyAccess.Model.EDMs;
 
 namespace EasyAccess.Service.IServices
 {
-    public interface IAccountManageService
+    public interface IAccountManageSvc
     {
         PagingData<AccountDto> GetAccountPagingData(PagingCondition pagingCondition, IQueryCondition<Account> queryCondition = null);
     }

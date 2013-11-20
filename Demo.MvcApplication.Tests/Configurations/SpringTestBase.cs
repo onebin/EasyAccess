@@ -32,7 +32,7 @@ namespace Demo.MvcApplication.Tests.Configurations
 
         protected IRoleRepository RoleRepository { get; private set; }
 
-        protected IAccountManageService AccountManageService  { get; private set; }
+        protected IAccountManageSvc AccountManageService  { get; private set; }
 
         protected IArticleConfigRepository ArticleConfigRepository { get; set; }
 
@@ -47,7 +47,7 @@ namespace Demo.MvcApplication.Tests.Configurations
             DemoUnitOfWork = appCtx.GetObject("DemoUnitOfWork") as IUnitOfWork;
             AccountRepository = appCtx.GetObject<IAccountRepository>();
             RoleRepository = appCtx.GetObject<IRoleRepository>();
-            AccountManageService = appCtx.GetObject<IAccountManageService>();
+            AccountManageService = appCtx.GetObject<IAccountManageSvc>();
 
             ArticleConfigRepository = appCtx.GetObject<IArticleConfigRepository>();
             SectionConfigRepository = appCtx.GetObject<ISectionConfigRepository>();

@@ -15,7 +15,7 @@ namespace EasyAccess.Infrastructure.Service
     {
         protected IUnitOfWork UnitOfWork { get; set; }
 
-        protected PagingData<TEntity> GetPagingEntityDataModels<TEntity>(
+        protected PagingData<TEntity> GetPagingEdmData<TEntity>(
             IRepositoryBase<TEntity> repository,
             PagingCondition pagingCondition,
             IQueryCondition<TEntity> queryCondition = null)
@@ -23,11 +23,11 @@ namespace EasyAccess.Infrastructure.Service
         {
             long recordCount;
             List<TEntity> recordData;
-            repository.GetPagingEntityDataModels(pagingCondition, out recordData, out recordCount, queryCondition);
+            repository.GetPagingEdmData(pagingCondition, out recordData, out recordCount, queryCondition);
             return new PagingData<TEntity>(recordCount, pagingCondition, recordData);
         }
 
-        protected PagingData<TDto> GetPagingDataTransferObjects<TDto,TEntity>(
+        protected PagingData<TDto> GetPagingDtoData<TDto,TEntity>(
             IRepositoryBase<TEntity> repository,
             PagingCondition pagingCondition,
             IQueryCondition<TEntity> queryCondition = null)
@@ -36,7 +36,7 @@ namespace EasyAccess.Infrastructure.Service
         {
             long recordCount;
             List<TDto> recordData;
-            repository.GetPagingDataTransferObjects(pagingCondition, out recordData, out recordCount, queryCondition);
+            repository.GetPagingDtoData(pagingCondition, out recordData, out recordCount, queryCondition);
             return new PagingData<TDto>(recordCount, pagingCondition, recordData);
         }
     }

@@ -3,15 +3,15 @@
          xmlns:db="http://www.springframework.net/database">
   
   <object type="Demo.MvcApplication.Controllers.LoginController, Demo.MvcApplication" singleton="false" >
-    <property name="LoginService" ref="LoginService"/>
+    <property name="LoginSvc" ref="LoginSvc"/>
   </object>
 
   <object type="Demo.MvcApplication.Areas.SystemSettings.Controllers.AccountManageController, Demo.MvcApplication" singleton="false" >
-    <property name="AccountManageService" ref="AccountManageService"/>
+    <property name="AccountManageSvc" ref="AccountManageSvc"/>
   </object>
   
   <object type="Demo.MvcApplication.Areas.SystemSettings.Controllers.RoleManageController, Demo.MvcApplication" singleton="false" >
-    <property name="RoleManageService" ref="RoleManageService"/>
+    <property name="RoleManageSvc" ref="RoleManageSvc"/>
   </object>
   
 </objects>

@@ -48,9 +48,9 @@
   <ItemGroup>
     <Compile Include="Configurations\AutoMapper\DemoProfile.cs" />
     <Compile Include="Configurations\DemoServiceInitializer.cs" />
-    <Compile Include="IServices\ISubjectManageService.cs" />
+    <Compile Include="IServices\ISubjectManageSvc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\SubjectManageService.cs" />
+    <Compile Include="Services\SubjectManageSvc.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Demo.Model\Demo.Model.csproj">

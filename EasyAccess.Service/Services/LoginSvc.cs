@@ -12,7 +12,7 @@ using EasyAccess.Service.IServices;
 
 namespace EasyAccess.Service.Services
 {
-    public class LoginService : ServiceBase, ILoginService
+    public class LoginSvc : ServiceBase, ILoginSvc
     {
         public IAccountRepository AccountRepository { get; set; }
 

@@ -9,7 +9,7 @@ using EasyAccess.Model.EDMs;
 
 namespace EasyAccess.Service.IServices
 {
-    public interface IRoleManageService
+    public interface IRoleManageSvc
     {
         PagingData<Role> GetRolePagingData(PagingCondition pagingCondition, IQueryCondition<Role> queryCondition = null);
     }

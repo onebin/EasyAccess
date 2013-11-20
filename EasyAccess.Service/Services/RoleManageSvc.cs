@@ -10,13 +10,13 @@ using EasyAccess.Service.IServices;
 
 namespace EasyAccess.Service.Services
 {
-    public class RoleManageService : ServiceBase, IRoleManageService
+    public class RoleManageSvc : ServiceBase, IRoleManageSvc
     {
         public IRoleRepository RoleRepository { get; set; }
 
         public PagingData<Role> GetRolePagingData(PagingCondition pagingCondition, IQueryCondition<Role> queryCondition = null)
         {
-            return GetPagingEntityDataModels(RoleRepository, pagingCondition, queryCondition);
+            return GetPagingEdmData(RoleRepository, pagingCondition, queryCondition);
         }
     }
 }

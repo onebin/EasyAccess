@@ -10,13 +10,13 @@ using EasyAccess.Service.IServices;
 
 namespace EasyAccess.Service.Services
 {
-    public class AccountManageService : ServiceBase, IAccountManageService
+    public class AccountManageSvc : ServiceBase, IAccountManageSvc
     {
         public IAccountRepository AccountRepository { get; set; }
 
         public PagingData<AccountDto> GetAccountPagingData(PagingCondition pagingCondition, IQueryCondition<Account> queryCondition = null)
         {
-            return GetPagingDataTransferObjects<AccountDto, Account>(AccountRepository, pagingCondition, queryCondition);
+            return GetPagingDtoData<AccountDto, Account>(AccountRepository, pagingCondition, queryCondition);
         }
     }
 }

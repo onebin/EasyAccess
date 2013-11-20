@@ -2,7 +2,7 @@
 <objects xmlns="http://www.springframework.net"
          xmlns:db="http://www.springframework.net/database">
 
-  <object id="SubjectManageService" type="Demo.Service.Services.SubjectManageService, Demo.Service">
+  <object id="SubjectManageSvc" type="Demo.Service.Services.SubjectManageSvc, Demo.Service">
     <property name="ArticleConfigRepository" ref="ArticleConfigRepository" />
     <property name="InputConfigRepository" ref="InputConfigRepository" />
     <property name="SectionConfigRepository" ref="SectionConfigRepository" />
