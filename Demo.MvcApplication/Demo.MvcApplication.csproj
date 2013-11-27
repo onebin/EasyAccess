@@ -574,6 +574,7 @@
     <Content Include="Scripts\Controllers\Areas\SystemSettings\AccountManage\Index.js" />
     <Content Include="Scripts\Controllers\Areas\SystemSettings\RoleManage\Index.js" />
     <Content Include="Scripts\Controllers\Login\Index.js" />
+    <Content Include="Scripts\Global\main.js" />
     <Content Include="Scripts\Helpers\easyuiHelper.js" />
     <Content Include="Scripts\Helpers\global.js" />
     <Content Include="Scripts\Helpers\statusCodeHelper.js" />
@@ -733,6 +734,10 @@
     <Content Include="Scripts\Plugins\EasyUi\plugins\jquery.treegrid.js" />
     <Content Include="Scripts\Plugins\EasyUi\plugins\jquery.validatebox.js" />
     <Content Include="Scripts\Plugins\EasyUi\plugins\jquery.window.js" />
+    <Content Include="Scripts\Plugins\Requirejs\domReady.js" />
+    <Content Include="Scripts\r.js" />
+    <Content Include="Scripts\require.js" />
+    <Content Include="Scripts\text.js" />
     <Content Include="Scripts\_references.js" />
     <EmbeddedResource Include="ControllerConfig.xml">
       <SubType>Designer</SubType>
