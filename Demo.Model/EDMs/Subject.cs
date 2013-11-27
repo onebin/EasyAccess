@@ -12,9 +12,6 @@ namespace Demo.Model.EDMs
         [MaxLength(255)]
         public string Memo { get; set; }
 
-        [MaxLength(255)]
-        public string Location { get; set; }
-
         public virtual List<DataCollection> DataCollections { get; set; }
     }
 }

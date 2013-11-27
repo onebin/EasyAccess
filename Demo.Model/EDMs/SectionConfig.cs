@@ -30,6 +30,8 @@ namespace Demo.Model.EDMs
 
         public virtual ICollection<SectionConfig> SubSections { get; set; }
 
+        public virtual ICollection<DataCollection> DataCollections { get; set; }
+
         public int? ParentId { get; set; }
 
         /// <summary>
@@ -52,5 +54,10 @@ namespace Demo.Model.EDMs
         /// 可否重复添加
         /// </summary>
         public bool IsRepeatable { get; set; }
+
+        /// <summary>
+        /// 层级树关系标识(自动生成)
+        /// </summary>
+        public string TreeFlag { get; set; }
     }
 }

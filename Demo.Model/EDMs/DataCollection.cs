@@ -7,7 +7,7 @@ namespace Demo.Model.EDMs
     {
         public virtual Subject Subject { get; set; }
 
-        public int SectionId { get; set; }
+        public virtual SectionConfig Section { get; set; }
 
         public int GroupId { get; set; }
 

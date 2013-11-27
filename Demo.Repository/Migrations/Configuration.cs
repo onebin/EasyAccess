@@ -1,5 +1,5 @@
 using Demo.Repository.Configurations.EntityFramework;
-using Demo.Repository.Configurations.EntityFramework.Seed;
+using Demo.Repository.Configurations.EntityFramework.InitializedData;
 
 namespace Demo.Repository.Migrations
 {
@@ -18,9 +18,7 @@ namespace Demo.Repository.Migrations
 
         protected override void Seed(DemoContext context)
         {
-            context.ArticleConfigs.AddOrUpdate(x => x.Id, ArticleConfigSeed.Articles);
-            context.SectionConfigs.AddOrUpdate(x => x.Id, SectionConfigSeed.Sections);
-            context.InputConfigs.AddOrUpdate(x => x.Id, InputConfigSeed.Inputs);
+            InitialSubject.Initialize(context);
         }
     }
 }

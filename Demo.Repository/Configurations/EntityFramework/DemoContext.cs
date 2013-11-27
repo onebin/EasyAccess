@@ -22,21 +22,28 @@ namespace Demo.Repository.Configurations.EntityFramework
 
             modelBuilder.Entity<Subject>()
                         .HasMany(x => x.DataCollections)
-                        .WithRequired(x => x.Subject);
+                        .WithRequired(x => x.Subject)
+                        .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<ArticleConfig>()
                         .HasMany(x => x.Sections)
-                        .WithRequired(x => x.Article);
+                        .WithRequired(x => x.Article)
+                        .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<SectionConfig>()
                         .HasOptional(x => x.ParentSection)
                         .WithMany(x => x.SubSections)
-                        .HasForeignKey(x => x.ParentId);
+                        .HasForeignKey(x => x.ParentId)
+                        .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<SectionConfig>()
+                        .HasMany(x => x.DataCollections)
+                        .WithRequired(x => x.Section)
+                        .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<InputConfig>()
                         .HasRequired(x => x.Section)
                         .WithOptional(x => x.Input)
-                        .Map(x => x.MapKey("SectionConfigId"))
                         .WillCascadeOnDelete(true);
         }
     }

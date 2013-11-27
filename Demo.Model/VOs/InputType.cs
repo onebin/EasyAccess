@@ -3,50 +3,42 @@
     public enum InputType
     {
         /// <summary>
-        /// 文本框
+        /// 文本
         /// </summary>
-        Input = 11,
+        ValidateBox = 11,
 
         /// <summary>
-        /// 文本域
+        /// 数字
         /// </summary>
-        TextArea = 12,
-
-
-
-        /// <summary>
-        /// 单选框
-        /// </summary>
-        RadioButton = 21,
-
-        /// <summary>
-        /// 复选框
-        /// </summary>
-        CheckBox = 22,
-
+        NumberBox = 12,
 
 
         /// <summary>
         /// 下拉列表(单选)
         /// </summary>
-        SingleComboBox = 31,
+        SingleComboBox = 21,
 
         /// <summary>
         /// 下拉列表(多选)
         /// </summary>
-        MultiComboBox = 32,
+        MultiComboBox = 22,
 
 
 
         /// <summary>
-        /// 日期框
+        /// 日期
         /// </summary>
-        DateBox = 41,
+        DateBox = 31,
 
         /// <summary>
-        /// 日期时间框
+        /// 时间
         /// </summary>
-        DateTimeBox = 42
+        TimeSpinner = 32,
+
+        /// <summary>
+        /// 日期时间
+        /// </summary>
+        DateTimeBox = 33
 
     }
 }

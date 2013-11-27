@@ -17,5 +17,7 @@
         public int Depth { get; set; }
 
         public bool IsRepeatable { get; set; }
+
+        public string TreeFlag { get; set; }
     }
 }
