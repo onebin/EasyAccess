@@ -10,7 +10,7 @@ namespace EasyAccess.Repository.Configurations.EntityFramework.Seed
 {
     internal static class RegisterSeed
     {
-        public static Register[] Registers = new[]
+        public static Register[] Values = new[]
             {
                 new Register
                 {

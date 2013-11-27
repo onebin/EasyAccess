@@ -1,6 +1,5 @@
 ﻿using System.Data.Entity;
-using System.Data.Entity.Migrations;
-using EasyAccess.Repository.Configurations.EntityFramework.Seed;
+using EasyAccess.Repository.Configurations.EntityFramework.InitialData;
 using EasyAccess.Repository.Migrations;
 
 namespace EasyAccess.Repository.Configurations.EntityFramework
@@ -17,8 +16,7 @@ namespace EasyAccess.Repository.Configurations.EntityFramework
         {
             protected override void Seed(EasyAccessContext context)
             {
-                context.Accounts.AddOrUpdate(x => x.Id, AccountSeed.Accounts);
-                context.Registers.AddOrUpdate(x => x.Id, RegisterSeed.Registers);
+                DataInitializer.Initialize(context);
             }
         }
 
@@ -26,8 +24,7 @@ namespace EasyAccess.Repository.Configurations.EntityFramework
         {
             protected override void Seed(EasyAccessContext context)
             {
-                context.Accounts.AddOrUpdate(x => x.Id, AccountSeed.Accounts);
-                context.Registers.AddOrUpdate(x => x.Id, RegisterSeed.Registers);
+                DataInitializer.Initialize(context);
             }
         }
     }

@@ -1,6 +1,6 @@
 ﻿using Demo.Model.EDMs;
 
-namespace Demo.Repository.Configurations.EntityFramework.InitializedData.Seed
+namespace Demo.Repository.Configurations.EntityFramework.InitialData.Seed
 {
     internal static class SubjectSeed
     {

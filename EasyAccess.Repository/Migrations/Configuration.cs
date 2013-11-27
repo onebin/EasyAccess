@@ -1,17 +1,8 @@
-using System.Collections.Generic;
-using EasyAccess.Model.DTOs;
-using EasyAccess.Model.EDMs;
-using EasyAccess.Model.VOs;
-using EasyAccess.Repository.Configurations;
-using EasyAccess.Repository.Configurations.EntityFramework;
-using EasyAccess.Repository.Configurations.EntityFramework.Seed;
-
 namespace EasyAccess.Repository.Migrations
 {
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
+    using Configurations.EntityFramework;
+    using Configurations.EntityFramework.InitialData;
 
     internal sealed class Configuration : DbMigrationsConfiguration<EasyAccessContext>
     {
@@ -23,8 +14,7 @@ namespace EasyAccess.Repository.Migrations
 
         protected override void Seed(EasyAccessContext context)
         {
-            context.Accounts.AddOrUpdate(x => x.Id, AccountSeed.Accounts);
-            context.Registers.AddOrUpdate(x => x.Id, RegisterSeed.Registers);
+            DataInitializer.Initialize(context);
         }
     }
 }

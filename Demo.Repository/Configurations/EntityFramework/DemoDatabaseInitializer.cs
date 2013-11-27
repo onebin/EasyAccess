@@ -1,7 +1,6 @@
 ﻿using System.Data.Entity;
-using System.Data.Entity.Migrations;
-using Demo.Repository.Configurations.EntityFramework.InitializedData;
-using Demo.Repository.Configurations.EntityFramework.InitializedData.Seed;
+using Demo.Repository.Configurations.EntityFramework.InitialData;
+using Demo.Repository.Migrations;
 
 namespace Demo.Repository.Configurations.EntityFramework
 {
@@ -17,7 +16,7 @@ namespace Demo.Repository.Configurations.EntityFramework
         {
             protected override void Seed(DemoContext context)
             {
-                InitialSubject.Initialize(context);
+                DataInitializer.Initialize(context);
             }
         }
 
@@ -25,7 +24,7 @@ namespace Demo.Repository.Configurations.EntityFramework
         {
             protected override void Seed(DemoContext context)
             {
-                InitialSubject.Initialize(context);
+                DataInitializer.Initialize(context);
             }
         }
     }

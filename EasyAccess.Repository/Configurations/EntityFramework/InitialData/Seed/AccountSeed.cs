@@ -10,7 +10,7 @@ namespace EasyAccess.Repository.Configurations.EntityFramework.Seed
 {
     internal static class AccountSeed
     {
-        public static Account[] Accounts = new[]
+        public static Account[] Values = new[]
             {
                 new Account
                     {
@@ -30,9 +30,9 @@ namespace EasyAccess.Repository.Configurations.EntityFramework.Seed
                         Sex = Sex.Male,
                         IsDeleted = false,
                         Memo = "https://github.com/onebin/EasyAccess",
-                        Register = RegisterSeed.Registers[0],
+                        Register = RegisterSeed.Values[0],
                         CreateTime = DateTime.Now,
-                        Roles = new List<Role> {RoleSeed.Roles[0]}
+                        Roles = new List<Role> {RoleSeed.Values[0]}
                     },
                 new Account
                     {
@@ -48,9 +48,9 @@ namespace EasyAccess.Repository.Configurations.EntityFramework.Seed
                         Contact = new Contact {},
                         Sex = Sex.Unknown,
                         IsDeleted = false,
-                        Register = RegisterSeed.Registers[1],
+                        Register = RegisterSeed.Values[1],
                         CreateTime = DateTime.Now,
-                        Roles = new List<Role> {RoleSeed.Roles[1]}
+                        Roles = new List<Role> {RoleSeed.Values[1]}
                     },
                 new Account
                     {
@@ -66,9 +66,9 @@ namespace EasyAccess.Repository.Configurations.EntityFramework.Seed
                         Contact = new Contact {},
                         Sex = Sex.Unknown,
                         IsDeleted = false,
-                        Register = RegisterSeed.Registers[2],
+                        Register = RegisterSeed.Values[2],
                         CreateTime = DateTime.Now,
-                        Roles = new List<Role> {RoleSeed.Roles[1]}
+                        Roles = new List<Role> {RoleSeed.Values[1]}
                     }
             };
     }

@@ -9,7 +9,7 @@ namespace EasyAccess.Repository.Configurations.EntityFramework.Seed
 {
     internal static class RoleSeed
     {
-        public static Role[] Roles = new[]
+        public static Role[] Values = new[]
             {
                 new Role
                 {

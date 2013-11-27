@@ -56,9 +56,10 @@
   <ItemGroup>
     <Compile Include="Configurations\EntityFramework\EasyAccessContext.cs" />
     <Compile Include="Configurations\EntityFramework\EasyAccessDatabaseInitializer.cs" />
-    <Compile Include="Configurations\EntityFramework\Seed\AccountSeed.cs" />
-    <Compile Include="Configurations\EntityFramework\Seed\RegisterSeed.cs" />
-    <Compile Include="Configurations\EntityFramework\Seed\RoleSeed.cs" />
+    <Compile Include="Configurations\EntityFramework\InitialData\DataInitializer.cs" />
+    <Compile Include="Configurations\EntityFramework\InitialData\Seed\AccountSeed.cs" />
+    <Compile Include="Configurations\EntityFramework\InitialData\Seed\RegisterSeed.cs" />
+    <Compile Include="Configurations\EntityFramework\InitialData\Seed\RoleSeed.cs" />
     <Compile Include="Migrations\201310171349063_InitialCreate.cs" />
     <Compile Include="Migrations\201310171349063_InitialCreate.Designer.cs">
       <DependentUpon>201310171349063_InitialCreate.cs</DependentUpon>

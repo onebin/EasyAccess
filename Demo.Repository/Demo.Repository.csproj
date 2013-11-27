@@ -54,11 +54,11 @@
   <ItemGroup>
     <Compile Include="Configurations\EntityFramework\DemoContext.cs" />
     <Compile Include="Configurations\EntityFramework\DemoDatabaseInitializer.cs" />
-    <Compile Include="Configurations\EntityFramework\InitializedData\InitialSubject.cs" />
-    <Compile Include="Configurations\EntityFramework\InitializedData\Seed\ArticleConfigSeed.cs" />
-    <Compile Include="Configurations\EntityFramework\InitializedData\Seed\InputConfigSeed.cs" />
-    <Compile Include="Configurations\EntityFramework\InitializedData\Seed\SectionConfigSeed.cs" />
-    <Compile Include="Configurations\EntityFramework\InitializedData\Seed\SubjectSeed.cs" />
+    <Compile Include="Configurations\EntityFramework\InitialData\DataInitializer.cs" />
+    <Compile Include="Configurations\EntityFramework\InitialData\Seed\ArticleConfigSeed.cs" />
+    <Compile Include="Configurations\EntityFramework\InitialData\Seed\InputConfigSeed.cs" />
+    <Compile Include="Configurations\EntityFramework\InitialData\Seed\SectionConfigSeed.cs" />
+    <Compile Include="Configurations\EntityFramework\InitialData\Seed\SubjectSeed.cs" />
     <Compile Include="IRepositories\IArticleConfigRepository.cs" />
     <Compile Include="IRepositories\IInputConfigRepository.cs" />
     <Compile Include="IRepositories\ISectionConfigRepository.cs" />

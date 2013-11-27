@@ -1,7 +1,7 @@
 ﻿using Demo.Model.EDMs;
 using Demo.Model.VOs;
 
-namespace Demo.Repository.Configurations.EntityFramework.InitializedData.Seed
+namespace Demo.Repository.Configurations.EntityFramework.InitialData.Seed
 {
     internal static class InputConfigSeed
     {
