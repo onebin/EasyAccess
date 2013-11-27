@@ -12,7 +12,7 @@ namespace Demo.Model.DTOs
 
         public bool IsRequired { get; set; }
 
-        public string RegExp { get; set; }
+        public string ValidType { get; set; }
 
         public string DefaultValue { get; set; }
 

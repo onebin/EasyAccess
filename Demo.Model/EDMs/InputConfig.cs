@@ -22,10 +22,10 @@ namespace Demo.Model.EDMs
         public bool IsRequired { get; set; }
 
         /// <summary>
-        /// 正则表达式
+        /// 验证类型
         /// </summary>
         [MaxLength(512)]
-        public string RegExp { get; set; }
+        public string ValidType { get; set; }
 
         /// <summary>
         /// 默认值
