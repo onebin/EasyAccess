@@ -11,6 +11,8 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
     {
         Expression<Func<TEntity, bool>> Predicate { get; }
 
+        bool IsGetSoftDeletedItems { get; set; }
+
         Dictionary<string, OrderByCondition> OrderByConditions { get; set; }
 
         ThenByCondition<TEntity> OrderBy<TKey>(Expression<Func<TEntity, TKey>> keySelector);

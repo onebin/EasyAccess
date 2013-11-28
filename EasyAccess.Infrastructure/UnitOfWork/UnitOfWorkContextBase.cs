@@ -122,7 +122,15 @@ namespace EasyAccess.Infrastructure.UnitOfWork
             where TEntity : class, IAggregateRoot
         {
             if (IsRollback) return;
-            DbContext.Entry(entity).State = EntityState.Deleted;
+            var entry = DbContext.Entry(entity);
+            if (typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)))
+            {
+                entry.Property("IsDeleted").CurrentValue = true;
+            }
+            else
+            {
+                entry.State = EntityState.Deleted;
+            }
             IsCommitted = false;
         }
 

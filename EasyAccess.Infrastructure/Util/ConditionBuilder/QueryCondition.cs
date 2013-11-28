@@ -22,10 +22,25 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
         private readonly List<Expression> _expressions = new List<Expression>();
         private ParameterExpression[] Parameters { get; set; }
 
+        bool IQueryCondition<TEntity>.IsGetSoftDeletedItems { get; set; }
+
         Expression<Func<TEntity, bool>> IQueryCondition<TEntity>.Predicate
         {
             get
             {
+                if (typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)))
+                {
+                    if (!((IQueryCondition<TEntity>)this).IsGetSoftDeletedItems)
+                    {
+                        if (Parameters == null || Parameters.Length == 0)
+                        {
+                            Parameters = new[] { Expression.Parameter(typeof(TEntity)) };
+                        }
+                        var propExpr = Expression.Property(Parameters[0], "IsDeleted");
+                        var constExpr = Expression.Constant(false);
+                        _expressions.Add(Expression.Equal(propExpr, constExpr));
+                    }
+                }
                 if (Parameters == null || Parameters.Length == 0)
                 {
                     return ConditionBuilder<TEntity>.Empty;
@@ -147,7 +162,7 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
 
         IQueryCondition<TEntity> IQueryCondition<TEntity>.NotIn<TProperty>(Expression<Func<TEntity, TProperty>> property, params TProperty[] values)
         {
-            throw new NotImplementedException();
+            return ((IQueryCondition<TEntity>) this).NotEqual(property, values);
         }
 
         IQueryCondition<TEntity> IQueryCondition<TEntity>.GreaterThanOrEqual<TProperty>(Expression<Func<TEntity, TProperty>> property, TProperty value)

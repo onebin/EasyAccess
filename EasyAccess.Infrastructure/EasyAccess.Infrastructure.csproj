@@ -67,6 +67,7 @@
     <Compile Include="Entity\IAggregateRootBase.cs" />
     <Compile Include="Entity\IEntity.cs" />
     <Compile Include="Entity\IAggregateBase.cs" />
+    <Compile Include="Entity\ISoftDelete.cs" />
     <Compile Include="Extensions\TypeExtension.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
