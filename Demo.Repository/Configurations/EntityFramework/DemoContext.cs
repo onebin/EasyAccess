@@ -6,7 +6,7 @@ namespace Demo.Repository.Configurations.EntityFramework
 {
     public class DemoContext : DbContext
     {
-        public DbSet<Subject> Subjects { get; set; }
+        public DbSet<FormConfig> Subjects { get; set; }
 
         public DbSet<ArticleConfig> ArticleConfigs { get; set; }
 
@@ -20,7 +20,7 @@ namespace Demo.Repository.Configurations.EntityFramework
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-            modelBuilder.Entity<Subject>()
+            modelBuilder.Entity<FormConfig>()
                         .HasMany(x => x.DataCollections)
                         .WithRequired(x => x.Subject)
                         .WillCascadeOnDelete(true);

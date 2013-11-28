@@ -87,7 +87,7 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
         {
             Parameters = null;
             _expressions.Clear();
-            ((IQueryCondition<TEntity>)this).OrderByConditions.Clear();
+            ((IQueryCondition<TEntity>) this).OrderByConditions = null;
         }
 
         bool IQueryCondition<TEntity>.IsEmpty()
@@ -245,7 +245,7 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
                 RemoveOrderByConditionItem(keyName);
                 AddOrderByConditionItem(keyName, keySelector, direction);
             }
-            return new ThenByCondition<TEntity>(((IQueryCondition<TEntity>)this));
+            return new ThenByCondition<TEntity>((IQueryCondition<TEntity>)this);
         }
 
         private string GetPropertyName<TKey>(Expression<Func<TEntity, TKey>> expr)

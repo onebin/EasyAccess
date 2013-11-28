@@ -9,7 +9,7 @@ namespace Demo.Repository.Configurations.EntityFramework.InitialData
     {
         public static void Initialize(DemoContext context)
         {
-            context.Subjects.AddOrUpdate(x => x.Id, SubjectSeed.Values);
+            context.Subjects.AddOrUpdate(x => x.Id, FormConfigSeed.Values);
             context.ArticleConfigs.AddOrUpdate(x => x.Id, ArticleConfigSeed.Values);
             context.InputConfigs.AddOrUpdate(x => x.Id, InputConfigSeed.Values);
             context.SectionConfigs.AddOrUpdate(x => x.Id, SectionConfigSeed.Values);

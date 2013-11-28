@@ -44,7 +44,7 @@
     <Compile Include="DTOs\InputConfigDto.cs" />
     <Compile Include="DTOs\SectionConfigDto.cs" />
     <Compile Include="VOs\InputType.cs" />
-    <Compile Include="EDMs\Subject.cs" />
+    <Compile Include="EDMs\FormConfig.cs" />
     <Compile Include="EDMs\ArticleConfig .cs" />
     <Compile Include="EDMs\DataCollection.cs" />
     <Compile Include="EDMs\InputConfig.cs" />

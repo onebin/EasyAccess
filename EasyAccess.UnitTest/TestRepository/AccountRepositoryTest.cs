@@ -1,20 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using EasyAccess.Infrastructure.UnitOfWork;
-using EasyAccess.Infrastructure.Util.ConditionBuilder;
-using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
 using EasyAccess.Model.VOs;
-using EasyAccess.Repository.Configurations;
-using EasyAccess.Repository.Configurations.EntityFramework;
-using EasyAccess.Repository.IRepositories;
-using EasyAccess.Repository.Repositories;
-using EasyAccess.Repository.UnitOfWork;
 using EasyAccess.UnitTest.Configurations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using Spring.Context;
 
 namespace EasyAccess.UnitTest.TestRepository
 {
@@ -92,10 +82,10 @@ namespace EasyAccess.UnitTest.TestRepository
             Assert.AreEqual(3, menus.Count);
         }
 
-    [TestMethod]
+        [TestMethod]
         public void TestVerifyLogin()
         {
-            var account = AccountRepository.VerifyLogin(new LoginUser{ UserName = "Admin", Password = "123456" });
+            var account = AccountRepository.VerifyLogin(new LoginUser { UserName = "Admin", Password = "123456" });
             Assert.IsNotNull(account);
         }
 
@@ -107,10 +97,14 @@ namespace EasyAccess.UnitTest.TestRepository
         }
 
         [TestMethod]
-        public void TestDelete()
+        public void TestSoftDelete()
         {
             AccountRepository.Delete(AccountRepository.Entities);
-            Assert.AreEqual(0, AccountRepository.Entities.Count());
+            Assert.IsTrue(AccountRepository.Entities.Any());
+            foreach (var account in AccountRepository.Entities)
+            {
+                Assert.AreEqual(true, account.IsDeleted);
+            }
         }
     }
 }

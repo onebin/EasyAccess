@@ -116,18 +116,6 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
             builder.Fuzzy(x => x.Name.LastName, "world,good");
             account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
             Assert.IsNull(account);
-
-
-            //builder.Clear();
-            //builder.Fuzzy(x => x.Age, "20-30");
-            //account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
-            //Assert.IsNotNull(account);
-
-
-            //builder.Clear();
-            //builder.Fuzzy(x => x.Age, "10-20");
-            //account = AccountRepository.Entities.FirstOrDefault(builder.Predicate);
-            //Assert.IsNull(account);
         }
 
         [TestMethod]
@@ -239,6 +227,19 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
             Assert.AreEqual(ListSortDirection.Ascending, conditionBuilder.OrderByConditions.First().Value.Direction);
             Assert.AreEqual(ListSortDirection.Descending, conditionBuilder.OrderByConditions.Single(x => x.Key == "Id").Value.Direction);
             Assert.AreEqual(ListSortDirection.Ascending, conditionBuilder.OrderByConditions.Last().Value.Direction);
+        }
+
+        [TestMethod]
+        public void TestGetSoftDeletedItems()
+        {
+            AccountRepository.Delete(AccountRepository.Entities);
+
+            var conditionBuilder = ConditionBuilder<Account>.Create();
+            Assert.AreEqual(false, AccountRepository.Entities.Where(conditionBuilder.Predicate).Any());
+
+            conditionBuilder.Clear();
+            conditionBuilder.IsGetSoftDeletedItems = true;
+            Assert.AreEqual(true, AccountRepository.Entities.Where(conditionBuilder.Predicate).Any());
         }
 
     }

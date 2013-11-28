@@ -108,9 +108,9 @@ namespace EasyAccess.Infrastructure.Repository
         /// </summary>
         /// <param name="propertyExpression">属性表达式</param>
         /// <param name="isSave">是否执行保存</param>
-        /// <param name="entity">附带新值的实体信息，必须包含主键</param>
+        /// <param name="entities">附带新值的实体信息，必须包含主键</param>
         /// <returns>操作影响的行数</returns>
-        int Update(Expression<Func<TEntity, object>> propertyExpression, TEntity entity, bool isSave = true);
+        int Update(Expression<Func<TEntity, object>> propertyExpression, bool isSave = true, params TEntity[] entities);
 
     }
 }

@@ -2,11 +2,11 @@
 
 namespace Demo.Repository.Configurations.EntityFramework.InitialData.Seed
 {
-    internal static class SubjectSeed
+    internal static class FormConfigSeed
     {
-        public static Subject[] Values = new[]
+        public static FormConfig[] Values = new[]
             {
-                new Subject
+                new FormConfig
                     {
                         Id = 1,
                         Name = "测试",

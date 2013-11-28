@@ -150,13 +150,16 @@ namespace EasyAccess.Infrastructure.Repository
         }
 
 
-        public int Update(Expression<Func<TEntity, object>> propertyExpression, TEntity entity, bool isSave = true)
+        public int Update(Expression<Func<TEntity, object>> propertyExpression, bool isSave = true, params TEntity[] entities)
         {
-            UnitOfWorkContext.RegisterModified(propertyExpression, entity);
+            UnitOfWorkContext.RegisterModified(propertyExpression, entities);
             if (!isSave) return 0;
             var dbSet = UnitOfWorkContext.Set<TEntity>();
             dbSet.Local.Clear();
-            UnitOfWorkContext.Entry(entity).State = EntityState.Modified;
+            foreach (var entity in entities)
+            {
+                UnitOfWorkContext.Entry(entity).State = EntityState.Modified;
+            }
             return UnitOfWorkContext.Commit();
         }
     }

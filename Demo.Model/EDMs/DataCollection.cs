@@ -5,7 +5,7 @@ namespace Demo.Model.EDMs
 {
     public class DataCollection : AggregateBase<int>
     {
-        public virtual Subject Subject { get; set; }
+        public virtual FormConfig Subject { get; set; }
 
         public virtual SectionConfig Section { get; set; }
 

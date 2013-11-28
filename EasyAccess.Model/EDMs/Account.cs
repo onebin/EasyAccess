@@ -6,7 +6,7 @@ using EasyAccess.Model.VOs;
 
 namespace EasyAccess.Model.EDMs
 {
-    public class Account : AggregateRootBase<long>
+    public class Account : AggregateRootBase<long>, ISoftDelete
     {
         public int Age { get; set; }
 

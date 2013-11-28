@@ -58,7 +58,7 @@
     <Compile Include="Configurations\EntityFramework\InitialData\Seed\ArticleConfigSeed.cs" />
     <Compile Include="Configurations\EntityFramework\InitialData\Seed\InputConfigSeed.cs" />
     <Compile Include="Configurations\EntityFramework\InitialData\Seed\SectionConfigSeed.cs" />
-    <Compile Include="Configurations\EntityFramework\InitialData\Seed\SubjectSeed.cs" />
+    <Compile Include="Configurations\EntityFramework\InitialData\Seed\FormConfigSeed.cs" />
     <Compile Include="IRepositories\IArticleConfigRepository.cs" />
     <Compile Include="IRepositories\IInputConfigRepository.cs" />
     <Compile Include="IRepositories\ISectionConfigRepository.cs" />
