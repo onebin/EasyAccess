@@ -106,5 +106,13 @@ namespace EasyAccess.UnitTest.TestRepository
                 Assert.AreEqual(true, account.IsDeleted);
             }
         }
+
+        [TestMethod]
+        public void TestUpdateRegister()
+        {
+            var account = AccountRepository[1];
+            account.Register.LastLoginIP = null;
+            AccountRepository.Update(account);
+        }
     }
 }
