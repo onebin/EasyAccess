@@ -6,12 +6,5 @@ namespace EasyAccess.Repository.IRepositories
 {
     public interface IRoleRepository : IRepositoryBase<Role>
     {
-        ICollection<Account> GetAccounts(long roleId);
-
-        ICollection<Permission> GetPermissions(long roleId);
-
-        ICollection<Permission> GetPermissions(long[] roleIds);
-
-        ICollection<Menu> GetMenus(long roleId);
     }
 }
