@@ -2,5 +2,6 @@
 {
     public interface IAggregateRoot : IEntity
     {
+        IAggregateRoot this[object id] { get; }
     }
 }
