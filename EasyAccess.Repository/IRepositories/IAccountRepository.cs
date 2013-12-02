@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using EasyAccess.Infrastructure.Repository;
-using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
 using EasyAccess.Model.VOs;
 

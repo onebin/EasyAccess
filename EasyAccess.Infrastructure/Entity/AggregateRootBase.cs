@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using EasyAccess.Infrastructure.Repository;
+using Spring.Context.Support;
 
 namespace EasyAccess.Infrastructure.Entity
 {
-    public abstract class AggregateRootBase<TKey> : AggregateBase<TKey>, IAggregateRootBase<TKey>
+    public abstract class AggregateRootBase<TEntity, TKey> : AggregateBase<TKey>, IAggregateRootBase<TKey> where TEntity: class , IAggregateRoot
     {
+        public static IRepositoryBase<TEntity> Repository
+        {
+            get { return ContextRegistry.GetContext().GetObject<IRepositoryBase<TEntity>>(); }
+        }
     }
 }

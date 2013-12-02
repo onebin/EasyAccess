@@ -4,7 +4,7 @@ using EasyAccess.Infrastructure.Entity;
 
 namespace Demo.Model.EDMs
 {
-    public class ArticleConfig : AggregateRootBase<int>
+    public class ArticleConfig : AggregateRootBase<ArticleConfig, int>
     {
         public virtual List<SectionConfig> Sections { get; set; }
 
