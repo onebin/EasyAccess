@@ -12,11 +12,9 @@ namespace EasyAccess.Service.Services
 {
     public class RoleManageSvc : ServiceBase, IRoleManageSvc
     {
-        public IRoleRepository RoleRepository { get; set; }
-
         public PagingData<Role> GetRolePagingData(PagingCondition pagingCondition, IQueryCondition<Role> queryCondition = null)
         {
-            return GetPagingEdmData(RoleRepository, pagingCondition, queryCondition);
+            return Role.GetPagingEdmData(pagingCondition, queryCondition);
         }
     }
 }

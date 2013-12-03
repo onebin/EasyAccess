@@ -14,8 +14,6 @@ namespace EasyAccess.Service.Services
 {
     public class LoginSvc : ServiceBase, ILoginSvc
     {
-        public IAccountRepository AccountRepository { get; set; }
-
         public bool Login(LoginUser loginUser, bool rememberMe = false)
         {
             var result = false;

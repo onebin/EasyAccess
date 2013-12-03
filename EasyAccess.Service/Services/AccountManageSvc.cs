@@ -12,11 +12,9 @@ namespace EasyAccess.Service.Services
 {
     public class AccountManageSvc : ServiceBase, IAccountManageSvc
     {
-        public IAccountRepository AccountRepository { get; set; }
-
         public PagingData<AccountDto> GetAccountPagingData(PagingCondition pagingCondition, IQueryCondition<Account> queryCondition = null)
         {
-            return GetPagingDtoData<AccountDto, Account>(AccountRepository, pagingCondition, queryCondition);
+            return Account.GetPagingDtoData<AccountDto>(pagingCondition, queryCondition);
         }
     }
 }

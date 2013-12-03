@@ -3,17 +3,14 @@
          xmlns:db="http://www.springframework.net/database">
   
   <object id="LoginSvc" type="EasyAccess.Service.Services.LoginSvc, EasyAccess.Service">
-    <property name="AccountRepository" ref="AccountRepository" />
     <property name="UnitOfWork" ref="EasyAccessUnitOfWork" />
   </object>
 
   <object id="AccountManageSvc" type="EasyAccess.Service.Services.AccountManageSvc, EasyAccess.Service">
-    <property name="AccountRepository" ref="AccountRepository" />
     <property name="UnitOfWork" ref="EasyAccessUnitOfWork" />
   </object>
 
   <object id="RoleManageSvc" type="EasyAccess.Service.Services.RoleManageSvc, EasyAccess.Service">
-    <property name="RoleRepository" ref="RoleRepository" />
     <property name="UnitOfWork" ref="EasyAccessUnitOfWork" />
   </object>
   

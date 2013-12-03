@@ -1,4 +1,7 @@
-﻿using EasyAccess.Infrastructure.Repository;
+﻿using System.Collections.Generic;
+using EasyAccess.Infrastructure.Repository;
+using EasyAccess.Infrastructure.Util.ConditionBuilder;
+using EasyAccess.Infrastructure.Util.PagingData;
 using Spring.Context.Support;
 
 namespace EasyAccess.Infrastructure.Entity
@@ -8,6 +11,27 @@ namespace EasyAccess.Infrastructure.Entity
         public static IRepositoryBase<TEntity> Repository
         {
             get { return ContextRegistry.GetContext().GetObject<IRepositoryBase<TEntity>>(); }
+        }
+
+        public static PagingData<TDto> GetPagingDtoData<TDto>(
+            PagingCondition pagingCondition,
+            IQueryCondition<TEntity> queryCondition = null)
+            where TDto : class
+        {
+            long recordCount;
+            List<TDto> recordData;
+            Repository.GetPagingDtoData(pagingCondition, out recordData, out recordCount, queryCondition);
+            return new PagingData<TDto>(recordCount, pagingCondition, recordData);
+        }
+
+        public static PagingData<TEntity> GetPagingEdmData(
+            PagingCondition pagingCondition,
+            IQueryCondition<TEntity> queryCondition = null)
+        {
+            long recordCount;
+            List<TEntity> recordData;
+            Repository.GetPagingEdmData(pagingCondition, out recordData, out recordCount, queryCondition);
+            return new PagingData<TEntity>(recordCount, pagingCondition, recordData);
         }
     }
 }
