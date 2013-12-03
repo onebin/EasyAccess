@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Objects;
 using System.Linq;
 using EasyAccess.Infrastructure.Repository;
 using EasyAccess.Model.EDMs;
@@ -35,41 +36,45 @@ namespace EasyAccess.UnitTest.TestRepository
                 new Role() {Id = 2, Permissions = Permissions.Where(x => x.Id.Length < 8).ToList()},
             };
 
+        private static readonly ICollection<Account> Accounts = new Collection<Account>
+            {
+                new Account() {Id = 1, Roles = Roles}
+            };
 
-        internal class AccountAdapter: Account
+
+        public class AccountAdapter: Account
         {
             public new static IRepositoryBase<Account> Repository
             {
                 get
                 {
                     var repositoryMock = new Mock<IRepositoryBase<Account>>();
-                    repositoryMock.SetupProperty(x => x.Entities, null);
+                    repositoryMock.SetupProperty(x => x.Entities, new EnumerableQuery<Account>(Accounts));
                     return repositoryMock.Object;
                 }
             }
         }
 
-        //[TestMethod]
-        //public void TestGetPermissions()
-        //{
-        //    var accountMock = new Mock<AccountAdapter>();
-        //    accountMock.SetupProperty(x => x.Roles, Roles);
-        //    //GetPermissions -virtual ， Roles +virtual
-        //    accountMock.Setup(x => x.GetPermissions()).Returns(Permissions);
-        //    var permissions = accountMock.Object.GetPermissions();
-        //    Assert.IsNotNull(permissions);
-        //    Assert.AreEqual(5, permissions.Count);
-        //    Assert.AreEqual(
-        //        string.Join(",", Permissions.Where(x => x.Id != "M01P0104").Select(x => x.Id)),
-        //        string.Join(",", permissions.Select(x => x.Id)));
-        //}
-
         [TestMethod]
         public void TestGetPermissions()
         {
-            var permissions = Account.Repository[1].GetPermissions();
-            Assert.AreEqual(9, permissions.Count);
+            var accountMock = new Mock<AccountAdapter>();
+            accountMock.SetupProperty(x => x.Roles, Roles);
+            //GetPermissions -virtual ， Roles +virtual
+            var permissions = accountMock.Object.GetPermissions();
+            Assert.IsNotNull(permissions);
+            Assert.AreEqual(5, permissions.Count);
+            Assert.AreEqual(
+                string.Join(",", Permissions.Where(x => x.Id != "M01P0104").Select(x => x.Id)),
+                string.Join(",", permissions.Select(x => x.Id)));
         }
+
+        //[TestMethod]
+        //public void TestGetPermissions()
+        //{
+        //    var permissions = Account.Repository[1].GetPermissions();
+        //    Assert.AreEqual(9, permissions.Count);
+        //}
 
         //[TestMethod]
         //public void TestGetMenus()
