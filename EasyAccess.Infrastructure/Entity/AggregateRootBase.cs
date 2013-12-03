@@ -9,10 +9,5 @@ namespace EasyAccess.Infrastructure.Entity
         {
             get { return ContextRegistry.GetContext().GetObject<IRepositoryBase<TEntity>>(); }
         }
-
-        public IAggregateRoot this[object id]
-        {
-            get { return Repository[id]; }
-        }
     }
 }
