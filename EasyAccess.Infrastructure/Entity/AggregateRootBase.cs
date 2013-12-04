@@ -9,7 +9,7 @@ using Spring.Context.Support;
 
 namespace EasyAccess.Infrastructure.Entity
 {
-    public abstract class AggregateRootBase<TEntity, TKey> : AggregateBase<TKey>, IAggregateRootBase<TEntity, TKey> where TEntity: class , IAggregateRoot
+    public abstract class AggregateRootBase<TEntity, TKey> : AggregateBase<TKey>, IAggregateRootBase<TKey> where TEntity: class , IAggregateRoot
     {
         protected static RepositoryBase<TEntity> Repository
         {
