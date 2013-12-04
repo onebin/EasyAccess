@@ -6,7 +6,7 @@ using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
 using EasyAccess.Model.VOs;
 using EasyAccess.Repository.Repositories;
-using EasyAccess.UnitTest.Configurations;
+using EasyAccess.UnitTest.Bootstrap;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil

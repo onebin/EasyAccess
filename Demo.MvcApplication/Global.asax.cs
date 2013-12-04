@@ -2,12 +2,10 @@
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Demo.Service.Configurations;
-using Demo.Service.Configurations.AutoMapper;
-using EasyAccess.Service.Configurations;
-using EasyAccess.Service.Configurations.AutoMapper;
-using EasyAccess.Service.IServices;
-using EasyAccess.Service.Services;
+using Demo.Service.Bootstrap.AutoMapper;
+using Demo.Service.Bootstrap;
+using EasyAccess.Service.Bootstrap.AutoMapper;
+using EasyAccess.Service.Bootstrap;
 using Spring.Web.Mvc;
 
 namespace Demo.MvcApplication

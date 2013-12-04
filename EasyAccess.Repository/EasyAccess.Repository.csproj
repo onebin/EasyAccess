@@ -54,12 +54,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configurations\EntityFramework\EasyAccessContext.cs" />
-    <Compile Include="Configurations\EntityFramework\EasyAccessDatabaseInitializer.cs" />
-    <Compile Include="Configurations\EntityFramework\InitialData\DataInitializer.cs" />
-    <Compile Include="Configurations\EntityFramework\InitialData\Seed\AccountSeed.cs" />
-    <Compile Include="Configurations\EntityFramework\InitialData\Seed\RegisterSeed.cs" />
-    <Compile Include="Configurations\EntityFramework\InitialData\Seed\RoleSeed.cs" />
+    <Compile Include="Bootstrap\EntityFramework\EasyAccessContext.cs" />
+    <Compile Include="Bootstrap\EntityFramework\EasyAccessDatabaseInitializer.cs" />
+    <Compile Include="Bootstrap\EntityFramework\InitialData\DataInitializer.cs" />
+    <Compile Include="Bootstrap\EntityFramework\InitialData\Seed\AccountSeed.cs" />
+    <Compile Include="Bootstrap\EntityFramework\InitialData\Seed\RegisterSeed.cs" />
+    <Compile Include="Bootstrap\EntityFramework\InitialData\Seed\RoleSeed.cs" />
     <Compile Include="Migrations\201310171349063_InitialCreate.cs" />
     <Compile Include="Migrations\201310171349063_InitialCreate.Designer.cs">
       <DependentUpon>201310171349063_InitialCreate.cs</DependentUpon>
@@ -67,8 +67,6 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AccountRepository.cs" />
-    <Compile Include="IRepositories\IAccountRepository.cs" />
-    <Compile Include="IRepositories\IRoleRepository.cs" />
     <Compile Include="Repositories\RoleRepository.cs" />
     <Compile Include="UnitOfWork\EasyAccessUnitOfWork.cs" />
   </ItemGroup>
@@ -86,7 +84,7 @@
     <EmbeddedResource Include="Migrations\201310171349063_InitialCreate.resx">
       <DependentUpon>201310171349063_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Configurations\Spring\RepositoryConfig.xml">
+    <EmbeddedResource Include="Bootstrap\Spring\RepositoryConfig.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

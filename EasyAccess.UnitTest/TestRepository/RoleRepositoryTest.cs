@@ -1,6 +1,6 @@
 ﻿using System;
 using EasyAccess.Model.EDMs;
-using EasyAccess.UnitTest.Configurations;
+using EasyAccess.UnitTest.Bootstrap;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace EasyAccess.UnitTest.TestRepository

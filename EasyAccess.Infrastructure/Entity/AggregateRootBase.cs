@@ -8,9 +8,9 @@ namespace EasyAccess.Infrastructure.Entity
 {
     public abstract class AggregateRootBase<TEntity, TKey> : AggregateBase<TKey>, IAggregateRootBase<TKey> where TEntity: class , IAggregateRoot
     {
-        public static IRepositoryBase<TEntity> Repository
+        public static RepositoryBase<TEntity> Repository
         {
-            get { return ContextRegistry.GetContext().GetObject<IRepositoryBase<TEntity>>(); }
+            get { return ContextRegistry.GetContext().GetObject<RepositoryBase<TEntity>>(); }
         }
 
         public static PagingData<TDto> GetPagingDtoData<TDto>(

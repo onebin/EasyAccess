@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
-using Demo.MvcApplication.Tests.Configurations;
+using Demo.Model.EDMs;
+using Demo.MvcApplication.Tests.Bootstrap;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Demo.MvcApplication.Tests.TestRepository
@@ -11,8 +12,8 @@ namespace Demo.MvcApplication.Tests.TestRepository
         [TestMethod]
         public void TestBatchDelete()
         {
-            SectionConfigRepository.Delete(SectionConfigRepository.Entities);
-            Assert.IsFalse(SectionConfigRepository.Entities.Any());
+            SectionConfig.Repository.Delete(SectionConfigRepository.Entities);
+            Assert.IsFalse(SectionConfig.Repository.Entities.Any());
         }
     }
 }

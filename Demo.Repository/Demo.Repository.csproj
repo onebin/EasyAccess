@@ -52,16 +52,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configurations\EntityFramework\DemoContext.cs" />
-    <Compile Include="Configurations\EntityFramework\DemoDatabaseInitializer.cs" />
-    <Compile Include="Configurations\EntityFramework\InitialData\DataInitializer.cs" />
-    <Compile Include="Configurations\EntityFramework\InitialData\Seed\ArticleConfigSeed.cs" />
-    <Compile Include="Configurations\EntityFramework\InitialData\Seed\InputConfigSeed.cs" />
-    <Compile Include="Configurations\EntityFramework\InitialData\Seed\SectionConfigSeed.cs" />
-    <Compile Include="Configurations\EntityFramework\InitialData\Seed\FormConfigSeed.cs" />
-    <Compile Include="IRepositories\IArticleConfigRepository.cs" />
-    <Compile Include="IRepositories\IInputConfigRepository.cs" />
-    <Compile Include="IRepositories\ISectionConfigRepository.cs" />
+    <Compile Include="Bootstrap\EntityFramework\DemoContext.cs" />
+    <Compile Include="Bootstrap\EntityFramework\DemoDatabaseInitializer.cs" />
+    <Compile Include="Bootstrap\EntityFramework\InitialData\DataInitializer.cs" />
+    <Compile Include="Bootstrap\EntityFramework\InitialData\Seed\ArticleConfigSeed.cs" />
+    <Compile Include="Bootstrap\EntityFramework\InitialData\Seed\InputConfigSeed.cs" />
+    <Compile Include="Bootstrap\EntityFramework\InitialData\Seed\SectionConfigSeed.cs" />
+    <Compile Include="Bootstrap\EntityFramework\InitialData\Seed\FormConfigSeed.cs" />
     <Compile Include="Migrations\201310310646067_InitialCreate.cs" />
     <Compile Include="Migrations\201310310646067_InitialCreate.Designer.cs">
       <DependentUpon>201310310646067_InitialCreate.cs</DependentUpon>
@@ -89,7 +86,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Configurations\Spring\RepositoryConfig.xml">
+    <EmbeddedResource Include="Bootstrap\Spring\RepositoryConfig.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201310310646067_InitialCreate.resx">

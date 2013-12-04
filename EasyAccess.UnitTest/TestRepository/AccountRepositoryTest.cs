@@ -5,7 +5,7 @@ using System.Linq;
 using EasyAccess.Infrastructure.Repository;
 using EasyAccess.Model.EDMs;
 using EasyAccess.Model.VOs;
-using EasyAccess.UnitTest.Configurations;
+using EasyAccess.UnitTest.Bootstrap;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 

@@ -1,5 +1,5 @@
 ﻿using System.Data.Entity;
-using Demo.Repository.Configurations.EntityFramework;
+using Demo.Repository.Bootstrap.EntityFramework;
 using EasyAccess.Infrastructure.UnitOfWork;
 
 namespace Demo.Repository.UnitOfWork

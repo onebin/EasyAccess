@@ -46,8 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configurations\AutoMapper\DemoProfile.cs" />
-    <Compile Include="Configurations\DemoServiceInitializer.cs" />
+    <Compile Include="Bootstrap\AutoMapper\DemoProfile.cs" />
+    <Compile Include="Bootstrap\DemoServiceInitializer.cs" />
     <Compile Include="IServices\ISubjectManageSvc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\SubjectManageSvc.cs" />
@@ -70,7 +70,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Configurations\Spring\ServiceConfig.xml">
+    <EmbeddedResource Include="Bootstrap\Spring\ServiceConfig.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

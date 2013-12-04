@@ -1,12 +1,11 @@
-
+using Demo.Repository.Bootstrap.EntityFramework.InitialData;
 
 namespace Demo.Repository.Migrations
 {
     using System.Data.Entity.Migrations;
-    using Configurations.EntityFramework;
-    using Configurations.EntityFramework.InitialData;
+    using Bootstrap.EntityFramework;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Demo.Repository.Configurations.EntityFramework.DemoContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<DemoContext>
     {
         public Configuration()
         {
