@@ -96,7 +96,7 @@ namespace EasyAccess.UnitTest.TestRepository
         [TestMethod]
         public void TestGetMenus()
         {
-            var menus = Account.Repository[1].GetMenus();
+            var menus = Account.FindById(1).GetMenus();
             Assert.AreEqual(3, menus.Count);
         }
 
@@ -110,16 +110,16 @@ namespace EasyAccess.UnitTest.TestRepository
         [TestMethod]
         public void TestGetById()
         {
-            var account = Account.Repository.GetById(1);
+            var account = Account.FindById(1);
             Assert.IsNotNull(account);
         }
 
         [TestMethod]
         public void TestSoftDelete()
         {
-            Account.Repository.Delete(Account.Repository.Entities);
-            Assert.IsTrue(Account.Repository.Entities.Any());
-            foreach (var account in Account.Repository.Entities)
+            Account.Delete(Account.FindAll());
+            Assert.IsTrue(Account.FindAll().Any());
+            foreach (var account in Account.FindAll())
             {
                 Assert.AreEqual(true, account.IsDeleted);
             }

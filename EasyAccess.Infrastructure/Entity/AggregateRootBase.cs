@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using EasyAccess.Infrastructure.Repository;
 using EasyAccess.Infrastructure.Util.ConditionBuilder;
@@ -10,9 +11,24 @@ namespace EasyAccess.Infrastructure.Entity
 {
     public abstract class AggregateRootBase<TEntity, TKey> : AggregateBase<TKey>, IAggregateRootBase<TEntity, TKey> where TEntity: class , IAggregateRoot
     {
-        public static RepositoryBase<TEntity> Repository
+        protected static RepositoryBase<TEntity> Repository
         {
             get { return ContextRegistry.GetContext().GetObject<RepositoryBase<TEntity>>(); }
+        }
+
+        public static TEntity FindById(object id)
+        {
+            return Repository[id];
+        }
+
+        public static IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> expr)
+        {
+            return Repository.Entities.Where(expr);
+        }
+
+        public static IQueryable<TEntity> FindAll()
+        {
+            return Repository.Entities;
         }
 
         public static PagingData<TDto> GetPagingDtoData<TDto>(
@@ -36,42 +52,42 @@ namespace EasyAccess.Infrastructure.Entity
             return new PagingData<TEntity>(recordCount, pagingCondition, recordData);
         }
 
-        public void Insert(TEntity entity)
+        public static void Insert(TEntity entity)
         {
             Repository.Insert(entity, false);
         }
 
-        public void Insert(IEnumerable<TEntity> entities)
+        public static void Insert(IEnumerable<TEntity> entities)
         {
             Repository.Insert(entities, false);
         }
 
-        public void Delete(object id)
+        public static void Delete(object id)
         {
             Repository.Delete(id, false);
         }
 
-        public void Delete(TEntity entity)
+        public static void Delete(TEntity entity)
         {
             Repository.Delete(entity, false);
         }
 
-        public void Delete(IEnumerable<TEntity> entities)
+        public static void Delete(IEnumerable<TEntity> entities)
         {
             Repository.Delete(entities, false);
         }
 
-        public void Delete(Expression<Func<TEntity, bool>> predicate)
+        public static void Delete(Expression<Func<TEntity, bool>> predicate)
         {
             Repository.Delete(predicate, false);
         }
 
-        public void Update(TEntity entity)
+        public static void Update(TEntity entity)
         {
             Repository.Update(entity, false);
         }
 
-        public void Update(Expression<Func<TEntity, object>> propertyExpression, params TEntity[] entities)
+        public static void Update(Expression<Func<TEntity, object>> propertyExpression, params TEntity[] entities)
         {
             Repository.Update(propertyExpression, false, entities);
         }

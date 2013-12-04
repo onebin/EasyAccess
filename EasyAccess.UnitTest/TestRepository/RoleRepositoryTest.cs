@@ -18,7 +18,7 @@ namespace EasyAccess.UnitTest.TestRepository
         [TestMethod]
         public void TestGetMenu()
         {
-            var menus = Role.Repository[1].GetMenus();
+            var menus = Role.FindById(1).GetMenus();
             Assert.AreEqual(3, menus.Count);
         }
     }
