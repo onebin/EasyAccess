@@ -16,7 +16,7 @@ namespace EasyAccess.Infrastructure.Entity
             get { return ContextRegistry.GetContext().GetObject<RepositoryBase<TEntity>>(); }
         }
 
-        public static TEntity FindById(object id)
+        public static TEntity FindById(TKey id)
         {
             return Repository[id];
         }

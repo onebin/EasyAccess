@@ -1,6 +1,6 @@
 ﻿namespace EasyAccess.Infrastructure.Entity
 {
-    public interface IAggregateRootBase<TEntity, TKey> : IAggregateBase<TKey>, IAggregateRoot
+    public interface IAggregateRootBase<TKey> : IAggregateBase<TKey>, IAggregateRoot
     {
     }
 }
