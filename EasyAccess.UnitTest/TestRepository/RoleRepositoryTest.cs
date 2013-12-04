@@ -1,5 +1,6 @@
 ﻿using System;
-using EasyAccess.UnitTest.Configurations;
+using EasyAccess.Model.EDMs;
+using EasyAccess.UnitTest.Bootstrap;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace EasyAccess.UnitTest.TestRepository
@@ -10,14 +11,14 @@ namespace EasyAccess.UnitTest.TestRepository
         [TestMethod]
         public void TestGetPermissions()
         {
-            var permissions =  RoleRepository.GetPermissions(new long[] { 1, 2 });
+            var permissions =  Role.GetPermissions(new long[] { 1, 2 });
             Assert.AreEqual(3, permissions.Count);
         }
 
         [TestMethod]
         public void TestGetMenu()
         {
-            var menus = RoleRepository.GetMenus(1);
+            var menus = Role.Repository[1].GetMenus();
             Assert.AreEqual(3, menus.Count);
         }
     }

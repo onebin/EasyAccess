@@ -53,14 +53,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configurations\AutoMapper\EasyAccessProfile.cs" />
+    <Compile Include="Bootstrap\AutoMapper\EasyAccessProfile.cs" />
     <Compile Include="IServices\IAccountManageSvc.cs" />
     <Compile Include="IServices\ILoginSvc.cs" />
     <Compile Include="IServices\IRoleManageSvc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\RoleManageSvc.cs" />
     <Compile Include="Services\AccountManageSvc.cs" />
-    <Compile Include="Configurations\EasyAccessServiceInitializer.cs" />
+    <Compile Include="Bootstrap\EasyAccessServiceInitializer.cs" />
     <Compile Include="Services\LoginSvc.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -82,7 +82,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Configurations\Spring\ServiceConfig.xml">
+    <EmbeddedResource Include="Bootstrap\Spring\ServiceConfig.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

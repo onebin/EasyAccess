@@ -1,8 +1,6 @@
-﻿using System;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using EasyAccess.Infrastructure.UnitOfWork;
-using EasyAccess.Repository.Configurations;
-using EasyAccess.Repository.Configurations.EntityFramework;
+using EasyAccess.Repository.Bootstrap.EntityFramework;
 
 namespace EasyAccess.Repository.UnitOfWork
 {

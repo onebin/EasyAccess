@@ -107,50 +107,50 @@ namespace EasyAccess.Infrastructure.Repository
             recordData = query.Skip(pagingCondition.Skip).Take(pagingCondition.PageSize).Project().To<TDto>().ToList();
         }
 
-        public int Insert(TEntity entity, bool isSave = true)
+        public int Insert(TEntity entity, bool isSave = false)
         {
             UnitOfWorkContext.RegisterNew(entity);
             return isSave ? UnitOfWorkContext.Commit() : 0;
         }
 
-        public int Insert(IEnumerable<TEntity> entities, bool isSave = true)
+        public int Insert(IEnumerable<TEntity> entities, bool isSave = false)
         {
             UnitOfWorkContext.RegisterNew(entities);
             return isSave ? UnitOfWorkContext.Commit() : 0;
         }
 
-        public int Delete(object id, bool isSave = true)
+        public int Delete(object id, bool isSave = false)
         {
             var entity = UnitOfWorkContext.Set<TEntity>().Find(id);
             return entity != null ? Delete(entity, isSave) : 0;
         }
 
-        public int Delete(TEntity entity, bool isSave = true)
+        public int Delete(TEntity entity, bool isSave = false)
         {
             UnitOfWorkContext.RegisterDeleted(entity);
             return isSave ? UnitOfWorkContext.Commit() : 0;
         }
 
-        public int Delete(IEnumerable<TEntity> entities, bool isSave = true)
+        public int Delete(IEnumerable<TEntity> entities, bool isSave = false)
         {
             UnitOfWorkContext.RegisterDeleted(entities);
             return isSave ? UnitOfWorkContext.Commit() : 0;
         }
 
-        public int Delete(Expression<Func<TEntity, bool>> predicate, bool isSave = true)
+        public int Delete(Expression<Func<TEntity, bool>> predicate, bool isSave = false)
         {
             var entities = UnitOfWorkContext.Set<TEntity>().Where(predicate).ToList();
             return entities.Count > 0 ? Delete(entities, isSave) : 0;
         }
 
-        public int Update(TEntity entity, bool isSave = true)
+        public int Update(TEntity entity, bool isSave = false)
         {
             UnitOfWorkContext.RegisterModified(entity);
             return isSave ? UnitOfWorkContext.Commit() : 0;
         }
 
 
-        public int Update(Expression<Func<TEntity, object>> propertyExpression, bool isSave = true, params TEntity[] entities)
+        public int Update(Expression<Func<TEntity, object>> propertyExpression, bool isSave = false, params TEntity[] entities)
         {
             UnitOfWorkContext.RegisterModified(propertyExpression, entities);
             if (!isSave) return 0;

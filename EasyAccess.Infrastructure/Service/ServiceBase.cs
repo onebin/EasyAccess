@@ -14,30 +14,5 @@ namespace EasyAccess.Infrastructure.Service
     public abstract class ServiceBase
     {
         protected IUnitOfWork UnitOfWork { get; set; }
-
-        protected PagingData<TEntity> GetPagingEdmData<TEntity>(
-            IRepositoryBase<TEntity> repository,
-            PagingCondition pagingCondition,
-            IQueryCondition<TEntity> queryCondition = null)
-            where TEntity : class, IAggregateRoot
-        {
-            long recordCount;
-            List<TEntity> recordData;
-            repository.GetPagingEdmData(pagingCondition, out recordData, out recordCount, queryCondition);
-            return new PagingData<TEntity>(recordCount, pagingCondition, recordData);
-        }
-
-        protected PagingData<TDto> GetPagingDtoData<TDto,TEntity>(
-            IRepositoryBase<TEntity> repository,
-            PagingCondition pagingCondition,
-            IQueryCondition<TEntity> queryCondition = null)
-            where TEntity : class, IAggregateRoot
-            where TDto : class 
-        {
-            long recordCount;
-            List<TDto> recordData;
-            repository.GetPagingDtoData(pagingCondition, out recordData, out recordCount, queryCondition);
-            return new PagingData<TDto>(recordCount, pagingCondition, recordData);
-        }
     }
 }

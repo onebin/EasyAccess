@@ -1,31 +1,25 @@
 ﻿using System;
-using System.Linq;
 using EasyAccess.Authorization;
 using EasyAccess.Infrastructure.Service;
 using EasyAccess.Infrastructure.Util;
-using EasyAccess.Infrastructure.Util.ConditionBuilder;
-using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
 using EasyAccess.Model.VOs;
-using EasyAccess.Repository.IRepositories;
 using EasyAccess.Service.IServices;
 
 namespace EasyAccess.Service.Services
 {
     public class LoginSvc : ServiceBase, ILoginSvc
     {
-        public IAccountRepository AccountRepository { get; set; }
-
         public bool Login(LoginUser loginUser, bool rememberMe = false)
         {
             var result = false;
             using (UnitOfWork)
             {
-                var account = AccountRepository.VerifyLogin(loginUser);
+                var account = Account.VerifyLogin(loginUser);
                 if (account != null)
                 {
                     var authMgr = AuthorizationManager.GetInstance();
-                    var token = authMgr.GetToken(account.Roles, AccountRepository.GetPermissions(account.Id));
+                    var token = authMgr.GetToken(account.Roles, account.GetPermissions());
                     authMgr.SetTicket(loginUser.UserName, token, rememberMe);
                     account.Register.LastLoginIP = IPAddress.GetIPAddress();
                     account.Register.LastLoginTime = DateTime.Now;

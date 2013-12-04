@@ -4,7 +4,7 @@ using EasyAccess.Infrastructure.Entity;
 
 namespace Demo.Model.EDMs
 {
-    public class FormConfig : AggregateRootBase<int>
+    public class FormConfig : AggregateRootBase<FormConfig, int>
     {
         [MaxLength(255)]
         public string Name { get; set; }

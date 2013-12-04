@@ -2,7 +2,7 @@
 using System.Linq;
 using EasyAccess.Infrastructure.UnitOfWork;
 using EasyAccess.Repository.Repositories;
-using EasyAccess.UnitTest.Configurations;
+using EasyAccess.UnitTest.Bootstrap;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Spring.Context;
 using Spring.Context.Support;

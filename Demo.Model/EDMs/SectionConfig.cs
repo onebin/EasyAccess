@@ -2,11 +2,18 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using EasyAccess.Infrastructure.Entity;
+using EasyAccess.Infrastructure.Repository;
+using Spring.Context.Support;
 
 namespace Demo.Model.EDMs
 {
     public class SectionConfig : IAggregateRoot
     {
+        public static RepositoryBase<SectionConfig> Repository
+        {
+            get { return ContextRegistry.GetContext().GetObject<RepositoryBase<SectionConfig>>(); ; }
+        }
+
         object IEntity.Id
         {
             get

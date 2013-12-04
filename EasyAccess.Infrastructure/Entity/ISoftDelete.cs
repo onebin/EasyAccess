@@ -1,7 +1,10 @@
 ﻿namespace EasyAccess.Infrastructure.Entity
 {
-    public interface IEntity
+    public interface ISoftDelete
     {
-        object Id { get; set; }
+        /// <summary>
+        /// 逻辑上的删除，非物理删除
+        /// </summary>
+        bool IsDeleted { get; set; }
     }
 }

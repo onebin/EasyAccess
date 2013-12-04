@@ -43,6 +43,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Spring.Core">
+      <HintPath>..\EasyAccess.UnitTest\bin\Debug\Spring.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
@@ -65,9 +68,9 @@
     <Compile Include="Entity\AggregateRootBase.cs" />
     <Compile Include="Entity\IAggregateRoot.cs" />
     <Compile Include="Entity\IAggregateRootBase.cs" />
-    <Compile Include="Entity\IEntity.cs" />
-    <Compile Include="Entity\IAggregateBase.cs" />
     <Compile Include="Entity\ISoftDelete.cs" />
+    <Compile Include="Entity\IAggregateBase.cs" />
+    <Compile Include="Entity\IEntity.cs" />
     <Compile Include="Extensions\TypeExtension.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

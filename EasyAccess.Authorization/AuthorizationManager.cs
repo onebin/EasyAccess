@@ -8,8 +8,7 @@ using System.Web.Security;
 using EasyAccess.Infrastructure.Util.Encryption;
 using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
-using EasyAccess.Repository.Configurations;
-using EasyAccess.Repository.Configurations.EntityFramework;
+using EasyAccess.Repository.Bootstrap.EntityFramework;
 
 namespace EasyAccess.Authorization
 {

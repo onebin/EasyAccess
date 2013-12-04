@@ -5,7 +5,7 @@ using EasyAccess.Infrastructure.Entity;
 
 namespace Demo.Model.EDMs
 {
-    public class InputConfig : AggregateRootBase<int>
+    public class InputConfig : AggregateRootBase<InputConfig, int>
     {
         public virtual SectionConfig Section { get; set; }
 

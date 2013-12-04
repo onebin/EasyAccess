@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Objects;
 using System.Linq;
+using EasyAccess.Infrastructure.Repository;
 using EasyAccess.Model.EDMs;
 using EasyAccess.Model.VOs;
-using EasyAccess.UnitTest.Configurations;
+using EasyAccess.UnitTest.Bootstrap;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace EasyAccess.UnitTest.TestRepository
 {
@@ -33,30 +36,45 @@ namespace EasyAccess.UnitTest.TestRepository
                 new Role() {Id = 2, Permissions = Permissions.Where(x => x.Id.Length < 8).ToList()},
             };
 
-        //[TestMethod]
-        //public void TestGetPermissions()
-        //{
-        //    var accountRepositoryMock = new Mock<AccountRepository>();
-        //    accountRepositoryMock.SetupProperty(x => x.UnitOfWork, new EasyAccessUnitOfWork(new EasyAccessContext()));
-        //    //GetPermissions -virtual ， GetRoles +virtual
-        //    accountRepositoryMock.Setup(x => x.GetRoles(It.IsAny<long>())).Returns(Roles);
-        //    var permissions = accountRepositoryMock.Object.GetPermissions(1);
+        private static readonly ICollection<Account> Accounts = new Collection<Account>
+            {
+                new Account() {Id = 1, Roles = Roles}
+            };
 
-        //    Assert.IsNotNull(permissions);
-        //    Assert.AreEqual(5, permissions.Count);
-        //    Assert.AreEqual(
-        //        string.Join(",", Permissions.Where(x => x.Id != "M01P0104").Select(x => x.Id)), 
-        //        string.Join(",", permissions.Select(x => x.Id)));
 
-        //    accountRepositoryMock.Verify(x => x.GetRoles(It.IsAny<long>()), Times.Once);
-        //}
+        public class AccountAdapter: Account
+        {
+            public new static IRepositoryBase<Account> Repository
+            {
+                get
+                {
+                    var repositoryMock = new Mock<IRepositoryBase<Account>>();
+                    repositoryMock.SetupProperty(x => x.Entities, new EnumerableQuery<Account>(Accounts));
+                    return repositoryMock.Object;
+                }
+            }
+        }
 
         [TestMethod]
         public void TestGetPermissions()
         {
-            var permissions = AccountRepository.GetPermissions(1);
-            Assert.AreEqual(3, permissions.Count);
+            var accountMock = new Mock<AccountAdapter>();
+            accountMock.SetupProperty(x => x.Roles, Roles);
+            //GetPermissions -virtual ， Roles +virtual
+            var permissions = accountMock.Object.GetPermissions();
+            Assert.IsNotNull(permissions);
+            Assert.AreEqual(5, permissions.Count);
+            Assert.AreEqual(
+                string.Join(",", Permissions.Where(x => x.Id != "M01P0104").Select(x => x.Id)),
+                string.Join(",", permissions.Select(x => x.Id)));
         }
+
+        //[TestMethod]
+        //public void TestGetPermissions()
+        //{
+        //    var permissions = Account.Repository[1].GetPermissions();
+        //    Assert.AreEqual(9, permissions.Count);
+        //}
 
         //[TestMethod]
         //public void TestGetMenus()
@@ -78,30 +96,30 @@ namespace EasyAccess.UnitTest.TestRepository
         [TestMethod]
         public void TestGetMenus()
         {
-            var menus = AccountRepository.GetMenus(1);
+            var menus = Account.Repository[1].GetMenus();
             Assert.AreEqual(3, menus.Count);
         }
 
         [TestMethod]
         public void TestVerifyLogin()
         {
-            var account = AccountRepository.VerifyLogin(new LoginUser { UserName = "Admin", Password = "123456" });
+            var account = Account.VerifyLogin(new LoginUser { UserName = "Admin", Password = "123456" });
             Assert.IsNotNull(account);
         }
 
         [TestMethod]
         public void TestGetById()
         {
-            var account = AccountRepository.GetById(1);
+            var account = Account.Repository.GetById(1);
             Assert.IsNotNull(account);
         }
 
         [TestMethod]
         public void TestSoftDelete()
         {
-            AccountRepository.Delete(AccountRepository.Entities);
-            Assert.IsTrue(AccountRepository.Entities.Any());
-            foreach (var account in AccountRepository.Entities)
+            Account.Repository.Delete(Account.Repository.Entities);
+            Assert.IsTrue(Account.Repository.Entities.Any());
+            foreach (var account in Account.Repository.Entities)
             {
                 Assert.AreEqual(true, account.IsDeleted);
             }
