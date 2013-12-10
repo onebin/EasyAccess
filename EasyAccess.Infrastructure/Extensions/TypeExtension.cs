@@ -35,14 +35,6 @@ namespace EasyAccess.Infrastructure.Extensions
         }
 
         /// <summary>
-        /// 是否DateTime的Nullable类型
-        /// </summary>
-        public static bool IsNullableOfDateTime(this Type type)
-        {
-            return type.IsNullableOf(typeof (DateTime));
-        }
-
-        /// <summary>
         /// 是否基本数据类型
         /// </summary>
         public static bool IsBaseDataType(this Type type)
