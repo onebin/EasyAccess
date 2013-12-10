@@ -21,7 +21,7 @@ namespace EasyAccess.Infrastructure.Extensions
         {
             if (IsNullableType(type))
             {
-                return type.GetGenericArguments()[0];
+                return Nullable.GetUnderlyingType(type);
             }
             return type;
         }
