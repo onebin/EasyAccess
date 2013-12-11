@@ -90,6 +90,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="T4\Include\Repository.ttinclude" />
+    <None Include="T4\Include\RepositoryConfig.ttinclude" />
     <None Include="T4\Repositories.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Repositories.cs</LastGenOutput>

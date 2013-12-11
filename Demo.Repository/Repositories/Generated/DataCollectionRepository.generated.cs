@@ -5,6 +5,5 @@ namespace Demo.Repository.Repositories
 {
     public class DataCollectionRepository : RepositoryBase<DataCollection>
     {
-         
     }
 }

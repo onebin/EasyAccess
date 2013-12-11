@@ -1,0 +1,54 @@
+﻿<#@ IntelliSenseLanguage processor="tangibleT4Editor" language="C#" #>
+<#+ 
+public class RepositoryConfigTemplate : CSharpTemplate
+{   
+
+    public RepositoryConfigTemplate(T4ModelInfo model)
+    {
+        _model = model;
+    }
+
+    /// <summary>
+    /// 获取 生成的文件名，根据模型名定义
+    /// </summary>
+    public string FileName
+    {
+        get
+        { 
+            return "RepositoryConfig.generated.xml";
+        }
+    }
+
+	public override string TransformText()
+	{		
+#>
+
+<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net"
+         xmlns:db="http://www.springframework.net/database">
+  
+  <object id="DemoContext" type="Demo.Repository.Bootstrap.EntityFramework.DemoContext, Demo.Repository" singleton="false" />
+
+  <object id="DemoUnitOfWork" type="Demo.Repository.UnitOfWork.DemoUnitOfWork, Demo.Repository" singleton="false">
+    <constructor-arg name="context" ref="DemoContext"/>
+  </object>
+
+  <object id="ArticleConfigRepository" type="Demo.Repository.Repositories.ArticleConfigRepository, Demo.Repository">
+    <property name="UnitOfWork" ref="DemoUnitOfWork"></property>
+  </object>
+  
+  <object id="InputConfigRepository" type="Demo.Repository.Repositories.InputConfigRepository, Demo.Repository">
+    <property name="UnitOfWork" ref="DemoUnitOfWork"></property>
+  </object>
+
+  <object id="SectionConfigRepository" type="Demo.Repository.Repositories.SectionConfigRepository, Demo.Repository">
+    <property name="UnitOfWork" ref="DemoUnitOfWork"></property>
+  </object>
+  
+</objects>
+
+<#+
+		return this.GenerationEnvironment.ToString();
+	}	
+}
+#>

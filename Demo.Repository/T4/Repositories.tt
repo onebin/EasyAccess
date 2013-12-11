@@ -12,6 +12,7 @@
 
 <#@ include file="T4Toolbox.tt" #>
 <#@ include file="Include\Repository.ttinclude" #>
+<#@ include file="Include\RepositoryConfig.ttinclude" #>
 <#
 	string currentPath = Path.GetDirectoryName(Host.TemplateFile);
     string projectPath =currentPath.Substring(0, currentPath.IndexOf(@"\T4"));
@@ -21,7 +22,7 @@
     byte[] fileData= File.ReadAllBytes(modelFile);
     Assembly assembly = Assembly.Load(fileData);
 
-	IEnumerable<Type> aggregateRoots = assembly.GetTypes().Where(m => typeof(IAggregateRoot).IsAssignableFrom(m) && !m.IsAbstract);
+	var aggregateRoots = assembly.GetTypes().Where(m => typeof(IAggregateRoot).IsAssignableFrom(m) && !m.IsAbstract).ToList();
 
 	foreach(Type aggregateRoot in aggregateRoots)
     {

@@ -5,6 +5,5 @@ namespace Demo.Repository.Repositories
 {
     public class FormConfigRepository : RepositoryBase<FormConfig>
     {
-         
     }
 }

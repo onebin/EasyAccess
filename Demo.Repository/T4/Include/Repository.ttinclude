@@ -30,7 +30,6 @@ namespace Demo.Repository.Repositories
 {
     public class <#= _model.Name #>Repository : RepositoryBase<<#= _model.Name #>>
     {
-         
     }
 }
 <#+
