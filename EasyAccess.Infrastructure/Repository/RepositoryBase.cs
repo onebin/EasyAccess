@@ -20,7 +20,6 @@ namespace EasyAccess.Infrastructure.Repository
 
         public virtual IUnitOfWork UnitOfWork { get; set; }
 
-
         protected UnitOfWorkContextBase UnitOfWorkContext
         {
             get
@@ -38,18 +37,29 @@ namespace EasyAccess.Infrastructure.Repository
             get { return UnitOfWorkContext.Set<TEntity>(); }
         }
 
-        public TEntity this[object id]
+        public TEntity this[object id, bool getDeletedItem = false]
         {
             get
             {
-                return this.GetById(id);
+                return this.GetById(id, getDeletedItem);
             }
         }
 
-
-        public TEntity GetById(object id)
+        public TEntity GetById(object id, bool getDeletedItem = false)
         {
+            if (!getDeletedItem && typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)))
+            {
+                return UnitOfWorkContext.Set<TEntity>().Where(GetSofeDeletedExpr()).FirstOrDefault(x => x.Id == id);
+            }
             return UnitOfWorkContext.Set<TEntity>().Find(id);
+        }
+
+        public Expression<Func<TEntity, bool>> GetSofeDeletedExpr()
+        {
+            var paramExpr = Expression.Parameter(typeof(TEntity));
+            var propExpr = Expression.Property(paramExpr, "IsDeleted");
+            var constExpr = Expression.Constant(false);
+            return Expression.Lambda<Func<TEntity, bool>>(Expression.Equal(propExpr, constExpr), paramExpr);
         }
 
         private IQueryable<TEntity> GetQueryableEntityByConditon(

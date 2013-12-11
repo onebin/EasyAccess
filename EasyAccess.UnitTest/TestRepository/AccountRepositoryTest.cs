@@ -110,18 +110,20 @@ namespace EasyAccess.UnitTest.TestRepository
         [TestMethod]
         public void TestGetById()
         {
-            var account = Account.FindById(1);
-            Assert.IsNotNull(account);
+            var account1 = Account.FindById(1);
+            Assert.IsNotNull(account1);
+            var account2 = Account.FindById(2);
         }
 
         [TestMethod]
         public void TestSoftDelete()
         {
-            Account.Delete(Account.FindAll());
-            Assert.IsTrue(Account.FindAll().Any());
+            //Account.Delete(Account.FindAll());
+            var accounts = Account.FindAll();
+            Assert.IsTrue(accounts.Any());
             foreach (var account in Account.FindAll())
             {
-                Assert.AreEqual(true, account.IsDeleted);
+                Assert.AreEqual(false, account.IsDeleted);
             }
         }
 

@@ -16,9 +16,11 @@ namespace EasyAccess.Infrastructure.Repository
 
         IQueryable<TEntity> Entities { get; }
 
-        TEntity this[object id] { get; }
+        TEntity this[object id, bool getDeletedItem = false] { get; }
 
-        TEntity GetById(object id);
+        TEntity GetById(object id, bool getDeletedItem = false);
+
+        Expression<Func<TEntity, bool>> GetSofeDeletedExpr();
 
         void GetPagingEdmData(PagingCondition pagingCondition, out List<TEntity> recordData, out long recordCount, IQueryCondition<TEntity> queryCondition = null);
 

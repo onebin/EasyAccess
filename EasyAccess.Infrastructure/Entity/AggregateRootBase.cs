@@ -16,18 +16,26 @@ namespace EasyAccess.Infrastructure.Entity
             get { return ContextRegistry.GetContext().GetObject<RepositoryBase<TEntity>>(); }
         }
 
-        public static TEntity FindById(TKey id)
+        public static TEntity FindById(TKey id, bool getDeletedItem = false)
         {
-            return Repository[id];
+            return Repository[id, getDeletedItem];
         }
 
-        public static IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> expr)
+        public static IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> expr, bool getDeletedItem = false)
         {
+            if (!getDeletedItem && typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)))
+            {
+                return Repository.Entities.Where(Repository.GetSofeDeletedExpr()).Where(expr);
+            }
             return Repository.Entities.Where(expr);
         }
 
-        public static IQueryable<TEntity> FindAll()
+        public static IQueryable<TEntity> FindAll(bool getDeletedItem = false)
         {
+            if (!getDeletedItem && typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)))
+            {
+                return Repository.Entities.Where(Repository.GetSofeDeletedExpr());
+            }
             return Repository.Entities;
         }
 
