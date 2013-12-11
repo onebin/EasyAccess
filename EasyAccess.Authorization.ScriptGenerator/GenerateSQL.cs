@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.IO;
 using System.Reflection;
@@ -66,13 +67,11 @@ namespace EasyAccess.Authorization.ScriptGenerator
         private void WriteStream(StreamWriter streamWriter)
         {
             DirectoryInfo dir = new DirectoryInfo(DllFilePath);
-            FileInfo[] files = dir.GetFiles();
-            foreach (var file in files.Where(e => e.Name == DllName))
+            var file = dir.GetFiles().FirstOrDefault(x => x.Name == DllName);
+            if (file != null)
             {
                 Assembly assembly = Assembly.LoadFrom(file.FullName);
                 Type[] types = assembly.GetTypes();
-                if (types == null)
-                    continue;
                 streamWriter.Write(SqlText(types));
             }
 

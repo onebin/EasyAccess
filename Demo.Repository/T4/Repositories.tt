@@ -1,6 +1,6 @@
 ﻿<#@ template language="C#" debug="True" #>
 <#@ Assembly Name="System.Core" #>
-<#@ Assembly Name="$(SolutionDir)\EasyAccess.Infrastructure\bin\Debug\EasyAccess.Infrastructure.dll" #>
+<#@ Assembly Name="$(SolutionDir)EasyAccess.Infrastructure\bin\Debug\EasyAccess.Infrastructure.dll" #>
 <#@ import namespace="System" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.IO" #>
@@ -12,23 +12,30 @@
 
 <#@ include file="T4Toolbox.tt" #>
 <#@ include file="Include\Repository.ttinclude" #>
-<#@ include file="Include\RepositoryConfig.ttinclude" #>
 <#
 	string currentPath = Path.GetDirectoryName(Host.TemplateFile);
     string projectPath =currentPath.Substring(0, currentPath.IndexOf(@"\T4"));
     string solutionPath = currentPath.Substring(0, currentPath.IndexOf(@"\Demo.Repository"));
+	DirectoryInfo dir = new DirectoryInfo(Path.Combine(solutionPath, @"Demo.Model\bin\Debug"));
+    var file = dir.GetFiles().FirstOrDefault(x => x.Name == "Demo.Model.dll");
+
+	if(file != null) {
+		Assembly assembly = Assembly.LoadFrom(file.FullName);
+		if(assembly != null)
+		{
+			var aggregateRoots = assembly.GetTypes().Where(m => typeof(IAggregateRoot).IsAssignableFrom(m) && !m.IsAbstract).ToList();
+
+			foreach(Type aggregateRoot in aggregateRoots)
+			{
+				T4ModelInfo model = new T4ModelInfo(aggregateRoot);
+				RepositoryTemplate repositoryTemplate = new RepositoryTemplate(model);
+				repositoryTemplate.Output.Encoding = Encoding.UTF8;
+				repositoryTemplate.RenderToFile(Path.Combine(string.Format(@"{0}\Repositories\Generated", projectPath), repositoryTemplate.FileName));
+			}
+
+		}
+
+    }
 	
-	string modelFile= Path.Combine(solutionPath, @"Demo.Model\bin\Debug\Demo.Model.dll");
-    byte[] fileData= File.ReadAllBytes(modelFile);
-    Assembly assembly = Assembly.Load(fileData);
-
-	var aggregateRoots = assembly.GetTypes().Where(m => typeof(IAggregateRoot).IsAssignableFrom(m) && !m.IsAbstract).ToList();
-
-	foreach(Type aggregateRoot in aggregateRoots)
-    {
-		T4ModelInfo model = new T4ModelInfo(aggregateRoot);
-		RepositoryTemplate repositoryTemplate = new RepositoryTemplate(model);
-		repositoryTemplate.Output.Encoding = Encoding.UTF8;
-		repositoryTemplate.RenderToFile(Path.Combine(string.Format(@"{0}\Repositories\Generated", projectPath), repositoryTemplate.FileName));
-	}
+	
 #>

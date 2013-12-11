@@ -5,7 +5,7 @@ public class RepositoryConfigTemplate : CSharpTemplate
 
     public RepositoryConfigTemplate(T4ModelInfo model)
     {
-        _model = model;
+        //_model = model;
     }
 
     /// <summary>
