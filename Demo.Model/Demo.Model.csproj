@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Demo.MvcApplication\bin\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Spring.Core, Version=2.0.0.40000, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\EasyAccess.UnitTest\bin\Debug\Spring.Core.dll</HintPath>
@@ -45,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTOs\ArticleConfigDto.cs" />
+    <Compile Include="DTOs\DataCollectionDto.cs" />
     <Compile Include="DTOs\InputConfigDto.cs" />
     <Compile Include="DTOs\SectionConfigDto.cs" />
     <Compile Include="VOs\InputType.cs" />

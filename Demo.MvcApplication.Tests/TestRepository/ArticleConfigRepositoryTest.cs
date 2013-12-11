@@ -12,8 +12,6 @@ namespace Demo.MvcApplication.Tests.TestRepository
         [TestMethod]
         public void TestBatchDelete()
         {
-            SectionConfig.Repository.Delete(SectionConfigRepository.Entities);
-            Assert.IsFalse(SectionConfig.Repository.Entities.Any());
         }
     }
 }

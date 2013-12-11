@@ -6,7 +6,7 @@ namespace EasyAccess.Infrastructure.Entity
     public abstract class AggregateBase<TKey> : IAggregateBase<TKey>
     {
         [Key]
-        public TKey Id { get; set; }
+        public virtual TKey Id { get; set; }
 
 
         object IEntity.Id

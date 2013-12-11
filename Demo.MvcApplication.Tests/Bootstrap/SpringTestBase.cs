@@ -38,7 +38,6 @@ namespace Demo.MvcApplication.Tests.Bootstrap
 
         protected SectionConfigRepository SectionConfigRepository { get; set; }
 
-        protected InputConfigRepository InputConfigRepository { get; set; }
 
         protected SpringTestBase()
         {
@@ -51,7 +50,6 @@ namespace Demo.MvcApplication.Tests.Bootstrap
 
             ArticleConfigRepository = appCtx.GetObject<ArticleConfigRepository>();
             SectionConfigRepository = appCtx.GetObject<SectionConfigRepository>();
-            InputConfigRepository = appCtx.GetObject<InputConfigRepository>();
         }
     }
 }

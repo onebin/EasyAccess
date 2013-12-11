@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @license r.js 2.1.9 Copyright (c) 2010-2012, The Dojo Foundation All Rights Reserved.
  * Available via the MIT or new BSD license.
  * see: http://github.com/jrburke/requirejs for details
@@ -8436,7 +8436,7 @@ define('uglifyjs/consolidator', ["require", "exports", "module", "./parse-js", "
  * any variable declarations in global code and derives String values from
  * identifier names used as property accessors.</p>
  * <p>Consolidating literals may worsen the data compression ratio when an <a
- * href="http://tools.ietf.org/html/rfc2616#section-3.5">encoding
+ * href="http://tools.ietf.org/html/rfc2616#SectionId-3.5">encoding
  * transformation</a> is applied. For instance, <a href=
  * "http://code.jquery.com/jquery-1.7.1.js">jQuery 1.7.1</a> takes 248235 bytes.
  * Building it with <a href="https://github.com/mishoo/UglifyJS/tarball/v1.2.5">
@@ -22601,7 +22601,7 @@ define('pragma', ['parse', 'logger'], function (parse, logger) {
 
             //Mix in a specific lifecycle scoped object, to allow targeting
             //some pragmas/has tests to only when files are saved, or at different
-            //lifecycle events. Do not bother with kwArgs in this section, since
+            //lifecycle events. Do not bother with kwArgs in this SectionId, since
             //the old dojo kwArgs were for all points in the build lifecycle.
             if (onLifecycleName) {
                 lifecyclePragmas = config['pragmas' + onLifecycleName];
@@ -25166,7 +25166,7 @@ define('build', function (require) {
         if ((config.name || config.include) && !config.modules) {
             //Just need to build one file, but may be part of a whole appDir/
             //baseUrl copy, but specified on the command line, so cannot do
-            //the modules array setup. So create a modules section in that
+            //the modules array setup. So create a modules SectionId in that
             //case.
             config.modules = [
                 {

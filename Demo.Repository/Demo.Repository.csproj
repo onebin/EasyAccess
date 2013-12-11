@@ -59,15 +59,18 @@
     <Compile Include="Bootstrap\EntityFramework\InitialData\Seed\InputConfigSeed.cs" />
     <Compile Include="Bootstrap\EntityFramework\InitialData\Seed\SectionConfigSeed.cs" />
     <Compile Include="Bootstrap\EntityFramework\InitialData\Seed\FormConfigSeed.cs" />
-    <Compile Include="Migrations\201310310646067_InitialCreate.cs" />
-    <Compile Include="Migrations\201310310646067_InitialCreate.Designer.cs">
-      <DependentUpon>201310310646067_InitialCreate.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\ArticleConfigRepository.cs" />
-    <Compile Include="Repositories\InputConfigRepository.cs" />
-    <Compile Include="Repositories\SectionConfigRepository.cs" />
+    <Compile Include="Repositories\Generated\ArticleConfigRepository.generated.cs" />
+    <Compile Include="Repositories\Generated\DataCollectionRepository.generated.cs" />
+    <Compile Include="Repositories\Generated\FormConfigRepository.generated.cs" />
+    <Compile Include="Repositories\Generated\InputConfigRepository.generated.cs" />
+    <Compile Include="Repositories\Generated\SectionConfigRepository.generated.cs" />
+    <Compile Include="T4\Repositories.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Repositories.tt</DependentUpon>
+    </Compile>
     <Compile Include="UnitOfWork\DemoUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -80,17 +83,29 @@
       <Name>EasyAccess.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="T4\Include\Repository.ttinclude" />
+    <None Include="T4\Repositories.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Repositories.cs</LastGenOutput>
+      <LastOutputs>
+..\Repositories\Generated\ArticleConfigRepository.generated.cs
+..\Repositories\Generated\DataCollectionRepository.generated.cs
+..\Repositories\Generated\FormConfigRepository.generated.cs
+..\Repositories\Generated\InputConfigRepository.generated.cs
+..\Repositories\Generated\SectionConfigRepository.generated.cs
+.\Repositories.cs
+</LastOutputs>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Bootstrap\Spring\RepositoryConfig.xml">
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201310310646067_InitialCreate.resx">
-      <DependentUpon>201310310646067_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
