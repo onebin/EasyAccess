@@ -21,10 +21,9 @@ namespace Demo.Repository.Bootstrap.EntityFramework
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
             modelBuilder.Entity<SectionConfig>()
-                        .HasOptional(x => x.ParentSection)
-                        .WithMany(x => x.SubSections)
-                        .HasForeignKey(x => x.ParentId)
-                        .WillCascadeOnDelete(true);
+                        .HasMany(x => x.SubSections)
+                        .WithOptional(x => x.ParentSection)
+                        .HasForeignKey(x => x.ParentId);
 
             modelBuilder.Entity<InputConfig>()
                         .HasRequired(x => x.Section)

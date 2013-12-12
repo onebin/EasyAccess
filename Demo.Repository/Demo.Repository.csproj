@@ -59,6 +59,10 @@
     <Compile Include="Bootstrap\EntityFramework\InitialData\Seed\InputConfigSeed.cs" />
     <Compile Include="Bootstrap\EntityFramework\InitialData\Seed\SectionConfigSeed.cs" />
     <Compile Include="Bootstrap\EntityFramework\InitialData\Seed\FormConfigSeed.cs" />
+    <Compile Include="Migrations\201312120959586_AddModuleForm.cs" />
+    <Compile Include="Migrations\201312120959586_AddModuleForm.Designer.cs">
+      <DependentUpon>201312120959586_AddModuleForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Generated\ArticleConfigRepository.generated.cs" />
@@ -106,6 +110,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Bootstrap\Spring\RepositoryConfig.generated.xml" />
+    <EmbeddedResource Include="Migrations\201312120959586_AddModuleForm.resx">
+      <DependentUpon>201312120959586_AddModuleForm.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

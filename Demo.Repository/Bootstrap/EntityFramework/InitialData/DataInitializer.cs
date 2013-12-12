@@ -9,8 +9,8 @@ namespace Demo.Repository.Bootstrap.EntityFramework.InitialData
         {
             context.Subjects.AddOrUpdate(x => x.Id, FormConfigSeed.Values);
             context.ArticleConfigs.AddOrUpdate(x => x.Id, ArticleConfigSeed.Values);
-            context.InputConfigs.AddOrUpdate(x => x.Id, InputConfigSeed.Values);
             context.SectionConfigs.AddOrUpdate(x => x.Id, SectionConfigSeed.Values);
+            context.InputConfigs.AddOrUpdate(x => x.Id, InputConfigSeed.Values);
         }
     }
 }

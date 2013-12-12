@@ -1,4 +1,5 @@
 ﻿using EasyAccess.Infrastructure.UnitOfWork;
+using EasyAccess.Repository.Bootstrap.EntityFramework;
 using EasyAccess.Repository.Repositories;
 using EasyAccess.Service.IServices;
 using Spring.Context.Support;
@@ -8,6 +9,11 @@ namespace EasyAccess.UnitTest.Bootstrap
 {
     public abstract class SpringTestBase : AbstractDependencyInjectionSpringContextTests
     {
+        static SpringTestBase()
+        {
+            EasyAccessDatabaseInitializer.Initialize();
+        }
+
         protected override string[] ConfigLocations
         {
             get

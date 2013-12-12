@@ -1,7 +1,10 @@
-﻿using Demo.Repository.Repositories;
+﻿using Demo.Repository.Bootstrap.EntityFramework;
+using Demo.Repository.Repositories;
 using EasyAccess.Infrastructure.UnitOfWork;
+using EasyAccess.Repository.Bootstrap.EntityFramework;
 using EasyAccess.Repository.Repositories;
 using EasyAccess.Service.IServices;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Spring.Context.Support;
 using Spring.Testing.Microsoft;
 
@@ -9,6 +12,12 @@ namespace Demo.MvcApplication.Tests.Bootstrap
 {
     public abstract class SpringTestBase : AbstractDependencyInjectionSpringContextTests
     {
+        static SpringTestBase()
+        {
+            EasyAccessDatabaseInitializer.Initialize();
+            DemoDatabaseInitializer.Initialize();
+        }
+
         protected override string[] ConfigLocations
         {
             get

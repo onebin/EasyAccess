@@ -2,6 +2,7 @@
 using System.Linq;
 using Demo.Model.EDMs;
 using Demo.MvcApplication.Tests.Bootstrap;
+using EasyAccess.Model.EDMs;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Demo.MvcApplication.Tests.TestRepository

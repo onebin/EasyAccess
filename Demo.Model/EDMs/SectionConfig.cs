@@ -6,9 +6,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Demo.Model.DTOs;
 using EasyAccess.Infrastructure.Entity;
-using EasyAccess.Infrastructure.Repository;
 using EasyAccess.Infrastructure.Util.ConditionBuilder;
-using Spring.Context.Support;
 
 namespace Demo.Model.EDMs
 {
