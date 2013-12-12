@@ -19,5 +19,6 @@
         public bool IsRepeatable { get; set; }
 
         public string TreeFlag { get; set; }
+
     }
 }

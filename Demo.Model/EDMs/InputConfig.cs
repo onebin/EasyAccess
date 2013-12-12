@@ -1,13 +1,20 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Demo.Model.DTOs;
 using Demo.Model.VOs;
 using EasyAccess.Infrastructure.Entity;
 
 namespace Demo.Model.EDMs
 {
-    public class InputConfig : AggregateRootBase<InputConfig, int>
+    public class InputConfig : AggregateBase<int>
     {
+        #region 属性
+
+        #region 引用关联
+
         public virtual SectionConfig Section { get; set; }
+        
+        #endregion
 
         /// <summary>
         /// 输入类型
@@ -43,5 +50,21 @@ namespace Demo.Model.EDMs
         /// </summary>
         [MaxLength(255)]
         public string Tips { get; set; }
+
+        #endregion
+
+        #region 实例方法
+
+        public void Update(InputConfigDto dto)
+        {
+            this.InputType = dto.InputType;
+            this.IsRequired = dto.IsRequired;
+            this.ValidType = dto.ValidType;
+            this.DefaultValue = dto.DefaultValue;
+            this.Tips = dto.Tips;
+            this.Memo = dto.Memo;
+        }
+        
+        #endregion
     }
 }

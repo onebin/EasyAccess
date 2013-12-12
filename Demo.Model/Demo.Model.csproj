@@ -48,8 +48,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTOs\AritcleSectionInputDataDto.cs" />
     <Compile Include="DTOs\ArticleConfigDto.cs" />
     <Compile Include="DTOs\DataCollectionDto.cs" />
+    <Compile Include="DTOs\FormConfigDto.cs" />
     <Compile Include="DTOs\InputConfigDto.cs" />
     <Compile Include="DTOs\SectionConfigDto.cs" />
     <Compile Include="VOs\InputType.cs" />

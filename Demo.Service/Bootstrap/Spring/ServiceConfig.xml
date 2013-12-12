@@ -2,7 +2,7 @@
 <objects xmlns="http://www.springframework.net"
          xmlns:db="http://www.springframework.net/database">
 
-  <object id="SubjectManageSvc" type="Demo.Service.Services.SubjectManageSvc, Demo.Service">
+  <object id="FormManageSvc" type="Demo.Service.Services.FormManageSvc, Demo.Service">
     <property name="UnitOfWork" ref="DemoUnitOfWork" />
   </object>
   
