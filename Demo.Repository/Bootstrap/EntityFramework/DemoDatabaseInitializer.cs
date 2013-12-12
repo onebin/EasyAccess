@@ -7,7 +7,7 @@ namespace Demo.Repository.Bootstrap.EntityFramework
     {
         public static void Initialize()
         {
-            Database.SetInitializer(new ResetAllData());
+            Database.SetInitializer(new ResetAllDataIfModelChanges());
             //Database.SetInitializer(new MigrateDatabaseToLatestVersion<DemoContext, Configuration>());
         }
 

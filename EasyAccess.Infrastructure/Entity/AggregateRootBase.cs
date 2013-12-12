@@ -10,19 +10,15 @@ using Spring.Context.Support;
 namespace EasyAccess.Infrastructure.Entity
 {
 
+
     public abstract class AggregateRootBase<TEntity, TKey> : AggregateBase<TKey>, IAggregateRootBase<TKey> where TEntity: class , IAggregateRoot
     {
-        public delegate void DeleteById(TKey id);
-        public delegate void DeleteByEntity(TEntity entity);
-        public delegate void DeleteByEntities(IEnumerable<TEntity> entities);
-        public delegate void DeleteByPredicate(Expression<Func<TEntity, bool>> predicate);
 
-        public static event DeleteById DeleteByIdEvent;
-        public static event DeleteByEntity DeleteByEntityEvent;
-        public static event DeleteByEntities DeleteByEntitiesEvent;
-        public static event DeleteByPredicate DeleteByPredicateEvent;
-
-
+        public static event RegisterDeleteById<TKey> DeleteById;
+        public static event RegisterDeleteByEntity<TEntity> DeleteByEntity;
+        public static event RegisterDeleteByEntities<TEntity> DeleteByEntities;
+        public static event RegisterDeleteByPredicate<TEntity> DeleteByPredicate;
+        
         protected static RepositoryBase<TEntity> Repository
         {
             get { return ContextRegistry.GetContext().GetObject<RepositoryBase<TEntity>>(); }
@@ -93,36 +89,36 @@ namespace EasyAccess.Infrastructure.Entity
 
         public static void Delete(TKey id)
         {
-            if (DeleteByIdEvent != null)
+            if (DeleteById != null)
             {
-                DeleteByIdEvent(id);
+                DeleteById(id);
             }
             Repository.Delete(id, false);
         }
 
         public static void Delete(TEntity entity)
         {
-            if (DeleteByEntityEvent != null)
+            if (DeleteByEntity != null)
             {
-                DeleteByEntityEvent(entity);
+                DeleteByEntity(entity);
             }
             Repository.Delete(entity, false);
         }
 
         public static void Delete(IEnumerable<TEntity> entities)
         {
-            if (DeleteByEntitiesEvent != null)
+            if (DeleteByEntities != null)
             {
-                DeleteByEntitiesEvent(entities);
+                DeleteByEntities(entities);
             }
             Repository.Delete(entities, false);
         }
 
         public static void Delete(Expression<Func<TEntity, bool>> predicate)
         {
-            if (DeleteByPredicateEvent != null)
+            if (DeleteByPredicate != null)
             {
-                DeleteByPredicateEvent(predicate);
+                DeleteByPredicate(predicate);
             }
             Repository.Delete(predicate, false);
         }

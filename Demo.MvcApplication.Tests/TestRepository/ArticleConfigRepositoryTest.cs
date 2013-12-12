@@ -16,5 +16,12 @@ namespace Demo.MvcApplication.Tests.TestRepository
             var article = ArticleConfig.FindById(1);
             Assert.IsNotNull(article);
         }
+
+        [TestMethod]
+        public void TestDeleteById()
+        {
+            var section = SectionConfig.FindById(1);
+            ArticleConfig.Delete(1);
+        }
     }
 }

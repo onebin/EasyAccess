@@ -14,6 +14,12 @@ using EasyAccess.Infrastructure.Util.PagingData;
 
 namespace EasyAccess.Infrastructure.Repository
 {
+
+    public delegate void RegisterDeleteById<in TKey>(TKey id);
+    public delegate void RegisterDeleteByEntity<in TEntity>(TEntity entity) where TEntity : class , IAggregateRoot;
+    public delegate void RegisterDeleteByEntities<in TEntity>(IEnumerable<TEntity> entities) where TEntity : class , IAggregateRoot;
+    public delegate void RegisterDeleteByPredicate<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class , IAggregateRoot;
+
     public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity>
         where TEntity : class, IAggregateRoot
     {

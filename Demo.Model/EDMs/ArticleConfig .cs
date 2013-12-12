@@ -11,6 +11,11 @@ namespace Demo.Model.EDMs
 {
     public class ArticleConfig : AggregateRootBase<ArticleConfig, int>
     {
+        public ArticleConfig()
+        {
+            DeleteById += id => SectionConfig.Delete(x => x.ArticleId == id);
+        }
+
         /// <summary>
         /// Article名称
         /// </summary>
