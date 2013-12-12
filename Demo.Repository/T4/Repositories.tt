@@ -12,12 +12,13 @@
 
 <#@ include file="T4Toolbox.tt" #>
 <#@ include file="Include\Repository.ttinclude" #>
+<#@ include file="Include\RepositoryConfig.ttinclude" #>
 <#
 	string currentPath = Path.GetDirectoryName(Host.TemplateFile);
     string projectPath =currentPath.Substring(0, currentPath.IndexOf(@"\T4"));
     string solutionPath = currentPath.Substring(0, currentPath.IndexOf(@"\Demo.Repository"));
 	DirectoryInfo dir = new DirectoryInfo(Path.Combine(solutionPath, @"Demo.Model\bin\Debug"));
-    var file = dir.GetFiles().FirstOrDefault(x => x.Name == "Demo.Model.dll");
+    FileInfo file = dir.GetFiles().FirstOrDefault(x => x.Name == "Demo.Model.dll");
 
 	if(file != null) {
 		Assembly assembly = Assembly.LoadFrom(file.FullName);
@@ -27,11 +28,14 @@
 
 			foreach(Type aggregateRoot in aggregateRoots)
 			{
-				T4ModelInfo model = new T4ModelInfo(aggregateRoot);
-				RepositoryTemplate repositoryTemplate = new RepositoryTemplate(model);
+				RepositoryTemplate repositoryTemplate = new RepositoryTemplate(aggregateRoot);
 				repositoryTemplate.Output.Encoding = Encoding.UTF8;
 				repositoryTemplate.RenderToFile(Path.Combine(string.Format(@"{0}\Repositories\Generated", projectPath), repositoryTemplate.FileName));
 			}
+
+			RepositoryConfigTemplate repositoryConfigTemplate = new RepositoryConfigTemplate(aggregateRoots);
+			repositoryConfigTemplate.Output.Encoding = Encoding.UTF8;
+			repositoryConfigTemplate.RenderToFile(Path.Combine(string.Format(@"{0}\Bootstrap\Spring", projectPath), repositoryConfigTemplate.FileName));
 
 		}
 

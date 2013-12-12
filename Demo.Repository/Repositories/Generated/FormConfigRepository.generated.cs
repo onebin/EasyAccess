@@ -3,7 +3,7 @@ using EasyAccess.Infrastructure.Repository;
 
 namespace Demo.Repository.Repositories
 {
-    public class FormConfigRepository : RepositoryBase<FormConfig>
+    public partial class FormConfigRepository : RepositoryBase<FormConfig>
     {
     }
 }

@@ -8,16 +8,26 @@
     <constructor-arg name="context" ref="DemoContext"/>
   </object>
 
+ 
+  <object id="FormConfigRepository" type="Demo.Repository.Repositories.FormConfigRepository, Demo.Repository">
+    <property name="UnitOfWork" ref="DemoUnitOfWork"></property>
+  </object>
+  
   <object id="ArticleConfigRepository" type="Demo.Repository.Repositories.ArticleConfigRepository, Demo.Repository">
+    <property name="UnitOfWork" ref="DemoUnitOfWork"></property>
+  </object>
+  
+  <object id="DataCollectionRepository" type="Demo.Repository.Repositories.DataCollectionRepository, Demo.Repository">
     <property name="UnitOfWork" ref="DemoUnitOfWork"></property>
   </object>
   
   <object id="InputConfigRepository" type="Demo.Repository.Repositories.InputConfigRepository, Demo.Repository">
     <property name="UnitOfWork" ref="DemoUnitOfWork"></property>
   </object>
-
+  
   <object id="SectionConfigRepository" type="Demo.Repository.Repositories.SectionConfigRepository, Demo.Repository">
     <property name="UnitOfWork" ref="DemoUnitOfWork"></property>
   </object>
-  
+   
 </objects>
+

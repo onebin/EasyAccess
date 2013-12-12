@@ -3,7 +3,7 @@ using EasyAccess.Infrastructure.Repository;
 
 namespace Demo.Repository.Repositories
 {
-    public class DataCollectionRepository : RepositoryBase<DataCollection>
+    public partial class DataCollectionRepository : RepositoryBase<DataCollection>
     {
     }
 }

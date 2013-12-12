@@ -66,7 +66,7 @@
     <Compile Include="Repositories\Generated\FormConfigRepository.generated.cs" />
     <Compile Include="Repositories\Generated\InputConfigRepository.generated.cs" />
     <Compile Include="Repositories\Generated\SectionConfigRepository.generated.cs" />
-    <Compile Include="T4\Repositories.cs">
+    <Compile Include="T4\Repositories1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Repositories.tt</DependentUpon>
@@ -93,14 +93,15 @@
     <None Include="T4\Include\RepositoryConfig.ttinclude" />
     <None Include="T4\Repositories.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Repositories.cs</LastGenOutput>
+      <LastGenOutput>Repositories1.cs</LastGenOutput>
       <LastOutputs>
+..\Bootstrap\Spring\RepositoryConfig.xml
 ..\Repositories\Generated\ArticleConfigRepository.generated.cs
 ..\Repositories\Generated\DataCollectionRepository.generated.cs
 ..\Repositories\Generated\FormConfigRepository.generated.cs
 ..\Repositories\Generated\InputConfigRepository.generated.cs
 ..\Repositories\Generated\SectionConfigRepository.generated.cs
-.\Repositories.cs
+.\Repositories1.cs
 </LastOutputs>
     </None>
   </ItemGroup>

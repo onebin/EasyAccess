@@ -3,7 +3,7 @@ using EasyAccess.Infrastructure.Repository;
 
 namespace Demo.Repository.Repositories
 {
-    public class InputConfigRepository : RepositoryBase<InputConfig>
+    public partial class InputConfigRepository : RepositoryBase<InputConfig>
     {
     }
 }

@@ -2,10 +2,11 @@
 <#+ 
 public class RepositoryConfigTemplate : CSharpTemplate
 {   
+	private IList<T4Entity> _entities;
 
-    public RepositoryConfigTemplate(T4ModelInfo model)
+    public RepositoryConfigTemplate(List<Type> entities)
     {
-        //_model = model;
+		_entities = entities.Select(x => new T4Entity(x)).ToList();
     }
 
     /// <summary>
@@ -15,14 +16,13 @@ public class RepositoryConfigTemplate : CSharpTemplate
     {
         get
         { 
-            return "RepositoryConfig.generated.xml";
+            return "RepositoryConfig.xml";
         }
     }
 
 	public override string TransformText()
 	{		
 #>
-
 <?xml version="1.0" encoding="utf-8" ?>
 <objects xmlns="http://www.springframework.net"
          xmlns:db="http://www.springframework.net/database">
@@ -33,17 +33,15 @@ public class RepositoryConfigTemplate : CSharpTemplate
     <constructor-arg name="context" ref="DemoContext"/>
   </object>
 
-  <object id="ArticleConfigRepository" type="Demo.Repository.Repositories.ArticleConfigRepository, Demo.Repository">
-    <property name="UnitOfWork" ref="DemoUnitOfWork"></property>
+<#+ 
+	foreach(var entity in _entities) {
+ #> 
+  <object id="<#= entity.EntityName #>Repository" type="<#= entity.ProjectName #>.Repository.Repositories.<#= entity.EntityName #>Repository, <#= entity.ProjectName #>.Repository">
+    <property name="UnitOfWork" ref="<#= entity.ProjectName #>UnitOfWork"></property>
   </object>
-  
-  <object id="InputConfigRepository" type="Demo.Repository.Repositories.InputConfigRepository, Demo.Repository">
-    <property name="UnitOfWork" ref="DemoUnitOfWork"></property>
-  </object>
-
-  <object id="SectionConfigRepository" type="Demo.Repository.Repositories.SectionConfigRepository, Demo.Repository">
-    <property name="UnitOfWork" ref="DemoUnitOfWork"></property>
-  </object>
+ <#+  
+    }
+ #>
   
 </objects>
 

@@ -2,11 +2,11 @@
 <#+ 
 public class RepositoryTemplate : CSharpTemplate
 {
-    private T4ModelInfo _model;
+    private T4Entity _entity;
         
-    public RepositoryTemplate(T4ModelInfo model)
+    public RepositoryTemplate(Type entity)
     {
-        _model = model;
+        _entity = new T4Entity(entity);
     }
 
     /// <summary>
@@ -16,19 +16,19 @@ public class RepositoryTemplate : CSharpTemplate
     {
         get
         { 
-            return string.Format("{0}Repository.generated.cs", _model.Name);
+            return string.Format("{0}Repository.generated.cs", _entity.EntityName);
         }
     }
 
 	public override string TransformText()
 	{	
 #>
-using Demo.Model.EDMs;
+using <#= _entity.Namespace #>;
 using EasyAccess.Infrastructure.Repository;
 
-namespace Demo.Repository.Repositories
+namespace <#= _entity.ProjectName #>.Repository.Repositories
 {
-    public class <#= _model.Name #>Repository : RepositoryBase<<#= _model.Name #>>
+    public partial class <#= _entity.EntityName #>Repository : RepositoryBase<<#= _entity.EntityName #>>
     {
     }
 }
