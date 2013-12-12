@@ -15,9 +15,9 @@ namespace Demo.MvcApplication.Tests.Bootstrap
             {
                 return new string[]
                 {
-                    "assembly://EasyAccess.Repository/EasyAccess.Repository/Bootstrap.Spring.RepositoryConfig.xml",
+                    "assembly://EasyAccess.Repository/EasyAccess.Repository/Bootstrap.Spring.RepositoryConfig.generated.xml",
                     "assembly://EasyAccess.Service/EasyAccess.Service/Bootstrap.Spring.ServiceConfig.xml",
-                    "assembly://Demo.Repository/Demo.Repository/Bootstrap.Spring.RepositoryConfig.xml",
+                    "assembly://Demo.Repository/Demo.Repository/Bootstrap.Spring.RepositoryConfig.generated.xml",
                     "assembly://Demo.Service/Demo.Service/Bootstrap.Spring.ServiceConfig.xml",
                     "assembly://Demo.MvcApplication/Demo.MvcApplication/ControllerConfig.xml"
                 };

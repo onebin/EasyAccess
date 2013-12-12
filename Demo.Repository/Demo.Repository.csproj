@@ -95,7 +95,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Repositories1.cs</LastGenOutput>
       <LastOutputs>
-..\Bootstrap\Spring\RepositoryConfig.xml
+..\Bootstrap\Spring\RepositoryConfig.generated.xml
 ..\Repositories\Generated\ArticleConfigRepository.generated.cs
 ..\Repositories\Generated\DataCollectionRepository.generated.cs
 ..\Repositories\Generated\FormConfigRepository.generated.cs
@@ -106,9 +106,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Bootstrap\Spring\RepositoryConfig.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Bootstrap\Spring\RepositoryConfig.generated.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

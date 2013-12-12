@@ -14,7 +14,7 @@ namespace EasyAccess.UnitTest.Bootstrap
             {
                 return new string[]
                 {
-                    "assembly://EasyAccess.Repository/EasyAccess.Repository/Bootstrap.Spring.RepositoryConfig.xml",
+                    "assembly://EasyAccess.Repository/EasyAccess.Repository/Bootstrap.Spring.RepositoryConfig.generated.xml",
                     "assembly://EasyAccess.Service/EasyAccess.Service/Bootstrap.Spring.ServiceConfig.xml"
                 };
             }

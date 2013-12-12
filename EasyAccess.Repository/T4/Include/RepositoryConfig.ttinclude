@@ -16,7 +16,7 @@ public class RepositoryConfigTemplate : CSharpTemplate
     {
         get
         { 
-            return "RepositoryConfig.xml";
+            return "RepositoryConfig.generated.xml";
         }
     }
 

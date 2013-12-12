@@ -89,9 +89,6 @@
     <EmbeddedResource Include="Migrations\201310171349063_InitialCreate.resx">
       <DependentUpon>201310171349063_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Bootstrap\Spring\RepositoryConfig.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -102,7 +99,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Repositories1.cs</LastGenOutput>
       <LastOutputs>
-..\Bootstrap\Spring\RepositoryConfig.xml
+..\Bootstrap\Spring\RepositoryConfig.generated.xml
 ..\Repositories\Generated\AccountRepository.generated.cs
 ..\Repositories\Generated\RoleRepository.generated.cs
 .\Repositories1.cs
@@ -111,6 +108,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Bootstrap\Spring\RepositoryConfig.generated.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
