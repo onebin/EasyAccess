@@ -32,12 +32,12 @@ namespace EasyAccess.Infrastructure.Repository
             }
         }
 
-        public IQueryable<TEntity> Entities
+        public virtual IQueryable<TEntity> Entities
         {
             get { return UnitOfWorkContext.Set<TEntity>(); }
         }
 
-        public TEntity this[object id, bool getDeletedItem = false]
+        public virtual TEntity this[object id, bool getDeletedItem = false]
         {
             get
             {
@@ -45,7 +45,7 @@ namespace EasyAccess.Infrastructure.Repository
             }
         }
 
-        public TEntity GetById(object id, bool getDeletedItem = false)
+        public virtual TEntity GetById(object id, bool getDeletedItem = false)
         {
             if (!getDeletedItem && typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)))
             {
@@ -117,50 +117,50 @@ namespace EasyAccess.Infrastructure.Repository
             recordData = query.Skip(pagingCondition.Skip).Take(pagingCondition.PageSize).Project().To<TDto>().ToList();
         }
 
-        public int Insert(TEntity entity, bool isSave = true)
+        public virtual int Insert(TEntity entity, bool isSave = true)
         {
             UnitOfWorkContext.RegisterNew(entity);
             return isSave ? UnitOfWorkContext.Commit() : 0;
         }
 
-        public int Insert(IEnumerable<TEntity> entities, bool isSave = true)
+        public virtual int Insert(IEnumerable<TEntity> entities, bool isSave = true)
         {
             UnitOfWorkContext.RegisterNew(entities);
             return isSave ? UnitOfWorkContext.Commit() : 0;
         }
 
-        public int Delete(object id, bool isSave = true)
+        public virtual int Delete(object id, bool isSave = true)
         {
             var entity = UnitOfWorkContext.Set<TEntity>().Find(id);
             return entity != null ? Delete(entity, isSave) : 0;
         }
 
-        public int Delete(TEntity entity, bool isSave = true)
+        public virtual int Delete(TEntity entity, bool isSave = true)
         {
             UnitOfWorkContext.RegisterDeleted(entity);
             return isSave ? UnitOfWorkContext.Commit() : 0;
         }
 
-        public int Delete(IEnumerable<TEntity> entities, bool isSave = true)
+        public virtual int Delete(IEnumerable<TEntity> entities, bool isSave = true)
         {
             UnitOfWorkContext.RegisterDeleted(entities);
             return isSave ? UnitOfWorkContext.Commit() : 0;
         }
 
-        public int Delete(Expression<Func<TEntity, bool>> predicate, bool isSave = true)
+        public virtual int Delete(Expression<Func<TEntity, bool>> predicate, bool isSave = true)
         {
             var entities = UnitOfWorkContext.Set<TEntity>().Where(predicate).ToList();
             return entities.Count > 0 ? Delete(entities, isSave) : 0;
         }
 
-        public int Update(TEntity entity, bool isSave = true)
+        public virtual int Update(TEntity entity, bool isSave = true)
         {
             UnitOfWorkContext.RegisterModified(entity);
             return isSave ? UnitOfWorkContext.Commit() : 0;
         }
 
 
-        public int Update(Expression<Func<TEntity, object>> propertyExpression, bool isSave = true, params TEntity[] entities)
+        public virtual int Update(Expression<Func<TEntity, object>> propertyExpression, bool isSave = true, params TEntity[] entities)
         {
             UnitOfWorkContext.RegisterModified(propertyExpression, entities);
             if (!isSave) return 0;

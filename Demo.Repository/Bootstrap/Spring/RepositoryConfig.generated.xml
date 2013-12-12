@@ -21,10 +21,6 @@
     <property name="UnitOfWork" ref="DemoUnitOfWork"></property>
   </object>
   
-  <object id="InputConfigRepository" type="Demo.Repository.Repositories.InputConfigRepository, Demo.Repository">
-    <property name="UnitOfWork" ref="DemoUnitOfWork"></property>
-  </object>
-  
   <object id="SectionConfigRepository" type="Demo.Repository.Repositories.SectionConfigRepository, Demo.Repository">
     <property name="UnitOfWork" ref="DemoUnitOfWork"></property>
   </object>

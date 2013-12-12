@@ -10,8 +10,10 @@ namespace Demo.MvcApplication.Tests.TestRepository
     public class ArticleConfigRepositoryTest: SpringTestBase
     {
         [TestMethod]
-        public void TestBatchDelete()
+        public void TestGetById()
         {
+            var article = ArticleConfig.FindById(1);
+            Assert.IsNotNull(article);
         }
     }
 }

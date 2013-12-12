@@ -64,8 +64,8 @@
     <Compile Include="Repositories\Generated\ArticleConfigRepository.generated.cs" />
     <Compile Include="Repositories\Generated\DataCollectionRepository.generated.cs" />
     <Compile Include="Repositories\Generated\FormConfigRepository.generated.cs" />
-    <Compile Include="Repositories\Generated\InputConfigRepository.generated.cs" />
     <Compile Include="Repositories\Generated\SectionConfigRepository.generated.cs" />
+    <Compile Include="Repositories\SectionConfigRepository.cs" />
     <Compile Include="T4\Repositories1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -99,7 +99,6 @@
 ..\Repositories\Generated\ArticleConfigRepository.generated.cs
 ..\Repositories\Generated\DataCollectionRepository.generated.cs
 ..\Repositories\Generated\FormConfigRepository.generated.cs
-..\Repositories\Generated\InputConfigRepository.generated.cs
 ..\Repositories\Generated\SectionConfigRepository.generated.cs
 .\Repositories1.cs
 </LastOutputs>
