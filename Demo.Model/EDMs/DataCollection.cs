@@ -20,7 +20,7 @@ namespace Demo.Model.EDMs
 
         #region 静态方法
 
-        public static List<DataCollectionDto> GetSupplierDataCollectionDtos(int formId)
+        public static List<DataCollectionDto> GetDataCollectionDtos(int formId)
         {
             var datas = Repository.Entities.Where(x => x.FormId == formId);
             if (datas.Any())
@@ -31,5 +31,6 @@ namespace Demo.Model.EDMs
         }
 
         #endregion
+
     }
 }

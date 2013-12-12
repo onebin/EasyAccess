@@ -12,7 +12,7 @@ namespace Demo.Service.IServices
 
         OperationResult RemoveForm(int formId);
 
-        OperationResult UpsertForm(FormConfigDto infoDto);
+        OperationResult UpsertForm(FormConfigDto formConfig);
 
         OperationResult UpsertFormData(int formId, List<DataCollectionDto> dtos);
 
