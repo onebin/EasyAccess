@@ -66,8 +66,13 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\AccountRepository.cs" />
-    <Compile Include="Repositories\RoleRepository.cs" />
+    <Compile Include="Repositories\Generated\AccountRepository.generated.cs" />
+    <Compile Include="Repositories\Generated\RoleRepository.generated.cs" />
+    <Compile Include="T4\Repositories1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Repositories.tt</DependentUpon>
+    </Compile>
     <Compile Include="UnitOfWork\EasyAccessUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -91,8 +96,22 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="T4\Include\Repository.ttinclude" />
+    <None Include="T4\Include\RepositoryConfig.ttinclude" />
+    <None Include="T4\Repositories.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Repositories1.cs</LastGenOutput>
+      <LastOutputs>
+..\Bootstrap\Spring\RepositoryConfig.xml
+..\Repositories\Generated\AccountRepository.generated.cs
+..\Repositories\Generated\RoleRepository.generated.cs
+.\Repositories1.cs
+</LastOutputs>
+    </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,0 +1,39 @@
+﻿<#@ IntelliSenseLanguage processor="tangibleT4Editor" language="C#" #>
+<#+ 
+public class RepositoryTemplate : CSharpTemplate
+{
+    private T4Entity _entity;
+        
+    public RepositoryTemplate(Type entity)
+    {
+        _entity = new T4Entity(entity);
+    }
+
+    /// <summary>
+    /// 获取 生成的文件名，根据模型名定义
+    /// </summary>
+    public string FileName
+    {
+        get
+        { 
+            return string.Format("{0}Repository.generated.cs", _entity.EntityName);
+        }
+    }
+
+	public override string TransformText()
+	{	
+#>
+using <#= _entity.Namespace #>;
+using EasyAccess.Infrastructure.Repository;
+
+namespace <#= _entity.ProjectName #>.Repository.Repositories
+{
+    public partial class <#= _entity.EntityName #>Repository : RepositoryBase<<#= _entity.EntityName #>>
+    {
+    }
+}
+<#+
+		return this.GenerationEnvironment.ToString();
+	}	
+}
+#>

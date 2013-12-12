@@ -1,0 +1,45 @@
+﻿<#@ template language="C#" debug="True" #>
+<#@ Assembly Name="System.Core" #>
+<#@ Assembly Name="$(SolutionDir)EasyAccess.Infrastructure\bin\Debug\EasyAccess.Infrastructure.dll" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections.Generic" #> 
+<#@ import namespace="EasyAccess.Infrastructure.Entity" #> 
+<#@ import namespace="EasyAccess.Infrastructure.Util.T4" #>
+
+<#@ include file="T4Toolbox.tt" #>
+<#@ include file="Include\Repository.ttinclude" #>
+<#@ include file="Include\RepositoryConfig.ttinclude" #>
+<#
+	string currentPath = Path.GetDirectoryName(Host.TemplateFile);
+    string projectPath =currentPath.Substring(0, currentPath.IndexOf(@"\T4"));
+    string solutionPath = currentPath.Substring(0, currentPath.IndexOf(@"\EasyAccess.Repository"));
+	DirectoryInfo dir = new DirectoryInfo(Path.Combine(solutionPath, @"EasyAccess.Model\bin\Debug"));
+    FileInfo file = dir.GetFiles().FirstOrDefault(x => x.Name == "EasyAccess.Model.dll");
+
+	if(file != null) {
+		Assembly assembly = Assembly.LoadFrom(file.FullName);
+		if(assembly != null)
+		{
+			var aggregateRoots = assembly.GetTypes().Where(m => typeof(IAggregateRoot).IsAssignableFrom(m) && !m.IsAbstract).ToList();
+
+			foreach(Type aggregateRoot in aggregateRoots)
+			{
+				RepositoryTemplate repositoryTemplate = new RepositoryTemplate(aggregateRoot);
+				repositoryTemplate.Output.Encoding = Encoding.UTF8;
+				repositoryTemplate.RenderToFile(Path.Combine(string.Format(@"{0}\Repositories\Generated", projectPath), repositoryTemplate.FileName));
+			}
+
+			RepositoryConfigTemplate repositoryConfigTemplate = new RepositoryConfigTemplate(aggregateRoots);
+			repositoryConfigTemplate.Output.Encoding = Encoding.UTF8;
+			repositoryConfigTemplate.RenderToFile(Path.Combine(string.Format(@"{0}\Bootstrap\Spring", projectPath), repositoryConfigTemplate.FileName));
+
+		}
+
+    }
+	
+	
+#>

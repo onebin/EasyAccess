@@ -99,7 +99,7 @@
     <Compile Include="Util\OperationResult.cs" />
     <Compile Include="Util\PagingData\PagingData.cs" />
     <Compile Include="Util\PagingData\PagingCondition.cs" />
-    <Compile Include="Util\T4\T4ModelInfo.cs" />
+    <Compile Include="Util\T4\T4Entity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
