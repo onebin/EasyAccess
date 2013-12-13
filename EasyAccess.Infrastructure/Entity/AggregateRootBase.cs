@@ -24,36 +24,24 @@ namespace EasyAccess.Infrastructure.Entity
             get { return ContextRegistry.GetContext().GetObject<RepositoryBase<TEntity>>(); }
         }
 
-        public static TEntity FindById(TKey id, bool getDeletedItem = false)
+        public static TEntity FindById(TKey id, bool getDeleted = false)
         {
-            return Repository[id, getDeletedItem];
+            return Repository[id, getDeleted];
         }
 
-        public static TEntity FindOne(Expression<Func<TEntity, bool>> expr, bool getDeletedItem = false)
+        public static TEntity FindOne(Expression<Func<TEntity, bool>> expr, bool getDeleted = false)
         {
-            if (!getDeletedItem && typeof (ISoftDelete).IsAssignableFrom(typeof (TEntity)))
-            {
-                return Repository.Entities.Where(Repository.GetSofeDeletedExpr()).SingleOrDefault(expr);
-            }
-            return Repository.Entities.SingleOrDefault(expr);
+            return Repository.Entities.SingleOrDefault(Repository.AppendSofeDeletedExpr(expr, getDeleted));
         }
 
-        public static IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> expr, bool getDeletedItem = false)
+        public static IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> expr, bool getDeleted = false)
         {
-            if (!getDeletedItem && typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)))
-            {
-                return Repository.Entities.Where(Repository.GetSofeDeletedExpr()).Where(expr);
-            }
-            return Repository.Entities.Where(expr);
+            return Repository.Entities.Where(Repository.AppendSofeDeletedExpr(expr, getDeleted));
         }
 
-        public static IQueryable<TEntity> FindAll(bool getDeletedItem = false)
+        public static IQueryable<TEntity> FindAll(bool getDeleted = false)
         {
-            if (!getDeletedItem && typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)))
-            {
-                return Repository.Entities.Where(Repository.GetSofeDeletedExpr());
-            }
-            return Repository.Entities;
+            return Repository.Entities.Where(Repository.AppendSofeDeletedExpr(notAppend: getDeleted));
         }
 
         public static PagingData<TDto> GetPagingDtoData<TDto>(

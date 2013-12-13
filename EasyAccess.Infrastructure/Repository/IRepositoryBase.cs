@@ -16,11 +16,9 @@ namespace EasyAccess.Infrastructure.Repository
 
         IQueryable<TEntity> Entities { get; }
 
-        TEntity this[object id, bool getDeletedItem = false] { get; }
+        TEntity this[object id, bool getDeleted = false] { get; }
 
         TEntity GetById(object id, bool getDeletedItem = false);
-
-        Expression<Func<TEntity, bool>> GetSofeDeletedExpr();
 
         void GetPagingEdmData(PagingCondition pagingCondition, out List<TEntity> recordData, out long recordCount, IQueryCondition<TEntity> queryCondition = null);
 
@@ -41,6 +39,9 @@ namespace EasyAccess.Infrastructure.Repository
         int Update(TEntity entity, bool isSave = true);
 
         int Update(Expression<Func<TEntity, object>> propertyExpression, bool isSave = true, params TEntity[] entities);
+
+        Expression<Func<TEntity, bool>> AppendSofeDeletedExpr(Expression<Func<TEntity, bool>> originExpr = null,
+                                                              bool notAppend = false);
 
     }
 }

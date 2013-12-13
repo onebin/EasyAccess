@@ -43,29 +43,17 @@ namespace EasyAccess.Infrastructure.Repository
             get { return UnitOfWorkContext.Set<TEntity>(); }
         }
 
-        public virtual TEntity this[object id, bool getDeletedItem = false]
+        public virtual TEntity this[object id, bool getDeleted = false]
         {
             get
             {
-                return this.GetById(id, getDeletedItem);
+                return this.GetById(id, getDeleted);
             }
         }
 
-        public virtual TEntity GetById(object id, bool getDeletedItem = false)
+        public virtual TEntity GetById(object id, bool getDeleted = false)
         {
-            if (!getDeletedItem && typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)))
-            {
-                return UnitOfWorkContext.Set<TEntity>().Where(GetSofeDeletedExpr()).FirstOrDefault(x => x.Id == id);
-            }
-            return UnitOfWorkContext.Set<TEntity>().Find(id);
-        }
-
-        public Expression<Func<TEntity, bool>> GetSofeDeletedExpr()
-        {
-            var paramExpr = Expression.Parameter(typeof(TEntity));
-            var propExpr = Expression.Property(paramExpr, "IsDeleted");
-            var constExpr = Expression.Constant(false);
-            return Expression.Lambda<Func<TEntity, bool>>(Expression.Equal(propExpr, constExpr), paramExpr);
+            return UnitOfWorkContext.Set<TEntity>().FirstOrDefault(AppendSofeDeletedExpr(x => x.Id == id, getDeleted));
         }
 
         private IQueryable<TEntity> GetQueryableEntityByConditon(
@@ -177,6 +165,28 @@ namespace EasyAccess.Infrastructure.Repository
                 UnitOfWorkContext.Entry(entity).State = EntityState.Modified;
             }
             return UnitOfWorkContext.Commit();
+        }
+
+        public Expression<Func<TEntity, bool>> AppendSofeDeletedExpr(Expression<Func<TEntity, bool>> originExpr = null, bool notAppend = false)
+        {
+            if (originExpr != null && notAppend)
+            {
+                return originExpr;
+            }
+
+            var paramExpr = originExpr != null ? originExpr.Parameters.ToArray()[0] : Expression.Parameter(typeof(TEntity));
+            var propExpr = Expression.Property(paramExpr, "IsDeleted");
+            var constExpr = Expression.Constant(false);
+            var delExpr = Expression.Lambda<Func<TEntity, bool>>(Expression.Equal(propExpr, constExpr), paramExpr);
+            if (originExpr != null && typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)))
+            {
+                return
+                    Expression.Lambda<Func<TEntity, bool>>(
+                        Expression.AndAlso(originExpr.Body,
+                                           new ParameterExpressionVisitor(originExpr.Parameters[0]).Visit(delExpr.Body)),
+                        originExpr.Parameters);
+            }
+            return delExpr;
         }
     }
 }
