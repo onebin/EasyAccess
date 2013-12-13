@@ -169,24 +169,28 @@ namespace EasyAccess.Infrastructure.Repository
 
         public Expression<Func<TEntity, bool>> AppendSofeDeletedExpr(Expression<Func<TEntity, bool>> originExpr = null, bool notAppend = false)
         {
-            if (originExpr != null && notAppend)
+            var isAppendable = typeof (ISoftDelete).IsAssignableFrom(typeof (TEntity));
+            if (originExpr != null && (notAppend || !isAppendable))
             {
                 return originExpr;
             }
-
-            var paramExpr = originExpr != null ? originExpr.Parameters.ToArray()[0] : Expression.Parameter(typeof(TEntity));
-            var propExpr = Expression.Property(paramExpr, "IsDeleted");
-            var constExpr = Expression.Constant(false);
-            var delExpr = Expression.Lambda<Func<TEntity, bool>>(Expression.Equal(propExpr, constExpr), paramExpr);
-            if (originExpr != null && typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)))
+            if (!notAppend && isAppendable)
             {
-                return
-                    Expression.Lambda<Func<TEntity, bool>>(
-                        Expression.AndAlso(originExpr.Body,
-                                           new ParameterExpressionVisitor(originExpr.Parameters[0]).Visit(delExpr.Body)),
-                        originExpr.Parameters);
+                var paramExpr = originExpr != null ? originExpr.Parameters.ToArray()[0] : Expression.Parameter(typeof(TEntity));
+                var propExpr = Expression.Property(paramExpr, "IsDeleted");
+                var constExpr = Expression.Constant(false);
+                var delExpr = Expression.Lambda<Func<TEntity, bool>>(Expression.Equal(propExpr, constExpr), paramExpr);
+                if (originExpr != null)
+                {
+                    return
+                        Expression.Lambda<Func<TEntity, bool>>(
+                            Expression.AndAlso(originExpr.Body,
+                                               new ParameterExpressionVisitor(originExpr.Parameters[0]).Visit(delExpr.Body)),
+                            originExpr.Parameters);
+                }
+                return delExpr;
             }
-            return delExpr;
+            return x => true;
         }
     }
 }
