@@ -24,7 +24,7 @@
 		Assembly assembly = Assembly.LoadFrom(file.FullName);
 		if(assembly != null)
 		{
-			var aggregateRoots = assembly.GetTypes().Where(m => typeof(IAggregateRoot).IsAssignableFrom(m) && !m.IsAbstract).ToList();
+			var aggregateRoots = assembly.GetTypes().Where(x => typeof(IAggregateRoot).IsAssignableFrom(x) && !x.IsAbstract).ToList();
 
 			foreach(Type aggregateRoot in aggregateRoots)
 			{
