@@ -11,6 +11,7 @@
 <#@ import namespace="EasyAccess.Infrastructure.Util.T4" #>
 
 <#@ include file="T4Toolbox.tt" #>
+<#@ include file="Include\Context.ttinclude" #>
 <#@ include file="Include\Repository.ttinclude" #>
 <#@ include file="Include\RepositoryConfig.ttinclude" #>
 <#
@@ -24,7 +25,8 @@
 		Assembly assembly = Assembly.LoadFrom(file.FullName);
 		if(assembly != null)
 		{
-			var aggregateRoots = assembly.GetTypes().Where(x => typeof(IAggregateRoot).IsAssignableFrom(x) && !x.IsAbstract).ToList();
+			var entities = assembly.GetTypes().Where(x => typeof(IEntity).IsAssignableFrom(x) && !x.IsAbstract).ToList();
+			var aggregateRoots = entities.Where(x => typeof(IAggregateRoot).IsAssignableFrom(x) && !x.IsAbstract).ToList();
 
 			foreach(Type aggregateRoot in aggregateRoots)
 			{
@@ -36,6 +38,10 @@
 			RepositoryConfigTemplate repositoryConfigTemplate = new RepositoryConfigTemplate(aggregateRoots);
 			repositoryConfigTemplate.Output.Encoding = Encoding.UTF8;
 			repositoryConfigTemplate.RenderToFile(Path.Combine(string.Format(@"{0}\Bootstrap\Spring", projectPath), repositoryConfigTemplate.FileName));
+
+			ContextTemplate contextTemplate = new ContextTemplate(entities);
+			contextTemplate.Output.Encoding = Encoding.UTF8;
+			contextTemplate.RenderToFile(Path.Combine(string.Format(@"{0}\Bootstrap\EntityFramework", projectPath), contextTemplate.FileName));
 
 		}
 

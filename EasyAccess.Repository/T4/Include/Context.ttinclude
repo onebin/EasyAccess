@@ -1,0 +1,45 @@
+﻿<#@ IntelliSenseLanguage processor="tangibleT4Editor" language="C#" #>
+<#+ 
+public class ContextTemplate : CSharpTemplate
+{
+    private IList<T4Entity> _entities;
+
+    public ContextTemplate(List<Type> entities)
+    {
+		_entities = entities.Select(x => new T4Entity(x)).ToList();
+    }
+
+    public string FileName
+    {
+        get
+        { 
+            return "EasyAccessContext.generated.cs";
+        }
+    }
+
+	public override string TransformText()
+	{		
+#>
+using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
+using EasyAccess.Model.EDMs;
+
+namespace EasyAccess.Repository.Bootstrap.EntityFramework
+{
+    public partial class EasyAccessContext : DbContext
+    {<#+ foreach(var entity in _entities) {#> 
+		public DbSet<<#= entity.EntityName #>> <#= entity.EntityName #>s { get; set; }
+	<#+ }#>
+
+		partial void CreateModel(DbModelBuilder modelBuilder);
+
+		protected override void OnModelCreating(DbModelBuilder modelBuilder) {
+            CreateModel(modelBuilder);
+		}
+    }
+}			
+<#+		
+		return this.GenerationEnvironment.ToString();
+	}	
+}
+#>

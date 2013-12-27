@@ -4,19 +4,9 @@ using Demo.Model.EDMs;
 
 namespace Demo.Repository.Bootstrap.EntityFramework
 {
-    public class DemoContext : DbContext
+    public partial class DemoContext
     {
-        public DbSet<FormConfig> Subjects { get; set; }
-
-        public DbSet<ArticleConfig> ArticleConfigs { get; set; }
-
-        public DbSet<SectionConfig> SectionConfigs { get; set; }
-
-        public DbSet<InputConfig> InputConfigs { get; set; }
-
-        public DbSet<DataCollection> DataCollections { get; set; }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        partial void CreateModel(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 

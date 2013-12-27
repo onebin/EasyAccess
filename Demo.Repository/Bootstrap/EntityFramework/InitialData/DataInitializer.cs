@@ -7,7 +7,7 @@ namespace Demo.Repository.Bootstrap.EntityFramework.InitialData
     {
         public static void Initialize(DemoContext context)
         {
-            context.Subjects.AddOrUpdate(x => x.Id, FormConfigSeed.Values);
+            context.FormConfigs.AddOrUpdate(x => x.Id, FormConfigSeed.Values);
             context.ArticleConfigs.AddOrUpdate(x => x.Id, ArticleConfigSeed.Values);
             context.SectionConfigs.AddOrUpdate(x => x.Id, SectionConfigSeed.Values);
             context.InputConfigs.AddOrUpdate(x => x.Id, InputConfigSeed.Values);

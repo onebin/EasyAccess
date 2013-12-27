@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrap\EntityFramework\DemoContext.cs" />
+    <Compile Include="Bootstrap\EntityFramework\DemoContext.generated.cs" />
     <Compile Include="Bootstrap\EntityFramework\DemoDatabaseInitializer.cs" />
     <Compile Include="Bootstrap\EntityFramework\InitialData\DataInitializer.cs" />
     <Compile Include="Bootstrap\EntityFramework\InitialData\Seed\ArticleConfigSeed.cs" />
@@ -93,12 +94,14 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="T4\Include\Context.ttinclude" />
     <None Include="T4\Include\Repository.ttinclude" />
     <None Include="T4\Include\RepositoryConfig.ttinclude" />
     <None Include="T4\Repositories.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Repositories1.cs</LastGenOutput>
       <LastOutputs>
+..\Bootstrap\EntityFramework\DemoContext.generated.cs
 ..\Bootstrap\Spring\RepositoryConfig.generated.xml
 ..\Repositories\Generated\ArticleConfigRepository.generated.cs
 ..\Repositories\Generated\DataCollectionRepository.generated.cs

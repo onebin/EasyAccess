@@ -4,19 +4,9 @@ using EasyAccess.Model.EDMs;
 
 namespace EasyAccess.Repository.Bootstrap.EntityFramework
 {
-    public class EasyAccessContext : DbContext
+    public partial class EasyAccessContext
     {
-        public DbSet<Account> Accounts { get; set; }
-
-        public DbSet<Role> Roles { get; set; }
-
-        public DbSet<Menu> Menus { get; set; } 
-
-        public DbSet<Permission> Permissions { get; set; }
-
-        public DbSet<Register> Registers { get; set; }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        partial void CreateModel(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
