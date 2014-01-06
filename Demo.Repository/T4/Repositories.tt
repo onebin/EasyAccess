@@ -26,7 +26,7 @@
 		if(assembly != null)
 		{
 			var entities = assembly.GetTypes().Where(x => typeof(IEntity).IsAssignableFrom(x) && !x.IsAbstract).ToList();
-			var aggregateRoots = entities.Where(x => typeof(IAggregateRoot).IsAssignableFrom(x) && !x.IsAbstract).ToList();
+			var aggregateRoots = entities.Where(x => typeof(IAggregateRoot).IsAssignableFrom(x)).ToList();
 
 			foreach(Type aggregateRoot in aggregateRoots)
 			{
