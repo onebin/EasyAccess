@@ -155,9 +155,9 @@ namespace EasyAccess.Infrastructure.UnitOfWork
         public bool IsCommitted { get; private set; }
         public bool IsRollback { get; private set; }
 
-        public int Commit()
+        public int Commit(bool force = false)
         {
-            if (IsCommitted || IsRollback)
+            if (!force && (IsCommitted || IsRollback))
             {
                 return 0;
             }
