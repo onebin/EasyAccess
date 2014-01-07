@@ -248,25 +248,7 @@
     },
 
     formatter: {
-        currencyValueData: [{ value: '1', text: 'CNY' }, { value: '2', text: 'GBP' }, { value: '3', text: 'USD' }, { value: '4', text: 'AUD' }, { value: '5', text: 'EUR' }, { value: '6', text: 'HKD' }],
-        currencyValueFormatter: function (value, row, index) {
-            for (var idx in easyuiHelper.formatter.currencyValueData) {
-                if (easyuiHelper.formatter.currencyValueData[idx].value == value) {
-                    return easyuiHelper.formatter.currencyValueData[idx].text;
-                }
-            }
-            return "";
-        },
-
-        weightValueData: [{ value: '1', text: 'G' }, { value: '2', text: 'KG' }, { value: '3', text: 'Oz' }, { value: '4', text: 'LBS' }, { value: '5', text: 'CBM' }],
-        weightValueFormatter: function (value, row, index) {
-            for (var idx in easyuiHelper.formatter.weightValueData) {
-                if (easyuiHelper.formatter.weightValueData[idx].value == value) {
-                    return easyuiHelper.formatter.weightValueData[idx].text;
-                }
-            }
-            return "";
-        },
+        
 
         booleanValueData: [{ value: 'True', text: '是' }, { value: 'False', text: '否' }],
         booleanValueFormatter: function (value, row, index) {
@@ -274,21 +256,6 @@
                 return "是";
             }
             return "否";
-        },
-
-        volumeWeightStandardsValueData: [{ value: '0', text: '0' }, { value: '4000', text: '4000' }, { value: '5000', text: '5000' }, { value: '6000', text: '6000' }, { value: '8000', text: '8000' }],
-        volumeWeightStandardsValueFormatter: function (value, row, index) {
-            for (var idx in easyuiHelper.formatter.volumeWeightStandardsValueData) {
-                if (easyuiHelper.formatter.volumeWeightStandardsValueData[idx].value == value) {
-                    return easyuiHelper.formatter.volumeWeightStandardsValueData[idx].text;
-                }
-            }
-            return "";
-        },
-
-        progressbarFormatter: function (value, row, index) {
-            return '<div class="progressbar-value" style="width: 100%; height: 22px; line-height: 22px;">' +
-                '<div class="progressbar-text" style="width: ' + value + '%; height: 22px; line-height: 22px;">' + value + '%</div></div>';
         },
 
         dateFormatter: function (date) {
@@ -361,12 +328,6 @@ $.extend($.fn.validatebox.defaults.rules, {
             return false;
         },
         message: '请输入有效的范围({0}-{1})和检查数据格式(如: 0-1)'
-    },
-    packing: { // 验证规则
-        validator: function (value) {
-            return /^[0-9]+(?:\.[0-9]+)?\*[0-9]+(?:\.[0-9]+)?\*[0-9]+(?:\.[0-9]+)?$/i.test(value);
-        },
-        message: '格式不正确,请使用下面格式:10*10*10'
     },
     minLength: { // 验证最少字符长度
         validator: function (value, param) {
