@@ -1,5 +1,4 @@
 ﻿var easyuiHelper = {
-
     tabs: {
         add: function (title, url, debug) {
             var appendParam = "debug=0";
@@ -14,14 +13,24 @@
             if ($('#container-tabs').tabs('exists', title)) {
                 $('#container-tabs').tabs('select', title);
             } else {
-
                 var tools = [
-                    //{
-                    //    iconCls: 'icon-mini-refresh',
-                    //    handler: function() {
-                    //        $('#container-tabs').tabs('getTab', title).panel("refresh");
-                    //    }
-                    //}
+                    {
+                        iconCls: 'icon-mini-refresh',
+                        handler: function () {
+                            $('#container-tabs').tabs('select', title);
+                            var tab = $('#container-tabs').tabs('getTab', title);
+                            if (debug) {
+                                tab.find("iframe")[0].contentWindow.location.href = url;
+                            } else {
+                                $('#container-tabs').tabs('update', {
+                                    tab: tab,
+                                    options: {
+                                        href: url
+                                    }
+                                });
+                            }
+                        }
+                    }
                 ];
 
                 if (debug) {
@@ -37,7 +46,7 @@
                         title: title,
                         href: url,
                         closable: true,
-                        tools: tools
+                        tools: tools,
                     });
                 }
             }
@@ -45,26 +54,12 @@
         },
 
         closeAll: function () {
-            easyuiHelper.messager.confirm.custom(function (parameters) {
+            easyuiHelper.messager.confirm.custom(function () {
                 var tabsCount = $("#container-tabs").tabs("tabs").length;
                 for (var i = 1; i < tabsCount; i++) {
                     $("#container-tabs").tabs("close", 1);
                 }
             }, "确定要关闭全部标签页？");
-        },
-
-        refresh: function (which) {
-
-        }
-    },
-
-    combobox: {
-        booleanValueData: [{ value: 'True', text: '是' }, { value: 'False', text: '否' }],
-        BooleanValueFormatter: function (value, row, index) {
-            if (value == "True" || value == "true" || value == "1") {
-                return "是";
-            }
-            return "否";
         }
     },
 
@@ -120,23 +115,29 @@
 
     messager: {
         confirm: {
-            remove: function (event, msg) {
+            remove: function (param, msg) {
                 if (msg && msg.length != 0) {
                 } else {
                     msg = "真的要删除吗?(>﹏<) ";
                 }
-                easyuiHelper.messager.confirm.custom(event, msg);
+                easyuiHelper.messager.confirm.custom(param, msg);
             },
 
-            custom: function (event, msg) {
+            custom: function (param, msg) {
                 if (msg && msg.length != 0) {
                 } else {
                     msg = "你确定要这么做？";
                 }
                 $.messager.confirm('操作提示', msg, function (r) {
                     if (r) {
-                        if (event) {
-                            event();
+                        if (typeof param === "function") {
+                            param(param.param);
+                        } else if (typeof param === "object" && typeof param.todo === "function") {
+                            param.todo(param.param);
+                        }
+                    } else {
+                        if (typeof param === "object" && typeof param.undo === "function") {
+                            param.undo(param.param);
                         }
                     }
                 });
@@ -145,38 +146,164 @@
 
         alert: function (param) {
             if (param.result) {
-                if (param.result.ResultType == statusCodeHelper.ok) {
-                    if (param.success) {
+                if (param.result.StatusCode == statusCodeHelper.ok) {
+                    if (typeof param.success === "function") {
                         if (param.result.Message && param.result.Message.length > 0) {
-                            global.Toast(true, param.result.Message);
+                            global.toast(true, param.result.Message);
                         } else {
-                            global.Toast(true);
+                            global.toast(true);
                         }
-                        param.success();
+                        param.success(param.param);
                     }
                 } else {
                     if (param.result.Message && param.result.Message.length > 0) {
+                        var title;
                         var alertType;
-                        switch (param.result.ResultType) {
+                        switch (param.result.StatusCode) {
                             case statusCodeHelper.error:
                                 alertType = "error";
+                                title = "错误";
                                 break;
                             case statusCodeHelper.failed:
                             case statusCodeHelper.notModified:
                             case statusCodeHelper.notFound:
                                 alertType = "warning";
+                                title = "警告";
                                 break;
                             default:
                                 alertType = "info";
+                                title = "提示";
                                 break;
                         }
-                        $.messager.alert("系统提示", param.result.Message, alertType);
-                        if (param.fail) {
-                            param.fail();
+                        $.messager.alert(title, param.result.Message, alertType);
+                        if (typeof param.fail === "function") {
+                            param.fail(param.param);
                         }
                     }
                 }
             }
+        },
+
+        show: function (msg, pos) {
+            var position = {
+                topLeft: {
+                    right: '',
+                    left: 0,
+                    top: document.body.scrollTop + document.documentElement.scrollTop,
+                    bottom: ''
+                },
+                topCenter: {
+                    right: '',
+                    top: document.body.scrollTop + document.documentElement.scrollTop,
+                    bottom: ''
+                },
+                topRight: {
+                    left: '',
+                    right: 0,
+                    top: document.body.scrollTop + document.documentElement.scrollTop,
+                    bottom: ''
+                },
+                centerLeft: {
+                    left: 0,
+                    right: '',
+                    bottom: ''
+                },
+                center: {
+                    right: '',
+                    bottom: ''
+                },
+                centerRight: {
+                    left: '',
+                    right: 0,
+                    bottom: ''
+                },
+                bottomLeft: {
+                    left: 0,
+                    right: '',
+                    top: '',
+                    bottom: -document.body.scrollTop - document.documentElement.scrollTop
+                },
+                bottomCenter: {
+                    right: '',
+                    top: '',
+                    bottom: -document.body.scrollTop - document.documentElement.scrollTop
+                },
+                bottomRight: {
+                    right: 0,
+                    top: '',
+                    left: '',
+                    bottom: -document.body.scrollTop - document.documentElement.scrollTop
+                }
+            };
+            var style = position["topCenter"];
+            if (pos) {
+                style = position[pos];
+            }
+            $.messager.show({
+                msg: msg,
+                showType: 'show',
+                style: style
+            });
+        }
+    },
+
+    formatter: {
+        currencyValueData: [{ value: '1', text: 'CNY' }, { value: '2', text: 'GBP' }, { value: '3', text: 'USD' }, { value: '4', text: 'AUD' }, { value: '5', text: 'EUR' }, { value: '6', text: 'HKD' }],
+        currencyValueFormatter: function (value, row, index) {
+            for (var idx in easyuiHelper.formatter.currencyValueData) {
+                if (easyuiHelper.formatter.currencyValueData[idx].value == value) {
+                    return easyuiHelper.formatter.currencyValueData[idx].text;
+                }
+            }
+            return "";
+        },
+
+        weightValueData: [{ value: '1', text: 'G' }, { value: '2', text: 'KG' }, { value: '3', text: 'Oz' }, { value: '4', text: 'LBS' }, { value: '5', text: 'CBM' }],
+        weightValueFormatter: function (value, row, index) {
+            for (var idx in easyuiHelper.formatter.weightValueData) {
+                if (easyuiHelper.formatter.weightValueData[idx].value == value) {
+                    return easyuiHelper.formatter.weightValueData[idx].text;
+                }
+            }
+            return "";
+        },
+
+        booleanValueData: [{ value: 'True', text: '是' }, { value: 'False', text: '否' }],
+        booleanValueFormatter: function (value, row, index) {
+            if (value == "True" || value == "true" || value == "1") {
+                return "是";
+            }
+            return "否";
+        },
+
+        volumeWeightStandardsValueData: [{ value: '0', text: '0' }, { value: '4000', text: '4000' }, { value: '5000', text: '5000' }, { value: '6000', text: '6000' }, { value: '8000', text: '8000' }],
+        volumeWeightStandardsValueFormatter: function (value, row, index) {
+            for (var idx in easyuiHelper.formatter.volumeWeightStandardsValueData) {
+                if (easyuiHelper.formatter.volumeWeightStandardsValueData[idx].value == value) {
+                    return easyuiHelper.formatter.volumeWeightStandardsValueData[idx].text;
+                }
+            }
+            return "";
+        },
+
+        progressbarFormatter: function (value, row, index) {
+            return '<div class="progressbar-value" style="width: 100%; height: 22px; line-height: 22px;">' +
+                '<div class="progressbar-text" style="width: ' + value + '%; height: 22px; line-height: 22px;">' + value + '%</div></div>';
+        },
+
+        dateFormatter: function (date) {
+            return new Date(date).format("yyyy-MM-dd");
+        },
+
+        datetimeFormatter: function (datetime) {
+            return new Date(datetime).format("yyyy-MM-dd HH:mm");
+        },
+
+        numberboxFormatter: function (val) {
+            if (val) {
+                return parseFloat(val);
+            }
+            return val;
         }
     }
 
@@ -185,6 +312,37 @@
 $(function () {
     global.easyuiHelper = easyuiHelper;
 });
+
+
+$.fn.pagination.defaults.pageSize = 20;
+$.fn.pagination.defaults.pageList = [20, 40, 60, 80, 100];
+$.fn.datagrid.defaults.pageSize = 20;
+$.fn.datagrid.defaults.pageList = [20, 40, 60, 80, 100];
+
+(function () {
+    $.extend($.fn.tabs.methods, {
+        //显示遮罩
+        loading: function (jq, msg) {
+            return jq.each(function () {
+                var panel = $(this).tabs("getSelected");
+                if (msg == undefined) {
+                    msg = "正在加载数据，请稍候...";
+                }
+                $("<div class=\"datagrid-mask\"></div>").css({ display: "block", "margin-top": "32px", width: panel.width(), height: panel.height() }).appendTo(panel);
+                $("<div class=\"datagrid-mask-msg\"></div>").html(msg).appendTo(panel).css({ display: "block", left: (panel.width() - $("div.datagrid-mask-msg", panel).outerWidth()) / 2, top: (panel.height() - $("div.datagrid-mask-msg", panel).outerHeight()) / 2 });
+            });
+        }
+,
+        //隐藏遮罩
+        loaded: function (jq) {
+            return jq.each(function () {
+                var panel = $(this).tabs("getSelected");
+                panel.find("div.datagrid-mask-msg").remove();
+                panel.find("div.datagrid-mask").remove();
+            });
+        }
+    });
+})(jQuery);
 
 $.extend($.fn.validatebox.defaults.rules, {
     range: { //验证范围
@@ -202,7 +360,13 @@ $.extend($.fn.validatebox.defaults.rules, {
             }
             return false;
         },
-        message: '请输入有效的范围'
+        message: '请输入有效的范围({0}-{1})和检查数据格式(如: 0-1)'
+    },
+    packing: { // 验证规则
+        validator: function (value) {
+            return /^[0-9]+(?:\.[0-9]+)?\*[0-9]+(?:\.[0-9]+)?\*[0-9]+(?:\.[0-9]+)?$/i.test(value);
+        },
+        message: '格式不正确,请使用下面格式:10*10*10'
     },
     minLength: { // 验证最少字符长度
         validator: function (value, param) {
@@ -248,15 +412,81 @@ $.extend($.fn.validatebox.defaults.rules, {
         },
         message: 'QQ号码格式不正确'
     },
-    integer: {  // 验证正整数
+    numberRange: { //验证有效数值范围（左右闭合）
+        validator: function (value, param) {
+            var val = parseFloat(value);
+            if (!isNaN(val)) {
+                var min = parseFloat(param[0]);
+                var max = parseFloat(param[1]);
+                if (min > max) {
+                    var temp = min;
+                    min = max;
+                    max = temp;
+                }
+                if (isNaN(min)) {
+                    min = Number.MIN_VALUE;
+                }
+                if (isNaN(max)) {
+                    max = Number.MAX_VALUE;
+                }
+                return val >= min && val <= max;
+            }
+            return false;
+
+        },
+        message: '请输入{0}到{1}之间的数值'
+    },
+    minNum: {
+        validator: function (value, param) {
+            var val = parseFloat(value);
+            if (!isNaN(val)) {
+                var min = parseFloat(param[0]);
+                if (isNaN(min)) {
+                    min = Number.MIN_VALUE;
+                }
+                return val >= min;
+            }
+            return false;
+
+        },
+        message: '输入数值必须大于或等于{0}'
+    },
+    maxNum: {
+        validator: function (value, param) {
+            var val = parseFloat(value);
+            if (!isNaN(val)) {
+                var max = parseFloat(param[0]);
+                if (isNaN(max)) {
+                    max = Number.MAX_VALUE;
+                }
+                return val <= max;
+            }
+            return false;
+
+        },
+        message: '输入数值必须小于或等于{0}'
+    },
+    integer: {  // 验证整数
+        validator: function (value) {
+            return /^([+-]?[1-9]+\d*|0)$/i.test(value);
+        },
+        message: '请输入整数'
+    },
+    positiveInt: {  // 验证正整数
         validator: function (value) {
             return /^[+]?[1-9]+\d*$/i.test(value);
         },
         message: '请输入正整数'
     },
+    negativeInt: {  // 验证负整数
+        validator: function (value) {
+            return /^-[1-9]+\d*$/i.test(value);
+        },
+        message: '请输入负整数'
+    },
     naturalNum: {  // 验证自然数
         validator: function (value) {
-            return /^([1-9]\d*|0)$/i.test(value);
+            return /^([+]?[1-9]\d*|0)$/i.test(value);
         },
         message: '请输入自然数'
     },
@@ -278,9 +508,9 @@ $.extend($.fn.validatebox.defaults.rules, {
         },
         message: '传真号码不正确'
     },
-    zip: { // 验证邮政编码
+    zip: { // 验证国内邮政编码
         validator: function (value) {
-            return /^[1-9]\d{5}$/i.test(value);
+            return /^\d{6}$/i.test(value);
         },
         message: '邮政编码格式不正确'
     },
@@ -290,4 +520,4 @@ $.extend($.fn.validatebox.defaults.rules, {
         },
         message: 'IP地址格式不正确'
     }
-});
+})
