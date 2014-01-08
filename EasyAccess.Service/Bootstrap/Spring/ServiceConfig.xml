@@ -5,13 +5,5 @@
   <object id="LoginSvc" type="EasyAccess.Service.Services.LoginSvc, EasyAccess.Service">
     <property name="UnitOfWork" ref="EasyAccessUnitOfWork" />
   </object>
-
-  <object id="AccountManageSvc" type="EasyAccess.Service.Services.AccountManageSvc, EasyAccess.Service">
-    <property name="UnitOfWork" ref="EasyAccessUnitOfWork" />
-  </object>
-
-  <object id="RoleManageSvc" type="EasyAccess.Service.Services.RoleManageSvc, EasyAccess.Service">
-    <property name="UnitOfWork" ref="EasyAccessUnitOfWork" />
-  </object>
   
 </objects>

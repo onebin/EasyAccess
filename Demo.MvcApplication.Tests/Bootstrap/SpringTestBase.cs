@@ -41,8 +41,6 @@ namespace Demo.MvcApplication.Tests.Bootstrap
 
         protected RoleRepository RoleRepository { get; private set; }
 
-        protected IAccountManageSvc AccountManageService  { get; private set; }
-
         protected ArticleConfigRepository ArticleConfigRepository { get; set; }
 
         protected SectionConfigRepository SectionConfigRepository { get; set; }
@@ -55,7 +53,6 @@ namespace Demo.MvcApplication.Tests.Bootstrap
             DemoUnitOfWork = appCtx.GetObject("DemoUnitOfWork") as IUnitOfWork;
             AccountRepository = appCtx.GetObject<AccountRepository>();
             RoleRepository = appCtx.GetObject<RoleRepository>();
-            AccountManageService = appCtx.GetObject<IAccountManageSvc>();
 
             ArticleConfigRepository = appCtx.GetObject<ArticleConfigRepository>();
             SectionConfigRepository = appCtx.GetObject<SectionConfigRepository>();

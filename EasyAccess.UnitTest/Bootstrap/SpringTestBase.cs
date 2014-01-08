@@ -32,15 +32,12 @@ namespace EasyAccess.UnitTest.Bootstrap
 
         protected RoleRepository RoleRepository { get; private set; }
 
-        protected IAccountManageSvc AccountManageService  { get; private set; }
-
         protected SpringTestBase()
         {
             var appCtx = ContextRegistry.GetContext();
             EasyAccessUnitOfWork = appCtx.GetObject("EasyAccessUnitOfWork") as IUnitOfWork;
             AccountRepository = appCtx.GetObject<AccountRepository>();
             RoleRepository = appCtx.GetObject<RoleRepository>();
-            AccountManageService = appCtx.GetObject<IAccountManageSvc>();
         }
     }
 }

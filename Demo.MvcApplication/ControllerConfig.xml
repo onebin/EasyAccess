@@ -5,13 +5,5 @@
   <object type="Demo.MvcApplication.Controllers.LoginController, Demo.MvcApplication" singleton="false" >
     <property name="LoginSvc" ref="LoginSvc"/>
   </object>
-
-  <object type="Demo.MvcApplication.Areas.SystemSettings.Controllers.AccountManageController, Demo.MvcApplication" singleton="false" >
-    <property name="AccountManageSvc" ref="AccountManageSvc"/>
-  </object>
-  
-  <object type="Demo.MvcApplication.Areas.SystemSettings.Controllers.RoleManageController, Demo.MvcApplication" singleton="false" >
-    <property name="RoleManageSvc" ref="RoleManageSvc"/>
-  </object>
   
 </objects>

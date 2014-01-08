@@ -7,6 +7,7 @@ using EasyAccess.Infrastructure.Util;
 using EasyAccess.Infrastructure.Util.ConditionBuilder;
 using EasyAccess.Infrastructure.Util.EasyUi;
 using EasyAccess.Infrastructure.Util.PagingData;
+using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
 using EasyAccess.Service.IServices;
 
@@ -15,7 +16,6 @@ namespace Demo.MvcApplication.Areas.SystemSettings.Controllers
     [Menu("M0201", "用户管理", "/SystemSettings/AccountManage/Index")]
     public class AccountManageController : AuthorizationController
     {
-        IAccountManageSvc AccountManageSvc { get; set; }
 
         [Permission("M0201P01", "浏览", "/SystemSettings/AccountManage/Index")]
         public ActionResult Index()
@@ -27,8 +27,8 @@ namespace Demo.MvcApplication.Areas.SystemSettings.Controllers
         public JsonResult GetAccountInfo(FormCollection formData)
         {
             var pagingCodition = GetPagingCondition(formData);
-            var pg = AccountManageSvc.GetAccountPagingData(pagingCodition);
-            return Json(new EasyUiDataGrid().SetRows(pg.RecordCount, pg.RecordData.ToList()).GetJsonModel());
+            var pg = Account.GetPagingDtoData<AccountDto>(pagingCodition);
+            return Json(new EasyUiDataGrid().SetRows(pg.RecordCount, pg.RecordData.ToList()).GetSerializableModel());
         }
 
 

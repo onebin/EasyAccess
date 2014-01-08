@@ -6,6 +6,7 @@ using EasyAccess.Infrastructure.Constant;
 using EasyAccess.Infrastructure.Util;
 using EasyAccess.Infrastructure.Util.ConditionBuilder;
 using EasyAccess.Infrastructure.Util.EasyUi;
+using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
 using EasyAccess.Service.IServices;
 
@@ -15,8 +16,6 @@ namespace Demo.MvcApplication.Areas.SystemSettings.Controllers
     [Menu("M0202", "角色管理", "/SystemSettings/RoleManage/Index")]
     public class RoleManageController : AuthorizationController
     {
-
-        IRoleManageSvc RoleManageSvc { get; set; }
 
         [Permission("M0202P01", "浏览", "/SystemSettings/RoleManage/Index")]
         public ActionResult Index()
@@ -28,8 +27,8 @@ namespace Demo.MvcApplication.Areas.SystemSettings.Controllers
         public JsonResult GetRoleInfo(FormCollection formData)
         {
             var pagingCodition = GetPagingCondition(formData);
-            var pg = RoleManageSvc.GetRolePagingData(pagingCodition);
-            return Json(new EasyUiDataGrid().SetRows(pg.RecordCount, pg.RecordData.ToList()).GetJsonModel());
+            var pg = Role.GetPagingDtoData<RoleDto>(pagingCodition);
+            return Json(new EasyUiDataGrid().SetRows(pg.RecordCount, pg.RecordData.ToList()).GetSerializableModel());
         }
 
 

@@ -574,11 +574,11 @@
     <Content Include="Scripts\Controllers\Areas\SystemSettings\AccountManage\Index.js" />
     <Content Include="Scripts\Controllers\Areas\SystemSettings\RoleManage\Index.js" />
     <Content Include="Scripts\Controllers\Login\Index.js" />
+    <Content Include="Scripts\Global\dataCache.js" />
     <Content Include="Scripts\Global\main.js" />
     <Content Include="Scripts\Helpers\easyuiHelper.js" />
     <Content Include="Scripts\Helpers\global.js" />
     <Content Include="Scripts\Helpers\statusCodeHelper.js" />
-    <Content Include="Scripts\Helpers\uiHelper.js" />
     <Content Include="Scripts\jquery-2.0.3.js" />
     <Content Include="Scripts\jquery-2.0.3.min.js" />
     <Content Include="Scripts\jquery-2.0.3.min.map" />

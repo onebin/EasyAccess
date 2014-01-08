@@ -19,7 +19,7 @@ namespace EasyAccess.Infrastructure.Util.EasyUi
         /// <summary>
         /// footer
         /// </summary>
-        private readonly ICollection<Dictionary<string, object>> _footer = new List<Dictionary<string, object>>();
+        private ICollection<Dictionary<string, object>> _footer = new List<Dictionary<string, object>>();
 
         /// <summary>
         /// 默认构造函数
@@ -50,7 +50,7 @@ namespace EasyAccess.Infrastructure.Util.EasyUi
         }
 
         /// <summary>
-        /// 根据提供的List数据生成JsonModel
+        /// 设置rows
         /// </summary>
         /// <typeparam name="T">泛型类型</typeparam>
         /// <param name="total">总记录数</param>
@@ -63,6 +63,18 @@ namespace EasyAccess.Infrastructure.Util.EasyUi
             {
                 this._rows = new DataConverter<T>().ToDictionary(rows);
             }
+            return this;
+        }
+        
+        /// <summary>
+        /// 设置Footer
+        /// </summary>
+        /// <typeparam name="T">泛型类型</typeparam>
+        /// <param name="footer">List数据</param>
+        /// <returns>EasyUiDataGrid实例</returns>
+        public EasyUiDataGrid SetFooter<T>(ICollection<T> footer) where T : class
+        {
+            this._footer = new DataConverter<T>().ToDictionary(footer);
             return this;
         }
 
@@ -95,10 +107,10 @@ namespace EasyAccess.Infrastructure.Util.EasyUi
         }
 
         /// <summary>
-        /// 获取JsonModel
+        /// 获取可序列化的Model
         /// </summary>
-        /// <returns>JsonModel</returns>
-        public object GetJsonModel()
+        /// <returns>object</returns>
+        public object GetSerializableModel()
         {
             if (_footer.Count != 0)
             {

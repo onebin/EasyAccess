@@ -1,7 +1,6 @@
-﻿using System;
-using System.ComponentModel;
-using EasyAccess.Infrastructure.Util.ConditionBuilder;
+﻿using EasyAccess.Infrastructure.Util.ConditionBuilder;
 using EasyAccess.Infrastructure.Util.PagingData;
+using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
 using EasyAccess.UnitTest.Bootstrap;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -17,7 +16,7 @@ namespace EasyAccess.UnitTest.TestService
             var conditionBuilder = ConditionBuilder<Account>.Create();
             conditionBuilder.OrderBy(x => x.Sex).ThenBy(x => x.CreateTime);
             var pagingCondition = new PagingCondition(0, 15);
-            AccountManageService.GetAccountPagingData(pagingCondition, conditionBuilder);
+            Account.GetPagingDtoData<AccountDto>(pagingCondition, conditionBuilder);
         }
     }
 }
