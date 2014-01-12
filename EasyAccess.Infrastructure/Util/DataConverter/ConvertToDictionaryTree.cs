@@ -1,59 +1,46 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using EasyAccess.Infrastructure.Extensions;
 
 namespace EasyAccess.Infrastructure.Util.DataConverter
 {
     public static class ConvertToDictionaryTree
     {
-        private static string _idFieldName, _pidFieldName, _childrenFieldName;
         private static PropertyInfo _pidProperty;
+        private static ConvertToDictionaryTreeOptions _options;
 
         public static List<Dictionary<string, object>> ToDictionaryTree<T, TKey>(
             this DataConverter<T> dataConverter,
             IList<T> listData,
-            string childrenFieldName = "children",
-            string idFieldName = "Id",
-            string pidFieldName = "ParentId",
-            Dictionary<string, object> rootNode = null,
-            object rootIdValue = null
-            )
-            where T : class
-            where TKey : struct
+            ConvertToDictionaryTreeOptions options = null) where T : class where TKey : struct
         {
-            _idFieldName = idFieldName;
-            _pidFieldName = pidFieldName;
-            _childrenFieldName = childrenFieldName;
-            _pidProperty = dataConverter.PropertyToShow.FirstOrDefault(x => x.PropertyType.GetNonNullableType() == typeof(TKey) && x.Name == pidFieldName);
-            return listData == null ? null : Conver<T, TKey>(dataConverter, listData, rootNode, rootIdValue);
+            _options = options ?? new ConvertToDictionaryTreeOptions();
+            _pidProperty = dataConverter.PropertyToShow.FirstOrDefault(x => x.PropertyType.GetNonNullableType() == typeof(TKey) && x.Name == _options.PidFieldName);
+            return listData == null ? null : Conver<T, TKey>(dataConverter, listData);
         }
 
         private static List<Dictionary<string, object>> Conver<T, TKey>(
             DataConverter<T> dataConverter,
-            ICollection<T> listData,
-            Dictionary<string, object> rootNode,
-            object rootIdValue
-            )
-            where T : class
-            where TKey : struct
+            ICollection<T> listData) where T : class where TKey : struct
         {
             var root = new List<Dictionary<string, object>>();
             if (listData.Count > 0)
             {
-                if (rootNode != null)
+                if (_options.RootNode != null)
                 {
-                    rootNode.Add(_childrenFieldName, GetChildren(dataConverter, listData, rootIdValue));
-                    root.Add(rootNode);
+                    _options.RootNode.Add(_options.ChildrenFieldName, GetChildren(dataConverter, listData, _options.RootIdValue));
+                    root.Add(_options.RootNode);
                 }
                 else
                 {
-                    root.AddRange(GetChildren(dataConverter, listData, rootIdValue));
+                    root.AddRange(GetChildren(dataConverter, listData, _options.RootIdValue));
                 }
             }
             else
             {
-                root.Add(rootNode);
+                root.Add(_options.RootNode);
             }
             return root;
         }
@@ -79,15 +66,32 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
                     string key, val;
                     dataConverter.GetKeyValFromDataProperty(data, property, out key, out val);
                     child.Add(key, val);
-                    if (property.Name.Equals(_idFieldName))
+                    if (property.Name.Equals(_options.IdFieldName))
                     {
                         pidVal = val;
                     }
                 }
-                child.Add(_childrenFieldName, GetChildren(dataConverter, noParentData.ToList(), pidVal, ++level));
+                child.Add(_options.ChildrenFieldName, GetChildren(dataConverter, noParentData.ToList(), pidVal, ++level));
                 children.Add(child);
             }
             return children;
         }
     }
+
+    public class ConvertToDictionaryTreeOptions
+    {
+        public ConvertToDictionaryTreeOptions()
+        {
+            ChildrenFieldName = "children";
+            IdFieldName = "Id";
+            PidFieldName = "ParentId";
+            RootNode = null;
+            RootIdValue = null;
+        }
+
+        public string ChildrenFieldName { get; set; }
+        public string IdFieldName { get; set; }
+        public string PidFieldName { get; set; }
+        public Dictionary<string, object> RootNode { get; set; }
+        public object RootIdValue { get; set; }}
 }

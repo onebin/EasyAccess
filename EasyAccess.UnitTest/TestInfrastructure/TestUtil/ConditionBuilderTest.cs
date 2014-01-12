@@ -12,7 +12,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
 {
     [TestClass]
-    public class TestConditionBuilder : SpringTestBase
+    public class ConditionBuilderTest : SpringTestBase
     {
 
         [TestMethod]

@@ -58,8 +58,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -79,7 +81,8 @@
     <Compile Include="TestAuthorization\AuthorizationManagerTest.cs" />
     <Compile Include="TestInfrastructure\TestExtensions\TestTypeExtension.cs" />
     <Compile Include="TestInfrastructure\TestUnitOfWork\UnitOfWorkBaseTest.cs" />
-    <Compile Include="TestInfrastructure\TestUtil\TestConditionBuilder.cs" />
+    <Compile Include="TestInfrastructure\TestUtil\ConditionBuilderTest.cs" />
+    <Compile Include="TestInfrastructure\TestUtil\DataConverterTest.cs" />
     <Compile Include="TestRepository\AccountRepositoryTest.cs" />
     <Compile Include="TestRepository\EasyAccessInitializerTest.cs" />
     <Compile Include="TestRepository\RoleRepositoryTest.cs" />

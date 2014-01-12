@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Reflection;
 using EasyAccess.Infrastructure.Extensions;
 
@@ -7,7 +8,7 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
 {
     public class DataConverter<T> where T : class
     {
-        public DataConverter() 
+        public DataConverter()
         {
             CheckPropertyToShow();
         }
@@ -24,10 +25,31 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
             return this;
         }
 
+        public DataConverter<T> AddDataFormatterr<TKey>(Expression<Func<T, TKey>> expr, Dictionary<string, string> dic)
+        {
+            this.DataFormatter.Add(GetPropertyName<TKey>(expr), dic);
+            return this;
+        }
+
         public DataConverter<T> AddFieldFormatter(string filedName, string newFieldName)
         {
             this.FieldFormatter.Add(filedName, newFieldName);
             return this;
+        }
+
+        public DataConverter<T> AddFieldFormatter<TKey>(Expression<Func<T, TKey>> expr, string newFieldName)
+        {
+            this.AddFieldFormatter(GetPropertyName<TKey>(expr), newFieldName);
+            return this;
+        }
+
+        protected string GetPropertyName<TKey>(Expression<Func<T, TKey>> expr)
+        {
+            if (expr.Body is MemberExpression)
+            {
+                return ((MemberExpression) expr.Body).Member.Name;
+            }
+            throw new ArgumentException("请传递泛型参数属性");
         }
 
         protected int CheckPropertyToShow()
@@ -57,7 +79,16 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
             }
             else
             {
-                var propertyVal = property.GetValue(data, null);
+                object propertyVal;
+                var nonNullableType = property.PropertyType.GetNonNullableType();
+                if (nonNullableType.IsEnum)
+                {
+                    propertyVal = (int)property.GetValue(data, null);
+                }
+                else
+                {
+                    propertyVal = property.GetValue(data, null);
+                }
                 Dictionary<string, string> dic;
                 val = propertyVal == null ? string.Empty : propertyVal.ToString();
                 if (DataFormatter.TryGetValue(property.Name, out dic))
