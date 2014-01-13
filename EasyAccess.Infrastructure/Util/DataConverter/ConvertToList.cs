@@ -26,21 +26,25 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
                 foreach (var columnInfo in options.ColumnMapper)
                 {
                     object defalutValue = null;
+
                     if (options.Projection.ContainsKey(columnInfo.Key))
                     {
-                        defalutValue = options.Projection[columnInfo.Key].DynamicInvoke(row[columnInfo.Key]);
+                        defalutValue = options.Projection[columnInfo.Key].DynamicInvoke(row[columnInfo.Key], options.ProjectionParams[columnInfo.Key], row);
                     }
                     else if (columnInfo.Value.PropertyType.IsEnum)
                     {
                         defalutValue = Enum.Parse(columnInfo.Value.PropertyType, row[columnInfo.Key].ToString());
                     }
-                    else if (string.IsNullOrWhiteSpace(row[columnInfo.Key].ToString()) && columnInfo.Value.PropertyType.IsNumeric())
-                    {
-                        defalutValue = Convert.ChangeType(0, columnInfo.Value.PropertyType);
-                    }
                     else
                     {
-                        defalutValue = Convert.ChangeType(row[columnInfo.Key], columnInfo.Value.PropertyType);
+                        if (string.IsNullOrWhiteSpace(row[columnInfo.Key].ToString()) && columnInfo.Value.PropertyType.IsNumeric())
+                        {
+                            defalutValue = Convert.ChangeType(0, columnInfo.Value.PropertyType);
+                        }
+                        else
+                        {
+                            defalutValue = Convert.ChangeType(row[columnInfo.Key], columnInfo.Value.PropertyType);
+                        }
                     }
                     columnInfo.Value.SetValue(item, defalutValue);
 
@@ -77,15 +81,17 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
     {
         public Dictionary<string, PropertyInfo> ColumnMapper { get; private set; }
         public Dictionary<string, Delegate> Projection { get; private set; }
+        public Dictionary<string, string[]> ProjectionParams { get; private set; }
 
 
         public ConvertToListOptions()
         {
             ColumnMapper = new Dictionary<string, PropertyInfo>();
             Projection = new Dictionary<string, Delegate>();
+            ProjectionParams = new Dictionary<string, string[]>();
         }
 
-        public ConvertToListOptions<T> MapColumn<TProperty>(Expression<Func<T, TProperty>> expr, string columnName, Func<string, TProperty> projection = null)
+        public ConvertToListOptions<T> MapColumn<TProperty>(Expression<Func<T, TProperty>> expr, string columnName, Func<string, string[], DataRow, TProperty> projection = null, string[] projectionParams = null)
         {
             PropertyInfo propertyInfo;
             if (expr.Body is UnaryExpression)
@@ -103,7 +109,7 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
             return MapColumn(columnName, propertyInfo, projection);
         }
 
-        public ConvertToListOptions<T> MapColumn(string columnName, PropertyInfo propertyInfo, Delegate projection = null)
+        public ConvertToListOptions<T> MapColumn(string columnName, PropertyInfo propertyInfo, Delegate projection = null, string[] projectionParams = null)
         {
             if (!ColumnMapper.ContainsKey(columnName))
             {
@@ -111,6 +117,7 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
                 if (projection != null)
                 {
                     Projection.Add(columnName, projection);
+                    ProjectionParams.Add(columnName, projectionParams);
                 }
                 return this;
             }
