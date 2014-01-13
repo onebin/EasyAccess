@@ -4,9 +4,6 @@ using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using EasyAccess.Infrastructure.Extensions;
-using Spring.Collections;
-using Spring.Expressions;
 
 namespace EasyAccess.Infrastructure.Util.DataConverter
 {
