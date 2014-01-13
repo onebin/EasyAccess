@@ -80,7 +80,7 @@ namespace EasyAccess.Infrastructure.Util.ConditionBuilder
         private string GetBaseDataTypeValue<TProperty>(TProperty value)
         {
             var type = typeof(TProperty).GetNonNullableType();
-            return type.IsBaseDataType() ? value.ToString() : null;
+            return type.IsBasic() ? value.ToString() : null;
         }
 
         void IQueryCondition<TEntity>.Clear()

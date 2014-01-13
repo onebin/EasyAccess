@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using EasyAccess.Infrastructure.Extensions;
 
 namespace EasyAccess.Infrastructure.Util.DataConverter
 {
@@ -24,14 +25,25 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
                 var item = new T();
                 foreach (var columnInfo in options.ColumnMapper)
                 {
-                    if (columnInfo.Value.PropertyType.IsEnum)
+                    object defalutValue = null;
+                    if (options.Projection.ContainsKey(columnInfo.Key))
                     {
-                        columnInfo.Value.SetValue(item, Enum.Parse(columnInfo.Value.PropertyType, row[columnInfo.Key].ToString()));
+                        defalutValue = options.Projection[columnInfo.Key].DynamicInvoke(row[columnInfo.Key]);
+                    }
+                    else if (columnInfo.Value.PropertyType.IsEnum)
+                    {
+                        defalutValue = Enum.Parse(columnInfo.Value.PropertyType, row[columnInfo.Key].ToString());
+                    }
+                    else if (string.IsNullOrWhiteSpace(row[columnInfo.Key].ToString()) && columnInfo.Value.PropertyType.IsNumeric())
+                    {
+                        defalutValue = Convert.ChangeType(0, columnInfo.Value.PropertyType);
                     }
                     else
                     {
-                        columnInfo.Value.SetValue(item, Convert.ChangeType(row[columnInfo.Key], columnInfo.Value.PropertyType));
+                        defalutValue = Convert.ChangeType(row[columnInfo.Key], columnInfo.Value.PropertyType);
                     }
+                    columnInfo.Value.SetValue(item, defalutValue);
+
                 }
                 lst.Add(item);
             }
@@ -61,18 +73,21 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
         }
     }
 
-    public class ConvertToListOptions<T> where T: class 
+    public class ConvertToListOptions<T> where T : class
     {
-        public Dictionary<string, PropertyInfo> ColumnMapper { get; private set; } 
+        public Dictionary<string, PropertyInfo> ColumnMapper { get; private set; }
+        public Dictionary<string, Delegate> Projection { get; private set; }
+
 
         public ConvertToListOptions()
         {
-            ColumnMapper = new Dictionary<string,PropertyInfo>();
+            ColumnMapper = new Dictionary<string, PropertyInfo>();
+            Projection = new Dictionary<string, Delegate>();
         }
 
-        public ConvertToListOptions<T> MapColumn(Expression<Func<T, object>> expr, string columnName)
+        public ConvertToListOptions<T> MapColumn<TProperty>(Expression<Func<T, TProperty>> expr, string columnName, Func<string, TProperty> projection = null)
         {
-            PropertyInfo propertyInfo; 
+            PropertyInfo propertyInfo;
             if (expr.Body is UnaryExpression)
             {
                 propertyInfo = ((MemberExpression)((UnaryExpression)expr.Body).Operand).Member as PropertyInfo;
@@ -85,19 +100,23 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
             {
                 throw new NotSupportedException();
             }
-            return MapColumn(columnName, propertyInfo);
+            return MapColumn(columnName, propertyInfo, projection);
         }
 
-        public ConvertToListOptions<T> MapColumn(string columnName, PropertyInfo propertyInfo)
+        public ConvertToListOptions<T> MapColumn(string columnName, PropertyInfo propertyInfo, Delegate projection = null)
         {
             if (!ColumnMapper.ContainsKey(columnName))
             {
                 ColumnMapper.Add(columnName, propertyInfo);
+                if (projection != null)
+                {
+                    Projection.Add(columnName, projection);
+                }
                 return this;
             }
             else
             {
-                throw new ArgumentException("列名【" + columnName + "】重复配置");
+                throw new MappingException("列名【" + columnName + "】重复配置");
             }
         }
     }

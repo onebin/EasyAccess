@@ -37,9 +37,27 @@ namespace EasyAccess.Infrastructure.Extensions
         /// <summary>
         /// 是否基本数据类型
         /// </summary>
-        public static bool IsBaseDataType(this Type type)
+        public static bool IsBasic(this Type type)
         {
             return type.IsValueType || type == typeof(string);
+        }
+
+        /// <summary>
+        /// 是否为数值类型
+        /// </summary>
+        public static bool IsNumeric(this Type type)
+        {
+            return type == typeof(Byte)
+                || type == typeof(Int16)
+                || type == typeof(Int32)
+                || type == typeof(Int64)
+                || type == typeof(SByte)
+                || type == typeof(UInt16)
+                || type == typeof(UInt32)
+                || type == typeof(UInt64)
+                || type == typeof(Decimal)
+                || type == typeof(Double)
+                || type == typeof(Single);
         }
     }
 }

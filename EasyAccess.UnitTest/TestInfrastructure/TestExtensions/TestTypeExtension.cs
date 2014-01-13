@@ -64,23 +64,23 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestExtensions
         public void TestIsBaseDataType()
         {
             var myClass = typeof(MyClass);
-            Assert.IsTrue(myClass.GetProperty("NullableInt").PropertyType.IsBaseDataType());
-            Assert.IsTrue(myClass.GetProperty("NullableDecimal").PropertyType.IsBaseDataType());
-            Assert.IsTrue(myClass.GetProperty("NullableFloat").PropertyType.IsBaseDataType());
-            Assert.IsTrue(myClass.GetProperty("NullableDouble").PropertyType.IsBaseDataType());
-            Assert.IsTrue(myClass.GetProperty("NullableByte").PropertyType.IsBaseDataType());
-            Assert.IsTrue(myClass.GetProperty("NullableMyEnum").PropertyType.IsBaseDataType());
-            Assert.IsTrue(myClass.GetProperty("NullableDateTime").PropertyType.IsBaseDataType());
+            Assert.IsTrue(myClass.GetProperty("NullableInt").PropertyType.IsBasic());
+            Assert.IsTrue(myClass.GetProperty("NullableDecimal").PropertyType.IsBasic());
+            Assert.IsTrue(myClass.GetProperty("NullableFloat").PropertyType.IsBasic());
+            Assert.IsTrue(myClass.GetProperty("NullableDouble").PropertyType.IsBasic());
+            Assert.IsTrue(myClass.GetProperty("NullableByte").PropertyType.IsBasic());
+            Assert.IsTrue(myClass.GetProperty("NullableMyEnum").PropertyType.IsBasic());
+            Assert.IsTrue(myClass.GetProperty("NullableDateTime").PropertyType.IsBasic());
 
-            Assert.IsTrue(myClass.GetProperty("NonNullableInt").PropertyType.IsBaseDataType());
-            Assert.IsTrue(myClass.GetProperty("NonNullableDecimal").PropertyType.IsBaseDataType());
-            Assert.IsTrue(myClass.GetProperty("NonNullableFloat").PropertyType.IsBaseDataType());
-            Assert.IsTrue(myClass.GetProperty("NonNullableDouble").PropertyType.IsBaseDataType());
-            Assert.IsTrue(myClass.GetProperty("NonNullableByte").PropertyType.IsBaseDataType());
-            Assert.IsTrue(myClass.GetProperty("NonNullableString").PropertyType.IsBaseDataType());
-            Assert.IsTrue(myClass.GetProperty("NonNullableMyEnum").PropertyType.IsBaseDataType());
+            Assert.IsTrue(myClass.GetProperty("NonNullableInt").PropertyType.IsBasic());
+            Assert.IsTrue(myClass.GetProperty("NonNullableDecimal").PropertyType.IsBasic());
+            Assert.IsTrue(myClass.GetProperty("NonNullableFloat").PropertyType.IsBasic());
+            Assert.IsTrue(myClass.GetProperty("NonNullableDouble").PropertyType.IsBasic());
+            Assert.IsTrue(myClass.GetProperty("NonNullableByte").PropertyType.IsBasic());
+            Assert.IsTrue(myClass.GetProperty("NonNullableString").PropertyType.IsBasic());
+            Assert.IsTrue(myClass.GetProperty("NonNullableMyEnum").PropertyType.IsBasic());
             
-            Assert.IsFalse(myClass.GetProperty("NonNullableInnerClass").PropertyType.IsBaseDataType());
+            Assert.IsFalse(myClass.GetProperty("NonNullableInnerClass").PropertyType.IsBasic());
         }
 
         [TestMethod]

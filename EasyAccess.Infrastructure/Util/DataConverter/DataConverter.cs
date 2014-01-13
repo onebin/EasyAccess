@@ -58,7 +58,7 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
             PropertyInfo[] properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
             foreach (var property in properties)
             {
-                if (property.PropertyType.IsBaseDataType())
+                if (property.PropertyType.IsBasic())
                 {
                     PropertyToShow.Add(property);
                 }
