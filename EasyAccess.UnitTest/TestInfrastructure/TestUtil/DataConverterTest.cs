@@ -20,9 +20,9 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
         [ClassInitialize]
         public static void ClassInit(TestContext testContext)
         {
-            customTable = new DataTable("用户");
-            defaultTable = new DataTable("Account");
-            defaultTableMissColumns = new DataTable("Account");
+            customTable = new DataTable();
+            defaultTable = new DataTable();
+            defaultTableMissColumns = new DataTable();
 
             customTable.Columns.AddRange(new[]
             {
@@ -63,17 +63,12 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
         [TestMethod]
         public void TestConvertToListOptions()
         {
-            var options = new ConvertToListOptions();
-            options.MapTable(typeof(Account), "用户");
-            options.MapColumn<Account>(x => x.Age, "年龄");
+            var options = new ConvertToListOptions<Account>();
+            options.MapColumn(x => x.Age, "年龄");
 
-            Assert.IsTrue(options.TableMapper.ContainsKey("用户"));
-            Assert.IsTrue(options.TableMapper.ContainsValue("Account"));
-
-            Assert.IsTrue(options.ColumnMapper.ContainsKey("Account"));
-            Assert.IsTrue(options.ColumnMapper["Account"].ContainsKey("年龄"));
-            Assert.AreEqual("Age", options.ColumnMapper["Account"]["年龄"].Name);
-            Assert.AreEqual(typeof(int), options.ColumnMapper["Account"]["年龄"].PropertyType);
+            Assert.IsTrue(options.ColumnMapper.ContainsKey("年龄"));
+            Assert.AreEqual("Age", options.ColumnMapper["年龄"].Name);
+            Assert.AreEqual(typeof(int), options.ColumnMapper["年龄"].PropertyType);
         }
 
         [TestMethod]
@@ -89,9 +84,8 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
         [ExpectedException(typeof(KeyNotFoundException))]
         public void TestCustomTableMissRequireColumn()
         {
-            var options = new ConvertToListOptions();
-            options.MapTable(typeof(Account), "用户");
-            options.MapColumn<Account>(x => x.IsDeleted, "是否删除");
+            var options = new ConvertToListOptions<Account>();
+            options.MapColumn(x => x.IsDeleted, "是否删除");
             var convert = new DataConverter<Account>();
             convert.ToList(customTable, options);
             Assert.Fail("期望抛出KeyNotFoundException，而实际没有抛出");
@@ -100,11 +94,11 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
         [TestMethod]
         public void TestCustomTable()
         {
-            var options = new ConvertToListOptions();
-            options.MapTable(typeof(Account), "用户");
-            options.MapColumn<Account>(x => x.Age, "年龄");
-            options.MapColumn<Account>(x => x.Sex, "性别");
-            options.MapColumn<Account>(x => x.Memo, "备注");
+            var options = new ConvertToListOptions<Account>();
+            options
+                .MapColumn(x => x.Age, "年龄")
+                .MapColumn(x => x.Sex, "性别")
+                .MapColumn(x => x.Memo, "备注");
             var convert = new DataConverter<Account>();
             var lst = convert.ToList(customTable, options);
             Assert.AreEqual(2, lst.Count);

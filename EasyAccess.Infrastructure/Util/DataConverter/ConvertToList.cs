@@ -12,24 +12,20 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
 {
     public static class ConvertToList
     {
-
-        private static ConvertToListOptions _options;
-
-        public static List<T> ToList<T>(this DataConverter<T> dataConverter, DataTable dataTable, ConvertToListOptions options = null) where T : class, new()
+        public static List<T> ToList<T>(this DataConverter<T> dataConverter, DataTable dataTable, ConvertToListOptions<T> options = null) where T : class, new()
         {
-            InitOptions(dataConverter, options);
-            Validate<T>(dataTable);
-            return Conver(dataConverter, dataTable);
+            InitOptions(dataConverter, ref options);
+            ValidateColumnMapper<T>(dataTable, options);
+            return Conver(dataConverter, dataTable, options);
         }
 
-        private static List<T> Conver<T>(DataConverter<T> dataConverter, DataTable dataTable) where T : class, new()
+        private static List<T> Conver<T>(DataConverter<T> dataConverter, DataTable dataTable, ConvertToListOptions<T> options) where T : class, new()
         {
             var lst = new List<T>();
-            var typeName = typeof (T).Name;
             foreach (DataRow row in dataTable.Rows)
             {
                 var item = new T();
-                foreach (var columnInfo in _options.ColumnMapper[typeName])
+                foreach (var columnInfo in options.ColumnMapper)
                 {
                     if (columnInfo.Value.PropertyType.IsEnum)
                     {
@@ -45,42 +41,21 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
             return lst;
         }
 
-        private static void InitOptions<T>(DataConverter<T> dataConverter, ConvertToListOptions options) where T : class
+        private static void InitOptions<T>(DataConverter<T> dataConverter, ref ConvertToListOptions<T> options) where T : class
         {
             if (options == null)
             {
-                var typeName = typeof(T).Name;
-                _options = new ConvertToListOptions();
-                _options.MapTable(typeName, typeName);
+                options = new ConvertToListOptions<T>();
                 foreach (var property in dataConverter.PropertyToShow)
                 {
-                    _options.MapColumn(typeName, property.Name, property);
+                    options.MapColumn(property.Name, property);
                 }
             }
-            else
-            {
-                _options = options;
-            }
         }
 
-        private static void Validate<T>(DataTable dataTable)
+        private static void ValidateColumnMapper<T>(DataTable dataTable, ConvertToListOptions<T> options) where T : class
         {
-            ValidateTable(dataTable);
-            ValidateColumn<T>(dataTable);
-        }
-
-        private static void ValidateTable(DataTable dataTable)
-        {
-            if (!_options.TableMapper.ContainsKey(dataTable.TableName))
-            {
-                throw new KeyNotFoundException("未找到表名为【" + dataTable.TableName + "】的配置信息");
-            };
-        }
-
-        private static void ValidateColumn<T>(DataTable dataTable)
-        {
-            var typeName = typeof(T).Name;
-            var requireColumns = _options.ColumnMapper[typeName].Select(x => x.Key);
+            var requireColumns = options.ColumnMapper.Select(x => x.Key);
             var missColumns = requireColumns.Where(x => !dataTable.Columns.Contains(x)).ToArray();
             if (missColumns.Count() != 0)
             {
@@ -89,37 +64,16 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
         }
     }
 
-    public class ConvertToListOptions
+    public class ConvertToListOptions<T> where T: class 
     {
+        public Dictionary<string, PropertyInfo> ColumnMapper { get; private set; } 
+
         public ConvertToListOptions()
         {
-            TableMapper = new Dictionary<string, string>();
-            ColumnMapper = new Dictionary<string, Dictionary<string, PropertyInfo>>();
+            ColumnMapper = new Dictionary<string,PropertyInfo>();
         }
 
-        public Dictionary<string, string> TableMapper { get; private set; }
-        public Dictionary<string, Dictionary<string, PropertyInfo>> ColumnMapper { get; private set; } 
-
-
-        public void MapTable(Type type, string tableName)
-        {
-            MapTable(type.Name, tableName);
-        }
-
-        public void MapTable(string typeName, string tableName)
-        {
-            if (!TableMapper.ContainsKey(tableName))
-            {
-                TableMapper.Add(tableName, typeName);
-                ColumnMapper.Add(typeName, new Dictionary<string, PropertyInfo>());
-            }
-            else
-            {
-                throw new ArgumentException("表名【" + tableName + "】重复配置");
-            }
-        }
-
-        public void MapColumn<T>(Expression<Func<T, object>> expr, string columnName)
+        public ConvertToListOptions<T> MapColumn(Expression<Func<T, object>> expr, string columnName)
         {
             PropertyInfo propertyInfo; 
             if (expr.Body is UnaryExpression)
@@ -134,25 +88,19 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
             {
                 throw new NotSupportedException();
             }
-            MapColumn(typeof(T).Name, columnName, propertyInfo);
+            return MapColumn(columnName, propertyInfo);
         }
 
-        public void MapColumn(string typeName, string columnName, PropertyInfo propertyInfo)
+        public ConvertToListOptions<T> MapColumn(string columnName, PropertyInfo propertyInfo)
         {
-            if (ColumnMapper.ContainsKey(typeName))
+            if (!ColumnMapper.ContainsKey(columnName))
             {
-                if (!ColumnMapper[typeName].ContainsKey(columnName))
-                {
-                    ColumnMapper[typeName].Add(columnName, propertyInfo);
-                }
-                else
-                {
-                    throw new ArgumentException("列名【" + columnName + "】重复配置");
-                }
+                ColumnMapper.Add(columnName, propertyInfo);
+                return this;
             }
             else
             {
-                throw new KeyNotFoundException("未找到【" + typeName + "】类型的配置信息");
+                throw new ArgumentException("列名【" + columnName + "】重复配置");
             }
         }
     }
