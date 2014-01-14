@@ -25,40 +25,39 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
                 var item = new T();
                 foreach (var columnInfo in options.ColumnMapper)
                 {
-                    object defalutValue = null;
-
-                    if (options.Projection.ContainsKey(columnInfo.Key))
-                    {
-                        if (options.Projection[columnInfo.Key].GetMethodInfo().GetParameters().Count() == 1)
-                        {
-                            defalutValue = options.Projection[columnInfo.Key].DynamicInvoke(row[columnInfo.Key]);
-                        }
-                        else
-                        {
-                            defalutValue = options.Projection[columnInfo.Key].DynamicInvoke(row[columnInfo.Key], row);
-                        }
-                    }
-                    else if (columnInfo.Value.PropertyType.IsEnum)
-                    {
-                        defalutValue = Enum.Parse(columnInfo.Value.PropertyType, row[columnInfo.Key].ToString());
-                    }
-                    else
-                    {
-                        if (string.IsNullOrWhiteSpace(row[columnInfo.Key].ToString()) && columnInfo.Value.PropertyType.IsNumeric())
-                        {
-                            defalutValue = Convert.ChangeType(0, columnInfo.Value.PropertyType);
-                        }
-                        else
-                        {
-                            defalutValue = Convert.ChangeType(row[columnInfo.Key], columnInfo.Value.PropertyType);
-                        }
-                    }
-                    columnInfo.Value.SetValue(item, defalutValue);
-
+                    columnInfo.Value.SetValue(item, GetValue(options, columnInfo, row));
                 }
                 lst.Add(item);
             }
             return lst;
+        }
+
+        private static object GetValue<T>(ConvertToListOptions<T> options, KeyValuePair<string, PropertyInfo> columnInfo, DataRow row)
+            where T : class, new()
+        {
+            object val = null;
+            if (options.Projection.ContainsKey(columnInfo.Key))
+            {
+                val = options.Projection[columnInfo.Key].GetMethodInfo().GetParameters().Count() == 1 
+                    ? options.Projection[columnInfo.Key].DynamicInvoke(row[columnInfo.Key]) 
+                    : options.Projection[columnInfo.Key].DynamicInvoke(row[columnInfo.Key], row);
+            }
+            else if (columnInfo.Value.PropertyType.IsEnum)
+            {
+                val = Enum.Parse(columnInfo.Value.PropertyType, row[columnInfo.Key].ToString());
+            }
+            else
+            {
+                if (string.IsNullOrWhiteSpace(row[columnInfo.Key].ToString()) && columnInfo.Value.PropertyType.IsNumeric())
+                {
+                    val = Convert.ChangeType(0, columnInfo.Value.PropertyType);
+                }
+                else
+                {
+                    val = Convert.ChangeType(row[columnInfo.Key], columnInfo.Value.PropertyType);
+                }
+            }
+            return val;
         }
 
         private static void InitOptions<T>(DataConverter<T> dataConverter, ref ConvertToListOptions<T> options) where T : class
@@ -96,7 +95,7 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
             Projection = new Dictionary<string, Delegate>();
         }
 
-        private ConvertToListOptions<T> MapColumnExpr<TProperty>(Expression<Func<T, TProperty>> expr, string columnName, Delegate projection = null, string[] projectionParams = null)
+        private ConvertToListOptions<T> MapColumnExpr<TProperty>(Expression<Func<T, TProperty>> expr, string columnName, Delegate projection = null)
         {
             PropertyInfo propertyInfo;
             if (expr.Body is UnaryExpression)

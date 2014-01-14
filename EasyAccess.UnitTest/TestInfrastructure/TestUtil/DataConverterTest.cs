@@ -28,7 +28,8 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
             {
                 new DataColumn("年龄"),
                 new DataColumn("性别"),
-                new DataColumn("备注")
+                new DataColumn("备注"),
+                new DataColumn("角色"), 
             });
             defaultTable.Columns.AddRange(new[]
             {
@@ -52,10 +53,12 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
             customRow1["年龄"] = 21;
             customRow1["性别"] = "Male";
             customRow1["备注"] = "帅哥";
+            customRow1["角色"] = "管理员";
             var customRow2= customTable.NewRow();
             customRow2["年龄"] = 20;
             customRow2["性别"] = "Female";
             customRow2["备注"] = "美女";
+            customRow2["角色"] = "管理员";
             customTable.Rows.Add(customRow1);
             customTable.Rows.Add(customRow2);
         }
@@ -96,9 +99,10 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
         {
             var options = new ConvertToListOptions<Account>();
             options
-                .MapColumn(x => x.Age, "年龄")
-                .MapColumn(x => x.Sex, "性别")
-                .MapColumn(x => x.Memo, "备注");
+                .MapColumn(x => x.Age, "年龄", null)
+                .MapColumn(x => x.Sex, "性别", null)
+                .MapColumn(x => x.Memo, "备注", null)
+                .MapColumn(x => x.Roles, "角色", val => Role.Find(y => y.Name == val).ToList());
             var convert = new DataConverter<Account>();
             var lst = convert.ToList(customTable, options);
             Assert.AreEqual(2, lst.Count);
