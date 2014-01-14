@@ -99,9 +99,9 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
         {
             var options = new ConvertToListOptions<Account>();
             options
-                .MapColumn(x => x.Age, "年龄", null)
-                .MapColumn(x => x.Sex, "性别", null)
-                .MapColumn(x => x.Memo, "备注", null)
+                .MapColumn(x => x.Age, "年龄")
+                .MapColumn(x => x.Sex, "性别")
+                .MapColumn(x => x.Memo, "备注")
                 .MapColumn(x => x.Roles, "角色", val => Role.Find(y => y.Name == val).ToList());
             var convert = new DataConverter<Account>();
             var lst = convert.ToList(customTable, options);
