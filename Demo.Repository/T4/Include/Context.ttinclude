@@ -9,14 +9,6 @@ public class ContextTemplate : CSharpTemplate
 		_entities = entities.Select(x => new T4Entity(x)).ToList();
     }
 
-    public string FileName
-    {
-        get
-        { 
-            return "DemoContext.generated.cs";
-        }
-    }
-
 	public override string TransformText()
 	{		
 #>

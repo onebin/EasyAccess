@@ -9,17 +9,6 @@ public class RepositoryConfigTemplate : CSharpTemplate
 		_entities = entities.Select(x => new T4Entity(x)).ToList();
     }
 
-    /// <summary>
-    /// 获取 生成的文件名，根据模型名定义
-    /// </summary>
-    public string FileName
-    {
-        get
-        { 
-            return "RepositoryConfig.generated.xml";
-        }
-    }
-
 	public override string TransformText()
 	{		
 #>

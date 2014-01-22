@@ -9,17 +9,6 @@ public class RepositoryTemplate : CSharpTemplate
         _entity = new T4Entity(entity);
     }
 
-    /// <summary>
-    /// 获取 生成的文件名，根据模型名定义
-    /// </summary>
-    public string FileName
-    {
-        get
-        { 
-            return string.Format("{0}Repository.generated.cs", _entity.EntityName);
-        }
-    }
-
 	public override string TransformText()
 	{	
 #>

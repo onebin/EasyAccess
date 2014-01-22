@@ -11,19 +11,24 @@ namespace EasyAccess.Infrastructure.Util.T4
     public class T4Entity
     {
         /// <summary>
-        /// 获取 模型所在程序集名称
+        /// 获取 模型所在的程序集名称
         /// </summary>
         public string AssemblyName { get; private set; }
 
         /// <summary>
-        /// 获取 模型所在模块名称
+        /// 获取 模型所在的命名空间
         /// </summary>
         public string Namespace { get; private set; }
 
         /// <summary>
-        /// 获取 模型所在项目名称
+        /// 获取 模型所在的项目名称
         /// </summary>
         public string ProjectName { get; private set; }
+
+        /// <summary>
+        /// 获取 模型所在的模块名称
+        /// </summary>
+        public string ModuleName { get; private set; }
 
         /// <summary>
         /// 获取 模型名称

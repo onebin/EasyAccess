@@ -32,16 +32,16 @@
 			{
 				RepositoryTemplate repositoryTemplate = new RepositoryTemplate(aggregateRoot);
 				repositoryTemplate.Output.Encoding = Encoding.UTF8;
-				repositoryTemplate.RenderToFile(Path.Combine(string.Format(@"{0}\Repositories\Generated", projectPath), repositoryTemplate.FileName));
+				repositoryTemplate.RenderToFile(Path.Combine(string.Format(@"{0}\Repositories\Generated", projectPath), string.Format("{0}Repository.generated.cs", aggregateRoot.Name)));
 			}
 
 			RepositoryConfigTemplate repositoryConfigTemplate = new RepositoryConfigTemplate(aggregateRoots);
 			repositoryConfigTemplate.Output.Encoding = Encoding.UTF8;
-			repositoryConfigTemplate.RenderToFile(Path.Combine(string.Format(@"{0}\Bootstrap\Spring", projectPath), repositoryConfigTemplate.FileName));
+			repositoryConfigTemplate.RenderToFile(Path.Combine(string.Format(@"{0}\Bootstrap\Spring", projectPath), "RepositoryConfig.generated.xml"));
 			
 			ContextTemplate contextTemplate = new ContextTemplate(entities);
 			contextTemplate.Output.Encoding = Encoding.UTF8;
-			contextTemplate.RenderToFile(Path.Combine(string.Format(@"{0}\Bootstrap\EntityFramework", projectPath), contextTemplate.FileName));
+			contextTemplate.RenderToFile(Path.Combine(string.Format(@"{0}\Bootstrap\EntityFramework", projectPath), "EasyAccessContext.generated.cs"));
 
 		}
 
