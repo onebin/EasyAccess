@@ -18,22 +18,22 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
         {
             _options = options ?? new ConvertToDictionaryTreeOptions();
             _pidProperty = dataConverter.PropertyToShow.FirstOrDefault(x => x.PropertyType.GetNonNullableType() == typeof(TKey) && x.Name == _options.PidFieldName);
-            return listData == null ? null : Conver<T, TKey>(dataConverter, listData);
+            return Conver(dataConverter, listData);
         }
 
-        private static List<Dictionary<string, object>> Conver<T, TKey>(
+        private static List<Dictionary<string, object>> Conver<T>(
             DataConverter<T> dataConverter,
-            ICollection<T> listData) where T : class where TKey : struct
+            ICollection<T> listData) where T : class
         {
             var root = new List<Dictionary<string, object>>();
-            if (listData.Count > 0)
+            if (listData != null && listData.Count > 0)
             {
                 if (_options.RootNode != null)
                 {
                     _options.RootNode.Add(_options.ChildrenFieldName, GetChildren(dataConverter, listData, _options.RootIdValue));
                     root.Add(_options.RootNode);
                 }
-                else
+                else if (_options.RootNode != null)
                 {
                     root.AddRange(GetChildren(dataConverter, listData, _options.RootIdValue));
                 }
@@ -48,9 +48,7 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
         private static List<Dictionary<string, object>> GetChildren<T>(
             DataConverter<T> dataConverter,
             ICollection<T> listData,
-            object pidValue,
-            int level = 0
-            ) where T : class
+            object pidValue) where T : class
         {
             var children = new List<Dictionary<string, object>>();
 
@@ -71,7 +69,7 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
                         pidVal = val;
                     }
                 }
-                child.Add(_options.ChildrenFieldName, GetChildren(dataConverter, noParentData.ToList(), pidVal, ++level));
+                child.Add(_options.ChildrenFieldName, GetChildren(dataConverter, noParentData.ToList(), pidVal));
                 children.Add(child);
             }
             return children;
