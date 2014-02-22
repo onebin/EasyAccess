@@ -33,12 +33,12 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
                     _options.RootNode.Add(_options.ChildrenFieldName, GetChildren(dataConverter, listData, _options.RootIdValue));
                     root.Add(_options.RootNode);
                 }
-                else if (_options.RootNode != null)
+                else
                 {
                     root.AddRange(GetChildren(dataConverter, listData, _options.RootIdValue));
                 }
             }
-            else
+            else if (_options.RootNode != null)
             {
                 root.Add(_options.RootNode);
             }
