@@ -22,6 +22,7 @@ namespace EasyAccess.Repository.Migrations
                         Contact_Email = c.String(maxLength: 255),
                         Contact_Phone = c.String(maxLength: 32),
                         CreateTime = c.DateTime(nullable: false),
+                        RowVersion = c.Int(nullable: false)
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Register", t => t.Id)
