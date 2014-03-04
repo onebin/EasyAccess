@@ -16,9 +16,9 @@ public class RepositoryConfigTemplate : CSharpTemplate
 <objects xmlns="http://www.springframework.net"
          xmlns:db="http://www.springframework.net/database">
   
-  <object id="DemoContext" type="Demo.Repository.Bootstrap.EntityFramework.DemoContext, Demo.Repository" singleton="false" />
+  <object id="DemoContext" type="Demo.Repository.Bootstrap.EntityFramework.DemoContext, Demo.Repository" />
 
-  <object id="DemoUnitOfWork" type="Demo.Repository.UnitOfWork.DemoUnitOfWork, Demo.Repository" singleton="false">
+  <object id="DemoUnitOfWork" type="Demo.Repository.UnitOfWork.DemoUnitOfWork, Demo.Repository" >
     <constructor-arg name="context" ref="DemoContext"/>
   </object>
 
