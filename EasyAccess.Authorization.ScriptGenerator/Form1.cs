@@ -54,7 +54,7 @@ namespace EasyAccess.Authorization.ScriptGenerator
             }
             if (string.IsNullOrWhiteSpace(msg))
             {
-                new GenerateSQL(tbDllPath.Text, tbOutputPath.Text, tbDllName.Text, tbOutputName.Text, sqlStatement).CreateScript(out msg);
+                new GenerateSql(tbDllPath.Text, tbOutputPath.Text, tbDllName.Text, tbOutputName.Text, sqlStatement).CreateScript(out msg);
             }
             MessageBox.Show(msg);
         }

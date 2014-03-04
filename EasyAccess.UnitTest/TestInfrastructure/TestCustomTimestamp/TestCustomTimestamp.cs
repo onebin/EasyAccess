@@ -15,6 +15,8 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestCustomTimestamp
             account.Age = 25;
             Account.Update(account);
             EasyAccessUnitOfWork.Commit();
+
+            Assert.AreEqual(25, account.Age);
         }
     }
 }

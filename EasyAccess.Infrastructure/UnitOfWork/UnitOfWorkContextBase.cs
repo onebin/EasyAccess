@@ -7,8 +7,11 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
+using EasyAccess.Infrastructure.Attr;
 using EasyAccess.Infrastructure.Entity;
 using EasyAccess.Infrastructure.Util;
+using Spring.Objects.Factory;
 
 namespace EasyAccess.Infrastructure.UnitOfWork
 {
@@ -62,9 +65,9 @@ namespace EasyAccess.Infrastructure.UnitOfWork
             where TEntity : class, IAggregateRoot
         {
             if (IsRollback) return;
+            var dbSet = DbContext.Set<TEntity>();
             foreach (var entity in entities)
             {
-                var dbSet = DbContext.Set<TEntity>();
                 try
                 {
                     var entry = DbContext.Entry(entity);
@@ -88,9 +91,9 @@ namespace EasyAccess.Infrastructure.UnitOfWork
         {
             if (IsRollback) return;
             ReadOnlyCollection<MemberInfo> memberInfos = ((dynamic)propertyExpression.Body).Members;
+            var dbSet = DbContext.Set<TEntity>();
             foreach (var entity in entities)
             {
-                var dbSet = DbContext.Set<TEntity>();
                 try
                 {
                     var entry = DbContext.Entry(entity);
@@ -160,7 +163,7 @@ namespace EasyAccess.Infrastructure.UnitOfWork
             }
             try
             {
-                var result = DbContext.SaveChanges();
+                var result = SaveChanges() + DbContext.SaveChanges();
                 IsCommitted = true;
                 return result;
             }
@@ -174,6 +177,44 @@ namespace EasyAccess.Infrastructure.UnitOfWork
                 }
                 throw;
             }
+        }
+
+        private int SaveChanges()
+        {
+            var result = 0;
+            string a = "";
+            foreach (var entry in DbContext.ChangeTracker.Entries())
+            {
+                var baseType = entry.Entity.GetType().BaseType;
+                if (entry.State == EntityState.Modified)
+                {
+                    var customTimeStamps = baseType.GetCustomAttributes<CustomTimestampAttribute>(true);
+                    if (customTimeStamps == null)
+                    {
+                        continue;
+                    }
+                    if (customTimeStamps.Count() > 1)
+                    {
+                        throw new ObjectDefinitionException("一个实体中只能标记一个时间戳属性（包括子类和父类）");
+                    }
+                    foreach (var property in baseType.GetProperties(BindingFlags.Public | BindingFlags.Instance))
+                    {
+                        try
+                        {
+                            if (entry.Property(property.Name).IsModified)
+                            {
+                                a += property.Name;
+                            }
+                        }
+                        catch
+                        {
+                            continue;
+                        }
+                    }
+                    entry.State = EntityState.Unchanged;
+                }
+            }
+            return result;
         }
 
         public void Rollback()

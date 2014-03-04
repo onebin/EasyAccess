@@ -32,7 +32,7 @@ namespace EasyAccess.Model.EDMs
 
         public virtual ICollection<Role> Roles { get; set; }
 
-        [CustomTimestamp(CustomTimestampUpdateMode.GreaterThanOrEqual)]
+        [CustomTimestamp(CustomTimestampUpdateMode.GreaterThan)]
         public int RowVersion { get; set; }
 
         #endregion

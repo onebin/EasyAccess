@@ -10,7 +10,7 @@ using EasyAccess.Infrastructure.Attr;
 
 namespace EasyAccess.Authorization.ScriptGenerator
 {
-    public class GenerateSQL
+    public class GenerateSql
     {
         private string DllName { get; set; }
         private string DllFilePath { get; set; }
@@ -21,7 +21,7 @@ namespace EasyAccess.Authorization.ScriptGenerator
         private IDictionary<string, PermissionAttribute> permissionDic = new Dictionary<string, PermissionAttribute>();
         private IList<Type> targetTypes = new List<Type>();
 
-        public GenerateSQL(string path, string outputPath, string dllName, string outputName, ISqlStatement sqlStatement)
+        public GenerateSql(string path, string outputPath, string dllName, string outputName, ISqlStatement sqlStatement)
         {
             this.DllName = dllName;
             this.DllFilePath = path;
@@ -54,8 +54,8 @@ namespace EasyAccess.Authorization.ScriptGenerator
 
         private void CreateNewScript()
         {
-            FileStream fileStream = new FileStream(ScriptPath, FileMode.Create);
-            StreamWriter streamWriter = new StreamWriter(fileStream, Encoding.GetEncoding("UTF-8"));
+            var fileStream = new FileStream(ScriptPath, FileMode.Create);
+            var streamWriter = new StreamWriter(fileStream, Encoding.GetEncoding("UTF-8"));
 
             WriteStream(streamWriter);
 
@@ -77,29 +77,29 @@ namespace EasyAccess.Authorization.ScriptGenerator
 
         }
 
-        private string SqlText(Type[] types)
+        private string SqlText(IEnumerable<Type> types)
         {
             VerifyTypes(types);
 
-            StringBuilder sqlText = new StringBuilder();
+            var sqlText = new StringBuilder();
 
             sqlText.Append(SqlStatement.BeforeGen());
 
             var menuLst = new List<MenuAttribute>();
-            foreach (Type type in targetTypes)
+            foreach (var type in targetTypes)
             {
                 menuLst.AddRange(GetMenuInstance(type));
             }
             menuLst = menuLst.OrderBy(x => x.Depth).ThenBy(x => x.Index).ToList();
             foreach (var menu in menuLst)
             {
-                sqlText.Append(MenuSQL(menu));
+                sqlText.Append(MenuSql(menu));
             }
             sqlText.Append(DelectUsesdMenu());
 
-            foreach (Type type in targetTypes)
+            foreach (var type in targetTypes)
             {
-                sqlText.Append(PermissionSQL(type));
+                sqlText.Append(PermissionSql(type));
             }
             sqlText.Append(DeleteUsedPermission());
 
@@ -110,21 +110,22 @@ namespace EasyAccess.Authorization.ScriptGenerator
             return sqlText.ToString();
         }
 
-        private void VerifyTypes(Type[] types)
+        private void VerifyTypes(IEnumerable<Type> types)
         {
             foreach (Type type in types)
             {
-                if (type.GetCustomAttributes(typeof(MenuAttribute), false).Count() > 0)
+                if (type.GetCustomAttributes<MenuAttribute>(false).Any())
                 {
                     targetTypes.Add(type);
                 }
             }
         }
 
-        private List<MenuAttribute> GetMenuInstance(Type type)
+        private IEnumerable<MenuAttribute> GetMenuInstance(Type type)
         {
+            if (type == null) throw new ArgumentNullException("type");
             var menuLst = new List<MenuAttribute>();
-            var attrs = type.GetCustomAttributes(typeof(MenuAttribute), false);
+            var attrs = type.GetCustomAttributes<MenuAttribute>(false);
             foreach (MenuAttribute attr in attrs)
             {
                 if (menuDic.ContainsKey(attr.Id))
@@ -140,7 +141,7 @@ namespace EasyAccess.Authorization.ScriptGenerator
             return menuLst;
         }
 
-        private string MenuSQL(MenuAttribute menu)
+        private string MenuSql(MenuAttribute menu)
         {
             return string.Format(SqlStatement.GenMenu(), new object[] {
                     menu.Id,
@@ -158,7 +159,7 @@ namespace EasyAccess.Authorization.ScriptGenerator
             string sql = "";
             if (menuDic.Keys.Count > 0)
             {
-                StringBuilder deleteTarget = new StringBuilder();
+                var deleteTarget = new StringBuilder();
                 foreach (var id in menuDic.Keys)
                 {
                     deleteTarget.Append("'" + id + "',");
@@ -168,9 +169,10 @@ namespace EasyAccess.Authorization.ScriptGenerator
             return sql;
         }
 
-        private string PermissionSQL(Type type)
+        private string PermissionSql(Type type)
         {
-            StringBuilder sql = new StringBuilder();
+            if (type == null) throw new ArgumentNullException("type");
+            var sql = new StringBuilder();
             MethodInfo[] methods = type.GetMethods(BindingFlags.Public | BindingFlags.Instance);
 
             foreach (var method in methods)
@@ -214,7 +216,7 @@ namespace EasyAccess.Authorization.ScriptGenerator
             string sql = "";
             if (permissionDic.Keys.Count > 0)
             {
-                StringBuilder deleteTarget = new StringBuilder();
+                var deleteTarget = new StringBuilder();
                 foreach (var id in permissionDic.Keys)
                 {
                     deleteTarget.Append("'" + id + "',");
