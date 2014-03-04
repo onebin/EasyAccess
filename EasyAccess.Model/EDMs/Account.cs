@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Management.Instrumentation;
 using System.Text;
+using EasyAccess.Infrastructure.Attr;
 using EasyAccess.Infrastructure.Entity;
 using EasyAccess.Infrastructure.Util.Encryption;
 using EasyAccess.Model.DTOs;
@@ -33,6 +34,9 @@ namespace EasyAccess.Model.EDMs
         public virtual Register Register { get; set; }
 
         public virtual ICollection<Role> Roles { get; set; }
+
+        [CustomTimestamp(CustomTimestampUpdateMode.GreaterThanOrEqual)]
+        public int RowVersion { get; set; }
 
         #endregion
 

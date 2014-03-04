@@ -5,7 +5,7 @@ using System.Collections;
 namespace EasyAccess.Infrastructure.Attr
 {
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Enum)]
-    public class EnumDescription : Attribute
+    public class EnumDescriptionAttribute : Attribute
     {
         private readonly string _enumDisplayText;
         private readonly int _enumRank;
@@ -17,7 +17,7 @@ namespace EasyAccess.Infrastructure.Attr
         /// </summary>
         /// <param name="enumDisplayText">描述内容</param>
         /// <param name="enumRank">排列顺序</param>
-        public EnumDescription(string enumDisplayText, int enumRank)
+        public EnumDescriptionAttribute(string enumDisplayText, int enumRank)
         {
             this._enumDisplayText = enumDisplayText;
             this._enumRank = enumRank;
@@ -27,7 +27,7 @@ namespace EasyAccess.Infrastructure.Attr
         /// 描述枚举值，默认排序为5
         /// </summary>
         /// <param name="enumDisplayText">描述内容</param>
-        public EnumDescription(string enumDisplayText) : this(enumDisplayText, 5) { }
+        public EnumDescriptionAttribute(string enumDisplayText) : this(enumDisplayText, 5) { }
 
         public string EnumDisplayText
         {
@@ -78,7 +78,7 @@ namespace EasyAccess.Infrastructure.Attr
         /// <returns></returns>
         public static string GetEnumText(Type enumType)
         {
-            var eds = (EnumDescription[])enumType.GetCustomAttributes(typeof(EnumDescription), false);
+            var eds = (EnumDescriptionAttribute[])enumType.GetCustomAttributes(typeof(EnumDescriptionAttribute), false);
             if (eds.Length != 1) return string.Empty;
             return eds[0].EnumDisplayText;
         }
@@ -105,7 +105,7 @@ namespace EasyAccess.Infrastructure.Attr
         /// <exception cref="NotSupportedException"></exception>
         /// <param name="enumType">枚举类型</param>
         /// <returns>所有定义的文本</returns>
-        public static EnumDescription[] GetFieldTexts(Type enumType)
+        public static EnumDescriptionAttribute[] GetFieldTexts(Type enumType)
         {
             return GetFieldTexts(enumType, SortType.Default);
         }
@@ -117,9 +117,9 @@ namespace EasyAccess.Infrastructure.Attr
         /// <param name="enumType">枚举类型</param>
         /// <param name="sortType">指定排序类型</param>
         /// <returns>所有定义的文本</returns>
-        public static EnumDescription[] GetFieldTexts(Type enumType, SortType sortType)
+        public static EnumDescriptionAttribute[] GetFieldTexts(Type enumType, SortType sortType)
         {
-            EnumDescription[] descriptions = null;
+            EnumDescriptionAttribute[] descriptions = null;
             //缓存中没有找到，通过反射获得字段的描述信息
             if (CachedEnum.Contains(enumType.FullName) == false)
             {
@@ -127,15 +127,15 @@ namespace EasyAccess.Infrastructure.Attr
                 var edAl = new ArrayList();
                 foreach (var fi in fields)
                 {
-                    var eds = fi.GetCustomAttributes(typeof(EnumDescription), false);
+                    var eds = fi.GetCustomAttributes(typeof(EnumDescriptionAttribute), false);
                     if (eds.Length != 1) continue;
-                    ((EnumDescription)eds[0])._fieldIno = fi;
+                    ((EnumDescriptionAttribute)eds[0])._fieldIno = fi;
                     edAl.Add(eds[0]);
                 }
 
-                CachedEnum.Add(enumType.FullName, (EnumDescription[])edAl.ToArray(typeof(EnumDescription)));
+                CachedEnum.Add(enumType.FullName, (EnumDescriptionAttribute[])edAl.ToArray(typeof(EnumDescriptionAttribute)));
             }
-            descriptions = (EnumDescription[])CachedEnum[enumType.FullName];
+            descriptions = (EnumDescriptionAttribute[])CachedEnum[enumType.FullName];
             if (descriptions.Length <= 0) throw new NotSupportedException("枚举类型[" + enumType.Name + "]未定义属性EnumValueDescription");
 
             //按指定的属性冒泡排序
@@ -146,7 +146,7 @@ namespace EasyAccess.Infrastructure.Attr
 
                 for (int n = m; n < descriptions.Length; n++)
                 {
-                    EnumDescription temp;
+                    EnumDescriptionAttribute temp;
                     bool swap = false;
 
                     switch (sortType)

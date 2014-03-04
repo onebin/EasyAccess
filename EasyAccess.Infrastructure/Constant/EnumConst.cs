@@ -52,25 +52,25 @@ namespace EasyAccess.Infrastructure.Constant
         /// <summary>
         /// 添加
         /// </summary>
-        [EnumDescription("添加")]
+        [EnumDescriptionAttribute("添加")]
         Insert = 1,
 
         /// <summary>
         /// 修改
         /// </summary>
-        [EnumDescription("修改")]
+        [EnumDescriptionAttribute("修改")]
         Update = 2,
 
         /// <summary>
         /// 保存
         /// </summary>
-        [EnumDescription("添加/修改")]
+        [EnumDescriptionAttribute("添加/修改")]
         Upsert = 3,
 
         /// <summary>
         /// 删除
         /// </summary>
-        [EnumDescription("删除")]
+        [EnumDescriptionAttribute("删除")]
         Delete = 0
     }
 }
