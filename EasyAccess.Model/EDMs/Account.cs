@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data.Entity;
 using System.Linq;
 using System.Management.Instrumentation;
-using System.Text;
 using EasyAccess.Infrastructure.Attr;
 using EasyAccess.Infrastructure.Entity;
 using EasyAccess.Infrastructure.Util.Encryption;
-using EasyAccess.Model.DTOs;
 using EasyAccess.Model.VOs;
 
 namespace EasyAccess.Model.EDMs

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data.Objects;
 using System.Linq;
 using EasyAccess.Infrastructure.Repository;
 using EasyAccess.Model.EDMs;
