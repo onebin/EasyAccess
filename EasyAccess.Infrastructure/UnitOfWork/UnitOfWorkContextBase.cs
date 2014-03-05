@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
 using EasyAccess.Infrastructure.Attr;
 using EasyAccess.Infrastructure.Entity;
+using EasyAccess.Infrastructure.Extensions;
 using EasyAccess.Infrastructure.Util;
+using EasyAccess.Infrastructure.Util.Sql;
 using Spring.Objects.Factory;
 
 namespace EasyAccess.Infrastructure.UnitOfWork
@@ -18,6 +20,8 @@ namespace EasyAccess.Infrastructure.UnitOfWork
     public abstract class UnitOfWorkContextBase : IUnitOfWorkContext
     {
         protected abstract DbContext DbContext { get; }
+
+        private static ISqlCommand _sqlCommand = new MsSql();
 
         public DbSet<TEntity> Set<TEntity>()
             where TEntity : class, IAggregateRoot
@@ -182,36 +186,68 @@ namespace EasyAccess.Infrastructure.UnitOfWork
         private int SaveChanges()
         {
             var result = 0;
-            string a = "";
+            var commands = new List<string>();
+            var reloadItems = new List<DbEntityEntry>();
             foreach (var entry in DbContext.ChangeTracker.Entries())
             {
+                if (entry.State != EntityState.Modified) continue;
+
                 var baseType = entry.Entity.GetType().BaseType;
-                if (entry.State == EntityState.Modified)
+
+                if (baseType == null) continue;
+
+                var customTimeStamps = baseType.GetCustomAttributes<CustomTimestampAttribute>(true);
+
+                if (customTimeStamps == null) continue;
+
+                if (customTimeStamps.Count() > 1) throw new ObjectDefinitionException("一个实体中只能标记一个时间戳属性（包括子类和父类）");
+
+                var columnNameAndValues = new Dictionary<string, string>();
+                var isModified = false;
+                foreach (var property in baseType.GetProperties(BindingFlags.Public | BindingFlags.Instance))
                 {
-                    var customTimeStamps = baseType.GetCustomAttributes<CustomTimestampAttribute>(true);
-                    if (customTimeStamps == null)
+                    if (!property.PropertyType.IsBasic()) continue;
+
+                    if (entry.Property(property.Name).IsModified)
                     {
-                        continue;
-                    }
-                    if (customTimeStamps.Count() > 1)
-                    {
-                        throw new ObjectDefinitionException("一个实体中只能标记一个时间戳属性（包括子类和父类）");
-                    }
-                    foreach (var property in baseType.GetProperties(BindingFlags.Public | BindingFlags.Instance))
-                    {
-                        try
+                        isModified = true;
+                        var columnAttr = property.GetCustomAttributes<ColumnAttribute>().ToArray();
+                        var columnName = property.Name;
+                        var value = entry.Property(property.Name).CurrentValue.ToString();
+                        if (columnAttr.Any())
                         {
-                            if (entry.Property(property.Name).IsModified)
-                            {
-                                a += property.Name;
-                            }
+                            columnName = columnAttr[0].Name;
                         }
-                        catch
+                        if (property.PropertyType.IsEnum)
                         {
-                            continue;
+                            value = ((int)entry.Property(property.Name).CurrentValue).ToString();
                         }
+                        columnNameAndValues.Add(columnName, value);
                     }
-                    entry.State = EntityState.Unchanged;
+                }
+                if (isModified)
+                {
+                    reloadItems.Add(entry);
+                    var tableName = baseType.Name;
+                    var tableAttr = baseType.GetCustomAttributes<TableAttribute>(false).ToArray();
+                    if (tableAttr.Any())
+                    {
+                        tableName = tableAttr[0].Name;
+                    }
+                    commands.Add(_sqlCommand.Update(tableName, columnNameAndValues, entry.Property("Id").CurrentValue.ToString()));
+                }
+                entry.State = EntityState.Unchanged;
+            }
+            if (commands.Count > 0)
+            {
+                using (var tran = DbContext.Database.BeginTransaction())
+                {
+                    result += DbContext.Database.ExecuteSqlCommand(string.Join(" Go ", commands));
+                    tran.Commit();
+                }
+                foreach (var dbEntityEntry in reloadItems)
+                {
+                    dbEntityEntry.Reload();
                 }
             }
             return result;

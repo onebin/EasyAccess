@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Management.Instrumentation;
 using EasyAccess.Infrastructure.Attr;
@@ -14,6 +15,7 @@ namespace EasyAccess.Model.EDMs
     {
         #region 属性
 
+        [Column("_age")]
         public int Age { get; set; }
 
         public Sex Sex { get; set; }

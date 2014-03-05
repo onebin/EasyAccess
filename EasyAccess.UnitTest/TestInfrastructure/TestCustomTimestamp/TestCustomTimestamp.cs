@@ -1,5 +1,6 @@
 ﻿using System;
 using EasyAccess.Model.EDMs;
+using EasyAccess.Model.VOs;
 using EasyAccess.UnitTest.Bootstrap;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -13,6 +14,7 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestCustomTimestamp
         {
             var account = Account.FindById(1);
             account.Age = 25;
+            account.Sex = Sex.Female;
             Account.Update(account);
             EasyAccessUnitOfWork.Commit();
 

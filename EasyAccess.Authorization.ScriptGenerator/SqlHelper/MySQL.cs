@@ -1,6 +1,6 @@
 ﻿namespace EasyAccess.Authorization.ScriptGenerator.SqlHelper
 {
-    public class MySQL : ISqlStatement
+    public class MySql : ISqlStatement
     {
 
         public string BeforeGen()

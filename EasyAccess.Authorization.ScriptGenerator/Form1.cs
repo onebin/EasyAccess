@@ -26,11 +26,11 @@ namespace EasyAccess.Authorization.ScriptGenerator
             ISqlStatement sqlStatement = null;
             switch (cbDbType.Text)
             {
-                case "MSSQL":
-                    sqlStatement = new MSSQL();
+                case "MsSql":
+                    sqlStatement = new MsSql();
                     break;
-                case "MySQL":
-                    sqlStatement = new MySQL();
+                case "MySql":
+                    sqlStatement = new MySql();
                     break;
                 default:
                     msg += "不支持数据库【" + cbDbType.Text + "】的脚本生成！\n";

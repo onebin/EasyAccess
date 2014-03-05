@@ -194,13 +194,13 @@
             // 
             this.cbDbType.FormattingEnabled = true;
             this.cbDbType.Items.AddRange(new object[] {
-            "MSSQL",
-            "MySQL"});
+            "MsSql",
+            "MySql"});
             this.cbDbType.Location = new System.Drawing.Point(74, 170);
             this.cbDbType.Name = "cbDbType";
             this.cbDbType.Size = new System.Drawing.Size(121, 20);
             this.cbDbType.TabIndex = 27;
-            this.cbDbType.Text = "MSSQL";
+            this.cbDbType.Text = "MsSql";
             // 
             // label8
             // 

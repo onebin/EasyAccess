@@ -2,7 +2,7 @@
 
 namespace EasyAccess.Authorization.ScriptGenerator.SqlHelper
 {
-    public class MSSQL : ISqlStatement
+    public class MsSql : ISqlStatement
     {
 
         public string BeforeGen()
