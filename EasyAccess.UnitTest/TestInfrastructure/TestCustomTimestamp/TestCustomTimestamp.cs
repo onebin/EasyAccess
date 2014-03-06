@@ -15,10 +15,9 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestCustomTimestamp
             var account = Account.FindById(1);
             account.Age = 25;
             account.Sex = Sex.Female;
-            account.RowVersion = 1;
+            account.RowVersion = 2;
             Account.Update(account);
-            EasyAccessUnitOfWork.Commit();
-
+            Assert.AreEqual(1, EasyAccessUnitOfWork.Commit());
             Assert.AreEqual(25, account.Age);
         }
     }

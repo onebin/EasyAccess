@@ -61,26 +61,26 @@ namespace EasyAccess.Infrastructure.Util.CustomTimestamp
 
             public CustomTimestampCache(Type baseType)
             {
-                var customTimeStamps = baseType.GetCustomAttributes<CustomTimestampAttribute>(true).ToArray();
-                HasTimestampProperty = customTimeStamps.Any();
                 TableName = baseType.Name;
-                if (HasTimestampProperty)
+                Properies = baseType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+                BasicProperies = Properies.Where(x => x.PropertyType.IsBasic()).ToArray();
+
+                var tableAttr = baseType.GetCustomAttributes<TableAttribute>(false).ToArray();
+                if (tableAttr.Any())
                 {
-                    UpdateMode = customTimeStamps[0].UpdateMode;
-                    Properies = baseType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
-                    BasicProperies = Properies.Where(x => x.PropertyType.IsBasic()).ToArray();
-                    var targetType = typeof(CustomTimestampAttribute);
-                    foreach (var basicPropery in BasicProperies.Where(basicPropery => basicPropery.CustomAttributes.Any(x => x.AttributeType == targetType)))
-                    {
-                        TimestampPropertyName = basicPropery.Name;
-                        TimestampColumnName = GetColumnName(basicPropery);
-                        break;
-                    }
-                    var tableAttr = baseType.GetCustomAttributes<TableAttribute>(false).ToArray();
-                    if (tableAttr.Any())
-                    {
-                        TableName = tableAttr[0].Name;
-                    }
+                    TableName = tableAttr[0].Name;
+                }
+                var customTimestampType = typeof(CustomTimestampAttribute);
+                var customTimestampProperty = BasicProperies.FirstOrDefault(
+                    basicPropery => basicPropery.CustomAttributes.Any(
+                        x => x.AttributeType == customTimestampType));
+
+                if (customTimestampProperty != null)
+                {
+                    HasTimestampProperty = true;
+                    TimestampPropertyName = customTimestampProperty.Name;
+                    TimestampColumnName = GetColumnName(customTimestampProperty);
+                    UpdateMode = customTimestampProperty.GetCustomAttribute<CustomTimestampAttribute>().UpdateMode;
                 }
             }
 
