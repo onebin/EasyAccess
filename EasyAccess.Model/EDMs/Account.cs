@@ -6,6 +6,7 @@ using System.Linq;
 using System.Management.Instrumentation;
 using EasyAccess.Infrastructure.Attr;
 using EasyAccess.Infrastructure.Entity;
+using EasyAccess.Infrastructure.Util.CustomTimestamp;
 using EasyAccess.Infrastructure.Util.Encryption;
 using EasyAccess.Model.VOs;
 
@@ -15,7 +16,6 @@ namespace EasyAccess.Model.EDMs
     {
         #region 属性
 
-        [Column("_age")]
         public int Age { get; set; }
 
         public Sex Sex { get; set; }
@@ -34,7 +34,8 @@ namespace EasyAccess.Model.EDMs
 
         public virtual ICollection<Role> Roles { get; set; }
 
-        [CustomTimestamp(CustomTimestampUpdateMode.GreaterThan)]
+        [Column("_RowVersion")]
+        [CustomTimestamp(CustomTimestampUpdateMode.Equal)]
         public int RowVersion { get; set; }
 
         #endregion

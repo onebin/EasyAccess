@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Reflection;
+using EasyAccess.Infrastructure.Util.CustomTimestamp;
 
 namespace EasyAccess.Infrastructure.Attr
 {
@@ -11,14 +13,5 @@ namespace EasyAccess.Infrastructure.Attr
         {
             UpdateMode = updateMode;
         }
-    }
-
-    public enum CustomTimestampUpdateMode
-    {
-        Equal,
-
-        GreaterThanOrEqual,
-
-        GreaterThan
     }
 }

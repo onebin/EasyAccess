@@ -98,6 +98,12 @@
     <Compile Include="Util\ConditionBuilder\IQueryCondition.cs" />
     <Compile Include="Util\ConditionBuilder\ParameterExpressionVisitor.cs" />
     <Compile Include="Util\ConditionBuilder\ThenByCondition.cs" />
+    <Compile Include="Util\CustomTimestamp\CustomTimestampCacheManager.cs" />
+    <Compile Include="Util\CustomTimestamp\CustomTimestampUpdateMode.cs" />
+    <Compile Include="Util\CustomTimestamp\ICustomTimestampCache.cs" />
+    <Compile Include="Util\CustomTimestamp\ISqlCommand.cs" />
+    <Compile Include="Util\CustomTimestamp\SqlCommandBase.cs" />
+    <Compile Include="Util\CustomTimestamp\SqlCommandBuilder.cs" />
     <Compile Include="Util\DataConverter\ConvertToDataTable.cs" />
     <Compile Include="Util\DataConverter\ConvertToDictionary.cs" />
     <Compile Include="Util\DataConverter\ConvertToDictionaryTree.cs" />
@@ -112,9 +118,8 @@
     <Compile Include="Util\OperationResult.cs" />
     <Compile Include="Util\PagingData\PagingData.cs" />
     <Compile Include="Util\PagingData\PagingCondition.cs" />
-    <Compile Include="Util\Sql\ISqlCommand.cs" />
-    <Compile Include="Util\Sql\MsSql.cs" />
-    <Compile Include="Util\Sql\MySql.cs" />
+    <Compile Include="Util\CustomTimestamp\Dialect\MsSql.cs" />
+    <Compile Include="Util\CustomTimestamp\Dialect\MySql.cs" />
     <Compile Include="Util\T4\T4Entity.cs" />
   </ItemGroup>
   <ItemGroup>
