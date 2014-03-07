@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Infrastructure;
@@ -17,7 +18,7 @@ namespace EasyAccess.Infrastructure.Util.CustomTimestamp
 
         private readonly ReaderWriterLockSlim _rwLocker = new ReaderWriterLockSlim();
 
-        private static readonly Dictionary<string, CustomTimestampCache> CustomTimestampCacheItems = new Dictionary<string, CustomTimestampCache>();
+        private static readonly Hashtable CustomTimestampCacheItems = new Hashtable();
 
         static CustomTimestampCacheManager()
         {
@@ -38,7 +39,7 @@ namespace EasyAccess.Infrastructure.Util.CustomTimestamp
             {
                 _rwLocker.ExitUpgradeableReadLock();
             }
-            return CustomTimestampCacheItems[baseType.FullName];
+            return (CustomTimestampCache)CustomTimestampCacheItems[baseType.FullName];
         }
 
         private void Cache(Type baseType)
