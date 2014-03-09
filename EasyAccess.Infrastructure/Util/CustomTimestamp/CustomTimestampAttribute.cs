@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Reflection;
-using EasyAccess.Infrastructure.Util.CustomTimestamp;
 
-namespace EasyAccess.Infrastructure.Attr
+namespace EasyAccess.Infrastructure.Util.CustomTimestamp
 {
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
     public class CustomTimestampAttribute : Attribute

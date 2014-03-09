@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Security;
 using EasyAccess.Infrastructure.Attr;
 using EasyAccess.Infrastructure.Constant;
+using PermissionAttribute = EasyAccess.Authorization.Attr.PermissionAttribute;
 
 namespace EasyAccess.Authorization.Filter
 {

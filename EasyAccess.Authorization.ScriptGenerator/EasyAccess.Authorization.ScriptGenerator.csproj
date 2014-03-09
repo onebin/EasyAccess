@@ -107,6 +107,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EasyAccess.Authorization\EasyAccess.Authorization.csproj">
+      <Project>{C858C06A-F7CE-40D2-9064-8D708F1E77B9}</Project>
+      <Name>EasyAccess.Authorization</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EasyAccess.Infrastructure\EasyAccess.Infrastructure.csproj">
       <Project>{f423a8a3-1ff4-4c09-8dd1-2071cbf61021}</Project>
       <Name>EasyAccess.Infrastructure</Name>

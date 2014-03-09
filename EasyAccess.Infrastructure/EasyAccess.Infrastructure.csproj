@@ -70,10 +70,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attr\CustomTimestampAttribute.cs" />
+    <Compile Include="Util\CustomTimestamp\CustomTimestampAttribute.cs" />
     <Compile Include="Attr\EnumDescriptionAttribute.cs" />
-    <Compile Include="Attr\MenuAttribute.cs" />
-    <Compile Include="Attr\PermissionAttribute.cs" />
     <Compile Include="Constant\EnumConst.cs" />
     <Compile Include="Constant\ViewConst.cs" />
     <Compile Include="Entity\AggregateBase.cs" />

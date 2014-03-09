@@ -1,15 +1,12 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using EasyAccess.Infrastructure.Attr;
+using EasyAccess.Authorization.Attr;
 using EasyAccess.Authorization.Controllers;
 using EasyAccess.Infrastructure.Constant;
 using EasyAccess.Infrastructure.Util;
-using EasyAccess.Infrastructure.Util.ConditionBuilder;
 using EasyAccess.Infrastructure.Util.EasyUi;
-using EasyAccess.Infrastructure.Util.PagingData;
 using EasyAccess.Model.DTOs;
 using EasyAccess.Model.EDMs;
-using EasyAccess.Service.IServices;
 
 namespace Demo.MvcApplication.Areas.SystemSettings.Controllers
 {

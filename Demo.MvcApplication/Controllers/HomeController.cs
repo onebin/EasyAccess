@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using EasyAccess.Infrastructure.Attr;
+using EasyAccess.Authorization.Attr;
 using EasyAccess.Authorization.Controllers;
 
 namespace Demo.MvcApplication.Controllers

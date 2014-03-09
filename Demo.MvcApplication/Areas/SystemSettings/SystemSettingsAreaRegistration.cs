@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using EasyAccess.Infrastructure.Attr;
+using EasyAccess.Authorization.Attr;
 
 namespace Demo.MvcApplication.Areas.SystemSettings
 {

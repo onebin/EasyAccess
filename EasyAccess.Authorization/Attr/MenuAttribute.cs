@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace EasyAccess.Infrastructure.Attr
+namespace EasyAccess.Authorization.Attr
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = false)]
     public class MenuAttribute : Attribute

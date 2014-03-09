@@ -55,6 +55,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attr\MenuAttribute.cs" />
+    <Compile Include="Attr\PermissionAttribute.cs" />
     <Compile Include="AuthorizationManager.cs" />
     <Compile Include="Controllers\AuthorizationController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
