@@ -27,8 +27,17 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestEnumDescription
         [TestMethod]
         public void TestGetEnumDescriptions()
         {
-            var enumDescriptions = EnumDescriptionManager.Instance.GetEnumDescriptions(typeof (Color), EnumSortType.Index);
+            var enumDescriptions = EnumDescriptionManager.Instance.GetEnumDescriptions(typeof (Color));
             Assert.AreEqual(4, enumDescriptions.Count());
+            Assert.AreEqual("红色", enumDescriptions[0].Description);
+            Assert.AreEqual("蓝色", enumDescriptions[1].Description);
+            Assert.AreEqual("绿色", enumDescriptions[2].Description);
+            Assert.AreEqual("黄色", enumDescriptions[3].Description);
+
+            Assert.AreEqual(10, enumDescriptions[0].Value);
+            Assert.AreEqual(20, enumDescriptions[1].Value);
+            Assert.AreEqual(30, enumDescriptions[2].Value);
+            Assert.AreEqual(40, enumDescriptions[3].Value);
 
             var enumBlue = EnumDescriptionManager.Instance.GetDescription(Color.Blue);
             Assert.AreEqual("蓝色", enumBlue);
