@@ -7,7 +7,6 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
-using EasyAccess.Infrastructure.Attr;
 using EasyAccess.Infrastructure.Extensions;
 
 namespace EasyAccess.Infrastructure.Util.CustomTimestamp

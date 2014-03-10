@@ -83,6 +83,7 @@
     <Compile Include="Bootstrap\SpringTestBase.cs" />
     <Compile Include="TestAuthorization\AuthorizationManagerTest.cs" />
     <Compile Include="TestInfrastructure\TestCustomTimestamp\TestCustomTimestamp.cs" />
+    <Compile Include="TestInfrastructure\TestEnumDescription\EnumDescriptionTest.cs" />
     <Compile Include="TestInfrastructure\TestExtensions\TestTypeExtension.cs" />
     <Compile Include="TestInfrastructure\TestUnitOfWork\UnitOfWorkBaseTest.cs" />
     <Compile Include="TestInfrastructure\TestUtil\ConditionBuilderTest.cs" />

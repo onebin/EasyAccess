@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Management.Instrumentation;
-using EasyAccess.Infrastructure.Attr;
 using EasyAccess.Infrastructure.Entity;
 using EasyAccess.Infrastructure.Util.CustomTimestamp;
 using EasyAccess.Infrastructure.Util.Encryption;

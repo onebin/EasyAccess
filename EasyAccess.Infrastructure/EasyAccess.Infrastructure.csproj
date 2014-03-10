@@ -71,7 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Util\CustomTimestamp\CustomTimestampAttribute.cs" />
-    <Compile Include="Attr\EnumDescriptionAttribute.cs" />
+    <Compile Include="Util\EnumDescription\EnumDescriptionAttribute.cs" />
     <Compile Include="Constant\EnumConst.cs" />
     <Compile Include="Constant\ViewConst.cs" />
     <Compile Include="Entity\AggregateBase.cs" />
@@ -112,6 +112,9 @@
     <Compile Include="Util\Encryption\Basic64Encryption.cs" />
     <Compile Include="Util\Encryption\HashFunctionEncryption.cs" />
     <Compile Include="Util\Encryption\MD5Encryption.cs" />
+    <Compile Include="Util\EnumDescription\EnumDescriptionManager.cs" />
+    <Compile Include="Util\EnumDescription\EnumSortType.cs" />
+    <Compile Include="Util\EnumDescription\IEnumDescription.cs" />
     <Compile Include="Util\IPAddress.cs" />
     <Compile Include="Util\OperationResult.cs" />
     <Compile Include="Util\PagingData\PagingData.cs" />
@@ -124,7 +127,9 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Attr\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,4 +1,4 @@
-﻿using EasyAccess.Infrastructure.Attr;
+﻿using EasyAccess.Infrastructure.Util.EnumDescription;
 
 namespace EasyAccess.Infrastructure.Constant
 {
@@ -52,25 +52,25 @@ namespace EasyAccess.Infrastructure.Constant
         /// <summary>
         /// 添加
         /// </summary>
-        [EnumDescriptionAttribute("添加")]
+        [EnumDescription("添加")]
         Insert = 1,
 
         /// <summary>
         /// 修改
         /// </summary>
-        [EnumDescriptionAttribute("修改")]
+        [EnumDescription("修改")]
         Update = 2,
 
         /// <summary>
         /// 保存
         /// </summary>
-        [EnumDescriptionAttribute("添加/修改")]
+        [EnumDescription("添加/修改")]
         Upsert = 3,
 
         /// <summary>
         /// 删除
         /// </summary>
-        [EnumDescriptionAttribute("删除")]
+        [EnumDescription("删除")]
         Delete = 0
     }
 }
