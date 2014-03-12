@@ -32,7 +32,7 @@ namespace EasyAccess.Infrastructure.Util.CustomTimestamp
             {
                 if (!CustomTimestampCacheItems.ContainsKey(cacheId))
                 {
-                    var baseType = entryType.BaseType != null && entryType.BaseType.IsAbstract ? entryType : entryType.BaseType;
+                    var baseType = entryType.BaseType != null && !entryType.BaseType.IsAbstract ? entryType.BaseType : entryType;
                     Cache(cacheId, baseType);
                 }
             }
