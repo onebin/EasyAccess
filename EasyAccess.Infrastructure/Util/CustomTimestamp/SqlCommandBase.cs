@@ -9,7 +9,7 @@ namespace EasyAccess.Infrastructure.Util.CustomTimestamp
         protected SqlCommandBase(DbEntityEntry entry)
         {
             DbEntityEntry = entry;
-            CustomTimestampCache = CustomTimestampCacheManager.Instance.GetCacheItem(entry.Entity.GetType().BaseType);
+            CustomTimestampCache = CustomTimestampCacheManager.Instance.GetCacheItem(entry.Entity.GetType());
         }
 
         protected DbEntityEntry DbEntityEntry { get; set; }

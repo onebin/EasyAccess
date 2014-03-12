@@ -24,29 +24,31 @@ namespace EasyAccess.Infrastructure.Util.CustomTimestamp
             Instance = new CustomTimestampCacheManager();
         }
 
-        public ICustomTimestampCache GetCacheItem(Type baseType)
+        public ICustomTimestampCache GetCacheItem(Type entryType)
         {
             _rwLocker.EnterUpgradeableReadLock();
+            var cacheId = entryType.FullName;
             try
             {
-                if (!CustomTimestampCacheItems.ContainsKey(baseType.FullName))
+                if (!CustomTimestampCacheItems.ContainsKey(cacheId))
                 {
-                    Cache(baseType);
+                    var baseType = entryType.BaseType != null && entryType.BaseType.IsAbstract ? entryType : entryType.BaseType;
+                    Cache(cacheId, baseType);
                 }
             }
             finally
             {
                 _rwLocker.ExitUpgradeableReadLock();
             }
-            return (CustomTimestampCache)CustomTimestampCacheItems[baseType.FullName];
+            return (CustomTimestampCache)CustomTimestampCacheItems[cacheId];
         }
 
-        private void Cache(Type baseType)
+        private void Cache(string cacheId, Type baseType)
         {
             try
             {
                 _rwLocker.EnterWriteLock();
-                CustomTimestampCacheItems.Add(baseType.FullName, new CustomTimestampCache(baseType));
+                CustomTimestampCacheItems.Add(cacheId, new CustomTimestampCache(baseType));
             }
             finally
             {
