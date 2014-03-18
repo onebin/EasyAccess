@@ -123,6 +123,7 @@
     <Compile Include="Util\CustomTimestamp\Dialect\MsSql.cs" />
     <Compile Include="Util\CustomTimestamp\Dialect\MySql.cs" />
     <Compile Include="Util\T4\T4Entity.cs" />
+    <Compile Include="Util\T4\T4TempDll.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
