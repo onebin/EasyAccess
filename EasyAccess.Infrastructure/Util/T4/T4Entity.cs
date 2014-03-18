@@ -25,10 +25,11 @@ namespace EasyAccess.Infrastructure.Util.T4
         /// </summary>
         public string ProjectName { get; private set; }
 
+
         /// <summary>
-        /// 获取 模型所在的模块名称
+        /// 获取 模型所在的项目的缩写名称
         /// </summary>
-        public string ModuleName { get; private set; }
+        public string ProjectNameAbbr { get; private set; }
 
         /// <summary>
         /// 获取 模型名称
@@ -52,12 +53,16 @@ namespace EasyAccess.Infrastructure.Util.T4
 
         public IEnumerable<PropertyInfo> Properties { get; private set; }
 
-        public T4Entity(Type entityType)
+        public T4Entity(Type entityType, int projectNameIndex = 0, string projectNameAbbr = "")
         {
             var assemblyFullName = entityType.Assembly.FullName;
             AssemblyName = assemblyFullName.Substring(0, assemblyFullName.IndexOf(",", System.StringComparison.Ordinal));
             Namespace = entityType.Namespace;
-            if (Namespace != null) ProjectName = Namespace.Substring(0, Namespace.IndexOf('.'));
+            if (Namespace != null)
+            {
+                ProjectName = Namespace.Split('.')[projectNameIndex];
+                ProjectNameAbbr = projectNameAbbr;
+            }
             EntityName = entityType.Name;
 
             var keyProp = entityType.GetProperty("Id");
