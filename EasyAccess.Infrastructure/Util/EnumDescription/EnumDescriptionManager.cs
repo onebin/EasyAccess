@@ -6,22 +6,17 @@ namespace EasyAccess.Infrastructure.Util.EnumDescription
 {
     public class EnumDescriptionManager
     {
-        public static EnumDescriptionManager Instance { get; private set; }
-
         private static readonly Hashtable CachedEnum = new Hashtable();
 
 
-        static EnumDescriptionManager()
-        {
-            Instance = new EnumDescriptionManager();
-        }
+        static EnumDescriptionManager() {}
 
         /// <summary>
         /// 获得指定枚举类型中，指定值的描述文本。
         /// </summary>
         /// <param name="name">枚举值，不要作任何类型转换</param>
         /// <returns>描述字符串</returns>
-        public string GetDescription(object name)
+        public static string GetDescription(object name)
         {
             var descriptions = GetEnumDescriptions(name.GetType());
             foreach (var enumDescription in descriptions)
@@ -38,7 +33,7 @@ namespace EasyAccess.Infrastructure.Util.EnumDescription
         /// <param name="enumType">枚举类型</param>
         /// <param name="sortType">指定排序类型</param>
         /// <returns>所有定义的文本</returns>
-        public IEnumDescription[] GetEnumDescriptions(Type enumType, EnumSortType sortType = EnumSortType.Default)
+        public static IEnumDescription[] GetEnumDescriptions(Type enumType, EnumSortType sortType = EnumSortType.Default)
         {
             IEnumDescription[] descriptions = null;
             //缓存中没有找到，通过反射获得字段的描述信息
