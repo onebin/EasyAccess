@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace EasyAccess.Infrastructure.Util.T4
 {
@@ -11,34 +12,29 @@ namespace EasyAccess.Infrastructure.Util.T4
 
         public T4TempDll(string solutionPath, string modelMoudle)
         {
+            DllFullName = Path.Combine(solutionPath, modelMoudle + @"\bin\Release\" + modelMoudle + ".dll");
+#if DEBUG
             DllFullName = Path.Combine(solutionPath, modelMoudle + @"\bin\Debug\" + modelMoudle + ".dll");
-            var tempDllPath = solutionPath + "\\packages\\T4TempDll\\";
-            if (File.Exists(DllFullName))
+#endif
+
+            var tempDllPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "\\";
+            foreach (var tempDll in new DirectoryInfo(tempDllPath).GetFiles())
             {
-                if (!Directory.Exists(tempDllPath))
+                try
                 {
-                    Directory.CreateDirectory(tempDllPath);
-                }
-                else
-                {
-                    foreach (var tempDll in new DirectoryInfo(tempDllPath).GetFiles())
+                    if (new Regex(modelMoudle + "\\.\\d{8}\\.dll$").IsMatch(tempDll.FullName))
                     {
-                        try
-                        {
-                            File.Delete(tempDll.FullName);
-                        }
-                        catch (Exception ex)
-                        {
-                        }
+                        File.Delete(tempDll.FullName);
                     }
                 }
+                catch (Exception ex)
+                {
+                    continue;;
+                }
             }
-
+                
             TempDllFullName = tempDllPath + modelMoudle + "." + DateTime.Now.ToString("ddhhmmss") + ".dll";
             File.Copy(DllFullName, TempDllFullName);
         }
-
-
-
     }
 }

@@ -88,6 +88,7 @@
     <Compile Include="TestInfrastructure\TestUnitOfWork\UnitOfWorkBaseTest.cs" />
     <Compile Include="TestInfrastructure\TestUtil\ConditionBuilderTest.cs" />
     <Compile Include="TestInfrastructure\TestUtil\DataConverterTest.cs" />
+    <Compile Include="TestInfrastructure\TestUtil\T4TempDllTest.cs" />
     <Compile Include="TestRepository\AccountRepositoryTest.cs" />
     <Compile Include="TestRepository\EasyAccessInitializerTest.cs" />
     <Compile Include="TestRepository\RoleRepositoryTest.cs" />
