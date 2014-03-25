@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
+using EasyAccess.Infrastructure.Entity;
 using EasyAccess.Infrastructure.Util.T4;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -9,17 +12,23 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
     public class T4TempDllTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestT4TempDll()
         {
-            Assert.IsTrue(new Regex("abc" + "\\.\\d{8}\\.dll$").IsMatch("abc.03251111.dll"));
+            var tempT4Dll = new T4TempDll(@"D:\Workspace\GitHub\EasyAccess\", "EasyAccess.Model");
+
+            Assert.IsTrue(new Regex("EasyAccess.Model" + "\\.\\d{8}\\.dll$").IsMatch(tempT4Dll.TempDllFullName));
         }
 
         [TestMethod]
-        public void TestT4TempDll()
+        public void TestLoadFrom()
         {
-            var tempT4Dll = new T4TempDll(@"D:\Workspace\GitHub\EasyAccess\", "EasyAccess.Infrastructure");
-
-            Assert.IsTrue(new Regex("EasyAccess.Infrastructure" + "\\.\\d{8}\\.dll$").IsMatch(tempT4Dll.TempDllFullName));
+            var tempT4Dll = new T4TempDll(@"D:\Workspace\GitHub\EasyAccess\", "EasyAccess.Model");
+            var assembly = Assembly.LoadFrom(tempT4Dll.TempDllFullName);
+            if (assembly != null)
+            {
+                var entities = assembly.GetTypes().Where(x => typeof(IEntity).IsAssignableFrom(x) && !x.IsAbstract).ToList(); 
+                Assert.IsTrue(entities.Count > 0);
+            }
         }
     }
 }
