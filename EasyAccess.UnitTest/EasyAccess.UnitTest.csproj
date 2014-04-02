@@ -93,6 +93,7 @@
     <Compile Include="TestRepository\EasyAccessInitializerTest.cs" />
     <Compile Include="TestRepository\RoleRepositoryTest.cs" />
     <Compile Include="TestService\TestAccountManageSvc.cs" />
+    <Compile Include="TestRepository\TestUnitOfWork\EasyAccessUnitOfWorkTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
