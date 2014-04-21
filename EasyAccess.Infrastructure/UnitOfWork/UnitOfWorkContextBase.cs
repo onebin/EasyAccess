@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
@@ -185,7 +186,7 @@ namespace EasyAccess.Infrastructure.UnitOfWork
         private int SaveChanges()
         {
             var result = 0;
-            var commands = new List<string>();
+            var commands = new List<DbCommand>();
             var reloadItems = new List<DbEntityEntry>();
             foreach (var entry in DbContext.ChangeTracker.Entries())
             {
@@ -194,7 +195,7 @@ namespace EasyAccess.Infrastructure.UnitOfWork
 
                 var updateCommand = SqlCommandBuilder.Build(entry).Update();
 
-                if (!string.IsNullOrWhiteSpace(updateCommand))
+                if (!string.IsNullOrWhiteSpace(updateCommand.CommandText))
                 {
                     commands.Add(updateCommand);
                     reloadItems.Add(entry);
@@ -205,7 +206,10 @@ namespace EasyAccess.Infrastructure.UnitOfWork
             {
                 using (var tran = DbContext.Database.BeginTransaction())
                 {
-                    result += DbContext.Database.ExecuteSqlCommand(string.Join(" ", commands));
+                    foreach (var command in commands)
+                    {
+                        result += DbContext.Database.ExecuteSqlCommand(command.CommandText, command.Parameters[0], command.Parameters[1]);
+                    }
                     tran.Commit();
                 }
                 foreach (var dbEntityEntry in reloadItems)

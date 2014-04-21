@@ -1,7 +1,10 @@
-﻿namespace EasyAccess.Infrastructure.Util.CustomTimestamp
+﻿using System.Data.Common;
+using System.Data.SqlClient;
+
+namespace EasyAccess.Infrastructure.Util.CustomTimestamp
 {
     public interface ISqlCommand
     {
-        string Update();
+        DbCommand Update();
     }
 }

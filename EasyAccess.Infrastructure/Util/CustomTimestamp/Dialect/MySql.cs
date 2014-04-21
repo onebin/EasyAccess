@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Common;
 using System.Data.Entity.Infrastructure;
 
 namespace EasyAccess.Infrastructure.Util.CustomTimestamp.Dialect
@@ -7,7 +8,7 @@ namespace EasyAccess.Infrastructure.Util.CustomTimestamp.Dialect
     {
         public MySql(DbEntityEntry entry) : base(entry) { }
 
-        public override string Update()
+        public override DbCommand Update()
         {
             throw new NotImplementedException();
         }

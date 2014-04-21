@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.OleDb;
+using System.Data.SqlClient;
 
 namespace EasyAccess.Infrastructure.Util.CustomTimestamp
 {
@@ -16,22 +20,32 @@ namespace EasyAccess.Infrastructure.Util.CustomTimestamp
 
         protected ICustomTimestampCache CustomTimestampCache { get; set; }
 
-        protected Dictionary<string, string> GetUpdateColumnNameAndValues()
+        protected Dictionary<string, CustomDbParameter> GetUpdateColumnNameAndValues()
         {
-            var columnNameAndValues = new Dictionary<string, string>();
+            var columnNameAndValues = new Dictionary<string, CustomDbParameter>();
+            var columnNameCount = new Dictionary<string, int>();
             if (CustomTimestampCache.HasTimestampProperty && DbEntityEntry.State == EntityState.Modified)
             {
                 foreach (var basicProperty in CustomTimestampCache.BasicProperies)
                 {
                     if (DbEntityEntry.Property(basicProperty.Name).IsModified)
                     {
-                        columnNameAndValues.Add(CustomTimestampCache.GetColumnName(basicProperty), CustomTimestampCache.GetColumnValue(basicProperty, DbEntityEntry));
+                        var columnName = CustomTimestampCache.GetColumnName(basicProperty);
+                        if (columnNameCount.ContainsKey(columnName))
+                        {
+                            ++columnNameCount[columnName];
+                        }
+                        else
+                        {
+                            columnNameCount.Add(columnName, 0);
+                        }
+                        columnNameAndValues.Add(columnName, new CustomDbParameter("@p" + columnName + "_" + columnNameCount[columnName], CustomTimestampCache.GetColumnValue(basicProperty, DbEntityEntry)));
                     }
                 }
             }
             return columnNameAndValues;
         }
 
-        public abstract string Update();
+        public abstract DbCommand Update();
     }
 }

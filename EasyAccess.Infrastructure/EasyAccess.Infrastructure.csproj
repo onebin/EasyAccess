@@ -70,6 +70,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Util\CustomTimestamp\CustomDbParameter.cs" />
     <Compile Include="Util\CustomTimestamp\CustomTimestampAttribute.cs" />
     <Compile Include="Util\EasyUi\EasyUiCombobox.cs" />
     <Compile Include="Util\EnumDescription\EnumDescriptionAttribute.cs" />
