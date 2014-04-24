@@ -29,8 +29,7 @@ namespace EasyAccess.Repository.Bootstrap.EntityFramework.InitialData.Seed
                         Memo = "https://github.com/onebin/EasyAccess",
                         Register = RegisterSeed.Values[0],
                         CreateTime = DateTime.Now,
-                        Roles = new List<Role> {RoleSeed.Values[0]},
-                        RowVersion = 0
+                        Roles = new List<Role> {RoleSeed.Values[0]}
                     },
                 new Account
                     {
@@ -48,8 +47,7 @@ namespace EasyAccess.Repository.Bootstrap.EntityFramework.InitialData.Seed
                         IsDeleted = false,
                         Register = RegisterSeed.Values[1],
                         CreateTime = DateTime.Now,
-                        Roles = new List<Role> {RoleSeed.Values[1]},
-                        RowVersion = 0
+                        Roles = new List<Role> {RoleSeed.Values[1]}
                     },
                 new Account
                     {
@@ -67,8 +65,7 @@ namespace EasyAccess.Repository.Bootstrap.EntityFramework.InitialData.Seed
                         IsDeleted = false,
                         Register = RegisterSeed.Values[2],
                         CreateTime = DateTime.Now,
-                        Roles = new List<Role> {RoleSeed.Values[1]},
-                        RowVersion = 0
+                        Roles = new List<Role> {RoleSeed.Values[1]}
                     }
             };
     }

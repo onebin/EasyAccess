@@ -10,30 +10,28 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestCustomTimestamp
     public class TestCustomTimestamp: SpringTestBase
     {
         [TestMethod]
-        public void TestUpdateMode_Equal()
+        public void TestUpdateMode_GreaterThan()
         {
-            var account = Account.FindById(1);
-            account.Age = 25;
-            account.Sex = Sex.Female;
-            account.RowVersion = 2;
-            Account.Update(account);
+            var test = Test.FindById(1);
+            test.NonNullableInt = 100;
+            test.NonNullableDecimal = 100;
+            test.NonNullableFloat = 100;
+            test.NonNullableDouble = 100;
+            test.NonNullableByte = 100;
+            test.NonNullableString = "~!@#$%^&*()_+={}[]|\\?.,<>--！@#￥%……&*（）——《》？:\"''/*jhgfj*/\\*564\\*";
+            test.NonNullableDateTime = DateTime.UtcNow;
+            test.NonNullableSexEnum = Sex.Unknown;
+
+            test.NullableInt = null;
+            test.NullableDecimal = null;
+            test.NullableFloat = null;
+            test.NullableDouble = null;
+            test.NullableByte = null;
+            test.NullableDateTime = null;
+            test.NullableSexEnum = null;
+            test.RowVersion = 8;
             Assert.AreEqual(1, EasyAccessUnitOfWork.Commit());
 
-
-            account.Age = 24;
-            account.Sex = Sex.Unknown;
-            account.RowVersion = 1;
-            Account.Update(account);
-            Assert.AreEqual(0, EasyAccessUnitOfWork.Commit(true));
-            Assert.AreEqual(25, account.Age);
-
-
-            account.Age = 24;
-            account.Sex = Sex.Female;
-            account.RowVersion = 3;
-            Account.Update(account);
-            Assert.AreEqual(1, EasyAccessUnitOfWork.Commit(true));
-            Assert.AreEqual(24, account.Age);
         }
     }
 }

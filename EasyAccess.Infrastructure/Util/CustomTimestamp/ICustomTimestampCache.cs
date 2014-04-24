@@ -21,6 +21,6 @@ namespace EasyAccess.Infrastructure.Util.CustomTimestamp
 
         string GetColumnName(PropertyInfo property);
 
-        string GetColumnValue(PropertyInfo property, DbEntityEntry entry);
+        object GetColumnValue(PropertyInfo property, DbEntityEntry entry);
     }
 }

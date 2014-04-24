@@ -9,6 +9,7 @@ namespace EasyAccess.Repository.Bootstrap.EntityFramework.InitialData
         {
             context.Accounts.AddOrUpdate(x => x.Id, AccountSeed.Values);
             context.Registers.AddOrUpdate(x => x.Id, RegisterSeed.Values);
+            context.Tests.AddOrUpdate(x => x.Id, TestSeed.Values);
         }
     }
 }

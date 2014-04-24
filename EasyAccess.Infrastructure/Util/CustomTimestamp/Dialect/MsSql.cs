@@ -21,7 +21,15 @@ namespace EasyAccess.Infrastructure.Util.CustomTimestamp.Dialect
                 command.CommandText = "UPDATE [" + CustomTimestampCache.TableName + "] SET " + string.Join(", ", sets)
                        + " WHERE [Id] = '" + DbEntityEntry.Property("Id").CurrentValue + "' AND " + GetTimestampCondition() + ";";
 
-                command.Parameters.AddRange(entityParameters.Select(x => new SqlParameter(x.Value.ParameterName, x.Value.Value)).ToArray());
+                foreach (var customDbParameter in entityParameters)
+                {
+                    //var sqlParameter = new SqlParameter(customDbParameter.Value.ParameterName,
+                    //    customDbParameter.Value.SqlDbType)
+                    //{
+                    //    Value = customDbParameter.Value.Value
+                    //};
+                    command.Parameters.AddWithValue(customDbParameter.Value.ParameterName, customDbParameter.Value.Value);
+                }
             }
             return command;
         }

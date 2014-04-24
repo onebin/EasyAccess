@@ -222,14 +222,22 @@ namespace EasyAccess.Infrastructure.UnitOfWork
                 DbContext.Database.Connection.Open();
                 using (var tran = DbContext.Database.Connection.BeginTransaction())
                 {
-                    foreach (var command in commands)
+                    try
                     {
-                        command.Connection = DbContext.Database.Connection;
-                        command.Transaction = tran;
-                        using (var cmd = command)
+                        foreach (var command in commands)
                         {
-                            result += cmd.ExecuteNonQuery();
+                            command.Connection = DbContext.Database.Connection;
+                            command.Transaction = tran;
+                            using (var cmd = command)
+                            {
+                                result += cmd.ExecuteNonQuery();
+                            }
                         }
+                    }
+                    catch (Exception)
+                    {
+                        tran.Rollback();
+                        throw;
                     }
                     tran.Commit();
                 }

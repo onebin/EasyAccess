@@ -9,6 +9,10 @@
   </object>
 
  
+  <object id="TestRepository" type="EasyAccess.Repository.Repositories.TestRepository, EasyAccess.Repository">
+    <property name="UnitOfWork" ref="EasyAccessUnitOfWork"></property>
+  </object>
+  
   <object id="AccountRepository" type="EasyAccess.Repository.Repositories.AccountRepository, EasyAccess.Repository">
     <property name="UnitOfWork" ref="EasyAccessUnitOfWork"></property>
   </object>

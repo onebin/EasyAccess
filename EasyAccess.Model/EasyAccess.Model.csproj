@@ -39,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTOs\RoleDto.cs" />
+    <Compile Include="EDMs\Test.cs" />
     <Compile Include="VOs\Contact.cs" />
     <Compile Include="VOs\LoginUser.cs" />
     <Compile Include="DTOs\AccountDto.cs" />

@@ -6,6 +6,8 @@ namespace EasyAccess.Repository.Bootstrap.EntityFramework
 {
     public partial class EasyAccessContext : DbContext
     { 
+		public DbSet<Test> Tests { get; set; }
+	 
 		public DbSet<Account> Accounts { get; set; }
 	 
 		public DbSet<Menu> Menus { get; set; }

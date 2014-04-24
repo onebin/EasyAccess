@@ -33,9 +33,6 @@ namespace EasyAccess.Model.EDMs
 
         public virtual ICollection<Role> Roles { get; set; }
 
-        [Column("_RowVersion")]
-        [CustomTimestamp(CustomTimestampUpdateMode.GreaterThan)]
-        public int RowVersion { get; set; }
 
         #endregion
 

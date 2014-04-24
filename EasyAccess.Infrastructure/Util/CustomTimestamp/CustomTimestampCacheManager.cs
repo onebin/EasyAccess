@@ -109,14 +109,10 @@ namespace EasyAccess.Infrastructure.Util.CustomTimestamp
                 return _columnNames[property.Name];
             }
 
-            public string GetColumnValue(PropertyInfo property, DbEntityEntry entry)
+            public object GetColumnValue(PropertyInfo property, DbEntityEntry entry)
             {
-                var value = entry.Property(property.Name).CurrentValue.ToString();
-                if (property.PropertyType.IsEnum)
-                {
-                    value = ((int)entry.Property(property.Name).CurrentValue).ToString(CultureInfo.InvariantCulture);
-                }
-                return value;
+                var value = entry.Property(property.Name).CurrentValue;
+                return value ?? DBNull.Value;
             }
         }
     }

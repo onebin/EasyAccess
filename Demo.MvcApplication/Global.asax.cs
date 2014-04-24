@@ -2,8 +2,10 @@
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using CK1.EasyFramework.Infrastructure.Util.CustomTimestamp;
 using Demo.Service.Bootstrap.AutoMapper;
 using Demo.Service.Bootstrap;
+using EasyAccess.Infrastructure;
 using EasyAccess.Service.Bootstrap.AutoMapper;
 using EasyAccess.Service.Bootstrap;
 using Spring.Web.Mvc;
@@ -28,6 +30,8 @@ namespace Demo.MvcApplication
 
             EasyAccessServiceInitializer.DatabaseInitialize();
             DemoServiceInitializer.DatabaseInitialize();
+
+            InfrastructureConfig.CustomTimestampUpdateOption = CustomTimestampUpdateOption.Disable;
 
             AutoMapper.Mapper.Initialize(cfg =>
                 {
