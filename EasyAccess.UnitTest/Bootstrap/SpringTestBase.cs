@@ -1,4 +1,6 @@
-﻿using EasyAccess.Infrastructure.UnitOfWork;
+﻿using CK1.EasyFramework.Infrastructure.Util.CustomTimestamp;
+using EasyAccess.Infrastructure;
+using EasyAccess.Infrastructure.UnitOfWork;
 using EasyAccess.Repository.Bootstrap.EntityFramework;
 using EasyAccess.Repository.Repositories;
 using EasyAccess.Service.IServices;
@@ -38,6 +40,7 @@ namespace EasyAccess.UnitTest.Bootstrap
             EasyAccessUnitOfWork = appCtx.GetObject("EasyAccessUnitOfWork") as IUnitOfWork;
             AccountRepository = appCtx.GetObject<AccountRepository>();
             RoleRepository = appCtx.GetObject<RoleRepository>();
+            InfrastructureConfig.CustomTimestampUpdateOption = CustomTimestampUpdateOption.Auto;
         }
     }
 }

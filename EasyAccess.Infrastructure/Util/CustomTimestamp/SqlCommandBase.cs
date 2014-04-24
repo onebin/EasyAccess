@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.Entity;
+using System.Data.Entity.Core.EntityClient;
 using System.Data.Entity.Infrastructure;
-using System.Data.OleDb;
-using System.Data.SqlClient;
 
 namespace EasyAccess.Infrastructure.Util.CustomTimestamp
 {
@@ -20,7 +18,7 @@ namespace EasyAccess.Infrastructure.Util.CustomTimestamp
 
         protected ICustomTimestampCache CustomTimestampCache { get; set; }
 
-        protected Dictionary<string, CustomDbParameter> GetUpdateColumnNameAndValues()
+        protected Dictionary<string, CustomDbParameter> GetEntityParameters()
         {
             var columnNameAndValues = new Dictionary<string, CustomDbParameter>();
             var columnNameCount = new Dictionary<string, int>();
@@ -39,7 +37,7 @@ namespace EasyAccess.Infrastructure.Util.CustomTimestamp
                         {
                             columnNameCount.Add(columnName, 0);
                         }
-                        columnNameAndValues.Add(columnName, new CustomDbParameter("@p" + columnName + "_" + columnNameCount[columnName], CustomTimestampCache.GetColumnValue(basicProperty, DbEntityEntry)));
+                        columnNameAndValues.Add(columnName, new CustomDbParameter("p" + columnName + "_" + columnNameCount[columnName], CustomTimestampCache.GetColumnValue(basicProperty, DbEntityEntry)));
                     }
                 }
             }

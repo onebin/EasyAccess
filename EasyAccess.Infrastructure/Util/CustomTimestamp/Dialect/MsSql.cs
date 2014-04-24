@@ -1,4 +1,5 @@
 ﻿using System.Data.Common;
+using System.Data.Entity.Core.EntityClient;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
@@ -13,14 +14,14 @@ namespace EasyAccess.Infrastructure.Util.CustomTimestamp.Dialect
         public override DbCommand Update()
         {
             var command = new SqlCommand();
-            var columnNameAndValues = GetUpdateColumnNameAndValues();
-            if (columnNameAndValues.Any())
+            var entityParameters = GetEntityParameters();
+            if (entityParameters.Any())
             {
-                var sets = columnNameAndValues.Select(x => "[" + x.Key + "] = " + x.Value.ParameterName);
+                var sets = entityParameters.Select(x => "[" + x.Key + "] = @" + x.Value.ParameterName);
                 command.CommandText = "UPDATE [" + CustomTimestampCache.TableName + "] SET " + string.Join(", ", sets)
                        + " WHERE [Id] = '" + DbEntityEntry.Property("Id").CurrentValue + "' AND " + GetTimestampCondition() + ";";
 
-                command.Parameters.AddRange(columnNameAndValues.Select(x => new SqlParameter(x.Value.ParameterName, x.Value.Value)).ToArray());
+                command.Parameters.AddRange(entityParameters.Select(x => new SqlParameter(x.Value.ParameterName, x.Value.Value)).ToArray());
             }
             return command;
         }

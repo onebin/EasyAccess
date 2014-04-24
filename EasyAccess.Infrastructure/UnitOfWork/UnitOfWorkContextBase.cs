@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
 using System.Data.Common;
 using System.Data.Entity;
+using System.Data.Entity.Core.EntityClient;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using CK1.EasyFramework.Infrastructure.Util.CustomTimestamp;
 using EasyAccess.Infrastructure.Entity;
 using EasyAccess.Infrastructure.Extensions;
 using EasyAccess.Infrastructure.Util;
@@ -167,7 +170,19 @@ namespace EasyAccess.Infrastructure.UnitOfWork
             }
             try
             {
-                var result = SaveChanges() + DbContext.SaveChanges();
+                int result = 0;
+                switch (InfrastructureConfig.CustomTimestampUpdateOption)
+                {
+                    case CustomTimestampUpdateOption.CustomTimestampOnly:
+                        result = SaveChanges();
+                        break;
+                    case CustomTimestampUpdateOption.Disable:
+                        result = DbContext.SaveChanges();
+                        break;
+                    default:
+                        result = SaveChanges() + DbContext.SaveChanges();
+                        break;
+                }
                 IsCommitted = true;
                 return result;
             }
@@ -204,17 +219,26 @@ namespace EasyAccess.Infrastructure.UnitOfWork
             }
             if (commands.Count > 0)
             {
-                using (var tran = DbContext.Database.BeginTransaction())
+                DbContext.Database.Connection.Open();
+                using (var tran = DbContext.Database.Connection.BeginTransaction())
                 {
                     foreach (var command in commands)
                     {
-                        result += DbContext.Database.ExecuteSqlCommand(command.CommandText, command.Parameters[0], command.Parameters[1]);
+                        command.Connection = DbContext.Database.Connection;
+                        command.Transaction = tran;
+                        using (var cmd = command)
+                        {
+                            result += cmd.ExecuteNonQuery();
+                        }
                     }
                     tran.Commit();
                 }
+                DbContext.Database.Connection.Close();
+
                 foreach (var dbEntityEntry in reloadItems)
                 {
                     dbEntityEntry.Reload();
+
                 }
             }
             return result;

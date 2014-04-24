@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Common;
+using System.Data.Entity.Core.EntityClient;
 using System.Data.Entity.Infrastructure;
 
 namespace EasyAccess.Infrastructure.Util.CustomTimestamp.Dialect
