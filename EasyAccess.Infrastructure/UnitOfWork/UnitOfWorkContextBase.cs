@@ -173,9 +173,6 @@ namespace EasyAccess.Infrastructure.UnitOfWork
                 int result = 0;
                 switch (InfrastructureConfig.CustomTimestampUpdateOption)
                 {
-                    case CustomTimestampUpdateOption.CustomTimestampOnly:
-                        result = SaveChanges();
-                        break;
                     case CustomTimestampUpdateOption.Disable:
                         result = DbContext.SaveChanges();
                         break;

@@ -8,11 +8,6 @@
         Disable,
 
         /// <summary>
-        /// 仅更新被标记自定时间戳的实体
-        /// </summary>
-        CustomTimestampOnly,
-
-        /// <summary>
         /// 自动识别
         /// </summary>
         Auto
