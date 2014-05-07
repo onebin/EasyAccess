@@ -99,10 +99,10 @@ namespace EasyAccess.UnitTest.TestInfrastructure.TestUtil
         {
             var options = new ConvertToListOptions<Account>();
             options
-                .MapColumn(x => x.Age, "年龄")
+               .MapColumn(x => x.Age, "年龄", (age, row) => row["性别"] == "Male" ? 21 : 20)
                 .MapColumn(x => x.Sex, "性别")
-                .MapColumn(x => x.Memo, "备注")
-                .MapColumn(x => x.Roles, "角色", val => Role.Find(y => y.Name == val).ToList());
+                .MapColumn(x => x.Memo, "备注", memo => memo == "帅哥" ? "Handsome" : "Beauty")
+                .MapColumn(x => x.Roles, "角色", roleName => Role.Find(y => y.Name == roleName).ToList());
             var convert = new DataConverter<Account>();
             var lst = convert.ToList(customTable, options);
             Assert.AreEqual(2, lst.Count);
