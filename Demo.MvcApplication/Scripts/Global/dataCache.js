@@ -16,10 +16,14 @@
         findOne: function (parmas) {
             if (parmas.findAll && typeof (parmas.findAll) == "function") {
                 var datas = parmas.findAll();
-                for (var idx in datas) {
-                    if (datas[idx][parmas.query.field] == parmas.query.value) {
-                        return datas[idx];
+                if (!!parmas.query.field) {
+                    for (var idx in datas) {
+                        if (datas[idx][parmas.query.field] == parmas.query.value) {
+                            return datas[idx];
+                        }
                     }
+                } else {
+                    return datas[parmas.query.value];
                 }
             }
             return null;
@@ -33,11 +37,18 @@
                 if (reload) {
                     $.ajax({
                         type: "post",
-                        url: params.url,
+                        url: global.baseUrl + params.url,
                         async: false,
                         success: function (res) {
-                            cur[params.url] = res;
-                            reload = false;
+                            if (!!params.cacheField) {
+                                cur[params.url] = {};
+                                $.each(res, function(idx, data) {
+                                    cur[params.url][data[params.cacheField]] = data;
+                                });
+                            } else {
+                                cur[params.url] = res;
+                                reload = false;
+                            }
                         }
                     });
                 }
