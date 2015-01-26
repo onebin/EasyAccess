@@ -83,7 +83,7 @@ namespace EasyAccess.Infrastructure.Util.DataConverter
                 var nonNullableType = property.PropertyType.GetNonNullableType();
                 if (nonNullableType.IsEnum)
                 {
-                    propertyVal = (int)property.GetValue(data, null);
+                    propertyVal = property.GetValue(data, null).GetHashCode();
                 }
                 else
                 {

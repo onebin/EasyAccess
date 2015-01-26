@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.ComponentModel;
+using System.Linq;
 using System.Reflection;
 
 namespace EasyAccess.Infrastructure.Util.EnumDescription
@@ -7,6 +9,7 @@ namespace EasyAccess.Infrastructure.Util.EnumDescription
     public class EnumDescriptionManager
     {
         private static readonly Hashtable CachedEnum = new Hashtable();
+        private static object _locker = new object();
 
 
         static EnumDescriptionManager() {}
@@ -14,16 +17,54 @@ namespace EasyAccess.Infrastructure.Util.EnumDescription
         /// <summary>
         /// 获得指定枚举类型中，指定值的描述文本。
         /// </summary>
-        /// <param name="name">枚举值，不要作任何类型转换</param>
+        /// <param name="enumObj">枚举值，不要作任何类型转换</param>
         /// <returns>描述字符串</returns>
-        public static string GetDescription(object name)
+        public static string GetDescription<T>(T enumObj) where T : struct
         {
-            var descriptions = GetEnumDescriptions(name.GetType());
-            foreach (var enumDescription in descriptions)
+            var descriptions = GetEnumDescriptions(typeof(T));
+            var description = descriptions.FirstOrDefault(x => x.Name == enumObj.ToString());
+            return description == null ? string.Empty : description.Description;
+        }
+
+        public static string GetDescription<T>(string enumName, bool ignoreCase = false) where T : struct
+        {
+            var description = GetEnumDescription<T>(enumName, ignoreCase);
+            return description == null ? string.Empty : description.Description;
+        }
+
+        public static IEnumDescription GetEnumDescription<T>(int enumValue) where T : struct
+        {
+            var descriptions = GetEnumDescriptions(typeof(T));
+            return descriptions.FirstOrDefault(x => x.Value == enumValue);
+        }
+
+        public static IEnumDescription GetEnumDescription<T, TValue>(TValue enumValue) 
+            where T : struct
+            where TValue : struct
+        {
+            var enumVal = 0;
+            if (!int.TryParse(enumValue.ToString(), out enumVal))
             {
-                if (enumDescription.Name == name.ToString()) return enumDescription.Description;
+                throw new ArgumentException("无法转换类型:" + typeof(TValue) + ":" + enumVal);
             }
-            return string.Empty;
+            return GetEnumDescription<T>(enumVal);
+        }
+
+        public static IEnumDescription GetEnumDescription<T>(string enumName, bool ignoreCase = false) where T : struct
+        {
+            var descriptions = GetEnumDescriptions(typeof(T));
+            IEnumDescription description;
+            enumName = enumName.Trim();
+            if (ignoreCase)
+            {
+                enumName = enumName.ToLower();
+                description = descriptions.FirstOrDefault(x => x.Name.ToLower().Trim() == enumName);
+            }
+            else
+            {
+                description = descriptions.FirstOrDefault(x => x.Name.Trim() == enumName);
+            }
+            return description;
         }
 
         /// <summary>
@@ -35,27 +76,47 @@ namespace EasyAccess.Infrastructure.Util.EnumDescription
         /// <returns>所有定义的文本</returns>
         public static IEnumDescription[] GetEnumDescriptions(Type enumType, EnumSortType sortType = EnumSortType.Default)
         {
-            IEnumDescription[] descriptions = null;
-            //缓存中没有找到，通过反射获得字段的描述信息
             if (!CachedEnum.Contains(enumType.FullName))
             {
-                var fields = enumType.GetFields();
-                var edAl = new ArrayList();
-                foreach (var field in fields)
+                lock (_locker)
                 {
-                    var eds = field.GetCustomAttributes(typeof(EnumDescriptionAttribute), false);
-                    if (eds.Length != 1) continue;
-                    ((EnumDescriptionAttribute)eds[0]).Name = field.Name;
-                    ((EnumDescriptionAttribute)eds[0]).Value = (int)field.GetValue(enumType);
-                    edAl.Add(eds[0]);
+                    if (!CachedEnum.Contains(enumType.FullName))
+                    {
+                        var fields = enumType.GetFields();
+                        var descArrayList = new ArrayList();
+                        var enumIdx = 0;
+                        foreach (var field in fields)
+                        {
+                            if (field.IsSpecialName)
+                            {
+                                continue;
+                            }
+                            var enumDescAttrs = field.GetCustomAttributes(typeof(EnumDescriptionAttribute), false);
+                            EnumDescriptionAttribute enumDescAttr;
+                            if (enumDescAttrs.Any())
+                            {
+                                enumDescAttr = ((EnumDescriptionAttribute)enumDescAttrs[0]);
+                            }
+                            else
+                            {
+                                var descAttrs = field.GetCustomAttributes(typeof(DescriptionAttribute), false);
+                                var descStr = field.Name;
+                                if (descAttrs.Any())
+                                {
+                                    descStr = ((DescriptionAttribute)descAttrs[0]).Description;
+                                }
+                                enumDescAttr = new EnumDescriptionAttribute(descStr, enumIdx++);
+                            }
+                            enumDescAttr.Name = field.Name;
+                            enumDescAttr.Value = field.GetValue(enumType).GetHashCode();
+                            descArrayList.Add(enumDescAttr);
+                        }
+                        ;
+                        CachedEnum.Add(enumType.FullName, descArrayList.ToArray(typeof(IEnumDescription)));
+                    }
                 }
-
-                CachedEnum.Add(enumType.FullName, edAl.ToArray(typeof(IEnumDescription)));
             }
-            descriptions = (IEnumDescription[])CachedEnum[enumType.FullName];
-
-            if (descriptions.Length <= 0) throw new NotSupportedException("枚举类型[" + enumType.Name + "]未定义属性EnumValueDescription");
-
+            var descriptions = (IEnumDescription[])CachedEnum[enumType.FullName];
 
             //默认就不排序了
             if (sortType != EnumSortType.Default)
@@ -70,7 +131,7 @@ namespace EasyAccess.Infrastructure.Util.EnumDescription
                         switch (sortType)
                         {
                             case EnumSortType.Description:
-                                if (String.CompareOrdinal(descriptions[m].Description, descriptions[n].Description) > 0) swap = true;
+                                if (string.CompareOrdinal(descriptions[m].Description, descriptions[n].Description) > 0) swap = true;
                                 break;
                             case EnumSortType.Index:
                                 if (descriptions[m].Index > descriptions[n].Index) swap = true;
@@ -85,7 +146,7 @@ namespace EasyAccess.Infrastructure.Util.EnumDescription
                         }
                     }
                 }
-                
+
             };
 
             return descriptions;
